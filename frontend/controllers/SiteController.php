@@ -168,4 +168,11 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionKanbanboard()
+    {
+        return $this->render('kanbanboard');
+    }
+
+
 }
