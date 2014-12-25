@@ -1,12 +1,15 @@
 <?php
 use yii\helpers\Html;
+//use yii\widgets; //This is not needed if the namespace is prepended to the class
 
 /* @var $this yii\web\View */
 $this->title = 'Kanban Board';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="site-kanbanboard">
     <h1><?= Html::encode($this->title) ?></h1>
+
 <?php
 $columnStyle = '
     width: 200px;
@@ -30,14 +33,22 @@ $ticketStyle = '
     margin-bottom: 4px;
     float: left;';
 
+// The "use" statement above is not need, when prepending, hmmm?
 
-$kanbancolumn = '<div style="' . $columnStyle . '">This is a column';
-for($i=0; $i<4; $i++) {
-    $kanbancolumn .= '<div style="' . $ticketStyle . '">This is a Ticket' . '</div>';
-}
-$kanbancolumn .= '</div>';
-for($i=0; $i<5; $i++) {
-    echo $kanbancolumn;
-}
+//$junk = new yii\widgets\DetailView();
+
+$columnModel = array('key' => 'value');
+
+echo yii\widgets\DetailView::widget([
+    'model' => $columnModel,
+    'attributes' => [
+        'title',             // title attribute (in plain text)
+        'description:html',  // description attribute in HTML
+        [                    // the owner name of the model
+            'label' => 'Owner',
+            'value' => $columnModel['key'],
+        ],
+    ],
+]);
 ?>
 </div>
