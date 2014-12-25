@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
-//use yii\widgets; //This is not needed if the namespace is prepended to the class
+use yii\grid\GridView;
+use yii\data\ArrayDataProvider;
 
 /* @var $this yii\web\View */
 $this->title = 'Kanban Board';
@@ -33,22 +34,20 @@ $ticketStyle = '
     margin-bottom: 4px;
     float: left;';
 
-// The "use" statement above is not need, when prepending, hmmm?
+$columnModel = [
+    ['name' =>'Andy', 'birthday' => 145],
+    ['name' =>'Ringo', 'birthday' => 21],
+];
 
-//$junk = new yii\widgets\DetailView();
+$dataProvider = new ArrayDataProvider([
+    'allModels' => $columnModel,
+    'sort' => false,
+    'pagination' => false,
+]);
 
-$columnModel = array('key' => 'value');
-
-echo yii\widgets\DetailView::widget([
-    'model' => $columnModel,
-    'attributes' => [
-        'title',             // title attribute (in plain text)
-        'description:html',  // description attribute in HTML
-        [                    // the owner name of the model
-            'label' => 'Owner',
-            'value' => $columnModel['key'],
-        ],
-    ],
+echo GridView::widget([
+    'dataProvider' => $dataProvider,
+    'columns' => ['name', 'birthday'],
 ]);
 ?>
 </div>
