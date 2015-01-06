@@ -57,7 +57,8 @@ class ResetPasswordForm extends Model
     public function resetPassword()
     {
         $user = $this->_user;
-        $user->password = $this->password;
+        //$user->password = $this->password; // Why isn't the magic function working here?I don't
+        $user->setPassword($this->password);
         $user->removePasswordResetToken();
 
         return $user->save();
