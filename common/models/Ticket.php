@@ -5,25 +5,26 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "board".
+ * This is the model class for table "ticket".
  *
  * @property integer $id
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $user_id
  * @property string $title
  * @property string $description
- * @property integer $max_lanes
+ * @property integer $column_id
  *
- * @property BoardColumn[] $boardColumns
+ * @property BoardColumn $column
  */
-class Board extends \yii\db\ActiveRecord
+class Ticket extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'board';
+        return 'ticket';
     }
 
     /**
@@ -32,9 +33,10 @@ class Board extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'title', 'description', 'max_lanes'], 'required'],
-            [['id', 'created_at', 'updated_at', 'max_lanes'], 'integer'],
-            [['title', 'description'], 'string']
+            [['id', 'created_at', 'updated_at', 'user_id', 'title', 'description', 'column_id'], 'required'],
+            [['id', 'created_at', 'updated_at', 'user_id', 'column_id'], 'integer'],
+            [['title', 'description'], 'string'],
+            [['column_id'], 'unique']
         ];
     }
 
@@ -47,17 +49,18 @@ class Board extends \yii\db\ActiveRecord
             'id' => 'ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'user_id' => 'User ID',
             'title' => 'Title',
             'description' => 'Description',
-            'max_lanes' => 'Max Lanes',
+            'column_id' => 'Column ID',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBoardColumns()
+    public function getColumn()
     {
-        return $this->hasMany(BoardColumn::className(), ['board_id' => 'id']);
+        return $this->hasOne(BoardColumn::className(), ['id' => 'column_id']);
     }
 }
