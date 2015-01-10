@@ -1,0 +1,15 @@
+[submodule "yii2-gii"]
+	path = yii2-gii
+	url = ./vendor/yiisoft/yii2-gii/
+[submodule "yii2-bootstrap"]
+	path = yii2-bootstrap
+	url = ./vendor/yiisoft/yii2-bootstrap/
+[submodule "yii2"]
+	path = yii2
+	url = ./vendor/yiisoft/yii2/
+[submodule "markdown"]
+	path = markdown
+	url = ./vendor/cebe/markdown/
+[submodule "yii2-pjax"]
+	path = yii2-pjax
+	url = ./vendor/bower/yii2-pjax/
