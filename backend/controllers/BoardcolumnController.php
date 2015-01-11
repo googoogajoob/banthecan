@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * BoardColumnController implements the CRUD actions for BoardColumn model.
  */
-class BoardColumnController extends Controller
+class BoardcolumnController extends Controller
 {
     public function behaviors()
     {
