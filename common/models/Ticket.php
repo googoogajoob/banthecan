@@ -33,7 +33,7 @@ class Ticket extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'user_id', 'title', 'description', 'column_id'], 'required'],
+            [['user_id', 'title', 'description', 'column_id'], 'required'],
             [['id', 'created_at', 'updated_at', 'user_id', 'column_id'], 'integer'],
             [['title', 'description'], 'string'],
             [['column_id'], 'unique']

@@ -32,7 +32,7 @@ class Board extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'title', 'description', 'max_lanes'], 'required'],
+            [['title', 'description', 'max_lanes'], 'required'],
             [['id', 'created_at', 'updated_at', 'max_lanes'], 'integer'],
             [['title', 'description'], 'string']
         ];

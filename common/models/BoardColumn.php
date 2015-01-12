@@ -32,7 +32,7 @@ class BoardColumn extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'board_id', 'name'], 'required'],
+            [['board_id', 'name'], 'required'],
             [['id', 'created_at', 'updated_at', 'board_id'], 'integer'],
             [['name'], 'string']
         ];
