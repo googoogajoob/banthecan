@@ -34,9 +34,14 @@ $ticketStyle = '
     margin-bottom: 4px;
     float: left;';
 
+$testTicket = '<div style="background-color: #a8ddff; padding: 4px;"><strong>Test Ticket</strong><br />Andy<br /><br />Lassen wir etwas gut machen</div>';
+
 $columnModel = [
-    ['name' =>'Andy', 'birthday' => 145],
-    ['name' =>'Ringo', 'birthday' => 21],
+    ['c1' =>$testTicket, 'c2' => '', 'c3' => $testTicket, 'c4' => '', 'c5' => ''],
+    ['c1' =>'', 'c2' => $testTicket, 'c3' => $testTicket, 'c4' => '', 'c5' => ''],
+    ['c1' =>'', 'c2' => $testTicket, 'c3' => '', 'c4' => '', 'c5' => ''],
+    ['c1' =>'', 'c2' => '', 'c3' => $testTicket, 'c4' => '', 'c5' => $testTicket],
+    ['c1' =>'', 'c2' => '', 'c3' => $testTicket, 'c4' => $testTicket, 'c5' => ''],
 ];
 
 $dataProvider = new ArrayDataProvider([
@@ -47,7 +52,31 @@ $dataProvider = new ArrayDataProvider([
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,
-    'columns' => ['name', 'birthday'],
+    'tableOptions' => [
+        'class' => 'table-striped',
+    ],
+    'columns' => [
+         [
+             'attribute' => 'c1',
+             'format' => 'html',
+         ],
+         [
+             'attribute' => 'c2',
+             'format' => 'html',
+         ],
+         [
+             'attribute' => 'c3',
+             'format' => 'html',
+         ],
+         [
+             'attribute' => 'c4',
+             'format' => 'html',
+         ],
+         [
+             'attribute' => 'c5',
+             'format' => 'html',
+         ],
+    ],
 ]);
 ?>
 </div>
