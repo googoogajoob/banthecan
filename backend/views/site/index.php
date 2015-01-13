@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Ban the Can Backend';
 ?>
 <div class="site-index">
 
