@@ -11,7 +11,7 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $board_id
- * @property string $name
+ * @property string $title
  *
  * @property Board $board
  * @property Ticket[] $tickets
@@ -34,7 +34,7 @@ class BoardColumn extends \yii\db\ActiveRecord
         return [
             [['board_id', 'name'], 'required'],
             [['id', 'created_at', 'updated_at', 'board_id'], 'integer'],
-            [['name'], 'string']
+            [['title'], 'string']
         ];
     }
 
@@ -48,7 +48,7 @@ class BoardColumn extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'board_id' => 'Board ID',
-            'name' => 'Name',
+            'title' => 'Title',
         ];
     }
 
