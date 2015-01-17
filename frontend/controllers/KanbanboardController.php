@@ -20,12 +20,15 @@ class KanbanboardController extends \yii\web\Controller {
 
             $columnTickets = $singleColumnRecord->getTickets()->orderBy('id')->asArray()->all();
             foreach ($columnTickets as $singleColumnTicket) {
-                $ticketData[$singleColumnRecord['id']] = [
+                $newTicketDataRecord = [
                     'title' => $singleColumnTicket['title'],
                     'description' => $singleColumnTicket['description'],
                     'assignedId' => $singleColumnTicket['user_id'],
                     'assignedName' => User::findOne($singleColumnTicket['user_id'])->username,
+                    'columnId' => $singleColumnTicket['column_id'],
                 ];
+
+                $ticketData[]= $newTicketDataRecord;
             }
         }
 

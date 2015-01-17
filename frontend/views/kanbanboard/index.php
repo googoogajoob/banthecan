@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
     // Therefore they need to be appended to one another as they are evaluated in the loop
     // However, in the loop they can come in random order
     $gridRow = [];
-    foreach ($ticketData as $columnId => $ticket) {
+    foreach ($ticketData as $ticket) {
 
         $newTicket =
             '<div style="background-color: #a8ddff; padding: 4px; margin: 8px 4px;"><strong>' .
@@ -51,10 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         // The .= operator complains if the array element is not defined
         // Therefore if NOT defined create it first
-        if (array_key_exists($columnId, $gridRow)) {
-            $gridRow[$columnId] .= $newTicket;
+        if (array_key_exists($ticket['columnId'], $gridRow)) {
+            $gridRow[$ticket['columnId']] .= $newTicket;
         } else {
-            $gridRow[$columnId] = $newTicket;
+            $gridRow[$ticket['columnId']] = $newTicket;
         }
 
     }
