@@ -39,6 +39,7 @@ AppAsset::register($this);
                         ['label' => 'Board', 'url' => ['/board/index']],
                         ['label' => 'Board Column', 'url' => ['/boardcolumn/index']],
                         ['label' => 'Ticket', 'url' => ['/ticket/index']],
+                        ['label' => 'Users', 'url' => ['/user/index']],
                     ],
                 ],
             ];

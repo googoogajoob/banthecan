@@ -26,6 +26,7 @@ class KanbanboardController extends \yii\web\Controller {
                     'assignedId' => $singleColumnTicket['user_id'],
                     'assignedName' => User::findOne($singleColumnTicket['user_id'])->username,
                     'columnId' => $singleColumnTicket['column_id'],
+                    'created' => $singleColumnTicket['created_at'],
                 ];
 
                 $ticketData[]= $newTicketDataRecord;

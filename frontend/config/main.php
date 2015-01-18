@@ -28,6 +28,9 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'formatter' => [
+            'locale' => 'de-DE',
+        ],
     ],
     'params' => $params,
 ];

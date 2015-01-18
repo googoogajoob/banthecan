@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 
@@ -43,10 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
     foreach ($ticketData as $ticket) {
 
         $newTicket =
-            '<div style="background-color: #a8ddff; padding: 4px; margin: 8px 4px;"><strong>' .
+            '<div style="background-color: #cdebff; width: 180px; height: 230px;padding: 4px; margin: 8px 4px;"><strong>' .
             $ticket['title'] .
-            '</strong><br />' . $ticket['assignedName'] . '<br /><br />' .
-            $ticket['description'] .
+            '</strong><br />' . $ticket['assignedName'] . '<br />' .
+            Yii::$app->formatter->asDate($ticket['created'], 'long') . '<br /><br />' .
+            StringHelper::truncate($ticket['description'], 100, ' ...') .
             '</div>';
 
         // The .= operator complains if the array element is not defined
