@@ -1,6 +1,5 @@
 <?php
 use yii\helpers\Html;
-use yii\helpers\StringHelper;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 
@@ -25,32 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
     padding: 5px;
     float: left;';
 
-    $ticketStyle = '
-    width: 188px;
-    height: 100px;
-    background-color: #fff;
-    border-style: solid;
-    border-color: blue;
-    border-width: 1px;
-    padding: 5px;
-    margin-bottom: 4px;
-    float: left;';
-
     // Create HTML Div Element for each Ticket using $columnId as an index to the column
     // Tickets are appended to one another and together comprise the contents of one table cell
     // Therefore they need to be appended to one another as they are evaluated in the loop
     // However, in the loop they can come in random order
     $gridRow = [];
     foreach ($ticketData as $ticket) {
-
-        $newTicket =
-            '<div style="background-color: #cdebff; width: 180px; height: 230px;padding: 4px; margin: 8px 4px;"><strong>' .
-            $ticket['title'] .
-            '</strong><br />' . $ticket['assignedName'] . '<br />' .
-            Yii::$app->formatter->asDate($ticket['created'], 'long') . '<br /><br />' .
-            StringHelper::truncate($ticket['description'], 100, ' ...') .
-            '</div>';
-
+        $newTicket = $this->render('../ticket/_ticket', ['ticket' => $ticket]);
         // The .= operator complains if the array element is not defined
         // Therefore if NOT defined create it first
         if (array_key_exists($ticket['columnId'], $gridRow)) {
@@ -58,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
         } else {
             $gridRow[$ticket['columnId']] = $newTicket;
         }
-
     }
     $columnTickets[] = $gridRow;
 
