@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\StringHelper;
+use yii\jui\Draggable;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
@@ -26,6 +27,12 @@ $divStyle = '
     ';
 ?>
 
+<?php
+Draggable::begin([
+  'clientOptions' => ['grid' => [188,100]],
+]);
+?>
+
 <div style=" <?php echo $divStyle;?> ">
     <strong><?php echo $ticket['title']?></strong><br />
     <?php echo $ticket['assignedName']?><br />
@@ -33,3 +40,7 @@ $divStyle = '
     <br /><br />
     <?php echo StringHelper::truncate($ticket['description'], 100, ' ...'); ?>
 </div>
+
+<?php
+Draggable::end();
+?>
