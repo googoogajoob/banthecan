@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\controllers;
+namespace frontend\controllers; //namespace must be the first statement
 
 use common\models\Board; //Interesting, I just discovered that the "use" must come after "namespace"
 use common\models\User;
