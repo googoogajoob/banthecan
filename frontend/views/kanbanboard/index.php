@@ -13,17 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <hr/>
 
     <?php
-    $columnStyle = '
-    width: 200px;
-    height: 600px;
-    background-color: lightgray;
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
-    margin: 10px;
-    padding: 5px;
-    float: left;';
-
     // Create HTML Div Element for each Ticket using $columnId as an index to the column
     // Tickets are appended to one another and together comprise the contents of one table cell
     // Therefore they need to be appended to one another as they are evaluated in the loop
