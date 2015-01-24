@@ -4,6 +4,7 @@ namespace frontend\views\ticket;
 
 use yii\jui\Draggable;
 use yii\helpers\StringHelper;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
@@ -15,12 +16,21 @@ class DraggableTicket extends Draggable {
 //    <?php echo Yii::$app->formatter->asDate($ticket['created'], 'long'); ? >
 //    <br/><br/>
 //    <?php echo StringHelper::truncate($ticket['description'], 100, ' ...'); ? >
+
+
+    public function init()
+    {
+        parent::init();
+        echo Html::beginTag('div', $this->options) . "\n";
+    }
+
     /**
      * Initializes the widget.
      */
     protected function ticketContent () {
-        return echo 'dude';
+        echo 'dude';
     }
+
     /**
      * Renders the widget.
      */

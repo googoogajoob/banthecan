@@ -1,7 +1,10 @@
 <?php
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
+use frontend\views\ticket\DraggableTicket;
+
 
 /* @var $this yii\web\View */
 $this->params['breadcrumbs'][] = $this->title;
@@ -10,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-kanbanboard">
     <h1><?= Html::encode($boardTitle) ?></h1>
     <small><em><?= Html::encode($boardDescription) ?></em></small>
+
     <hr/>
 
     <?php
@@ -18,14 +22,29 @@ $this->params['breadcrumbs'][] = $this->title;
     // Therefore they need to be appended to one another as they are evaluated in the loop
     // However, in the loop they can come in random order
     $gridRow = [];
+    $counterLimit = 0;
     foreach ($ticketData as $ticket) {
-        $newTicket = $this->render('../ticket/_ticket', ['ticket' => $ticket]);
+
+        $newTicket = DraggableTicket::widget([
+            'options' => [
+                'class' => 'ticketDivStyle',
+            ],
+            'clientOptions' => [
+                'grid' => [10, 10],
+            ],
+        ]);
+
         // The .= operator complains if the array element is not defined
         // Therefore if NOT defined create it first
         if (array_key_exists($ticket['columnId'], $gridRow)) {
             $gridRow[$ticket['columnId']] .= $newTicket;
         } else {
             $gridRow[$ticket['columnId']] = $newTicket;
+        }
+
+        $counterLimit++;
+        if ($counterLimit > 10) {
+            break;
         }
     }
     $columnTickets[] = $gridRow;
@@ -46,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'pagination' => false,
     ]);
 
-    echo GridView::widget([
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'summary' => '', //removes total count at the top
         'tableOptions' => [
@@ -54,5 +73,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'columns' => $gridColumn,
     ]);
+
     ?>
 </div>
