@@ -22,10 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
     // Therefore they need to be appended to one another as they are evaluated in the loop
     // However, in the loop they can come in random order
     $gridRow = [];
-    $counterLimit = 0;
-    foreach ($ticketData as $ticket) {
+    foreach ($ticketData as $ticketRecord) {
 
-        $newTicket = DraggableTicket::widget([
+        $ticketBlockHtml = DraggableTicket::widget([
             'options' => [
                 'class' => 'ticketDivStyle',
             ],
@@ -35,37 +34,34 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
 
         // The .= operator complains if the array element is not defined
-        // Therefore if NOT defined create it first
-        if (array_key_exists($ticket['columnId'], $gridRow)) {
-            $gridRow[$ticket['columnId']] .= $newTicket;
+        // Therefore if it is NOT defined create it
+        if (array_key_exists($ticketRecord['columnId'], $gridRow)) {
+            $gridRow[$ticketRecord['columnId']] .= $ticketBlockHtml;
         } else {
-            $gridRow[$ticket['columnId']] = $newTicket;
-        }
-
-        $counterLimit++;
-        if ($counterLimit > 10) {
-            break;
+            $gridRow[$ticketRecord['columnId']] = $ticketBlockHtml;
         }
     }
-    $columnTickets[] = $gridRow;
+
+    $dataProvider = new ArrayDataProvider([
+        'allModels' => [$gridRow],
+        'sort' => false,
+        'pagination' => false,
+    ]);
 
     // create Column Data array compatible for consumption by GridView
+    // column data and ticket data are related but are processed separately
     foreach ($columnData as $column) {
         $gridColumn[] = [
             'attribute' => $column['attribute'],
-            'format' => 'html',
+            // need to learn how to purify HTML but allow the ID,I18N formatter, purifier causes problems
+            // somehow somewhere it needs to be configured
+            'format' => 'raw', //When USing HTML the ID attribute is removed by the purifier, bad news for Draggable
             'label' => $column['title'],
             'contentOptions' => ['valign' => 'top'],
         ];
     }
 
-    $dataProvider = new ArrayDataProvider([
-        'allModels' => $columnTickets,
-        'sort' => false,
-        'pagination' => false,
-    ]);
-
-    GridView::widget([
+    echo GridView::widget([
         'dataProvider' => $dataProvider,
         'summary' => '', //removes total count at the top
         'tableOptions' => [

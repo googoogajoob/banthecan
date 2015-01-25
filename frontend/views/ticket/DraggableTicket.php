@@ -17,18 +17,12 @@ class DraggableTicket extends Draggable {
 //    <br/><br/>
 //    <?php echo StringHelper::truncate($ticket['description'], 100, ' ...'); ? >
 
-
-    public function init()
-    {
-        parent::init();
-        echo Html::beginTag('div', $this->options) . "\n";
-    }
-
     /**
      * Initializes the widget.
      */
     protected function ticketContent () {
         echo 'dude';
+        print_r($this->options);
     }
 
     /**
