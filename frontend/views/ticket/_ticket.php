@@ -10,7 +10,12 @@ use yii\jui\Draggable;
 
 <?php
 Draggable::begin([
-  'clientOptions' => ['grid' => [188,100]],
+    'options' => [
+        'class' => 'ticketDivStyle',
+    ],
+    'clientOptions' => [
+        'grid' => [10, 10],
+    ],
 ]);
 ?>
 

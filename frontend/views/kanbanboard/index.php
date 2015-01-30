@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
-use frontend\views\ticket\DraggableTicket;
 
 
 /* @var $this yii\web\View */
@@ -24,14 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $gridRow = [];
     foreach ($ticketData as $ticketRecord) {
 
-        $ticketBlockHtml = DraggableTicket::widget([
-            'options' => [
-                'class' => 'ticketDivStyle',
-            ],
-            'clientOptions' => [
-                'grid' => [10, 10],
-            ],
-        ]);
+        $ticketBlockHtml = $this->render('../ticket/_ticket', ['ticket' => $ticketRecord]);
 
         // The .= operator complains if the array element is not defined
         // Therefore if it is NOT defined create it
