@@ -20,11 +20,11 @@ Draggable::begin([
 ?>
 
 <div class="ticketDivStyle">
-    <strong><?php echo $ticket['title']?></strong><br />
-    <?php echo $ticket['assignedName']?><br />
-    <?php echo Yii::$app->formatter->asDate($ticket['created'], 'long'); ?>
+    <strong><?php echo $ticketRecord['title']?></strong><br />
+    <?php echo $ticketRecorf['assignedName']?><br />
+    <?php echo Yii::$app->formatter->asDate($ticketRecord['created'], 'long'); ?>
     <br /><br />
-    <?php echo StringHelper::truncate($ticket['description'], 100, ' ...'); ?>
+    <?php echo StringHelper::truncate($ticketRecord['description'], 100, ' ...'); ?>
 </div>
 
 <?php
