@@ -14,18 +14,19 @@ Draggable::begin([
         'class' => 'ticketDivStyle',
     ],
     'clientOptions' => [
-        'grid' => [10, 10],
+        //'grid' => [10, 10],
+        'cursor' => 'move',
+//        'revert' => true,
+        'zIndex' => 100,
     ],
 ]);
 ?>
 
-<div class="ticketDivStyle">
-    <strong><?php echo $ticketRecord['title']?></strong><br />
-    <?php echo $ticketRecorf['assignedName']?><br />
-    <?php echo Yii::$app->formatter->asDate($ticketRecord['created'], 'long'); ?>
-    <br /><br />
-    <?php echo StringHelper::truncate($ticketRecord['description'], 100, ' ...'); ?>
-</div>
+<strong><?php echo $ticketRecord['title']?></strong><br />
+<?php echo $ticketRecord['assignedName']?><br />
+<?php echo Yii::$app->formatter->asDate($ticketRecord['created'], 'long'); ?>
+<br /><br />
+<?php echo StringHelper::truncate($ticketRecord['description'], 100, ' ...'); ?>
 
 <?php
 Draggable::end();
