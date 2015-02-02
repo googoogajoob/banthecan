@@ -1,10 +1,10 @@
-The BanTheCan Project (Ban The Can)
+# The BanTheCan Project (Ban The Can)
 
-This project implements a Kanban Board systems. It is written using yii2 and is thus a web based PHP/MySql application.
+This project implements a Kanban Board systems. It is written using **yii2** and is thus a web based PHP/MySql application.
 
-It is still in the Alpha Stage
+It is still in the **Alpha Stage**
 
-It offers the following options:
+<u>It offers the following options</u>:
 * Multiple Boards
 * Users and Groups with rights to particular boards
 * Definition of Board Columns and Lanes
