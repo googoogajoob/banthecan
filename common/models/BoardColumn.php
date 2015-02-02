@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+
 
 /**
  * This is the model class for table "board_column".
@@ -24,6 +26,16 @@ class BoardColumn extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'board_column';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
     }
 
     /**
