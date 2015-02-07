@@ -33,19 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
             alert('dude');
         } );
     </script>
-    <?php
-    Droppable::begin([
-        'options' => [
-            'class' => 'dropYourPants',
-        ],
-        'clientOptions' => [
-            'accept' => 'ticketDivStyle',
-            'tolerance' => 'pointer',
-        ],
-    ]);
-    echo 'Drop your pants big boy<br />';
-    Droppable::end();
-    ?>
 
     <div id="info"></div>
 
