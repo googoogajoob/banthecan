@@ -4,8 +4,9 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 use yii\jui\Droppable;
+use frontend\assets\BanTheCanAsset;
 
-
+BanTheCanAsset::register($this);
 /* @var $this yii\web\View */
 $this->params['breadcrumbs'][] = $this->title;
 ?>
