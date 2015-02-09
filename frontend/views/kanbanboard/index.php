@@ -15,26 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($boardTitle) ?></h1>
     <small><em><?= Html::encode($boardDescription) ?></em></small>
 
-    <hr/>
-    <script>
-        /* $(function () {
-            $(".dropYourPants").droppable({
-                drop: function (event, ui) {
-                    $("#info").html("dropped!");
-                },
-                over: function (event, ui) {
-                    $("#info").html("moving in!");
-                },
-                out: function (event, ui) {
-                    $("#info").html("moving out!");
-                }
-            });
-        }); */
-        $(".dropYourPants" ).on( "over", function( event, ui ) {
-            alert('dude');
-        } );
-    </script>
-
     <div id="info"></div>
 
     <hr/>

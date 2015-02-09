@@ -1,4 +1,4 @@
-.boardColumnStyle {
+.board-column {
     width: 200px;
     height: 600px;
     background-color: lightgray;
@@ -10,7 +10,7 @@
     float: left;
 }
 
-.ticketStyle {
+.ticket {
     width: 188px;
     height: 100px;
     background-color: #fff;
@@ -22,10 +22,20 @@
     float: left;
 }
 
-.ticketDivStyle {
+.ticket-div {
     background-color: #cdebff;
     width: 180px;
     height: 230px;
     padding: 4px;
     margin: 8px 4px;
+}
+
+.draggable-ticket-avatar-div {
+    text-align:right;
+    float: left;
+    margin: 0 4px 0 0;
+}
+
+.clear-both {
+    clear: both;
 }

@@ -22,6 +22,7 @@ class KanbanboardController extends \yii\web\Controller {
             foreach ($columnTickets as $singleColumnTicket) {
                 $newTicketDataRecord = [
                     'title' => $singleColumnTicket['title'],
+                    'ticketId' => $singleColumnTicket['id'],
                     'description' => $singleColumnTicket['description'],
                     'assignedId' => $singleColumnTicket['user_id'],
                     'assignedName' => User::findOne($singleColumnTicket['user_id'])->username,
