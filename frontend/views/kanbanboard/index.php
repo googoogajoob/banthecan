@@ -27,7 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
     $gridRow = [];
     foreach ($ticketData as $ticketRecord) {
 
-        $ticketBlockHtml = $this->render('../ticket/_draggableTicketBlock', ['ticketRecord' => $ticketRecord]);
+        $ticketBlockHtml = $this->render(
+            '../ticket/_draggableTicketBlock',
+            [
+                'ticketRecord' => $ticketRecord,
+                'sortableWidgetFormat' => true,
+            ]);
 
         // The .= operator complains if the array element is not defined
         // Therefore if it is NOT defined create it

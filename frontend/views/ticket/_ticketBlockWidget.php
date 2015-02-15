@@ -8,11 +8,12 @@ use yii\helpers\Url;
 /* @var $model common\models\Ticket */
 
 $ticketViewUrl = Url::to(['ticket/view', 'id' => $ticketRecord['ticketId']]);
+$widgetId = 'ticketwidget_'. $ticketRecord['ticketId'];
 ob_start;
 ?>
 
-<?php if (!$sortable): ?>
-    <div id="ticketwidget_"<?php echo $ticketRecord['ticketId']?> class="ticket-div ui-draggable ui-draggable-handle">
+<?php if (!$sortableWidgetFormat): ?>
+    <div id=<?php echo $widgetId; ?> class="ticket-div">
 <?php endif; ?>
 
     <div class="draggable-ticket-avatar-div">
@@ -26,15 +27,20 @@ ob_start;
     <br /><br />
     <?php echo StringHelper::truncate($ticketRecord['description'], 100, ' ...'); ?>
 
-<?php if (!$sortable): ?>
+<?php if (!$sortableWidgetFormat): ?>
     </div>
 <?php endif; ?>
 
 <?php
     $outputContents = ob_get_contents;
-    if ($sortable) {
+    if ($sortableWidgetFormat) {
         return [
-            'item' => $outputContents,
+            'content' => $outputContents,
+            'options' => [
+                'id' => $widgetId,
+                'tag' => 'div',
+                'class' => 'ticket_widget_div',
+            ]
 
         ];
     } else {
