@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
 $ticketViewUrl = Url::to(['ticket/view', 'id' => $ticketRecord['ticketId']]);
 $widgetId = 'ticketwidget_'. $ticketRecord['ticketId'];
-ob_start;
+ob_start();
 ?>
 
 <?php if (!$sortableWidgetFormat): ?>
@@ -32,18 +32,18 @@ ob_start;
 <?php endif; ?>
 
 <?php
-    $outputContents = ob_get_contents;
+    $outputContents = ob_get_contents();
     if ($sortableWidgetFormat) {
-        return [
+        $rv = [
             'content' => $outputContents,
             'options' => [
                 'id' => $widgetId,
                 'tag' => 'div',
-                'class' => 'ticket_widget_div',
-            ]
-
+                'class' => 'ticket-widget-div',
+            ],
         ];
+        return $rv;
     } else {
-        echo $outputContents;
+        return $outputContents;
     }
 ?>

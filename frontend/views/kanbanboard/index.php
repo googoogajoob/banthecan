@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
-use yii\jui\Droppable;
+use yii\jui\Sortable;
 use frontend\assets\BanTheCanAsset;
 
 BanTheCanAsset::register($this);
@@ -14,33 +14,40 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-kanbanboard">
     <h1><?= Html::encode($boardTitle) ?></h1>
     <small><em><?= Html::encode($boardDescription) ?></em></small>
-
     <div id="info"></div>
-
-    <hr/>
 
     <?php
     // Create HTML Div Element for each Ticket using $columnId as an index to the column
-    // Tickets are appended to one another and together comprise the contents of one table cell
-    // Therefore they need to be appended to one another as they are evaluated in the loop
-    // However, in the loop they can come in random order
-    $gridRow = [];
-    foreach ($ticketData as $ticketRecord) {
+    // Tickets are appended to one another and wrapped by a sortable div element
+    // This dive then becomes the contents of one table cell
+    // They need to be appended to one another as they are evaluated in the loop
 
-        $ticketBlockHtml = $this->render(
-            '../ticket/_draggableTicketBlock',
+    //initialize gridRow array
+    foreach ($columnData as $column) {
+        $gridRow[$column['attribute']][] = null;
+    }
+
+    //fill grid row array with tickets
+    foreach ($ticketData as $ticketRecord) {
+        $gridRow[$ticketRecord['columnId']] = $this->render(
+            '../ticket/_ticketBlockWidget',
             [
                 'ticketRecord' => $ticketRecord,
                 'sortableWidgetFormat' => true,
             ]);
+    }
 
-        // The .= operator complains if the array element is not defined
-        // Therefore if it is NOT defined create it
-        if (array_key_exists($ticketRecord['columnId'], $gridRow)) {
-            $gridRow[$ticketRecord['columnId']] .= $ticketBlockHtml;
-        } else {
-            $gridRow[$ticketRecord['columnId']] = $ticketBlockHtml;
-        }
+    // Wrap gridRow column contents into a sortable div element.
+    foreach ($columnData as $column) {
+        $cIndex = $column['attribute'];
+        $gridRow[$cIndex] = Sortable::widget([
+            'items' => $gridRow[$cIndex],
+            'options' => ['id' => 'boardColumn_' . $cIndex, 'tag' => 'div', 'class' => 'board-column'],
+            'clientOptions' => [
+                'cursor' => 'move',
+                'connectWith' => ($cIndex == 6 ? '#boardColumn_' . $cIndex + 1 : '#boardColumn_1'),
+            ],
+        ]);
     }
 
     $dataProvider = new ArrayDataProvider([
@@ -62,26 +69,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ];
     }
 
-    /*
-        $beforeClosureFunction = function () {
-            Droppable::begin([
-                'clientOptions' => ['accept' => '.ticketDivStyle'],
-            ]);
-        };
-
-        $afterClosureFunction = function () {
-            Droppable::end();
-        };
-    */
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'summary' => '', //removes total count at the top
         'tableOptions' => [
             'class' => 'table-striped',
         ],
-        //       'beforeRow' => $beforeClosureFunction,
         'columns' => $gridColumn,
-//        'afterRow' => $afterClosureFunction,
     ]);
 
     ?>
