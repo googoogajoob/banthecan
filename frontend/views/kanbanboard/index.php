@@ -24,17 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     //initialize gridRow array
     foreach ($columnData as $column) {
-        $gridRow[$column['attribute']][] = null;
+        $gridRow[$column['attribute']] = [];
     }
 
     //fill grid row array with tickets
     foreach ($ticketData as $ticketRecord) {
-        $gridRow[$ticketRecord['columnId']] = $this->render(
-            '../ticket/_ticketBlockWidget',
-            [
-                'ticketRecord' => $ticketRecord,
-                'sortableWidgetFormat' => true,
-            ]);
+        $widgetId = 'ticketwidget_'. $ticketRecord['ticketId'];
+        $gridRow[$ticketRecord['columnId']][] = [
+            'content' => $this->render('../ticket/_ticketBlock', ['ticketRecord' => $ticketRecord]),
+            'options' => [
+                'id' => $widgetId,
+                'tag' => 'div',
+                'class' => 'ticket-widget',
+            ],
+        ];
     }
 
     // Wrap gridRow column contents into a sortable div element.
@@ -45,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['id' => 'boardColumn_' . $cIndex, 'tag' => 'div', 'class' => 'board-column'],
             'clientOptions' => [
                 'cursor' => 'move',
-                'connectWith' => ($cIndex == 6 ? '#boardColumn_' . $cIndex + 1 : '#boardColumn_1'),
+                'connectWith' => ($cIndex != 6 ? '#boardColumn_' . ($cIndex + 1) : '#boardColumn_1'),
             ],
         ]);
     }

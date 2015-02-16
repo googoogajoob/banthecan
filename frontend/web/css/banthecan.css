@@ -1,6 +1,6 @@
 .board-column {
     width: 200px;
-    height: 600px;
+    min-height: 200px;
     background-color: lightgray;
     border-style: solid;
     border-color: black;
@@ -10,7 +10,7 @@
     float: left;
 }
 
-.ticket {
+/*.ticket {
     width: 188px;
     height: 100px;
     background-color: #fff;
@@ -20,17 +20,17 @@
     padding: 5px;
     margin-bottom: 4px;
     float: left;
-}
+} */
 
-.ticket-widget-div {
+.ticket-widget {
     background-color: #cdebff;
     width: 180px;
-    height: 230px;
+    height: 176px;
     padding: 4px;
     margin: 8px 4px;
 }
 
-.draggable-ticket-avatar-div {
+.ticket-avatar {
     text-align:right;
     float: left;
     margin: 0 4px 0 0;

@@ -11,7 +11,7 @@ class KanbanboardController extends \yii\web\Controller {
 
         $board = Board::findOne(1);
         // TODO: $id needs to be changed to a predefined or user defined ordering
-        $columnRecords = $board->getBoardColumns()->orderBy('id')->all();
+        $columnRecords = $board->getBoardColumns()->where('id > 0')->orderBy('id')->all();
         foreach ($columnRecords as $singleColumnRecord) {
             $columnData[] = [
                 'title' => $singleColumnRecord->title,
