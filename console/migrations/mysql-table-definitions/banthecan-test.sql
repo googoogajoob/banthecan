@@ -55,20 +55,6 @@ CREATE TABLE IF NOT EXISTS `board_column` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `temp_top`
---
-
-CREATE TABLE IF NOT EXISTS `temp_top` (
-  `fromP` text COLLATE utf8_unicode_ci NOT NULL,
-  `top` text COLLATE utf8_unicode_ci NOT NULL,
-  `createT` int(11) NOT NULL,
-  `updateT` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `ticket`
 --
 
