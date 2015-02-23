@@ -50,6 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'cursor' => 'move',
                 'connectWith' => ($cIndex != 6 ? '#boardColumn_' . ($cIndex + 1) : '#boardColumn_1'),
             ],
+            'clientEvents' => [
+                'receive' => 'function (event, ui) {
+                    receiveTicketOrder(event, ui, this);
+                }',
+            ],
         ]);
     }
 
