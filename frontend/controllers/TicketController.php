@@ -30,6 +30,17 @@ class TicketController extends Controller
      * Lists all Ticket models.
      * @return mixed
      */
+    public function actionReorder()
+    {
+        $junk = 5;
+        $junk++;
+    }
+
+
+    /**
+     * Lists all Ticket models.
+     * @return mixed
+     */
     public function actionIndex()
     {
         $searchModel = new TicketSearch();

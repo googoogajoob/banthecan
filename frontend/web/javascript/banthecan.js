@@ -4,23 +4,37 @@
 
 function receiveTicketOrder(event, ui, rthis) {
 
-
-    $debugLine = "[" + rthis.id + "] received [" + ui.item.attr("id") + "]";
+    /*$debugLine = "[" + rthis.id + "] received [" + ui.item.attr("id") + "]";
     $debugLine += "\n\n";
     $debugLine += $(rthis).sortable('serialize');
-    alert($debugLine);
+    alert($debugLine);*/
 
-    /*alert("[" + this.id + "] received [" + ui.item.html() + "] from [" + ui.sender.attr("id") + "]");*/
-
-    /*jQuery.ajax({
-        type: 'POST',
-        url: '$url',
+    var list =  $(rthis).sortable("toArray").join("|");
+    $.ajax({
+        url: "index.php?r=ticket/reorder",
+        type: "post",
         data: {
-            key: ui.item.data('key'),
-            pos: ui.item.index()
+                'section':rthis.id,
+                'components': list
+            },
+        success: function(){
+            alert("success");
+            /*$("#result").html('Submitted successfully');*/
         },
-        complete: function() {
-            jQuery('#{$this->id}').removeClass('sorting');
+        error:function(){
+            alert("failure");
+            /*$("#result").html('There is error while submit');*/
         }
-    });*/
+    });
+}
+
+function reorderElementsResponse( data ) {
+    if (data.FAIL === undefined) // Everything's cool!
+    {
+        alert( data.resultString + data.itemIndexString );
+    }
+    else
+    {
+        alert( "Bad Clams!" );
+    }
 }
