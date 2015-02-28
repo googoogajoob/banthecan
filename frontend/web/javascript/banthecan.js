@@ -18,7 +18,7 @@ function receiveTicketOrder(event, ui, rthis) {
                 'components': list
             },
         success: function(){
-            alert("success");
+            //alert("success");
             /*$("#result").html('Submitted successfully');*/
         },
         error:function(){
