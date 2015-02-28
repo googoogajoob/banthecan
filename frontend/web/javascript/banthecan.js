@@ -17,13 +17,11 @@ function receiveTicketOrder(event, ui, rthis) {
                 'section':rthis.id,
                 'components': list
             },
-        success: function(){
+        /*success: function(){
             //alert("success");
-            /*$("#result").html('Submitted successfully');*/
-        },
+        },*/
         error:function(){
-            alert("failure");
-            /*$("#result").html('There is error while submit');*/
+            alert("Ticket/Column Update Failure");
         }
     });
 }
