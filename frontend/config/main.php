@@ -12,16 +12,17 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-        /*'urlManager' => [
+        'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-                '<controller:\w+>/<id:\w+>' => '<controller>',
-                '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<controller:\w+>'                          => '<controller>/index',
+                '<controller:\w+>/<id:\w+>'                 => '<controller>',
+                '<controller:\w+>/<action:\w+>/<id:\w+>'    => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>'             => '<controller>/<action>',
             ],
-        ],*/
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,

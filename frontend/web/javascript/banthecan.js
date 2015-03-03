@@ -4,18 +4,19 @@
 
 function receiveTicketOrder(event, ui, rthis) {
 
-    /*$debugLine = "[" + rthis.id + "] received [" + ui.item.attr("id") + "]";
-    $debugLine += "\n\n";
-    $debugLine += $(rthis).sortable('serialize');
-    alert($debugLine);*/
+    var columnId = rthis.id.split("_");
+    var ticketOrder =  $(rthis).sortable("toArray");
 
-    var list =  $(rthis).sortable("toArray").join("|");
+    for (i = 0; i < ticketOrder.length; i++) {
+        ticketOrder[i] = ticketOrder[i].split("_")[1];
+    }
+
     $.ajax({
-        url: "index.php?r=ticket/reorder",
+        url: "ticket/reorder",
         type: "post",
         data: {
-                'section':rthis.id,
-                'components': list
+                'columnId':columnId[1],
+                'ticketOrder': ticketOrder
             },
         /*success: function(){
             //alert("success");
