@@ -8,6 +8,11 @@ use yii\helpers\Url;
 /* @var $ticketRecord common\models\Ticket */
 
 $ticketViewUrl = Url::to(['ticket/view', 'id' => $ticketRecord['ticketId']]);
+
+//Debug
+//echo 'ID: ' . $ticketRecord['ticketId'];
+//echo ', Order: ' . $ticketRecord['ticketOrder'];
+
 ?>
 
     <div class="ticket-avatar">

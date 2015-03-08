@@ -2,7 +2,7 @@
  * Created by and on 2/22/15.
  */
 
-function receiveTicketOrder(event, ui, rthis) {
+function columnTicketOrder(event, ui, rthis) {
 
     var columnId = rthis.id.split("_");
     var ticketOrder =  $(rthis).sortable("toArray");
@@ -19,21 +19,10 @@ function receiveTicketOrder(event, ui, rthis) {
                 'ticketOrder': ticketOrder
             },
         /*success: function(){
-            //alert("success");
+            alert("Ticket/Column Update SUCCESS");
         },*/
         error:function(){
             alert("Ticket/Column Update Failure");
         }
     });
-}
-
-function reorderElementsResponse( data ) {
-    if (data.FAIL === undefined) // Everything's cool!
-    {
-        alert( data.resultString + data.itemIndexString );
-    }
-    else
-    {
-        alert( "Bad Clams!" );
-    }
 }

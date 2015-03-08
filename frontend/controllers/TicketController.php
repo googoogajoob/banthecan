@@ -32,8 +32,21 @@ class TicketController extends Controller
      */
     public function actionReorder()
     {
-        $junk = 5;
-        $junk++;
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            $columnId = $request->post('columnId');
+            $ticketOrder = $request->post('ticketOrder');
+            foreach ($ticketOrder as $ticketOrderKey => $ticketId) {
+                $ticket = Ticket::findOne($ticketId);
+                $ticket->ticket_order = $ticketOrderKey;
+                $ticket->column_id = $columnId;
+                if ($ticket->update() === false) {
+                    yii::error("Ticket Reordering Error: Column:$columnId, Ticket:$ticketId, Order:$ticketOrderKey");
+                }
+            }
+        } else {
+            throw new \yii\web\MethodNotAllowedHttpException;
+        }
     }
 
 

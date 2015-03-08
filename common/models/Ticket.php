@@ -45,10 +45,10 @@ class Ticket extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'title', 'description', 'column_id'], 'required'],
-            [['id', 'created_at', 'updated_at', 'user_id', 'column_id'], 'integer'],
+            [['user_id', 'title', 'column_id'], 'required'],
+            [['id', 'created_at', 'updated_at', 'user_id', 'column_id', 'ticket_order'], 'integer'],
             [['title', 'description'], 'string'],
-            [['column_id'], 'unique']
+            [['id'], 'unique']
         ];
     }
 
@@ -65,6 +65,7 @@ class Ticket extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
             'column_id' => 'Column ID',
+            'ticket_order' => 'Ticket Order',
         ];
     }
 

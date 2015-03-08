@@ -52,7 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'clientEvents' => [
                 'receive' => 'function (event, ui) {
-                    receiveTicketOrder(event, ui, this);
+                    columnTicketOrder(event, ui, this);
+                }',
+                'update' => 'function (event, ui) {
+                    columnTicketOrder(event, ui, this);
                 }',
             ],
         ]);

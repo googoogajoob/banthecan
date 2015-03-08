@@ -16,10 +16,15 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => true,
+            //for other options see http://stackoverflow.com/questions/27316780/how-to-config-yii2-urlmanager-rules-with-aliases-and-get-parameter
             'rules' => [
-                '<controller:\w+>'                          => '<controller>/index',
-                '<controller:\w+>/<id:\w+>'                 => '<controller>',
-                '<controller:\w+>/<action:\w+>/<id:\w+>'    => '<controller>/<action>',
+                ''                                          => '/',
+                'site'                                      => '/',
+                'site/index'                                => '/',
+                'site/<action:\w+>'                         => 'site/<action>',
+                '<controller:\w+>'                          => '<controller>',
+                '<controller:\w+>/<id:\d+>'                 => '<controller>',
+                '<controller:\w+>/<action:\w+>/<id:\d+>'    => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'             => '<controller>/<action>',
             ],
         ],
