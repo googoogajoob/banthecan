@@ -21,8 +21,8 @@ function columnTicketOrder(event, ui, rthis) {
         /*success: function(){
             alert("Ticket/Column Update SUCCESS");
         },*/
-        error:function(){
-            alert("Ticket/Column Update Failure");
+        error: function(jqXHR, textStatus, errorThrown){
+            alert("Ticket/Column Update Failure:" + textStatus + ':' + errorThrown);
         }
     });
 }
