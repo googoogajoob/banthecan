@@ -41,6 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
     // Wrap gridRow column contents into a sortable div element.
+    // see http://stackoverflow.com/questions/5586558/jquery-ui-sortable-disable-update-function-before-receive
+    // for info about triggering the events
     foreach ($columnData as $column) {
         $cIndex = $column['attribute'];
         $gridRow[$cIndex] = Sortable::widget([
@@ -55,7 +57,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     columnTicketOrder(event, ui, this);
                 }',
                 'update' => 'function (event, ui) {
-                    columnTicketOrder(event, ui, this);
+                    if (!ui.sender && this === ui.item.parent()[0]) {
+                       columnTicketOrder(event, ui, this);
+                    }
                 }',
             ],
         ]);
