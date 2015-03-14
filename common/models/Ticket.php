@@ -22,6 +22,21 @@ use yii\behaviors\TimestampBehavior;
 class Ticket extends \yii\db\ActiveRecord
 {
     /**
+     * The status (column_id) of tickets in the backlog
+     */
+    const BACKLOG_STATUS = 0;
+
+    /**
+     * The default status (column_id) of tickets that are completed
+     */
+    const DEFAULT_COMPLETED_STATUS = -1;
+
+    /**
+     * The default status (column_id) of tickets that are on the kanban board
+     */
+    const DEFAULT_BOARD_STATUS = 1;
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -83,5 +98,86 @@ class Ticket extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * Returns the status of a ticket, whether ot not it is currently active
+     * on the KanBanBoard
+     * @return Boolean true = backlog, false = not backlog
+     */
+    public function isBacklog() {
+        return (bool)($this->getColumnId() == self::BACKLOG_STATUS);
+    }
+
+    /**
+     * Returns the status of a ticket, whether ot not it is currently active
+     * on the KanBanBoard
+     * @return Boolean true = active, false = not active
+     */
+    public function isBoard() {
+        return (bool)($this->getColumnId() >= self::DEFAULT_BOARD_STATUS);
+    }
+
+    /**
+     * Returns the status of a ticket, whether ot not it is currently active
+     * on the KanBanBoard
+     * @return Boolean true = active, false = not active
+     */
+    public function isCompleted() {
+        return (bool)($this->getColumnId() < self::DEFAULT_COMPLETED_STATUS);
+    }
+
+    /**
+     * Sets the Status of the Ticket to be in the Backlog
+     *
+     * @return $this common\models\ticket
+     */
+    public function moveToBacklog() {
+        $this->setColumnId(self::BACKLOG_STATUS);
+
+        return $this;
+    }
+
+    /**
+     * Sets the Status of the Ticket to be completed.
+     *
+     * @param integer New completed status, defaults to self::DEFAULT_COMPLETED_STATUS
+     *                completed status can be any negative number. If the new status
+     *                is not negative (i.e. not a completed status),
+     *                then the default completed status is used)
+     * @return $this common\models\ticket
+     */
+    public function moveToCompleted($newTicketStatus = self::DEFAULT_COMPLETED_STATUS) {
+        if ($newTicketStatus <= self::DEFAULT_COMPLETED_STATUS){
+            $this->setColumnId($newTicketStatus);
+        } else {
+            $this->setColumnId(self::DEFAULT_COMPLETED_STATUS);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets the Status of the Ticket to be on the Board, The Default Board column, start position is used
+     *
+     * @return $this common\models\ticket
+     */
+    public function moveToBoard() {
+        $this->setColumnId(self::DEFAULT_BOARD_STATUS);
+
+        return $this;
+    }
+
+    /**
+     * Sets the Status of the Ticket to be in the Backlog
+     *
+     * @return $this common\models\ticket
+     */
+    public function moveToColumn() {
+        $this->setColumnId(self::DEFAULT_BOARD_STATUS);
+
+        /* Need to verify the column Limits*/
+
+        return $this;
     }
 }
