@@ -4,6 +4,7 @@ namespace frontend\controllers; //namespace must be the first statement
 
 use common\models\Board; //Interesting, I just discovered that the "use" must come after "namespace"
 use common\models\User;
+use common\models\Ticket;
 
 class KanbanboardController extends \yii\web\Controller {
 
@@ -14,24 +15,25 @@ class KanbanboardController extends \yii\web\Controller {
         $columnData = null;
 
         $board = Board::findOne(1);
-        // TODO: $id needs to be changed to a predefined or user defined ordering
-        $columnRecords = $board->getBoardColumns()->where('id > 0')->orderBy('id')->all();
+
+        $columnRecords = $board->getBoardColumns()->where('id > 0')->orderBy('display_order, id')->all();
         foreach ($columnRecords as $singleColumnRecord) {
             $columnData[] = [
                 'title' => $singleColumnRecord->title,
                 'attribute' => $singleColumnRecord->id,
+                'displayOrder' => $singleColumnRecord->display_order,
             ];
 
             $columnTickets = $singleColumnRecord->getTickets()->orderBy('column_id, ticket_order')->asArray()->all();
             foreach ($columnTickets as $singleColumnTicket) {
                 $newTicketDataRecord = [
                     'title' => $singleColumnTicket['title'],
-                    'ticketId' => $singleColumnTicket['id'],
+                    'id' => $singleColumnTicket['id'],
                     'description' => $singleColumnTicket['description'],
-                    'assignedId' => $singleColumnTicket['user_id'],
+                    'user_id' => $singleColumnTicket['user_id'],
                     'assignedName' => User::findOne($singleColumnTicket['user_id'])->username,
                     'columnId' => $singleColumnTicket['column_id'],
-                    'created' => $singleColumnTicket['created_at'],
+                    'created_at' => $singleColumnTicket['created_at'],
                     'ticketOrder' => $singleColumnTicket['ticket_order'],
                 ];
 
@@ -46,5 +48,21 @@ class KanbanboardController extends \yii\web\Controller {
                 'ticketData' => $ticketData ? $ticketData : [],
             ]
         );
+    }
+
+    public function actionBacklog() {
+        $tickets = ticket::findBacklog();
+
+        return $this->render('backlog', [
+            'tickets' => $tickets,
+        ]);
+    }
+
+    public function actionCompleted() {
+        $tickets = ticket::findCompleted();
+
+        return $this->render('completed', [
+            'tickets' => $tickets,
+        ]);
     }
 }

@@ -24,7 +24,14 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * The status (column_id) of tickets in the backlog
      */
-    const BACKLOG_STATUS = 0;
+    const DEFAULT_BACKLOG_STATUS = 0;
+
+    /**
+     * Alternate status (column_id) of tickets in the backlog
+     * Tis is needed when using a mysql foreign Key Constraint on the tickets. On DELETE of the column the
+     * column ID of the ticket is set back to null (0 is not feasible, no default value)
+     */
+    const ALTERNATE_BACKLOG_STATUS = null;
 
     /**
      * The default status (column_id) of tickets that are completed
@@ -106,7 +113,8 @@ class Ticket extends \yii\db\ActiveRecord
      * @return Boolean true = backlog, false = not backlog
      */
     public function isBacklog() {
-        return (bool)($this->getColumnId() == self::BACKLOG_STATUS);
+        return (bool)($this->getColumnId() == self::DEFAULT_BACKLOG_STATUS or
+                      $this->getColumnId() == self::ALTERNATE_BACKLOG_STATUS);
     }
 
     /**
@@ -133,7 +141,7 @@ class Ticket extends \yii\db\ActiveRecord
      * @return $this common\models\ticket
      */
     public function moveToBacklog() {
-        $this->setColumnId(self::BACKLOG_STATUS);
+        $this->setColumnId(self::DEFAULT_BACKLOG_STATUS);
 
         return $this;
     }
@@ -173,11 +181,27 @@ class Ticket extends \yii\db\ActiveRecord
      *
      * @return $this common\models\ticket
      */
-    public function moveToColumn() {
-        $this->setColumnId(self::DEFAULT_BOARD_STATUS);
-
-        /* Need to verify the column Limits*/
+    public function moveToColumn($newTicketStatus = self::DEFAULT_BOARD_STATUS) {
+        $this->setColumnId($newTicketStatus);
 
         return $this;
+    }
+
+    /**
+     * Finds all Backlog Tickets
+     *
+     * @return $results array of ActiveRecord Instances
+     */
+    public function findBacklog() {
+        return Ticket::find()->where(['column_id' => 0])->orWhere(['column_id' => null])->asArray()->orderBy(['updated_at' => SORT_DESC])->all();
+    }
+
+    /**
+     * Finds all Completed Tickets
+     *
+     * @return $results array of ActiveRecord Instances
+     */
+    public function findCompleted() {
+        return Ticket::find()->where(['<', 'column_id', 0])->asArray()->orderBy(['updated_at' => SORT_DESC])->all();
     }
 }

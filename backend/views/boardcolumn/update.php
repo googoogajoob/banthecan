@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\BoardColumn */
 
-$this->title = 'Update Board Column: ' . ' ' . $model->name;
+$this->title = 'Update Board Column: ' . ' ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Board Columns', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="board-column-update">

@@ -1,6 +1,6 @@
 .board-column {
     width: 200px;
-    min-height: 200px;
+    min-height: 230px;
     background-color: lightgray;
     border-style: solid;
     border-color: black;
@@ -22,12 +22,16 @@
     float: left;
 } */
 
-.ticket-widget {
+.ticket-widget, .ticket-widget-float {
     background-color: #cdebff;
     width: 180px;
-    height: 176px;
+    height: 220px;
     padding: 4px;
     margin: 8px 4px;
+}
+
+.ticket-widget-float {
+    float: left;
 }
 
 .ticket-avatar {
