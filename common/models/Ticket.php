@@ -190,7 +190,7 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * Finds all Backlog Tickets
      *
-     * @return $results array of ActiveRecord Instances
+     * @return array|ActiveRecord[] the query results.
      */
     public function findBacklog() {
         return Ticket::find()->where(['column_id' => 0])->orWhere(['column_id' => null])->asArray()->orderBy(['updated_at' => SORT_DESC])->all();
@@ -199,7 +199,7 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * Finds all Completed Tickets
      *
-     * @return $results array of ActiveRecord Instances
+     * @return array|ActiveRecord[] the query results.
      */
     public function findCompleted() {
         return Ticket::find()->where(['<', 'column_id', 0])->asArray()->orderBy(['updated_at' => SORT_DESC])->all();
