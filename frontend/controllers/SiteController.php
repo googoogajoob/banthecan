@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\LoginForm;
+use common\models\User;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -111,8 +112,11 @@ class SiteController extends Controller
         }
     }
 
-    public function actionAbout()
-    {
+    public function actionAbout() {
+        $u = User::findByUsername('andy');
+        if ($u->status) {
+            $junk = 1;
+        }
         return $this->render('about');
     }
 
