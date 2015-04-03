@@ -5,11 +5,13 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
+use frontend\assets\BanTheCanAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
 AppAsset::register($this);
+BanTheCanAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
