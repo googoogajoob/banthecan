@@ -1,23 +1,18 @@
 <?php
 
 use yii\helpers\StringHelper;
-use yii\jui\Draggable;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $ticketRecord common\models\Ticket */
 
 $ticketViewUrl = Url::to(['ticket/view', 'id' => $ticketRecord['id']]);
-
-//Debug
-//echo 'ID: ' . $ticketRecord['ticketId'];
-//echo ', Order: ' . $ticketRecord['ticketOrder'];
-
 ?>
 
     <div class="ticket-avatar">
-        <img src="/images/content/30x40/user-<?php echo $ticketRecord['user_id']?>.jpg"/>
+        <?php echo $this->render('../site/_userIcon', ['userId' => $ticketRecord['user_id']]);?>
     </div>
+
     <strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $ticketRecord['title']?></a></strong><br />
 
     <div class="clear-both"></div>

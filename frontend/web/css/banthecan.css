@@ -40,6 +40,10 @@
     margin: 0 4px 0 0;
 }
 
+.menu-avatar {
+    padding-top: 6px;
+}
+
 .clear-both {
     clear: both;
 }

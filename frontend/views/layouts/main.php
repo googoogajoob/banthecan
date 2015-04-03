@@ -34,7 +34,7 @@ AppAsset::register($this);
             ]);
 
             $menuItems = [
-                ['label' => 'Home', 'url' => ['/']],
+                ['label' => 'Tickets', 'url' => ['/ticket']],
                 ['label' => 'Boards',
                     'items' => [
                         ['label' => 'Backlog', 'url' => ['/kanbanboard/backlog']],
@@ -42,9 +42,12 @@ AppAsset::register($this);
                         ['label' => 'Completed', 'url' => ['/kanbanboard/completed']],
                     ],
                 ],
-                ['label' => 'Tickets', 'url' => ['/ticket']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
+                ['label' => 'About',
+                    'items' => [
+                        ['label' => 'About', 'url' => ['/site/about']],
+                        ['label' => 'Contact', 'url' => ['/site/contact']],
+                    ],
+                ],
             ];
 
             if (Yii::$app->user->isGuest) {
@@ -56,6 +59,7 @@ AppAsset::register($this);
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];
+                $menuItems[] = '<li class="menu-avatar">' . $this->render('../site/_userIcon',['userId' => 1]) . '</li>';
             }
 
             echo Nav::widget([
