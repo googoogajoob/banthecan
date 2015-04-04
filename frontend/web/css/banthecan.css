@@ -40,10 +40,20 @@
     margin: 0 4px 0 0;
 }
 
-.menu-avatar {
+.menu-avatar-li {
     padding-top: 6px;
 }
 
+.menu-avatar-a {
+    padding: 0 0 0 0 !important;
+}
+
+
 .clear-both {
     clear: both;
+}
+
+/* makes Bootstrap Menus dropdown on Hover */
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
 }
