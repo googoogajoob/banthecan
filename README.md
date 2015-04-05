@@ -18,12 +18,13 @@ It offers the following options:
 
 **Ban the Can** is a specialized implementation of a Kanban Board. It was developed in an attempt to help organizations that operate primarily with the discussion of topics. This differs from the use of a Kanban board in a <a href="http://en.wikipedia.org/wiki/Kanban">production environment</a>, such as physical products or software development. Nonetheless it may prove helpful for usage which goes beyond its original intent.
 
-Examples of organizations that operate on a discussion level would be sports-clubs, political organizations or churches. In such organizations specific topic are discussed on a regular basis. The focal point is not production but development of a consensus. **Ban the Can** was designed to help organize such a process.
+Examples of organizations that operate on a discussion level would be sports-clubs, political organizations or churches. In such organizations specific topics are discussed on a regular basis. The focal point is not production but development of a consensus. **Ban the Can** was designed to help organize such processes.
 
 ## How can Ban the Can help me?
 * Allow users to create discussion topics in the form of **tickets**, creating a **backlog** of possible discussion topics
 * Select **tickets** from the the **backlog** and place them in the current **board** for the next discussion. This is aided by the use of filters and tags so that one can adequately prioritize the ticket pool in the **backlog**.
-* Once topics are in the **board** they can be placed in columns indicating various stages of a discussion process. The columns can be specified to fit your needs. **For example**:
+* Once topics are in the **board** they can be placed in columns indicating various stages of a discussion process. The columns can be specified to fit your needs.
+**For example**:
   * Waiting to be discussed
   * Discussed but waiting for an external event
   * In discussion
