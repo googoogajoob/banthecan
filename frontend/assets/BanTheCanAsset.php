@@ -21,6 +21,7 @@ class BanTheCanAsset extends AssetBundle
         'css/banthecan.css',
     ];
     public $js = [
+        'javascript/banthecan.js',
     ];
     public $depends = [
     ];

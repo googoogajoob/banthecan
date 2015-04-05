@@ -13,7 +13,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $board_id
- * @property string $title
+ * @property string  $title
+ * @property integer $display_order
  *
  * @property Board $board
  * @property Ticket[] $tickets
@@ -45,7 +46,7 @@ class BoardColumn extends \yii\db\ActiveRecord
     {
         return [
             [['board_id', 'name'], 'required'],
-            [['id', 'created_at', 'updated_at', 'board_id'], 'integer'],
+            [['id', 'created_at', 'updated_at', 'board_id', 'display_order'], 'integer'],
             [['title'], 'string']
         ];
     }
@@ -61,6 +62,7 @@ class BoardColumn extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'board_id' => 'Board ID',
             'title' => 'Title',
+            'display_order' => 'Display Order',
         ];
     }
 

@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
             'board_id',
             'title:ntext',
+            'display_order',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

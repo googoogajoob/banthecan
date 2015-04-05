@@ -4,11 +4,9 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 use yii\jui\Sortable;
-use frontend\assets\BanTheCanAsset;
 
-BanTheCanAsset::register($this);
 /* @var $this yii\web\View */
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'KanBanBoard';
 ?>
 
 <div class="site-kanbanboard">
@@ -29,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     //fill grid row array with tickets
     foreach ($ticketData as $ticketRecord) {
-        $widgetId = 'ticketwidget_'. $ticketRecord['ticketId'];
+        $widgetId = 'ticketwidget_'. $ticketRecord['id'];
         $gridRow[$ticketRecord['columnId']][] = [
             'content' => $this->render('../ticket/_ticketBlock', ['ticketRecord' => $ticketRecord]),
             'options' => [
@@ -41,14 +39,27 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
     // Wrap gridRow column contents into a sortable div element.
+    // see http://stackoverflow.com/questions/5586558/jquery-ui-sortable-disable-update-function-before-receive
+    // for info about triggering the events
     foreach ($columnData as $column) {
         $cIndex = $column['attribute'];
+        $displayOrder = $column['displayOrder'];
         $gridRow[$cIndex] = Sortable::widget([
             'items' => $gridRow[$cIndex],
             'options' => ['id' => 'boardColumn_' . $cIndex, 'tag' => 'div', 'class' => 'board-column'],
             'clientOptions' => [
                 'cursor' => 'move',
-                'connectWith' => ($cIndex != 6 ? '#boardColumn_' . ($cIndex + 1) : '#boardColumn_1'),
+                'connectWith' => ($displayOrder != 4 ? '#boardColumn_' . ($displayOrder + 1) : '#boardColumn_1'),
+            ],
+            'clientEvents' => [
+                'receive' => 'function (event, ui) {
+                    columnTicketOrder(event, ui, this);
+                }',
+                'update' => 'function (event, ui) {
+                    if (!ui.sender && this === ui.item.parent()[0]) {
+                       columnTicketOrder(event, ui, this);
+                    }
+                }',
             ],
         ]);
     }
