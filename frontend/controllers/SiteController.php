@@ -41,6 +41,7 @@ class SiteController extends Controller {
                     ],
                 ],
             ],
+            //Why is this needed?
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -73,13 +74,9 @@ class SiteController extends Controller {
 
     public function actionLogin() {
 
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goHome();
         } else {
             return $this->render('login', [
                 'model' => $model,
@@ -115,10 +112,6 @@ class SiteController extends Controller {
 
     public function actionAbout() {
 
-        $u = User::findByUsername('andy');
-        if ($u->status) {
-            $junk = 1;
-        }
         return $this->render('about');
     }
 

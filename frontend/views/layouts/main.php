@@ -39,8 +39,8 @@ BanTheCanAsset::register($this);
 
                 $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-                $menuItems[] = ['label' => 'About', 'url' => ['/site/about']];
                 $menuItems[] = ['label' => 'Contact', 'url' => ['/site/contact']];
+                $menuItems[] = ['label' => 'About', 'url' => ['/site/about']];
 
             } else {
 

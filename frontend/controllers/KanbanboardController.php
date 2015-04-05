@@ -6,8 +6,27 @@ use yii;
 use common\models\Board; //Interesting, I just discovered that the "use" must come after "namespace"
 use common\models\User;
 use common\models\Ticket;
+use yii\filters\AccessControl;
 
 class KanbanboardController extends \yii\web\Controller {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex() {
 
