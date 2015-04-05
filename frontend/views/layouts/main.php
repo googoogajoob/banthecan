@@ -35,33 +35,36 @@ BanTheCanAsset::register($this);
                 ],
             ]);
 
-            $menuItems = [
-                ['label' => 'Tickets', 'url' => ['/ticket']],
-                ['label' => 'Boards',
-                    'items' => [
-                        ['label' => 'Backlog', 'url' => ['/kanbanboard/backlog']],
-                        ['label' => 'Board', 'url' => ['/kanbanboard']],
-                        ['label' => 'Completed', 'url' => ['/kanbanboard/completed']],
-                    ],
-                ],
-                ['label' => 'About',
-                    'items' => [
-                        ['label' => 'About', 'url' => ['/site/about']],
-                        ['label' => 'Contact', 'url' => ['/site/contact']],
-                    ],
-                ],
-            ];
-
             if (Yii::$app->user->isGuest) {
-                //$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+
+                $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                $menuItems[] = ['label' => 'About', 'url' => ['/site/about']];
+                $menuItems[] = ['label' => 'Contact', 'url' => ['/site/contact']];
+
             } else {
-                $menuItems[] = [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
+
+                $menuItems = [
+                    ['label' => 'Tickets', 'url' => ['/ticket']],
+                    ['label' => 'Boards',
+                        'items' => [
+                            ['label' => 'Backlog', 'url' => ['/kanbanboard/backlog']],
+                            ['label' => 'Board', 'url' => ['/kanbanboard']],
+                            ['label' => 'Completed', 'url' => ['/kanbanboard/completed']],
+                        ],
+                    ],
                 ];
-                $menuItems[] = '<li class="menu-avatar">' . $this->render('../site/_userIcon',['userId' => 1]) . '</li>';
+
+                $menuItems[] = html::tag('li',
+                        $this->render('../site/_userIcon',['userId' => Yii::$app->getUser()->id]),
+                        ['class' => 'menu-avatar-li']);
+
+                $menuItems[] = ['label' => '', 'items' => [
+                        ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
+                        ['label' => 'About', 'url' => ['/site/about']],
+                        ['label' => 'Contact', 'url' => ['/site/contact']]
+                    ],
+                ];
             }
 
             echo Nav::widget([

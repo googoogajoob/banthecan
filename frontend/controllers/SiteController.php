@@ -17,13 +17,13 @@ use yii\filters\AccessControl;
 /**
  * Site controller
  */
-class SiteController extends Controller
-{
+class SiteController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
+
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -53,8 +53,8 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    public function actions()
-    {
+    public function actions() {
+
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -66,13 +66,13 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
+    public function actionIndex() {
+
         return $this->render('index');
     }
 
-    public function actionLogin()
-    {
+    public function actionLogin() {
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -87,19 +87,20 @@ class SiteController extends Controller
         }
     }
 
-    public function actionLogout()
-    {
+    public function actionLogout() {
+
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
 
-    public function actionContact()
-    {
+    public function actionContact() {
+
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+                Yii::$app->session->setFlash('success',
+                    'Thank you for contacting us. We will respond to you as soon as possible.');
             } else {
                 Yii::$app->session->setFlash('error', 'There was an error sending email.');
             }
@@ -113,6 +114,7 @@ class SiteController extends Controller
     }
 
     public function actionAbout() {
+
         $u = User::findByUsername('andy');
         if ($u->status) {
             $junk = 1;
@@ -120,8 +122,8 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionSignup()
-    {
+    public function actionSignup() {
+
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
@@ -136,8 +138,8 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionRequestPasswordReset()
-    {
+    public function actionRequestPasswordReset() {
+
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -145,7 +147,8 @@ class SiteController extends Controller
 
                 return $this->goHome();
             } else {
-                Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
+                Yii::$app->getSession()->setFlash('error',
+                    'Sorry, we are unable to reset password for email provided.');
             }
         }
 
@@ -154,8 +157,8 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionResetPassword($token)
-    {
+    public function actionResetPassword($token) {
+
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidParamException $e) {
@@ -172,9 +175,5 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-
-    public function actionKanbanboard()
-    {
-        return $this->render('kanbanboard');
-    }
 }
+

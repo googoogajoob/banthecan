@@ -2,6 +2,7 @@
 
 namespace frontend\controllers; //namespace must be the first statement
 
+use yii;
 use common\models\Board; //Interesting, I just discovered that the "use" must come after "namespace"
 use common\models\User;
 use common\models\Ticket;
@@ -14,7 +15,8 @@ class KanbanboardController extends \yii\web\Controller {
         $ticketData = null;
         $columnData = null;
 
-        $board = Board::findOne(1);
+        $userBoard = User::findIdentity(Yii::$app->getUser()->id)->board_id;
+        $board = Board::findOne($userBoard);
 
         $columnRecords = $board->getBoardColumns()->where('id > 0')->orderBy('display_order, id')->all();
         foreach ($columnRecords as $singleColumnRecord) {
