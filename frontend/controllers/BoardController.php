@@ -9,7 +9,7 @@ use common\models\User;
 use common\models\Ticket;
 use yii\filters\AccessControl;
 
-class KanbanboardController extends \yii\web\Controller {
+class BoardController extends \yii\web\Controller {
 
     /**
      * @inheritdoc

@@ -48,9 +48,9 @@ BanTheCanAsset::register($this);
                     ['label' => 'Tickets', 'url' => ['/ticket']],
                     ['label' => 'Boards',
                         'items' => [
-                            ['label' => 'Backlog', 'url' => ['/kanbanboard/backlog']],
-                            ['label' => 'Board', 'url' => ['/kanbanboard']],
-                            ['label' => 'Completed', 'url' => ['/kanbanboard/completed']],
+                            ['label' => 'Backlog', 'url' => ['/board/backlog']],
+                            ['label' => 'Board', 'url' => ['/board']],
+                            ['label' => 'Completed', 'url' => ['/board/completed']],
                         ],
                     ],
                 ];

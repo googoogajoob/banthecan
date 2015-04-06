@@ -58,6 +58,7 @@ class TicketController extends Controller
     {
         $searchModel = new TicketSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->setPagination(['pageSize' => 10]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
