@@ -89,10 +89,10 @@ class KanbanboardController extends \yii\web\Controller {
     }
 
     public function actionSelect() {
-        $userBoardId = User::findIdentity(Yii::$app->getUser()->id)->board_id;
+        $userBoardId = explode(',', User::findOne(Yii::$app->getUser()->id)->board_id);
 
         $userBoards = new ActiveDataProvider([
-            'query' => Board::findAll(explode(',', $userBoardId)),
+            'query' => Board::find()->where(['id' => $userBoardId]),
         ]);
 
         return $this->render('select',['userBoards' => $userBoards]);
