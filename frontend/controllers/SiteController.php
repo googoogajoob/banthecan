@@ -76,7 +76,7 @@ class SiteController extends Controller {
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goHome();
+            return $this->redirect('/board/choose');
         } else {
             return $this->render('login', [
                 'model' => $model,

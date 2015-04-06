@@ -88,13 +88,18 @@ class BoardController extends \yii\web\Controller {
         ]);
     }
 
-    public function actionSelect() {
+    public function actionChoose() {
         $userBoardId = explode(',', User::findOne(Yii::$app->getUser()->id)->board_id);
 
         $userBoards = new ActiveDataProvider([
             'query' => Board::find()->where(['id' => $userBoardId]),
         ]);
 
-        return $this->render('select',['userBoards' => $userBoards]);
+        if ($userBoards->getTotalCount() > 0) {
+            return $this->render('choose',['userBoards' => $userBoards]);
+        } else {
+            Yii::$app->user->logout();
+            return $this->render('noBoard');
+        }
     }
 }
