@@ -57,3 +57,8 @@
 ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;
 }
+
+/* override dropdown menu width */
+.dropdown-menu {
+    min-width: 80px;
+}
