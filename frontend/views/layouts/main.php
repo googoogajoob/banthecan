@@ -60,6 +60,7 @@ BanTheCanAsset::register($this);
                         ['class' => 'menu-avatar-li']);
 
                 $menuItems[] = ['label' => '', 'items' => [
+                        ['label' => 'Select Board', 'url' => ['/board/choose']],
                         ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
                         ['label' => 'About', 'url' => ['/site/about']],
                         ['label' => 'Contact', 'url' => ['/site/contact']]

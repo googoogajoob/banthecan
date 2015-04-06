@@ -94,12 +94,18 @@ class BoardController extends \yii\web\Controller {
         $userBoards = new ActiveDataProvider([
             'query' => Board::find()->where(['id' => $userBoardId]),
         ]);
-
+        //todo - add option when count=1, set board automatically
         if ($userBoards->getTotalCount() > 0) {
             return $this->render('choose',['userBoards' => $userBoards]);
         } else {
             Yii::$app->user->logout();
             return $this->render('noBoard');
         }
+    }
+
+    public function actionSelect() {
+        // Just a dummy action, actual code needs to be added
+        // Add the selected board_id to the cookies/session to set it as the global
+        $this->goHome();
     }
 }
