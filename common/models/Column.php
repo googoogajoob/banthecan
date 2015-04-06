@@ -19,7 +19,7 @@ use yii\behaviors\TimestampBehavior;
  * @property Board $board
  * @property Ticket[] $tickets
  */
-class BoardColumn extends \yii\db\ActiveRecord
+class Column extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc

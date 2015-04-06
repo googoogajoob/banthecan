@@ -70,6 +70,6 @@ class Board extends \yii\db\ActiveRecord
      */
     public function getBoardColumns()
     {
-        return $this->hasMany(BoardColumn::className(), ['board_id' => 'id']);
+        return $this->hasMany(Column::className(), ['board_id' => 'id']);
     }
 }
