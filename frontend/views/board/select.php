@@ -21,11 +21,11 @@ echo GridView::widget([
     'columns' => [
         [
             'class'     => ActionColumn::className(),
-            'template'  => '{select}',
+            'template'  => '{activate}',
             'buttons'   => [
-                'select' => function($url, $model, $key) {
+                'activate' => function($url, $model, $key) {
                     return Html::a('<span class="glyphicon glyphicon-ok-sign"></span>', $url, [
-                        'title' => 'Select',
+                        'title' => 'Set Active Board',
                     ]);
                 }
             ],

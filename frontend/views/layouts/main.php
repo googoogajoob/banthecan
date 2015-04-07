@@ -60,7 +60,7 @@ BanTheCanAsset::register($this);
                         ['class' => 'menu-avatar-li']);
 
                 $menuItems[] = ['label' => '', 'items' => [
-                        ['label' => 'Select Board', 'url' => ['/board/choose']],
+                        ['label' => 'Select Board', 'url' => ['/board/select']],
                         ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
                         ['label' => 'About', 'url' => ['/site/about']],
                         ['label' => 'Contact', 'url' => ['/site/contact']]
@@ -77,11 +77,11 @@ BanTheCanAsset::register($this);
         ?>
 
         <div class="container">
-        <?= Breadcrumbs::widget([
+        <?php echo Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        <?php echo Alert::widget(); ?>
+        <?php echo $content ?>
         </div>
     </div>
 
@@ -92,7 +92,12 @@ BanTheCanAsset::register($this);
         </div>
     </footer>
 
-    <?php $this->endBody() ?>
+    <?php
+    $session = Yii::$app->session;
+    foreach ($session as $name => $value) {
+        echo "$name -> " . print_r($value, true) . "<br/>";
+    }
+    $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

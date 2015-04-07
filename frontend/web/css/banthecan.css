@@ -53,6 +53,8 @@
     clear: both;
 }
 
+/* ### BOOT STRAP OVERRIDES ### */
+
 /* makes Bootstrap Menus dropdown on Hover */
 ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;

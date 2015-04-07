@@ -2,7 +2,7 @@
 
 namespace frontend\controllers; //namespace must be the first statement
 
-use yii;
+//use yii;
 use common\models\Board;
 use yii\data\ActiveDataProvider;
 use common\models\User;
@@ -88,24 +88,35 @@ class BoardController extends \yii\web\Controller {
         ]);
     }
 
-    public function actionChoose() {
-        $userBoardId = explode(',', User::findOne(Yii::$app->getUser()->id)->board_id);
+    public function actionSelect() {
+        $userBoardId = explode(',', User::findOne(\Yii::$app->getUser()->id)->board_id);
 
         $userBoards = new ActiveDataProvider([
             'query' => Board::find()->where(['id' => $userBoardId]),
         ]);
-        //todo - add option when count=1, set board automatically
-        if ($userBoards->getTotalCount() > 0) {
-            return $this->render('choose',['userBoards' => $userBoards]);
-        } else {
-            Yii::$app->user->logout();
+        $boardCount = $userBoards->getTotalCount();
+
+        if ($boardCount == 0) {
+            // No Boards, log user out
+            \Yii::$app->user->logout();
             return $this->render('noBoard');
+        } elseif ($boardCount == 1) {
+            // Only one board for user, activate it automatically
+            $activeBoardId = $userBoards->getModels()[0]->id;
+            $this->redirect(['activate','id' => $activeBoardId]);
+        } else {
+            // USer must select which board to activate
+            return $this->render('select',['userBoards' => $userBoards]);
         }
     }
 
-    public function actionSelect() {
-        // Just a dummy action, actual code needs to be added
-        // Add the selected board_id to the cookies/session to set it as the global
+    public function actionActivate() {
+        $session = \Yii::$app->session;
+        $request = \Yii::$app->request;
+        $activeBoardId = $request->get('id');
+        $session->set('currentBoard', $activeBoardId);
+        $boardTitle = Board::findOne($activeBoardId)->title;
+        $session->setFlash('success', "Board activated: $boardTitle");
         $this->goHome();
     }
 }
