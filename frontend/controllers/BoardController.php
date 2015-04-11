@@ -34,8 +34,9 @@ class BoardController extends \yii\web\Controller {
         $ticketData = null;
         $columnData = null;
 
-        $userBoard = User::findIdentity(\Yii::$app->getUser()->id)->board_id;
-        $board = Board::findOne($userBoard);
+        $session = \Yii::$app->session;
+        $currentBoard = $session->get('currentBoard');
+        $board = Board::findOne($currentBoard);
 
         $columnRecords = $board->getBoardColumns()->where('id > 0')->orderBy('display_order, id')->all();
         foreach ($columnRecords as $singleColumnRecord) {

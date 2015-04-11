@@ -83,6 +83,6 @@ class Column extends \yii\db\ActiveRecord
      */
     public function getTickets()
     {
-        return $this->hasMany(Ticket::className(), ['column_id' => 'id']);
+        return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id']);
     }
 }

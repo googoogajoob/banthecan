@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use Yii;
+//use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 
@@ -18,6 +18,7 @@ use yii\behaviors\BlameableBehavior;
  * @property string $title
  * @property string $description
  * @property integer $column_id
+ * @property integer $board_id
  *
  * @property BoardColumn $column
  */
@@ -91,6 +92,7 @@ class Ticket extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
             'column_id' => 'Column ID',
+            'board_id' => 'Board ID',
             'ticket_order' => 'Ticket Order',
         ];
     }
@@ -170,7 +172,7 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Sets the Status of the Ticket to be on the Board, The Default Board column, start position is used
+     * Sets the Status of the Ticket to be on the Kanban Board, The Default Board column,start position is used
      *
      * @return $this common\models\ticket
      */
@@ -197,7 +199,16 @@ class Ticket extends \yii\db\ActiveRecord
      * @return array|ActiveRecord[] the query results.
      */
     public function findBacklog() {
-        return Ticket::find()->where(['column_id' => 0])->orWhere(['column_id' => null])->asArray()->orderBy(['updated_at' => SORT_DESC])->all();
+        $session = \Yii::$app->session;
+        $currentBoard = $session->get('currentBoard');
+
+        return Ticket::find()
+            ->where(['column_id' => 0])
+            ->orWhere(['column_id' => null])
+            ->andWhere(['board_id' => $currentBoard])
+            ->asArray()
+            ->orderBy(['updated_at' => SORT_DESC])
+            ->all();
     }
 
     /**
@@ -206,6 +217,14 @@ class Ticket extends \yii\db\ActiveRecord
      * @return array|ActiveRecord[] the query results.
      */
     public function findCompleted() {
-        return Ticket::find()->where(['<', 'column_id', 0])->asArray()->orderBy(['updated_at' => SORT_DESC])->all();
+        $session = \Yii::$app->session;
+        $currentBoard = $session->get('currentBoard');
+
+        return Ticket::find()
+            ->where(['<', 'column_id', 0])
+            ->andWhere(['board_id' => $currentBoard])
+            ->asArray()
+            ->orderBy(['updated_at' => SORT_DESC])
+            ->all();
     }
 }
