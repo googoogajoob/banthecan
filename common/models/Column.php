@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 
 /**
@@ -12,6 +13,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $id
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $created_by
+ * @property integer $updated_by
  * @property integer $board_id
  * @property string  $title
  * @property integer $display_order
@@ -26,7 +29,7 @@ class Column extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'board_column';
+        return 'column';
     }
 
     /**
@@ -36,6 +39,7 @@ class Column extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            BlameableBehavior::className(),
         ];
     }
 
@@ -46,7 +50,7 @@ class Column extends \yii\db\ActiveRecord
     {
         return [
             [['board_id', 'name'], 'required'],
-            [['id', 'created_at', 'updated_at', 'board_id', 'display_order'], 'integer'],
+            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'board_id', 'display_order'], 'integer'],
             [['title'], 'string']
         ];
     }

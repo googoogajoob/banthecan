@@ -18,7 +18,7 @@ class TicketSearch extends Ticket
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'user_id', 'column_id'], 'integer'],
+            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id'], 'integer'],
             [['title', 'description'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class TicketSearch extends Ticket
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user_id' => $this->user_id,
+            'created_by' => $this->created_by,
             'column_id' => $this->column_id,
         ]);
 

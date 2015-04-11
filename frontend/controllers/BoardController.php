@@ -2,7 +2,6 @@
 
 namespace frontend\controllers; //namespace must be the first statement
 
-//use yii;
 use common\models\Board;
 use yii\data\ActiveDataProvider;
 use common\models\User;
@@ -35,7 +34,7 @@ class BoardController extends \yii\web\Controller {
         $ticketData = null;
         $columnData = null;
 
-        $userBoard = User::findIdentity(Yii::$app->getUser()->id)->board_id;
+        $userBoard = User::findIdentity(\Yii::$app->getUser()->id)->board_id;
         $board = Board::findOne($userBoard);
 
         $columnRecords = $board->getBoardColumns()->where('id > 0')->orderBy('display_order, id')->all();
@@ -52,8 +51,8 @@ class BoardController extends \yii\web\Controller {
                     'title' => $singleColumnTicket['title'],
                     'id' => $singleColumnTicket['id'],
                     'description' => $singleColumnTicket['description'],
-                    'user_id' => $singleColumnTicket['user_id'],
-                    'assignedName' => User::findOne($singleColumnTicket['user_id'])->username,
+                    'created_by' => $singleColumnTicket['created_by'],
+                    'assignedName' => User::findOne($singleColumnTicket['created_by'])->username,
                     'columnId' => $singleColumnTicket['column_id'],
                     'created_at' => $singleColumnTicket['created_at'],
                     'ticketOrder' => $singleColumnTicket['ticket_order'],

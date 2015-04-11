@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 foreach ($tickets as $ticket) {
     echo Html::beginTag('div', ['class' => 'ticket-widget-float']);
-    echo $this->render('../ticket/_ticketBlock', [
+    echo $this->render('@frontend/views/ticket/_ticketBlock', [
         'ticketRecord' => $ticket,
     ]);
     echo Html::endTag('div');

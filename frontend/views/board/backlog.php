@@ -6,5 +6,5 @@ BanTheCanAsset::register($this);
 /* @var $tickets common\models\Ticket */
 $this->params['breadcrumbs'][] = 'Backlog';
 
-echo $this->render('../ticket/_ticketList', ['tickets' => $tickets]);
+echo $this->render('@frontend/views/ticket/_ticketList', ['tickets' => $tickets]);
 ?>

@@ -92,12 +92,7 @@ BanTheCanAsset::register($this);
         </div>
     </footer>
 
-    <?php
-    $session = Yii::$app->session;
-    foreach ($session as $name => $value) {
-        echo "$name -> " . print_r($value, true) . "<br/>";
-    }
-    $this->endBody() ?>
+    <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

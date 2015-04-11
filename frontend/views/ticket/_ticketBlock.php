@@ -10,7 +10,7 @@ $ticketViewUrl = Url::to(['ticket/view', 'id' => $ticketRecord['id']]);
 ?>
 
     <div class="ticket-avatar">
-        <?php echo $this->render('../site/_userIcon', ['userId' => $ticketRecord['user_id']]);?>
+        <?php echo $this->render('@frontend/views/site/_userIcon', ['userId' => $ticketRecord['created_by']]);?>
     </div>
 
     <strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $ticketRecord['title']?></a></strong><br />

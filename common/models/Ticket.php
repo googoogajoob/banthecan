@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 
 /**
@@ -12,7 +13,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $id
  * @property integer $created_at
  * @property integer $updated_at
- * @property integer $user_id
+ * @property integer $created_by
+ * @property integer $updated_by
  * @property string $title
  * @property string $description
  * @property integer $column_id
@@ -58,6 +60,7 @@ class Ticket extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            BlameableBehavior::className(),
         ];
     }
 
@@ -67,8 +70,8 @@ class Ticket extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'title', 'column_id'], 'required'],
-            [['id', 'created_at', 'updated_at', 'user_id', 'column_id', 'ticket_order'], 'integer'],
+            [['title', 'column_id'], 'required'],
+            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order'], 'integer'],
             [['title', 'description'], 'string'],
             [['id'], 'unique']
         ];
@@ -83,7 +86,8 @@ class Ticket extends \yii\db\ActiveRecord
             'id' => 'ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'user_id' => 'User ID',
+            'created_by' => 'Created By',
+            'updated_by' => 'Updated By',
             'title' => 'Title',
             'description' => 'Description',
             'column_id' => 'Column ID',
@@ -104,7 +108,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
     /**

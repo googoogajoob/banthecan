@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 
 /**
@@ -12,6 +13,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $id
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $created_by
+ * @property integer $updated_by
  * @property string $title
  * @property string $description
  * @property integer $max_lanes
@@ -35,6 +38,7 @@ class Board extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            BlameableBehavior::className(),
         ];
     }
 
@@ -45,7 +49,7 @@ class Board extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'description', 'max_lanes'], 'required'],
-            [['id', 'created_at', 'updated_at', 'max_lanes'], 'integer'],
+            [['id', 'created_at', 'created_by', 'updated_by', 'updated_at', 'max_lanes'], 'integer'],
             [['title', 'description'], 'string']
         ];
     }
