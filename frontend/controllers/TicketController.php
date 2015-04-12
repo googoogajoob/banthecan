@@ -27,7 +27,7 @@ class TicketController extends Controller
     }
 
     /**
-     * Lists all Ticket models.
+     * Reorder .
      * @return mixed
      */
     public function actionReorder()
