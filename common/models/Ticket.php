@@ -138,7 +138,7 @@ class Ticket extends \yii\db\ActiveRecord
      * @return Boolean true = active, false = not active
      */
     public function isCompleted() {
-        return (bool)($this->getColumnId() < self::DEFAULT_COMPLETED_STATUS);
+        return (bool)($this->getColumnId() <= self::DEFAULT_COMPLETED_STATUS);
     }
 
     /**

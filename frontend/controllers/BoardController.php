@@ -28,6 +28,21 @@ class BoardController extends \yii\web\Controller {
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function actions() {
+
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
+    /**
+     * Default Action, shows active tickets in a KanBan Board
+     */
     public function actionIndex() {
 
         //initialize arrays, otherwise possible error in call to render, if they don't exist
@@ -72,14 +87,22 @@ class BoardController extends \yii\web\Controller {
         );
     }
 
+    /**
+     * Shows tickets in the Backlog
+     */
     public function actionBacklog() {
-        $tickets = ticket::findBacklog();
+        $session = \Yii::$app->session;
+        $currentBoard = $session->get('currentBoard');
+        $board = Board::findOne($currentBoard);
 
         return $this->render('backlog', [
-            'tickets' => $tickets,
+            'tickets' => $board->getBacklog(),
         ]);
     }
 
+    /**
+     * Shows completed tickets
+     */
     public function actionCompleted() {
         $tickets = ticket::findCompleted();
 
@@ -88,6 +111,9 @@ class BoardController extends \yii\web\Controller {
         ]);
     }
 
+    /**
+     * Allows the current user to select the active board from his/her board options
+     */
     public function actionSelect() {
         $userBoardId = explode(',', User::findOne(\Yii::$app->getUser()->id)->board_id);
 
@@ -110,6 +136,10 @@ class BoardController extends \yii\web\Controller {
         }
     }
 
+    /**
+     * Activates the Board for the current User. This means the selected board is made
+     * available globally via cookies and(or) sessions
+     */
     public function actionActivate() {
         $session = \Yii::$app->session;
         $request = \Yii::$app->request;

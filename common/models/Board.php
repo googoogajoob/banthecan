@@ -70,10 +70,47 @@ class Board extends \yii\db\ActiveRecord
     }
 
     /**
+     * Returns the Kanban Columns associated with this board
+     *
      * @return \yii\db\ActiveQuery
      */
-    public function getBoardColumns()
+    public function getColumns()
     {
         return $this->hasMany(Column::className(), ['board_id' => 'id']);
     }
+
+    /**
+     * Returns all Tickets in the backlog of this board
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBacklog()
+    {
+        return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
+            ->where(['column_id' => Ticket::DEFAULT_BACKLOG_STATUS])
+            ->orWhere(['column_id' => Ticket::ALTERNATE_BACKLOG_STATUS]);
+    }
+
+    /**
+     * Returns all active Tickets this board. Assigned to a column.
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActive()
+    {
+        return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
+            ->where('column_id > 0');
+    }
+
+    /**
+     * Returns all completed Tickets this board
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompleted()
+    {
+        return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
+            ->where('column_id < 0');
+    }
+
 }
