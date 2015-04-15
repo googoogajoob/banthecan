@@ -80,6 +80,18 @@ class Board extends \yii\db\ActiveRecord
     }
 
     /**
+     * Returns the current active board
+     *
+     * @return \yii\db\ActiveRecord
+     */
+    public static function getActiveboard()
+    {
+        $session = \Yii::$app->session;
+        $currentBoard = $session->get('currentBoardId');
+        return self::findOne($currentBoard);
+    }
+
+    /**
      * Returns all Tickets in the backlog of this board
      *
      * @return \yii\db\ActiveQuery
@@ -96,7 +108,7 @@ class Board extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getActive()
+    public function getActivetickets()
     {
         return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
             ->where('column_id > 0');

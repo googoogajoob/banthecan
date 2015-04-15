@@ -91,9 +91,7 @@ class BoardController extends \yii\web\Controller {
      * Shows tickets in the Backlog
      */
     public function actionBacklog() {
-        $session = \Yii::$app->session;
-        $currentBoard = $session->get('currentBoard');
-        $board = Board::findOne($currentBoard);
+        $board = Board::getActiveboard();
 
         return $this->render('backlog', [
             'tickets' => $board->getBacklog()->all(),
@@ -104,9 +102,7 @@ class BoardController extends \yii\web\Controller {
      * Shows completed tickets
      */
     public function actionCompleted() {
-        $session = \Yii::$app->session;
-        $currentBoard = $session->get('currentBoard');
-        $board = Board::findOne($currentBoard);
+        $board = Board::getActiveboard();
 
         return $this->render('completed', [
             'tickets' => $board->getCompleted()->all(),
@@ -146,7 +142,7 @@ class BoardController extends \yii\web\Controller {
         $session = \Yii::$app->session;
         $request = \Yii::$app->request;
         $activeBoardId = $request->get('id');
-        $session->set('currentBoard', $activeBoardId);
+        $session->set('currentBoardId', $activeBoardId);
         $boardTitle = Board::findOne($activeBoardId)->title;
         $session->setFlash('success', "Board activated: $boardTitle");
         $this->goHome();
