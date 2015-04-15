@@ -96,7 +96,7 @@ class BoardController extends \yii\web\Controller {
         $board = Board::findOne($currentBoard);
 
         return $this->render('backlog', [
-            'tickets' => $board->getBacklog(),
+            'tickets' => $board->getBacklog()->all(),
         ]);
     }
 
@@ -104,10 +104,12 @@ class BoardController extends \yii\web\Controller {
      * Shows completed tickets
      */
     public function actionCompleted() {
-        $tickets = ticket::findCompleted();
+        $session = \Yii::$app->session;
+        $currentBoard = $session->get('currentBoard');
+        $board = Board::findOne($currentBoard);
 
         return $this->render('completed', [
-            'tickets' => $tickets,
+            'tickets' => $board->getCompleted()->all(),
         ]);
     }
 
