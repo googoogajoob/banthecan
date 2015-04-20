@@ -71,18 +71,24 @@ class Column extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     *
+     * todo: as of 20-Apr-2015 this method is not used, perhaps it could be removed
+     *
+     * @return \yii\db\ActiveRecord
      */
     public function getBoard()
     {
-        return $this->hasOne(Board::className(), ['id' => 'board_id']);
+        return $this->hasOne(Board::className(), ['id' => 'board_id'])
+                    ->one();
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return \yii\db\ActiveRecord
      */
     public function getTickets()
     {
-        return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id']);
+        return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
+                    ->orderBy('ticket_order')
+                    ->all();
     }
 }

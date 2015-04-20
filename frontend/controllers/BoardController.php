@@ -44,47 +44,11 @@ class BoardController extends \yii\web\Controller {
      * Default Action, shows active tickets in a KanBan Board
      */
     public function actionIndex() {
-
-        //initialize arrays, otherwise possible error in call to render, if they don't exist
-        $ticketData = null;
-        $columnData = null;
-
-        $session = \Yii::$app->session;
-        $currentBoard = $session->get('currentBoard');
-        $board = Board::findOne($currentBoard);
-
-        $columnRecords = $board->getBoardColumns()->where('id > 0')->orderBy('display_order, id')->all();
-        foreach ($columnRecords as $singleColumnRecord) {
-            $columnData[] = [
-                'title' => $singleColumnRecord->title,
-                'attribute' => $singleColumnRecord->id,
-                'displayOrder' => $singleColumnRecord->display_order,
-            ];
-
-            $columnTickets = $singleColumnRecord->getTickets()->orderBy('column_id, ticket_order')->asArray()->all();
-            foreach ($columnTickets as $singleColumnTicket) {
-                $newTicketDataRecord = [
-                    'title' => $singleColumnTicket['title'],
-                    'id' => $singleColumnTicket['id'],
-                    'description' => $singleColumnTicket['description'],
-                    'created_by' => $singleColumnTicket['created_by'],
-                    'assignedName' => User::findOne($singleColumnTicket['created_by'])->username,
-                    'columnId' => $singleColumnTicket['column_id'],
-                    'created_at' => $singleColumnTicket['created_at'],
-                    'ticketOrder' => $singleColumnTicket['ticket_order'],
-                ];
-
-                $ticketData[]= $newTicketDataRecord;
-            }
-        }
+        $board = Board::getActiveboard();
 
         return $this->render('index', [
-                'boardTitle' => $board->title,
-                'boardDescription' => $board->description,
-                'columnData' => $columnData ? $columnData : [],
-                'ticketData' => $ticketData ? $ticketData : [],
-            ]
-        );
+            'board' => $board,
+        ]);
     }
 
     /**
@@ -94,7 +58,7 @@ class BoardController extends \yii\web\Controller {
         $board = Board::getActiveboard();
 
         return $this->render('backlog', [
-            'tickets' => $board->getBacklog()->all(),
+            'tickets' => $board->getBacklog(),
         ]);
     }
 
@@ -105,7 +69,7 @@ class BoardController extends \yii\web\Controller {
         $board = Board::getActiveboard();
 
         return $this->render('completed', [
-            'tickets' => $board->getCompleted()->all(),
+            'tickets' => $board->getCompleted(),
         ]);
     }
 

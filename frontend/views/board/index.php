@@ -10,17 +10,24 @@ $this->params['breadcrumbs'][] = 'KanBanBoard';
 ?>
 
 <div class="site-kanbanboard">
-    <h1><?= Html::encode($boardTitle) ?></h1>
-    <small><em><?= Html::encode($boardDescription) ?></em></small>
+    <h1><?= Html::encode($board->title) ?></h1>
+    <small><em><?= Html::encode($board->description) ?></em></small>
     <div id="info"></div>
 
     <?php
-    // Create HTML Div Element for each Ticket using $columnId as an index to the column
-    // Tickets are appended to one another and wrapped by a sortable div element
-    // This dive then becomes the contents of one table cell
-    // They need to be appended to one another as they are evaluated in the loop
+        //todo: this needs to be cleaned up, html::<methods> or something else that is really slick (elegant)
+        echo '<div>';
+            foreach($board->getColumns() as $column) {
+                echo '<div>';
+                    echo $column->title;
+                    foreach($column->getTickets() as $ticket) {
+                        echo '>' . $ticket->title . '(' . $ticket->created_by. '): ' . $ticket->description . '<br />';
+                    }
+                echo '</div>';
+            }
+        echo '</div>';
 
-    //initialize gridRow array
+/*    //initialize gridRow array
     foreach ($columnData as $column) {
         $gridRow[$column['attribute']] = [];
     }
@@ -90,7 +97,7 @@ $this->params['breadcrumbs'][] = 'KanBanBoard';
             'class' => 'table-striped',
         ],
         'columns' => $gridColumn,
-    ]);
+    ]); */
 
     ?>
 </div>
