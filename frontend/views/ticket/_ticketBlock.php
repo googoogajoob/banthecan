@@ -4,7 +4,7 @@ use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $ticketRecord common\models\Ticket */
+/* @var $ticket common\models\Ticket */
 
 $ticketViewUrl = Url::to(['ticket/view', 'id' => $ticket->id]);
 ?>

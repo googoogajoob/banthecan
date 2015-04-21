@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use Yii;
+use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 
@@ -88,7 +88,7 @@ class Board extends \yii\db\ActiveRecord
      */
     public static function getActiveboard()
     {
-        $session = \Yii::$app->session;
+        $session = Yii::$app->session;
         $currentBoard = $session->get('currentBoardId');
         return self::findOne($currentBoard);
     }

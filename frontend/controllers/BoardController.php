@@ -2,6 +2,7 @@
 
 namespace frontend\controllers; //namespace must be the first statement
 
+use yii;
 use common\models\Board;
 use yii\data\ActiveDataProvider;
 use common\models\User;
@@ -77,7 +78,7 @@ class BoardController extends \yii\web\Controller {
      * Allows the current user to select the active board from his/her board options
      */
     public function actionSelect() {
-        $userBoardId = explode(',', User::findOne(\Yii::$app->getUser()->id)->board_id);
+        $userBoardId = explode(',', User::findOne(Yii::$app->getUser()->id)->board_id);
 
         $userBoards = new ActiveDataProvider([
             'query' => Board::find()->where(['id' => $userBoardId]),
@@ -86,7 +87,7 @@ class BoardController extends \yii\web\Controller {
 
         if ($boardCount == 0) {
             // No Boards, log user out
-            \Yii::$app->user->logout();
+            Yii::$app->user->logout();
             return $this->render('noBoard');
         } elseif ($boardCount == 1) {
             // Only one board for user, activate it automatically
@@ -103,12 +104,13 @@ class BoardController extends \yii\web\Controller {
      * available globally via cookies and(or) sessions
      */
     public function actionActivate() {
-        $session = \Yii::$app->session;
-        $request = \Yii::$app->request;
+        $session = Yii::$app->session;
+        $request = Yii::$app->request;
         $activeBoardId = $request->get('id');
         $session->set('currentBoardId', $activeBoardId);
         $boardTitle = Board::findOne($activeBoardId)->title;
         $session->setFlash('success', "Board activated: $boardTitle");
+        Yii::$app->params['title'] = $boardTitle;
         $this->goHome();
     }
 }

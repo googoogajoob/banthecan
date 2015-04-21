@@ -14,19 +14,14 @@ $this->params['breadcrumbs'][] = 'KanBanBoard';
     <small><em><?= Html::encode($board->description) ?></em></small>
     <div id="info"></div>
 
-    <?php
-        //todo: this needs to be cleaned up, html::<methods> or something else that is really slick (elegant)
-        echo '<div>';
-            foreach($board->getColumns() as $column) {
-                echo '<div>';
-                    echo $column->title;
-                    foreach($column->getTickets() as $ticket) {
-                        echo '>' . $ticket->title . '(' . $ticket->created_by. '): ' . $ticket->description . '<br />';
-                    }
-                echo '</div>';
-            }
-        echo '</div>';
+    <div class="row">
+        <?php foreach($board->getColumns() as $column) {
+            echo $this->render('@frontend/views/board/_column', ['column' => $column]);
+        }
+        ?>
+    </div>
 
+    <?php
 /*    //initialize gridRow array
     foreach ($columnData as $column) {
         $gridRow[$column['attribute']] = [];
