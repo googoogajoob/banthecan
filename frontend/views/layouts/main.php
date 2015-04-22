@@ -55,7 +55,7 @@ $this->title = Board::getActiveboard()->title;
                     ['label' => 'Boards',
                         'items' => [
                             ['label' => 'Backlog', 'url' => ['/board/backlog']],
-                            ['label' => 'Board', 'url' => ['/board']],
+                            ['label' => 'Kanban', 'url' => ['/board']],
                             ['label' => 'Completed', 'url' => ['/board/completed']],
                         ],
                     ],

@@ -7,6 +7,9 @@ use yii\jui\Sortable;
 
 /* @var $this yii\web\View */
 $this->params['breadcrumbs'][] = 'KanBanBoard';
+
+// see http://stackoverflow.com/questions/5586558/jquery-ui-sortable-disable-update-function-before-receive
+// for info about triggering the sortable events
 ?>
 
 <div class="site-kanbanboard">
@@ -14,13 +17,11 @@ $this->params['breadcrumbs'][] = 'KanBanBoard';
     <small><em><?= Html::encode($board->description) ?></em></small>
     <div id="info"></div>
 
-
-    // see http://stackoverflow.com/questions/5586558/jquery-ui-sortable-disable-update-function-before-receive
-    // for info about triggering the sortable events
     <div class="row">
-        <?php foreach($board->getColumns() as $column) {
-            echo $this->render('@frontend/views/board/_column', ['column' => $column]);
-        }
+        <?php
+            foreach($board->getColumns() as $column) {
+                echo $this->render('@frontend/views/board/_column', ['column' => $column]);
+            }
         ?>
     </div>
 

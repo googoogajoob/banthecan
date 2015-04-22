@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Html;
 use yii\jui\Sortable;
 
 /* @var $this yii\web\View */
@@ -7,26 +8,38 @@ use yii\jui\Sortable;
 
 ?>
 
-<div class="col-xs-2">
+<!-- div class="col-xs-2" -->
 
-    <h4> <?php echo $column->title; ?> </h4>
+    <!-- h4> <?php echo $column->title; ?> </h4 -->
 
     <?php
-        $columnItems = '';
+        //$columnHeader = html::beginTag('h4') . $column->title . html::endTag('h4');
+
+        // Get the HTML of all ticket content for this column concatenated into one string
+        $columnItems = [];
         foreach($column->getTickets() as $ticket) {
-            $columnItems .= $this->render('@frontend/views/ticket/_ticketBlock',[
+            $content = $this->render('@frontend/views/ticket/_ticketBlock',[
                 'ticket' => $ticket,
-                'divClass' => 'ticket-widget'
+                'divWrapper' => false,
             ]);
+            $options = [
+                'id' => 'ticketwidget_'. $ticket->id,
+                'tag' => 'div',
+                'class' => 'ticket-widget',
+            ];
+            $columnItems[] = [
+                'content' => $content,
+                'options' => $options,
+            ];
         }
 
-        $displayOrder = $column->display_order;
+        //create the column as a sortable widget
         echo Sortable::widget([
             'items' => $columnItems,
-            'options' => ['id' => 'boardColumn_' . $cIndex, 'tag' => 'div', 'class' => 'board-column'],
+            'options' => ['id' => 'boardColumn_' . $column->id, 'tag' => 'div', 'class' => 'col-xs-2'],
             'clientOptions' => [
                 'cursor' => 'move',
-                'connectWith' => ($displayOrder != 4 ? '#boardColumn_' . ($displayOrder + 1) : '#boardColumn_1'),
+                'connectWith' => ($column->display_order != 4 ? '#boardColumn_' . ($column->display_order + 1) : '#boardColumn_1'),
             ],
             'clientEvents' => [
                 'receive' => 'function (event, ui) {
@@ -41,5 +54,5 @@ use yii\jui\Sortable;
         ]);
     ?>
 
-</div>
+<!-- /div -->
 
