@@ -14,6 +14,9 @@ $this->params['breadcrumbs'][] = 'KanBanBoard';
     <small><em><?= Html::encode($board->description) ?></em></small>
     <div id="info"></div>
 
+
+    // see http://stackoverflow.com/questions/5586558/jquery-ui-sortable-disable-update-function-before-receive
+    // for info about triggering the sortable events
     <div class="row">
         <?php foreach($board->getColumns() as $column) {
             echo $this->render('@frontend/views/board/_column', ['column' => $column]);
@@ -22,7 +25,8 @@ $this->params['breadcrumbs'][] = 'KanBanBoard';
     </div>
 
     <?php
-/*    //initialize gridRow array
+    if (false) { // Code not needed, I just want to see it formatted in the editor as PHP
+    //initialize gridRow array
     foreach ($columnData as $column) {
         $gridRow[$column['attribute']] = [];
     }
@@ -92,7 +96,8 @@ $this->params['breadcrumbs'][] = 'KanBanBoard';
             'class' => 'table-striped',
         ],
         'columns' => $gridColumn,
-    ]); */
+    ]);
+    }
 
     ?>
 </div>

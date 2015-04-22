@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use yii\jui\Sortable;
 
 /* @var $this yii\web\View */
 /* @var $column common\models\Column */
@@ -8,15 +8,38 @@ use yii\helpers\Html;
 ?>
 
 <div class="col-xs-2">
+
+    <h4> <?php echo $column->title; ?> </h4>
+
     <?php
-        echo Html::beginTag('h4');
-        echo $column->title;
-        echo Html::endTag('h4');
+        $columnItems = '';
         foreach($column->getTickets() as $ticket) {
-            echo Html::beginTag('div', ['class' => 'ticket-widget']);
-            echo $this->render('@frontend/views/ticket/_ticketBlock', ['ticket' => $ticket]);
-            echo Html::endTag('div');
+            $columnItems .= $this->render('@frontend/views/ticket/_ticketBlock',[
+                'ticket' => $ticket,
+                'divClass' => 'ticket-widget'
+            ]);
         }
+
+        $displayOrder = $column->display_order;
+        echo Sortable::widget([
+            'items' => $columnItems,
+            'options' => ['id' => 'boardColumn_' . $cIndex, 'tag' => 'div', 'class' => 'board-column'],
+            'clientOptions' => [
+                'cursor' => 'move',
+                'connectWith' => ($displayOrder != 4 ? '#boardColumn_' . ($displayOrder + 1) : '#boardColumn_1'),
+            ],
+            'clientEvents' => [
+                'receive' => 'function (event, ui) {
+                    columnTicketOrder(event, ui, this);
+                }',
+                'update' => 'function (event, ui) {
+                    if (!ui.sender && this === ui.item.parent()[0]) {
+                       columnTicketOrder(event, ui, this);
+                    }
+                }',
+            ],
+        ]);
     ?>
+
 </div>
 

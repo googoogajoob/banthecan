@@ -10,18 +10,6 @@
     float: left;
 }
 
-/*.ticket {
-    width: 188px;
-    height: 100px;
-    background-color: #fff;
-    border-style: solid;
-    border-color: blue;
-    border-width: 1px;
-    padding: 5px;
-    margin-bottom: 4px;
-    float: left;
-} */
-
 .ticket-widget, .ticket-widget-float {
     background-color: #cdebff;
     width: 180px;
