@@ -6,15 +6,26 @@ use yii\jui\Sortable;
 /* @var $this yii\web\View */
 /* @var $column common\models\Column */
 
+/**
+ * Erkenntnisblitz: I was having difficulty using the Bootstrap grid features to arrange the columns
+ * the way I wanted. I need different margins, padding etc. but why should I change the Bootstrap classes?
+ * The it dawned on me. I don't need to pack everything I'm doing directly in the column grid Div elements.
+ * The Collum Gird Div Elements can be used as a skeleton upon which (or within which) I place my column stuff
+ * i.e. other Divs. This way I can let Bootstrap do it's responsive stuff, wrapping etc. acting upon the
+ * outer layers of Div elements.My stuff on the inside is just along for the ride and does'nt really care
+ * what Bootstrap is doing. It's almost like each grid element is providing me a fresh new "canvas" from
+ * which I can "paint" the stuff that needs to be there.
+ */
+
+defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
+
 ?>
 
-<!-- div class="col-xs-2" -->
+<div class="col-xs-2">
 
-    <!-- h4> <?php echo $column->title; ?> </h4 -->
+    <h4 class="board-column-title"> <?php echo $column->title; ?> </h4>
 
     <?php
-        //$columnHeader = html::beginTag('h4') . $column->title . html::endTag('h4');
-
         // Get the HTML of all ticket content for this column concatenated into one string
         $columnItems = [];
         foreach($column->getTickets() as $ticket) {
@@ -33,15 +44,32 @@ use yii\jui\Sortable;
             ];
         }
 
-        //create the column as a sortable widget
+        // create the column as a sortable widget container
+        // --------------------------------------------------------
+        // Read the serialized list of Column Ids and create for it
+        // a comma separated list of the ID's with COLUMN_ID_PREFIX prepended to the ID
+        if (trim($column->receiver) <> '') {
+            $connectedColumns = explode(',', $column->receiver);
+            $prefix = '#' . COLUMN_ID_PREFIX;
+            $separator = ', #' . COLUMN_ID_PREFIX;
+            $connectedColumns = $prefix . implode($separator, $connectedColumns);
+        } else {
+            $connectedColumns = '';
+        }
         echo Sortable::widget([
             'items' => $columnItems,
-            'options' => ['id' => 'boardColumn_' . $column->id, 'tag' => 'div', 'class' => 'col-xs-2'],
+            'options' => ['id' => COLUMN_ID_PREFIX . $column->id, 'tag' => 'div', 'class' => 'board-column'],
             'clientOptions' => [
                 'cursor' => 'move',
-                'connectWith' => ($column->display_order != 4 ? '#boardColumn_' . ($column->display_order + 1) : '#boardColumn_1'),
+                'connectWith' => $connectedColumns,
             ],
             'clientEvents' => [
+                'activate' => 'function (event, ui) {
+                    showColumnReceiver(event, ui, this);
+                }',
+                'deactivate' => 'function (event, ui) {
+                    hideColumnReceiver(event, ui, this);
+                }',
                 'receive' => 'function (event, ui) {
                     columnTicketOrder(event, ui, this);
                 }',
@@ -54,5 +82,5 @@ use yii\jui\Sortable;
         ]);
     ?>
 
-<!-- /div -->
+</div>
 

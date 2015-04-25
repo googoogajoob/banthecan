@@ -6,10 +6,13 @@ use yii;
 use common\models\Board;
 use yii\data\ActiveDataProvider;
 use common\models\User;
-use common\models\Ticket;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
+
 
 class BoardController extends \yii\web\Controller {
+
+    const BOARD_NOT_FOUND = 'Active Board Not Found';
 
     /**
      * @inheritdoc
@@ -45,7 +48,9 @@ class BoardController extends \yii\web\Controller {
      * Default Action, shows active tickets in a KanBan Board
      */
     public function actionIndex() {
-        $board = Board::getActiveboard();
+        if (!$board = Board::getActiveboard()) {
+            throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
+        }
 
         return $this->render('index', [
             'board' => $board,
@@ -56,7 +61,9 @@ class BoardController extends \yii\web\Controller {
      * Shows tickets in the Backlog
      */
     public function actionBacklog() {
-        $board = Board::getActiveboard();
+        if (!$board = Board::getActiveboard()) {
+            throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
+        }
 
         return $this->render('backlog', [
             'tickets' => $board->getBacklog(),
@@ -67,7 +74,9 @@ class BoardController extends \yii\web\Controller {
      * Shows completed tickets
      */
     public function actionCompleted() {
-        $board = Board::getActiveboard();
+        if (!$board = Board::getActiveboard()) {
+            throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
+        }
 
         return $this->render('completed', [
             'tickets' => $board->getCompleted(),

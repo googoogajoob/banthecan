@@ -40,7 +40,10 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
 
     <?php echo Yii::$app->formatter->asDate($ticket->created_at, 'long'); ?>
     <br /><br />
-    <?php echo StringHelper::truncate($ticket->description, 100, ' ...'); ?>
+    <?php
+        //echo StringHelper::truncate($ticket->description, 100, ' ...');
+        echo $ticket->description;
+    ?>
 
 <?php
     // Wrap Contents in a div only when $divWrapper is true, otherwise only contents are returned

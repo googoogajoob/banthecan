@@ -5,6 +5,7 @@ namespace common\models;
 use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use yii\web\NotFoundHttpException;
 
 
 /**
@@ -109,7 +110,7 @@ class Board extends \yii\db\ActiveRecord
     /**
      * Returns all active Tickets this board. Assigned to a column.
      *
-     * todo: as of 20-Apr-2015 this method is not used, perhaps it should be removed
+     * todo: as of 20-Apr-2015 this method is not used, perhaps it should be removed, verify beforehand
      *
      * @return \yii\db\ActiveRecord
      */
