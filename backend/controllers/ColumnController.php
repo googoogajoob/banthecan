@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\BoardColumn;
+use common\models\Column;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * BoardColumnController implements the CRUD actions for BoardColumn model.
  */
-class BoardcolumnController extends Controller
+class ColumnController extends Controller
 {
     public function behaviors()
     {
@@ -33,7 +33,7 @@ class BoardcolumnController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => BoardColumn::find(),
+            'query' => Column::find(),
         ]);
 
         return $this->render('index', [
@@ -60,7 +60,7 @@ class BoardcolumnController extends Controller
      */
     public function actionCreate()
     {
-        $model = new BoardColumn();
+        $model = new Column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -104,7 +104,7 @@ class BoardcolumnController extends Controller
     }
 
     /**
-     * Finds the BoardColumn model based on its primary key value.
+     * Finds the Column model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
      * @return BoardColumn the loaded model
@@ -112,7 +112,7 @@ class BoardcolumnController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = BoardColumn::findOne($id)) !== null) {
+        if (($model = Column::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
