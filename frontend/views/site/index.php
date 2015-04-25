@@ -1,6 +1,5 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = 'Ban the Can: FeG-Do GL';
 ?>
 <div class="site-index">
 

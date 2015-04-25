@@ -1,33 +1,41 @@
 .board-column {
-    width: 200px;
-    min-height: 230px;
-    background-color: lightgray;
+    min-height: 204px;
+    background-color: #eee;
     border-style: solid;
-    border-color: black;
-    border-width: 1px;
-    margin: 10px;
-    padding: 5px;
-    float: left;
+    border-color: #ddd;
+    border-width: 2px;
+    margin: 0 2px;
+    padding: 0 3px;
 }
 
-/*.ticket {
-    width: 188px;
-    height: 100px;
-    background-color: #fff;
-    border-style: solid;
-    border-color: blue;
-    border-width: 1px;
-    padding: 5px;
-    margin-bottom: 4px;
-    float: left;
-} */
+.board-column-receive {
+    min-height: 204px;
+    background-color: #eee;
+    border-style: dashed;
+    border-color: red;
+    border-width: 2px;
+    margin: 0 2px;
+    padding: 0 3px;
+}
+
+.board-column-title {
+    padding-left: 5px;
+    padding-right: 5px;
+    /* These three settings can be accomplished with the Bootstrap Mixin text-overflow*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 .ticket-widget, .ticket-widget-float {
-    background-color: #cdebff;
-    width: 180px;
-    height: 220px;
-    padding: 4px;
-    margin: 8px 4px;
+    background-color: #9ec4f2;
+    height: 200px;
+    padding: 2px 3px;
+    margin: 4px 0 4px 0;
+    /* These three settings can be accomplished with the Bootstrap Mixin text-overflow*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
 }
 
 .ticket-widget-float {
@@ -53,7 +61,14 @@
     clear: both;
 }
 
+/* ### BOOT STRAP OVERRIDES ### */
+
 /* makes Bootstrap Menus dropdown on Hover */
 ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;
+}
+
+/* override dropdown menu width */
+.dropdown-menu {
+    min-width: 80px;
 }

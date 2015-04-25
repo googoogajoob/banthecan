@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 
 /**
@@ -12,6 +13,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $id
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $created_by
+ * @property integer $updated_by
  * @property integer $board_id
  * @property string  $title
  * @property integer $display_order
@@ -19,14 +22,14 @@ use yii\behaviors\TimestampBehavior;
  * @property Board $board
  * @property Ticket[] $tickets
  */
-class BoardColumn extends \yii\db\ActiveRecord
+class Column extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'board_column';
+        return 'column';
     }
 
     /**
@@ -36,6 +39,7 @@ class BoardColumn extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            BlameableBehavior::className(),
         ];
     }
 
@@ -46,7 +50,7 @@ class BoardColumn extends \yii\db\ActiveRecord
     {
         return [
             [['board_id', 'name'], 'required'],
-            [['id', 'created_at', 'updated_at', 'board_id', 'display_order'], 'integer'],
+            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'board_id', 'display_order'], 'integer'],
             [['title'], 'string']
         ];
     }
@@ -67,18 +71,24 @@ class BoardColumn extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     *
+     * todo: as of 20-Apr-2015 this method is not used, perhaps it could be removed
+     *
+     * @return \yii\db\ActiveRecord
      */
     public function getBoard()
     {
-        return $this->hasOne(Board::className(), ['id' => 'board_id']);
+        return $this->hasOne(Board::className(), ['id' => 'board_id'])
+                    ->one();
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return \yii\db\ActiveRecord
      */
     public function getTickets()
     {
-        return $this->hasMany(Ticket::className(), ['column_id' => 'id']);
+        return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
+                    ->orderBy('ticket_order')
+                    ->all();
     }
 }

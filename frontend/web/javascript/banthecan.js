@@ -26,3 +26,11 @@ function columnTicketOrder(event, ui, rthis) {
         }
     });
 }
+
+function showColumnReceiver(event, ui, rthis) {
+    $(rthis).addClass("board-column-receive");
+}
+
+function hideColumnReceiver(event, ui, rthis) {
+    $(rthis).removeClass("board-column-receive");
+}

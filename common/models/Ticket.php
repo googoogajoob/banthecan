@@ -2,8 +2,9 @@
 
 namespace common\models;
 
-use Yii;
+//use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 
 /**
@@ -12,10 +13,12 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $id
  * @property integer $created_at
  * @property integer $updated_at
- * @property integer $user_id
+ * @property integer $created_by
+ * @property integer $updated_by
  * @property string $title
  * @property string $description
  * @property integer $column_id
+ * @property integer $board_id
  *
  * @property BoardColumn $column
  */
@@ -58,6 +61,7 @@ class Ticket extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            BlameableBehavior::className(),
         ];
     }
 
@@ -67,8 +71,8 @@ class Ticket extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'title', 'column_id'], 'required'],
-            [['id', 'created_at', 'updated_at', 'user_id', 'column_id', 'ticket_order'], 'integer'],
+            [['title', 'column_id'], 'required'],
+            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order'], 'integer'],
             [['title', 'description'], 'string'],
             [['id'], 'unique']
         ];
@@ -83,10 +87,12 @@ class Ticket extends \yii\db\ActiveRecord
             'id' => 'ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'user_id' => 'User ID',
+            'created_by' => 'Created By',
+            'updated_by' => 'Updated By',
             'title' => 'Title',
             'description' => 'Description',
             'column_id' => 'Column ID',
+            'board_id' => 'Board ID',
             'ticket_order' => 'Ticket Order',
         ];
     }
@@ -104,7 +110,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
     /**
@@ -132,7 +138,7 @@ class Ticket extends \yii\db\ActiveRecord
      * @return Boolean true = active, false = not active
      */
     public function isCompleted() {
-        return (bool)($this->getColumnId() < self::DEFAULT_COMPLETED_STATUS);
+        return (bool)($this->getColumnId() <= self::DEFAULT_COMPLETED_STATUS);
     }
 
     /**
@@ -166,7 +172,7 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Sets the Status of the Ticket to be on the Board, The Default Board column, start position is used
+     * Sets the Status of the Ticket to be on the Kanban Board, The Default Board column,start position is used
      *
      * @return $this common\models\ticket
      */
@@ -193,7 +199,16 @@ class Ticket extends \yii\db\ActiveRecord
      * @return array|ActiveRecord[] the query results.
      */
     public function findBacklog() {
-        return Ticket::find()->where(['column_id' => 0])->orWhere(['column_id' => null])->asArray()->orderBy(['updated_at' => SORT_DESC])->all();
+        $session = \Yii::$app->session;
+        $currentBoard = $session->get('currentBoard');
+
+        return Ticket::find()
+            ->where(['column_id' => 0])
+            ->orWhere(['column_id' => null])
+            ->andWhere(['board_id' => $currentBoard])
+            ->asArray()
+            ->orderBy(['updated_at' => SORT_DESC])
+            ->all();
     }
 
     /**
@@ -202,6 +217,14 @@ class Ticket extends \yii\db\ActiveRecord
      * @return array|ActiveRecord[] the query results.
      */
     public function findCompleted() {
-        return Ticket::find()->where(['<', 'column_id', 0])->asArray()->orderBy(['updated_at' => SORT_DESC])->all();
+        $session = \Yii::$app->session;
+        $currentBoard = $session->get('currentBoard');
+
+        return Ticket::find()
+            ->where(['<', 'column_id', 0])
+            ->andWhere(['board_id' => $currentBoard])
+            ->asArray()
+            ->orderBy(['updated_at' => SORT_DESC])
+            ->all();
     }
 }
