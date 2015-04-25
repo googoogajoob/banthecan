@@ -2,13 +2,17 @@
 
 namespace frontend\controllers; //namespace must be the first statement
 
+use yii;
 use common\models\Board;
 use yii\data\ActiveDataProvider;
 use common\models\User;
-use common\models\Ticket;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
+
 
 class BoardController extends \yii\web\Controller {
+
+    const BOARD_NOT_FOUND = 'Active Board Not Found';
 
     /**
      * @inheritdoc
@@ -28,68 +32,62 @@ class BoardController extends \yii\web\Controller {
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function actions() {
+
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
+    /**
+     * Default Action, shows active tickets in a KanBan Board
+     */
     public function actionIndex() {
-
-        //initialize arrays, otherwise possible error in call to render, if they don't exist
-        $ticketData = null;
-        $columnData = null;
-
-        $session = \Yii::$app->session;
-        $currentBoard = $session->get('currentBoard');
-        $board = Board::findOne($currentBoard);
-
-        $columnRecords = $board->getBoardColumns()->where('id > 0')->orderBy('display_order, id')->all();
-        foreach ($columnRecords as $singleColumnRecord) {
-            $columnData[] = [
-                'title' => $singleColumnRecord->title,
-                'attribute' => $singleColumnRecord->id,
-                'displayOrder' => $singleColumnRecord->display_order,
-            ];
-
-            $columnTickets = $singleColumnRecord->getTickets()->orderBy('column_id, ticket_order')->asArray()->all();
-            foreach ($columnTickets as $singleColumnTicket) {
-                $newTicketDataRecord = [
-                    'title' => $singleColumnTicket['title'],
-                    'id' => $singleColumnTicket['id'],
-                    'description' => $singleColumnTicket['description'],
-                    'created_by' => $singleColumnTicket['created_by'],
-                    'assignedName' => User::findOne($singleColumnTicket['created_by'])->username,
-                    'columnId' => $singleColumnTicket['column_id'],
-                    'created_at' => $singleColumnTicket['created_at'],
-                    'ticketOrder' => $singleColumnTicket['ticket_order'],
-                ];
-
-                $ticketData[]= $newTicketDataRecord;
-            }
+        if (!$board = Board::getActiveboard()) {
+            throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
         }
 
         return $this->render('index', [
-                'boardTitle' => $board->title,
-                'boardDescription' => $board->description,
-                'columnData' => $columnData ? $columnData : [],
-                'ticketData' => $ticketData ? $ticketData : [],
-            ]
-        );
+            'board' => $board,
+        ]);
     }
 
+    /**
+     * Shows tickets in the Backlog
+     */
     public function actionBacklog() {
-        $tickets = ticket::findBacklog();
+        if (!$board = Board::getActiveboard()) {
+            throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
+        }
 
         return $this->render('backlog', [
-            'tickets' => $tickets,
+            'tickets' => $board->getBacklog(),
         ]);
     }
 
+    /**
+     * Shows completed tickets
+     */
     public function actionCompleted() {
-        $tickets = ticket::findCompleted();
+        if (!$board = Board::getActiveboard()) {
+            throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
+        }
 
         return $this->render('completed', [
-            'tickets' => $tickets,
+            'tickets' => $board->getCompleted(),
         ]);
     }
 
+    /**
+     * Allows the current user to select the active board from his/her board options
+     */
     public function actionSelect() {
-        $userBoardId = explode(',', User::findOne(\Yii::$app->getUser()->id)->board_id);
+        $userBoardId = explode(',', User::findOne(Yii::$app->getUser()->id)->board_id);
 
         $userBoards = new ActiveDataProvider([
             'query' => Board::find()->where(['id' => $userBoardId]),
@@ -98,7 +96,7 @@ class BoardController extends \yii\web\Controller {
 
         if ($boardCount == 0) {
             // No Boards, log user out
-            \Yii::$app->user->logout();
+            Yii::$app->user->logout();
             return $this->render('noBoard');
         } elseif ($boardCount == 1) {
             // Only one board for user, activate it automatically
@@ -110,13 +108,18 @@ class BoardController extends \yii\web\Controller {
         }
     }
 
+    /**
+     * Activates the Board for the current User. This means the selected board is made
+     * available globally via cookies and(or) sessions
+     */
     public function actionActivate() {
-        $session = \Yii::$app->session;
-        $request = \Yii::$app->request;
+        $session = Yii::$app->session;
+        $request = Yii::$app->request;
         $activeBoardId = $request->get('id');
-        $session->set('currentBoard', $activeBoardId);
+        $session->set('currentBoardId', $activeBoardId);
         $boardTitle = Board::findOne($activeBoardId)->title;
         $session->setFlash('success', "Board activated: $boardTitle");
+        Yii::$app->params['title'] = $boardTitle;
         $this->goHome();
     }
 }

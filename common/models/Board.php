@@ -2,9 +2,10 @@
 
 namespace common\models;
 
-use Yii;
+use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use yii\web\NotFoundHttpException;
 
 
 /**
@@ -70,10 +71,66 @@ class Board extends \yii\db\ActiveRecord
     }
 
     /**
+     * Returns the Kanban Columns associated with this board
+     *
      * @return \yii\db\ActiveQuery
      */
-    public function getBoardColumns()
+    public function getColumns()
     {
-        return $this->hasMany(Column::className(), ['board_id' => 'id']);
+        return $this->hasMany(Column::className(), ['board_id' => 'id'])
+            ->orderBy('display_order')
+            ->all();
     }
+
+    /**
+     * Returns the current active board
+     *
+     * @return \yii\db\ActiveRecord
+     */
+    public static function getActiveboard()
+    {
+        $session = Yii::$app->session;
+        $currentBoard = $session->get('currentBoardId');
+        return self::findOne($currentBoard);
+    }
+
+    /**
+     * Returns all Tickets in the backlog of this board
+     *
+     * @return \yii\db\ActiveRecord
+     */
+    public function getBacklog()
+    {
+        return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
+            ->where(['column_id' => Ticket::DEFAULT_BACKLOG_STATUS])
+            ->orWhere(['column_id' => Ticket::ALTERNATE_BACKLOG_STATUS])
+            ->all();
+    }
+
+    /**
+     * Returns all active Tickets this board. Assigned to a column.
+     *
+     * todo: as of 20-Apr-2015 this method is not used, perhaps it should be removed, verify beforehand
+     *
+     * @return \yii\db\ActiveRecord
+     */
+    public function getActiveTickets()
+    {
+        return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
+            ->where('column_id > 0')
+            ->all();
+    }
+
+    /**
+     * Returns all completed Tickets this board
+     *
+     * @return \yii\db\ActiveRecord
+     */
+    public function getCompleted()
+    {
+        return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
+            ->where('column_id < 0')
+            ->all();
+    }
+
 }

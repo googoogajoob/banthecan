@@ -1,17 +1,19 @@
 <?php
 /*
- * This view is a partial which is used by backlog and Completed to
- * It shows Ticket Widgets Free Floating not contained within a column as on the KanBanBoard
+ * This view is a partial which is used by backlog and Completed.
+ * It shows Ticket Widgets Free Floating Ticket Widgets
+ * They are not contained within a column DIV element as with the KanBan Board
+ * But are intended to occupy the entire screen or at least a large block area.
  */
+
 use yii\helpers\Html;
 
 /* @var $tickets common\models\Ticket */
 
 foreach ($tickets as $ticket) {
-    echo Html::beginTag('div', ['class' => 'ticket-widget-float']);
     echo $this->render('@frontend/views/ticket/_ticketBlock', [
-        'ticketRecord' => $ticket,
+        'ticket' => $ticket,
+        'divClass' => 'ticket-widget-float',
     ]);
-    echo Html::endTag('div');
 }
 ?>

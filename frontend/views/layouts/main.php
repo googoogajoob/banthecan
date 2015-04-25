@@ -1,4 +1,6 @@
 <?php
+
+use yii;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -6,12 +8,16 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
 use frontend\assets\BanTheCanAsset;
+use common\models\Board;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
 AppAsset::register($this);
 BanTheCanAsset::register($this);
+
+$this->title = Board::getActiveboard()->title;
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -20,7 +26,7 @@ BanTheCanAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title>Ban the Can: <?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -28,7 +34,7 @@ BanTheCanAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'Ban the Can - FRONTEND',
+                'brandLabel' => $this->title,
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
@@ -49,7 +55,7 @@ BanTheCanAsset::register($this);
                     ['label' => 'Boards',
                         'items' => [
                             ['label' => 'Backlog', 'url' => ['/board/backlog']],
-                            ['label' => 'Board', 'url' => ['/board']],
+                            ['label' => 'Kanban', 'url' => ['/board']],
                             ['label' => 'Completed', 'url' => ['/board/completed']],
                         ],
                     ],
@@ -77,11 +83,11 @@ BanTheCanAsset::register($this);
         ?>
 
         <div class="container">
-        <?php echo Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?php echo Alert::widget(); ?>
-        <?php echo $content ?>
+            <?php echo Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?php echo Alert::widget(); ?>
+            <?php echo $content ?>
         </div>
     </div>
 
