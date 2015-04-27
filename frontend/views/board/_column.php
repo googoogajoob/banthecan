@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\jui\Sortable;
 
 /* @var $this yii\web\View */
@@ -10,7 +9,7 @@ use yii\jui\Sortable;
  * Erkenntnisblitz: I was having difficulty using the Bootstrap grid features to arrange the columns
  * the way I wanted. I need different margins, padding etc. but why should I change the Bootstrap classes?
  * The it dawned on me. I don't need to pack everything I'm doing directly in the column grid Div elements.
- * The Collum Gird Div Elements can be used as a skeleton upon which (or within which) I place my column stuff
+ * The Column Gird Div Elements can be used as a skeleton upon which (or within which) I place my column stuff
  * i.e. other Divs. This way I can let Bootstrap do it's responsive stuff, wrapping etc. acting upon the
  * outer layers of Div elements.My stuff on the inside is just along for the ride and does'nt really care
  * what Bootstrap is doing. It's almost like each grid element is providing me a fresh new "canvas" from

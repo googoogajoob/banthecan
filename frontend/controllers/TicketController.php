@@ -7,6 +7,7 @@ use common\models\Ticket;
 use common\models\TicketSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\MethodNotAllowedHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -27,8 +28,9 @@ class TicketController extends Controller
     }
 
     /**
-     * Reorder .
+     * Reorder the tickets of one column per ajax
      * @return mixed
+     * @throws MethodNotAllowedHttpException (405) when not called via ajax
      */
     public function actionReorder()
     {
@@ -45,7 +47,7 @@ class TicketController extends Controller
                 }
             }
         } else {
-            throw new \yii\web\MethodNotAllowedHttpException;
+            throw new MethodNotAllowedHttpException;
         }
     }
 

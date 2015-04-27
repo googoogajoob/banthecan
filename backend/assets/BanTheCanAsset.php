@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace frontend\assets;
+namespace backend\assets;
 
 use yii\web\AssetBundle;
 
@@ -18,10 +18,9 @@ class BanTheCanAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/banthecan.css',
     ];
     public $js = [
-        'javascript/ticketReorder.js',
+        'javascript/columnReorder.js',
     ];
     public $depends = [
     ];

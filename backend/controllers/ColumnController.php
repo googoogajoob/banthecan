@@ -7,6 +7,7 @@ use common\models\Column;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\MethodNotAllowedHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -24,6 +25,30 @@ class ColumnController extends Controller
                 ],
             ],
         ];
+    }
+
+    /**
+     * Reorder the columns display order per ajax
+     * @return mixed
+     * @throws MethodNotAllowedHttpException (405) when not called via ajax
+     */
+    public function actionReorder()
+    {
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            $displayOrder = $request->post('displayOrder');
+            $newColumnOrder = 1;
+            foreach ($displayOrder as $displayOrderKey => $columnId) {
+                $column = Column::findOne($columnId);
+                $column->display_order = $newColumnOrder;
+                if ($column->update() === false) {
+                    yii::error("Ticket Reordering Error: Column:$columnId, Ticket:$ticketId, Order:$ticketOrderKey");
+                }
+                $newColumnOrder++;
+            }
+        } else {
+            throw new MethodNotAllowedHttpException;
+        }
     }
 
     /**

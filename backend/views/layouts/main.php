@@ -1,5 +1,6 @@
 <?php
 use backend\assets\AppAsset;
+use backend\assets\BanTheCanAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -9,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $content string */
 
 AppAsset::register($this);
+BanTheCanAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
