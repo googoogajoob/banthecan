@@ -16,9 +16,9 @@ function columnOrder(event, ui, rthis) {
         data: {
             'displayOrder': displayOrder
         },
-        success: function(){
+        /*success: function(){
          alert("Column Order Update SUCCESS");
-        },
+        },*/
         error: function(jqXHR, textStatus, errorThrown){
             alert("Column Order Update Failure:" + textStatus + ':' + errorThrown);
         }

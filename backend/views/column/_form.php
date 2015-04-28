@@ -18,11 +18,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'updated_at')->textInput() ?>
 
+    <?= $form->field($model, 'created_by')->textInput() ?>
+
+    <?= $form->field($model, 'updated_by')->textInput() ?>
+
     <?= $form->field($model, 'board_id')->textInput() ?>
 
     <?= $form->field($model, 'title')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'display_order')->textInput() ?>
+
+    <?= $form->field($model, 'receiver')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

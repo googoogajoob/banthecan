@@ -41,6 +41,8 @@ class ColumnController extends Controller
             foreach ($displayOrder as $displayOrderKey => $columnId) {
                 $column = Column::findOne($columnId);
                 $column->display_order = $newColumnOrder;
+                //$junk = $column->name;
+                //$column->name = $junk;
                 if ($column->update() === false) {
                     yii::error("Ticket Reordering Error: Column:$columnId, Ticket:$ticketId, Order:$ticketOrderKey");
                 }
@@ -58,7 +60,8 @@ class ColumnController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Column::find(),
+            'query' => Column::find()->orderBy('display_order'),
+            'sort' => false,
         ]);
 
         return $this->render('index', [

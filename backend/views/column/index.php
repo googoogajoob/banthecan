@@ -25,14 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
             return ['id' => 'row_' . $key, 'display-order' => $model->display_order];
         },
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'updated_at',
-            'board_id',
             'title:ntext',
-            'display_order',
-
+            'receiver',
+            'board_id',
+            'updated_at:datetime:Updated',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]);
