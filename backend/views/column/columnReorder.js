@@ -24,3 +24,16 @@ function columnOrder(event, ui, rthis) {
         }
     });
 }
+
+jQuery("#sort > tbody").on("sortupdate", function (event, ui) {
+    columnOrder(event, ui, this);
+});
+
+var fixHelper = function(e, ui) {
+    ui.children().each(function() {
+        $(this).width($(this).width());
+    });
+    return ui;
+};
+
+jQuery("#sort > tbody").sortable({helper: fixHelper}).disableSelection();

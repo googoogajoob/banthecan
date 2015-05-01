@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace backend\assets;
+namespace frontend\assets;
 
 use yii\web\AssetBundle;
 
@@ -13,14 +13,13 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class BanTheCanAsset extends AssetBundle
+class BoardAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@frontend/views/board/';
     public $css = [
     ];
     public $js = [
-        'javascript/columnReorder.js',
+        'ticketSorting.js',
     ];
     public $depends = [
     ];

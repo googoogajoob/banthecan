@@ -10,7 +10,6 @@ use yii\widgets\Breadcrumbs;
 /* @var $content string */
 
 AppAsset::register($this);
-BanTheCanAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
