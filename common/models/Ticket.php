@@ -5,6 +5,7 @@ namespace common\models;
 //use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use dosamigos\taggable\Taggable;
 
 
 /**
@@ -62,6 +63,7 @@ class Ticket extends \yii\db\ActiveRecord
         return [
             TimestampBehavior::className(),
             BlameableBehavior::className(),
+            Taggable::className(),
         ];
     }
 
@@ -74,7 +76,8 @@ class Ticket extends \yii\db\ActiveRecord
             [['title', 'column_id'], 'required'],
             [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order'], 'integer'],
             [['title', 'description'], 'string'],
-            [['id'], 'unique']
+            [['id'], 'unique'],
+            [['tagNames'], 'safe'],
         ];
     }
 
@@ -226,5 +229,13 @@ class Ticket extends \yii\db\ActiveRecord
             ->asArray()
             ->orderBy(['updated_at' => SORT_DESC])
             ->all();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable('ticket_tag_mm', ['ticket_id' => 'id']);
     }
 }

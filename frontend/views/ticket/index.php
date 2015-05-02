@@ -31,6 +31,7 @@ $this->title = 'Tickets';
             'created_by',
             'updated_by',
             'title:ntext',
+            'tagNames',
             // 'description:ntext',
             // 'column_id',
 
