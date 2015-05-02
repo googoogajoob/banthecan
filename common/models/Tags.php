@@ -27,7 +27,7 @@ class Tags extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'frequency', 'name'], 'required'],
+            [['frequency', 'name'], 'required'], //id removed, new tags are not saved when it is required
             [['id', 'frequency'], 'integer'],
             [['name'], 'string']
         ];
