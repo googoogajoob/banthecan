@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-lg-1">
-                <img src="/assets/mockup-home.png"/>
+                <img src="/images/mockup-home.png"/>
             </div>
         </div>
 
