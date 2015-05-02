@@ -13,15 +13,13 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class BoardAsset extends AssetBundle
+class BacklogAsset extends AssetBundle
 {
     public $sourcePath = '@frontend/views/board/';
     public $css = [
-        'board.css',
         'ticket.css',
     ];
     public $js = [
-        'ticketSorting.js',
     ];
     public $depends = [
         'frontend\assets\AppAsset'

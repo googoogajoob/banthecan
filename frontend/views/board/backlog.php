@@ -1,6 +1,10 @@
 <?php
 
+use frontend\assets\BacklogAsset;
+
 /* @var $tickets common\models\Ticket */
+
+BacklogAsset::register($this);
 
 $this->params['breadcrumbs'][] = 'Backlog';
 

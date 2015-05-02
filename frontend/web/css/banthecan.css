@@ -1,53 +1,3 @@
-.board-column {
-    min-height: 204px;
-    background-color: #eee;
-    border-style: solid;
-    border-color: #ddd;
-    border-width: 2px;
-    margin: 0 2px;
-    padding: 0 3px;
-}
-
-.board-column-receive {
-    min-height: 204px;
-    background-color: #eee;
-    border-style: dashed;
-    border-color: red;
-    border-width: 2px;
-    margin: 0 2px;
-    padding: 0 3px;
-}
-
-.board-column-title {
-    padding-left: 5px;
-    padding-right: 5px;
-    /* These three settings can be accomplished with the Bootstrap Mixin text-overflow*/
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.ticket-widget, .ticket-widget-float {
-    background-color: #9ec4f2;
-    height: 200px;
-    padding: 2px 3px;
-    margin: 4px 0 4px 0;
-    /* These three settings can be accomplished with the Bootstrap Mixin text-overflow*/
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /*white-space: nowrap;*/
-}
-
-.ticket-widget-float {
-    float: left;
-}
-
-.ticket-avatar {
-    text-align:right;
-    float: left;
-    margin: 0 4px 0 0;
-}
-
 .menu-avatar-li {
     padding-top: 6px;
 }
@@ -57,6 +7,9 @@
 }
 
 
+/** Todo: !!!### REPLACE THIS IN THE VIEWS WITH THE BOOTSTRAP VARIANT###!!!
+ * Bootstrap uses clearfix which needs a CSS compiler
+ */
 .clear-both {
     clear: both;
 }
