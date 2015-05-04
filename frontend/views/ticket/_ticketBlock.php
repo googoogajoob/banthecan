@@ -53,12 +53,26 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
     if ($tags = $ticket->tagNames) {
         echo Html::beginTag('div', ['class' => 'ticket-function-bar']);
 
-        //Show That Tags exist, singular if only one, plural if more than one
-        //This only effects the Glyph-Icon which is shown
-        $tagArray = explode(',', $tags);
-        $glyphSingularPlural = count($tagArray) > 1 ? 'glyphicon-tags' : 'glyphicon-tag';
-        echo "<span class=\"glyphicon $glyphSingularPlural tag-glyph\"></span>";
+            //Show That Tags exist, singular if only one, plural if more than one
+            //This only effects the Glyph-Icon which is shown
+            $tagArray = explode(',', $tags);
+            $glyphSingularPlural = count($tagArray) > 1 ? 'glyphicon-tags' : 'glyphicon-tag';
+            echo "<span
+                        class=\"glyphicon $glyphSingularPlural ticket-infobar-glyph\"
+                        data-toggle=\"tooltip\"
+                        data-placement=\"auto\"
+                        data-trigger=\"click\"
+                        title=\"$tags\"
+                  ></span>";
 
+            $description = $ticket->description;
+            echo "<span
+                        class=\"glyphicon glyphicon-align-justify ticket-infobar-glyph\"
+                        data-toggle=\"tooltip\"
+                        data-placement=\"auto\"
+                        data-trigger=\"click\"
+                        title=\"$description\"
+                  ></span>";
         echo Html::endTag('div');
     }
 ?>
@@ -69,3 +83,5 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
         echo Html::endTag('div');
     }
 ?>
+
+

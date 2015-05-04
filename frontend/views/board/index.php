@@ -27,3 +27,4 @@ BoardAsset::register($this);
         }
     ?>
 </div>
+

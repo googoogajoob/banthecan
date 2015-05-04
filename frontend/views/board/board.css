@@ -1,5 +1,5 @@
 .board-column {
-    min-height: 204px;
+    min-height: 154px;
     background-color: #eee;
     border-style: solid;
     border-color: #ddd;
@@ -9,7 +9,7 @@
 }
 
 .board-column-receive {
-    min-height: 204px;
+    min-height: 154px;
     background-color: #eee;
     border-style: dashed;
     border-color: red;

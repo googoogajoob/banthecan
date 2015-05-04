@@ -1,6 +1,6 @@
 .ticket-widget, .ticket-widget-float {
     background-color: #9ec4f2;
-    height: 200px;
+    height: 150px;
     padding: 2px 3px;
     margin: 4px 0 4px 0;
     /* These three settings can be accomplished with the Bootstrap Mixin text-overflow*/
@@ -19,8 +19,9 @@
     margin: 0 4px 0 0;
 }
 
-.tag-glyph {
+.ticket-infobar-glyph {
     color: #ff872f;
+    margin: 0 4px;
 }
 
 .ticket-function-bar {
@@ -29,4 +30,8 @@
     background-color: #707070;
     padding: 2px 4px 1px 2px;
     margin-bottom: 8px;
+}
+
+.ticket-block-tags {
+    background-color: #bfbfbf;
 }
