@@ -16,8 +16,8 @@ use dosamigos\taggable\Taggable;
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
- * @property string $title
- * @property string $description
+ * @property string  $title
+ * @property string  $description
  * @property integer $column_id
  * @property integer $board_id
  *
@@ -103,19 +103,23 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getColumn()
-    {
+    public function getColumn() {
         return $this->hasOne(BoardColumn::className(), ['id' => 'column_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
-    {
+    public function getCreatedBy() {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
+    /**
+     * @return string
+     */
+    public function getCreatedByName() {
+        return $this->getCreatedBy()->one()->username;
+    }
     /**
      * Returns the status of a ticket, whether ot not it is currently active
      * on the KanBanBoard
