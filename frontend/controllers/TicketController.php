@@ -88,6 +88,8 @@ class TicketController extends Controller
     public function actionCreate()
     {
         $model = new Ticket();
+        $model->setToCurrentActiveBoard(); //A new ticket belongs to the current active board
+        $model->moveToBacklog(); //A new ticket always starts in the backlog
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

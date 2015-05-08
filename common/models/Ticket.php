@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-//use Yii;
+use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 
@@ -44,7 +44,13 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * The default status (column_id) of tickets that are on the kanban board
      */
-    const DEFAULT_BOARD_STATUS = 1;
+    const DEFAULT_KANBANBOARD_STATUS = 1;
+
+    /**
+     * Error Message when assigning ticket to current active board
+     */
+    const ACTIVE_BOARD_NOT_FOUND = 'Current Active Board Not Found';
+
 
     /**
      * @inheritdoc
@@ -128,8 +134,8 @@ class Ticket extends \yii\db\ActiveRecord
      * on the KanBanBoard
      * @return Boolean true = active, false = not active
      */
-    public function isBoard() {
-        return (bool)($this->getColumnId() >= self::DEFAULT_BOARD_STATUS);
+    public function isKanBanBoard() {
+        return (bool)($this->getColumnId() >= self::DEFAULT_KANBANBOARD_STATUS);
     }
 
     /**
@@ -176,8 +182,8 @@ class Ticket extends \yii\db\ActiveRecord
      *
      * @return $this common\models\ticket
      */
-    public function moveToBoard() {
-        $this->setColumnId(self::DEFAULT_BOARD_STATUS);
+    public function moveToKanBanBoard() {
+        $this->setColumnId(self::DEFAULT_KANBANBOARD_STATUS);
 
         return $this;
     }
@@ -187,10 +193,27 @@ class Ticket extends \yii\db\ActiveRecord
      *
      * @return $this common\models\ticket
      */
-    public function moveToColumn($newTicketStatus = self::DEFAULT_BOARD_STATUS) {
+    public function moveToColumn($newTicketStatus = self::DEFAULT_KANBANBOARD_STATUS) {
         $this->setColumnId($newTicketStatus);
 
         return $this;
+    }
+
+    /**
+     * Sets the Current Board iof the Ticket to be the active current board
+     * @throws NotFoundHttpException
+     * @return $this common\models\ticket
+     */
+    public function setToCurrentActiveBoard() {
+        $session = Yii::$app->session;
+        $newBoardId = $session->get('currentBoardId');
+        if ($newBoardId) {
+            //everything is OK, current Board exists for this session
+            $this->board_id = $newBoardId;
+        } else {
+            //This should not occur, but just in case
+            throw new NotFoundHttpException(self::ACTIVE_BOARD_NOT_FOUND);
+        }
     }
 
     /**
