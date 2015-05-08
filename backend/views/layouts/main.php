@@ -35,9 +35,9 @@ AppAsset::register($this);
 
             $menuItems = [
                 ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Board', 'url' => ['/board/index']],
-                ['label' => 'Column', 'url' => ['/column/index']],
-                ['label' => 'Ticket', 'url' => ['/ticket/index']],
+                ['label' => 'Boards', 'url' => ['/board/index']],
+                ['label' => 'Columns', 'url' => ['/column/index']],
+                ['label' => 'Tickets', 'url' => ['/ticket/index']],
                 ['label' => 'Users', 'url' => ['/user/index']],
             ];
 
