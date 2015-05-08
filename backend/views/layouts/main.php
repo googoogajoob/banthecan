@@ -35,14 +35,10 @@ AppAsset::register($this);
 
             $menuItems = [
                 ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Table CRUD',
-                    'items' => [
-                        ['label' => 'Board', 'url' => ['/board/index']],
-                        ['label' => 'Column', 'url' => ['/column/index']],
-                        ['label' => 'Ticket', 'url' => ['/ticket/index']],
-                        ['label' => 'Users', 'url' => ['/user/index']],
-                    ],
-                ],
+                ['label' => 'Board', 'url' => ['/board/index']],
+                ['label' => 'Column', 'url' => ['/column/index']],
+                ['label' => 'Ticket', 'url' => ['/ticket/index']],
+                ['label' => 'Users', 'url' => ['/user/index']],
             ];
 
             if (Yii::$app->user->isGuest) {
