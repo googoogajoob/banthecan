@@ -19,7 +19,9 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-jui": "*",
-        "yiisoft/yii2-imagine": "*"
+        "yiisoft/yii2-imagine": "*",
+	"2amigos/yii2-taggable-behavior": "~1.0",
+	"2amigos/yii2-selectize-widget": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Ticket */
+/* @var $model common\models\Tags */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Tickets', 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Tags', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ticket-view">
+<div class="tags-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,12 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'title:ntext',
-            'description:ntext',
-            'tagNames:ntext:Tags',
-            'createdByName:ntext:Created By',
-            'created_at:datetime:Created',
-            'updated_at:datetime:Updated',
+            'id',
+            'frequency',
+            'name:ntext',
         ],
     ]) ?>
 

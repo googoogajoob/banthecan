@@ -47,6 +47,7 @@ $this->title = Board::getActiveboard() ? Board::getActiveboard()->title : '';
             } else {
 
                 $menuItems = [
+                    ['label' => 'Tags', 'url' => ['/tags']],
                     ['label' => 'Tickets', 'url' => ['/ticket']],
                     ['label' => 'Boards',
                         'items' => [

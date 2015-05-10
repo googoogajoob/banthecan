@@ -22,18 +22,17 @@ $this->title = 'Tickets';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager' => [
+            'firstPageLabel' => 'Begin',
+            'lastPageLabel' => 'End',
+        ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
             'title:ntext',
-            // 'description:ntext',
-            // 'column_id',
-
+            'description:ntext',
+            'tagNames:ntext:Tags',
+            'createdByName:ntext:Created By',
+            'created_at:datetime:Created',
+            'updated_at:datetime:Updated',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

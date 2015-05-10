@@ -5,6 +5,7 @@ namespace common\models;
 use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use dosamigos\taggable\Taggable;
 
 
 /**
@@ -15,8 +16,8 @@ use yii\behaviors\BlameableBehavior;
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
- * @property string $title
- * @property string $description
+ * @property string  $title
+ * @property string  $description
  * @property integer $column_id
  * @property integer $board_id
  *
@@ -68,6 +69,7 @@ class Ticket extends \yii\db\ActiveRecord
         return [
             TimestampBehavior::className(),
             BlameableBehavior::className(),
+            Taggable::className(),
         ];
     }
 
@@ -80,7 +82,8 @@ class Ticket extends \yii\db\ActiveRecord
             [['title', 'column_id'], 'required'],
             [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order'], 'integer'],
             [['title', 'description'], 'string'],
-            [['id'], 'unique']
+            [['id'], 'unique'],
+            [['tagNames'], 'safe'],
         ];
     }
 
@@ -106,19 +109,23 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getColumn()
-    {
+    public function getColumn() {
         return $this->hasOne(BoardColumn::className(), ['id' => 'column_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
-    {
+    public function getCreatedBy() {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
+    /**
+     * @return string
+     */
+    public function getCreatedByName() {
+        return $this->getCreatedBy()->one()->username;
+    }
     /**
      * Returns the status of a ticket, whether ot not it is currently active
      * on the KanBanBoard
@@ -249,5 +256,13 @@ class Ticket extends \yii\db\ActiveRecord
             ->asArray()
             ->orderBy(['updated_at' => SORT_DESC])
             ->all();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable('ticket_tag_mm', ['ticket_id' => 'id']);
     }
 }
