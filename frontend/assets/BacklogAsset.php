@@ -15,7 +15,7 @@ use yii\web\AssetBundle;
  */
 class BacklogAsset extends AssetBundle
 {
-    public $sourcePath = '@frontend/views/board/';
+    public $sourcePath = '@frontend/views/ticket/';
     public $css = [
         'ticket.css',
     ];

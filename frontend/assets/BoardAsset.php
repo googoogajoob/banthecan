@@ -15,14 +15,14 @@ use yii\web\AssetBundle;
  */
 class BoardAsset extends AssetBundle
 {
-    public $sourcePath = '@frontend/views/board/';
+    public $sourcePath = '@frontend/views/';
     public $css = [
-        'board.css',
-        'ticket.css',
+        'board/board.css',
+        'ticket/ticket.css',
     ];
     public $js = [
-        'ticketSorting.js',
-        'ticketTooltip.js',
+        'board/ticketSorting.js',
+        'ticket/ticketTooltip.js',
     ];
     public $depends = [
         'frontend\assets\AppAsset'
