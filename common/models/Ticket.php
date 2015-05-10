@@ -153,7 +153,7 @@ class Ticket extends \yii\db\ActiveRecord
      * @return $this common\models\ticket
      */
     public function moveToBacklog() {
-        $this->setColumnId(self::DEFAULT_BACKLOG_STATUS);
+        $this->column_id = self::DEFAULT_BACKLOG_STATUS;
 
         return $this;
     }
@@ -169,9 +169,9 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function moveToCompleted($newTicketStatus = self::DEFAULT_COMPLETED_STATUS) {
         if ($newTicketStatus <= self::DEFAULT_COMPLETED_STATUS){
-            $this->setColumnId($newTicketStatus);
+            $this->column_id = $newTicketStatus;
         } else {
-            $this->setColumnId(self::DEFAULT_COMPLETED_STATUS);
+            $this->column_id = self::DEFAULT_COMPLETED_STATUS;
         }
 
         return $this;
@@ -183,7 +183,7 @@ class Ticket extends \yii\db\ActiveRecord
      * @return $this common\models\ticket
      */
     public function moveToKanBanBoard() {
-        $this->setColumnId(self::DEFAULT_KANBANBOARD_STATUS);
+        $this->column_id = self::DEFAULT_KANBANBOARD_STATUS;
 
         return $this;
     }
@@ -194,7 +194,7 @@ class Ticket extends \yii\db\ActiveRecord
      * @return $this common\models\ticket
      */
     public function moveToColumn($newTicketStatus = self::DEFAULT_KANBANBOARD_STATUS) {
-        $this->setColumnId($newTicketStatus);
+        $this->column_id = $newTicketStatus;
 
         return $this;
     }
