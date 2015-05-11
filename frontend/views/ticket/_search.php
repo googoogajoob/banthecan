@@ -5,7 +5,6 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\TicketSearch */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="ticket-search">
@@ -25,9 +24,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
-    <?php // echo $form->field($model, 'description') ?>
+    <?php echo $form->field($model, 'description') ?>
 
-    <?php // echo $form->field($model, 'column_id') ?>
+    <?php echo $form->field($model, 'column_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
