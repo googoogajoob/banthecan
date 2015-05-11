@@ -1,12 +1,19 @@
 .ticket-widget, .ticket-widget-float {
     background-color: #9ec4f2;
     height: 150px;
+    width: 100%;
     padding: 2px 3px;
     margin: 4px 0 4px 0;
-    /* These three settings can be accomplished with the Bootstrap Mixin text-overflow*/
+
+    /* These three(?) settings can be accomplished with the Bootstrap Mixin text-overflow*/
     overflow: hidden;
     text-overflow: ellipsis;
+
     /*white-space: nowrap;*/
+
+    /* This is need to provide a reference for absolute positioning in ticket-function-bar
+       see: http://www.w3schools.com/css/css_positioning.asp*/
+    position: relative;
 }
 
 .ticket-widget-float {
@@ -19,19 +26,15 @@
     margin: 0 4px 0 0;
 }
 
-.ticket-infobar-glyph {
+.ticket-function-bar-glyph {
     color: #ff872f;
-    margin: 0 4px;
+    margin: 0 0 0 4px;
+    z-index: 1;
 }
 
 .ticket-function-bar {
     position: absolute;
-    bottom: 0;
+    bottom: 2px;
     background-color: #707070;
     padding: 2px 4px 1px 2px;
-    margin-bottom: 8px;
-}
-
-.ticket-block-tags {
-    background-color: #bfbfbf;
 }

@@ -55,6 +55,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
         } else {
             $connectedColumns = '';
         }
+
         echo Sortable::widget([
             'items' => $columnItems,
             'options' => ['id' => COLUMN_ID_PREFIX . $column->id, 'tag' => 'div', 'class' => 'board-column'],

@@ -50,31 +50,34 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
 
 <?php
     //Ticket Info Bar: Tags, toBacklog, toComplete, full display
+    echo Html::beginTag('div', ['class' => 'ticket-function-bar']);
+
     if ($tags = $ticket->tagNames) {
-        echo Html::beginTag('div', ['class' => 'ticket-function-bar']);
-
-            //Show That Tags exist, singular if only one, plural if more than one
-            //This only effects the Glyph-Icon which is shown
-            $tagArray = explode(',', $tags);
-            $glyphSingularPlural = count($tagArray) > 1 ? 'glyphicon-tags' : 'glyphicon-tag';
-            echo "<span
-                        class=\"glyphicon $glyphSingularPlural ticket-infobar-glyph\"
-                        data-toggle=\"tooltip\"
-                        data-placement=\"auto\"
-                        data-trigger=\"click\"
-                        title=\"$tags\"
-                  ></span>";
-
-            $description = $ticket->description;
-            echo "<span
-                        class=\"glyphicon glyphicon-align-justify ticket-infobar-glyph\"
-                        data-toggle=\"tooltip\"
-                        data-placement=\"auto\"
-                        data-trigger=\"click\"
-                        title=\"$description\"
-                  ></span>";
-        echo Html::endTag('div');
+        //Show That Tags exist, singular if only one, plural if more than one
+        //This only effects the Glyph-Icon which is shown
+        $tagArray = explode(',', $tags);
+        $glyphSingularPlural = count($tagArray) > 1 ? 'glyphicon-tags' : 'glyphicon-tag';
+        echo "<span
+                    class=\"glyphicon $glyphSingularPlural ticket-function-bar-glyph\"
+                    title=\"$tags\"
+                    data-toggle=\"tooltip\"
+                    data-placement=\"auto\"
+                    data-trigger=\"hover\"
+                    data-viewport=\"{ selector: 'body', padding: 0 }\"
+              ></span>";
     }
+
+    $description = $ticket->description;
+    echo "<span
+                class=\"glyphicon glyphicon-align-justify ticket-function-bar-glyph\"
+                title=\"$description\"
+                data-toggle=\"tooltip\"
+                data-placement=\"auto\"
+                data-trigger=\"hover\"
+                data-viewport=\"{ selector: 'body', padding: 0 }\"
+          ></span>";
+
+    echo Html::endTag('div');
 ?>
 
 <?php

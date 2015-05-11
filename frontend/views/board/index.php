@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use frontend\assets\BoardAsset;
 
 /* @var $this yii\web\View */
+/* @var $board common\models\Board */
+
 $this->params['breadcrumbs'][] = 'KanBanBoard';
 
 // see http://stackoverflow.com/questions/5586558/jquery-ui-sortable-disable-update-function-before-receive
