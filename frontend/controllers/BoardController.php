@@ -69,6 +69,7 @@ class BoardController extends \yii\web\Controller {
 
         $searchModel = new TicketSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere($searchModel->getBacklogQueryCondition());
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
 
         return $this->render('backlog', [
@@ -87,6 +88,7 @@ class BoardController extends \yii\web\Controller {
 
         $searchModel = new TicketSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere($searchModel->getCompletedQueryCondition());
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
 
         return $this->render('completed', [

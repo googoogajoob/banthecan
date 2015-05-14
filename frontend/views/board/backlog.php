@@ -17,5 +17,9 @@ echo ListView::widget( [
         'viewParams' => ['divWrapper' => true, 'divClass' => 'ticket-widget-float'],
         'itemOptions' => ['class' => 'col-xs-2'],
         'options' => ['class' => 'row'],
+        'pager' => [
+            'firstPageLabel' => '|<',
+            'lastPageLabel' => '>|',
+        ]
     ]
 );

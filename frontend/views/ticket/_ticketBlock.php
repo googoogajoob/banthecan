@@ -67,6 +67,7 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
               ></span>";
     }
 
+
     $description = $model->description;
     echo "<span
                 class=\"glyphicon glyphicon-align-justify ticket-function-bar-glyph\"
@@ -76,6 +77,8 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
                 data-trigger=\"hover\"
                 data-viewport=\"{ selector: 'body', padding: 0 }\"
           ></span>";
+
+
 
     echo Html::endTag('div');
 ?>
