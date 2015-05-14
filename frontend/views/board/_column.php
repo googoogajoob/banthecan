@@ -29,7 +29,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
         $columnItems = [];
         foreach($column->getTickets() as $ticket) {
             $content = $this->render('@frontend/views/ticket/_ticketBlock',[
-                'ticket' => $ticket,
+                'model' => $ticket,
                 'divWrapper' => false,
             ]);
             $options = [

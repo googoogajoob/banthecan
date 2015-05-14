@@ -4,6 +4,7 @@ namespace frontend\controllers; //namespace must be the first statement
 
 use yii;
 use common\models\Board;
+use common\models\TicketSearch;
 use yii\data\ActiveDataProvider;
 use common\models\User;
 use yii\filters\AccessControl;
@@ -13,6 +14,7 @@ use yii\web\NotFoundHttpException;
 class BoardController extends \yii\web\Controller {
 
     const BOARD_NOT_FOUND = 'Active Board Not Found';
+    const DEFAULT_PAGE_SIZE = 18;
 
     /**
      * @inheritdoc
@@ -65,8 +67,13 @@ class BoardController extends \yii\web\Controller {
             throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
         }
 
+        $searchModel = new TicketSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
+
         return $this->render('backlog', [
-            'tickets' => $board->getBacklog(),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -78,8 +85,13 @@ class BoardController extends \yii\web\Controller {
             throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
         }
 
+        $searchModel = new TicketSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
+
         return $this->render('completed', [
-            'tickets' => $board->getCompleted(),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
