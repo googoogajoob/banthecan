@@ -2,15 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use common\models\TicketSearch;
 
 /* @var $this yii\web\View */
+/* @var $searchModel common\models\TicketSearch */
+/* @var $action string */
 
-$searchModel = new TicketSearch();
 ?>
 
 <?php $form = ActiveForm::begin([
-    'action' => ['board/backlog'],
+    'action' => ['board/' . $action],
     'method' => 'get',
 ]); ?>
 

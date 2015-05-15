@@ -1,13 +1,21 @@
 <?php
 
-use frontend\assets\BacklogAsset;
+use yii\helpers\Html;
 
-/* @var $tickets common\models\Ticket */
+/* @var $this yii\web\View */
+/* @var $searchModel common\models\TicketSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $action string */
 
-BacklogAsset::register($this);
-
-$this->params['breadcrumbs'][] = 'Backlog';
-
-echo $this->render('@frontend/views/ticket/_ticketSearchFilter');
-echo $this->render('@frontend/views/ticket/_ticketList', ['tickets' => $tickets]);
 ?>
+
+<h1 class="text-capitalize">
+    <?php echo Html::encode($action) ?>
+</h1>
+
+<?php
+echo $this->render('@frontend/views/board/_backlogAndCompleted', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+        'action' => $action,
+    ]);

@@ -13,46 +13,42 @@ use yii\helpers\Html;
  */
 
 /* @var $this yii\web\View */
-/* @var $ticket common\models\Ticket */
-/* @var $divWrapper boolean default true */
-/* @var $divClass string  only used when divWrapper is true*/
+/* @var $model common\models\Ticket */
+/* @var $divClass string/boolean class name for wrapping DIV or false for no wrapper*/
 
 // the url to view the ticket record (from there it can be edited)
-$ticketViewUrl = Url::to(['ticket/view', 'id' => $ticket->id]);
-
-//if the content should be wrapped in a div element
-$divWrapper = isset($divWrapper) ? $divWrapper : true;
+$ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
 ?>
 
 <?php
-    // Wrap Contents in a div only when $divWrapper is true, otherwise only contents are returned
-    if ($divWrapper) {
+    // Wrap Contents in a div only when $divClass is set, otherwise contents are returned unwrapped
+    if (isset($divClass)) {
         echo Html::beginTag('div', ['class' => $divClass]);
     }
 ?>
 
 <div class="ticket-avatar">
-    <?php echo $this->render('@frontend/views/site/_userIcon', ['userId' => $ticket->created_by]);?>
+    <?php echo $this->render('@frontend/views/site/_userIcon', ['userId' => $model->created_by]);?>
 </div>
 
-<strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $ticket->title ?></a></strong><br />
+<strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $model->title ?></a></strong><br />
 
 <div class="clear-both"></div>
 
-<?php echo Yii::$app->formatter->asDate($ticket->created_at, 'long'); ?>
+<?php echo Yii::$app->formatter->asDate($model->created_at, 'long'); ?>
 <br /><br />
 
 <?php
     // Ticket description
-    //echo StringHelper::truncate($ticket->description, 100, ' ...'); //Limit using PHP
-    //echo $ticket->description; //Limit using CSS overflow
+    //echo StringHelper::truncate($model->description, 100, ' ...'); //Limit using PHP
+    //echo $model->description; //Limit using CSS overflow
 ?>
 
 <?php
     //Ticket Info Bar: Tags, toBacklog, toComplete, full display
     echo Html::beginTag('div', ['class' => 'ticket-function-bar']);
 
-    if ($tags = $ticket->tagNames) {
+    if ($tags = $model->tagNames) {
         //Show That Tags exist, singular if only one, plural if more than one
         //This only effects the Glyph-Icon which is shown
         $tagArray = explode(',', $tags);
@@ -63,26 +59,27 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
                     data-toggle=\"tooltip\"
                     data-placement=\"auto\"
                     data-trigger=\"hover\"
-                    data-viewport=\"{ selector: 'body', padding: 0 }\"
               ></span>";
     }
 
-    $description = $ticket->description;
+
+    $description = $model->description;
     echo "<span
                 class=\"glyphicon glyphicon-align-justify ticket-function-bar-glyph\"
                 title=\"$description\"
                 data-toggle=\"tooltip\"
                 data-placement=\"auto\"
                 data-trigger=\"hover\"
-                data-viewport=\"{ selector: 'body', padding: 0 }\"
           ></span>";
+
+
 
     echo Html::endTag('div');
 ?>
 
 <?php
-    // Wrap Contents in a div only when $divWrapper is true, otherwise only contents are returned
-    if ($divWrapper) {
+    // Wrap Contents in a div only when $divClass is set
+    if (isset($divClass)) {
         echo Html::endTag('div');
     }
 ?>

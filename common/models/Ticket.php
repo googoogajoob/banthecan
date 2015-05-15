@@ -137,6 +137,19 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
+     * Returns the condition to querying for backlog tickets
+     * This is intended to provide a comfortable means
+     * of adding the condition to query objects.
+     * @return Array
+     */
+    public function getBacklogQueryCondition() {
+        return ['or',
+            ['column_id' => self::DEFAULT_BACKLOG_STATUS],
+            ['column_id' => self::ALTERNATE_BACKLOG_STATUS]
+        ];
+    }
+
+    /**
      * Returns the status of a ticket, whether ot not it is currently active
      * on the KanBanBoard
      * @return Boolean true = active, false = not active
@@ -152,6 +165,16 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function isCompleted() {
         return (bool)($this->getColumnId() <= self::DEFAULT_COMPLETED_STATUS);
+    }
+
+    /**
+     * Returns the condition to querying for completed tickets
+     * This is intended to provide a comfortable means
+     * of adding the condition to query objects.
+     * @return Array
+     */
+    public function getCompletedQueryCondition() {
+        return ['column_id' => self::DEFAULT_COMPLETED_STATUS];
     }
 
     /**
