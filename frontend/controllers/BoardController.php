@@ -75,6 +75,7 @@ class BoardController extends \yii\web\Controller {
         return $this->render('backlog', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'action' => $this->action->id,
         ]);
     }
 
@@ -94,6 +95,7 @@ class BoardController extends \yii\web\Controller {
         return $this->render('completed', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'action' => $this->action->id,
         ]);
     }
 

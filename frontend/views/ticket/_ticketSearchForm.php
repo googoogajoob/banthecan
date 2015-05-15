@@ -5,11 +5,12 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TicketSearch */
+/* @var $action string */
 
 ?>
 
 <?php $form = ActiveForm::begin([
-    'action' => ['board/backlog'],
+    'action' => ['board/' . $action],
     'method' => 'get',
 ]); ?>
 

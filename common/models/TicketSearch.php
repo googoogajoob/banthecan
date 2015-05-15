@@ -56,12 +56,9 @@ class TicketSearch extends Ticket
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
-            'column_id' => $this->column_id,
             'board_id' => $this->board_id,
         ]);
 

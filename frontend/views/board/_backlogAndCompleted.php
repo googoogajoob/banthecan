@@ -6,11 +6,14 @@ use yii\widgets\ListView;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $action string */
+
 
 BacklogAsset::register($this);
 
-echo $this->render('@frontend/views/ticket/_ticketSearchFilter',[
+echo $this->render('@frontend/views/ticket/_ticketSearchForm',[
         'searchModel' => $searchModel,
+        'action' => $action,
     ]);
 
 echo ListView::widget( [
