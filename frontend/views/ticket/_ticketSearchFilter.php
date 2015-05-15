@@ -2,11 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use common\models\TicketSearch;
 
 /* @var $this yii\web\View */
+/* @var $searchModel common\models\TicketSearch */
 
-$searchModel = new TicketSearch();
 ?>
 
 <?php $form = ActiveForm::begin([

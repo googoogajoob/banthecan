@@ -30,7 +30,6 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
         foreach($column->getTickets() as $ticket) {
             $content = $this->render('@frontend/views/ticket/_ticketBlock',[
                 'model' => $ticket,
-                'divWrapper' => false,
             ]);
             $options = [
                 'id' => 'ticketwidget_'. $ticket->id,

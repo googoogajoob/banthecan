@@ -14,19 +14,15 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
-/* @var $divWrapper boolean default true */
-/* @var $divClass string  only used when divWrapper is true*/
+/* @var $divClass string/boolean class name for wrapping DIV or false for no wrapper*/
 
 // the url to view the ticket record (from there it can be edited)
 $ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
-
-//if the content should be wrapped in a div element
-$divWrapper = isset($divWrapper) ? $divWrapper : true;
 ?>
 
 <?php
-    // Wrap Contents in a div only when $divWrapper is true, otherwise only contents are returned
-    if ($divWrapper) {
+    // Wrap Contents in a div only when $divClass is set, otherwise contents are returned unwrapped
+    if (isset($divClass)) {
         echo Html::beginTag('div', ['class' => $divClass]);
     }
 ?>
@@ -63,7 +59,6 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
                     data-toggle=\"tooltip\"
                     data-placement=\"auto\"
                     data-trigger=\"hover\"
-                    data-viewport=\"{ selector: 'body', padding: 0 }\"
               ></span>";
     }
 
@@ -75,7 +70,6 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
                 data-toggle=\"tooltip\"
                 data-placement=\"auto\"
                 data-trigger=\"hover\"
-                data-viewport=\"{ selector: 'body', padding: 0 }\"
           ></span>";
 
 
@@ -84,8 +78,8 @@ $divWrapper = isset($divWrapper) ? $divWrapper : true;
 ?>
 
 <?php
-    // Wrap Contents in a div only when $divWrapper is true, otherwise only contents are returned
-    if ($divWrapper) {
+    // Wrap Contents in a div only when $divClass is set
+    if (isset($divClass)) {
         echo Html::endTag('div');
     }
 ?>

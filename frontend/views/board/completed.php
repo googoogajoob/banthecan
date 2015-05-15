@@ -1,25 +1,12 @@
 <?php
 
-use frontend\assets\BacklogAsset;
-use yii\widgets\ListView;
-
-/* @var $tickets common\models\Ticket */
-
-BacklogAsset::register($this);
+/* @var $this yii\web\View */
+/* @var $searchModel common\models\TicketSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->params['breadcrumbs'][] = 'Completed';
 
-echo $this->render('@frontend/views/ticket/_ticketSearchFilter');
-
-echo ListView::widget( [
+echo $this->render('@frontend/views/board/_backlogAndCompleted', [
+        'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
-        'itemView' => '@frontend/views/ticket/_ticketBlock',
-        'viewParams' => ['divWrapper' => true, 'divClass' => 'ticket-widget-float'],
-        'itemOptions' => ['class' => 'col-xs-2'],
-        'options' => ['class' => 'row'],
-        'pager' => [
-            'firstPageLabel' => '|<',
-            'lastPageLabel' => '>|',
-        ]
-    ]
-);
+    ]);
