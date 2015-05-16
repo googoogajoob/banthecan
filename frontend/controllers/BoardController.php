@@ -5,6 +5,7 @@ namespace frontend\controllers; //namespace must be the first statement
 use yii;
 use common\models\Board;
 use common\models\TicketSearch;
+use common\models\Ticket;
 use yii\data\ActiveDataProvider;
 use common\models\User;
 use yii\filters\AccessControl;

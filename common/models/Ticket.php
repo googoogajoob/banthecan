@@ -52,6 +52,23 @@ class Ticket extends \yii\db\ActiveRecord
      */
     const ACTIVE_BOARD_NOT_FOUND = 'Current Active Board Not Found';
 
+    /**
+     * If this variable is (> 0) thann all queries obtained through the find() function
+     * will be restricted to this value, i.e. (board_id = self::$restrictQueryToBoardId)
+     * Subsequent query modifications must use the andWhere (and related) methods in order to
+     * preserve this restriction. Subsequent use of a standard where() query will eliminate
+     * this restriction.
+     *
+     * @var int
+     */
+    public static $restrictQueryToBoardId = 0;
+
+    /*
+     * Uses in conditions to test for a restrictedQuery based on board_Id
+     * Thwe value of this constant should be a value that a board_Id cannot have
+     */
+    const NO_BOARD_QUERY_RESTRICTION = 0;
+
 
     /**
      * @inheritdoc
@@ -230,7 +247,7 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Sets the Current Board iof the Ticket to be the active current board
+     * Sets the Current Board of the Ticket to be the active current board
      * @throws NotFoundHttpException
      * @return $this common\models\ticket
      */
@@ -287,5 +304,41 @@ class Ticket extends \yii\db\ActiveRecord
     public function getTags()
     {
         return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable('ticket_tag_mm', ['ticket_id' => 'id']);
+    }
+
+    /**
+     * If specific conditions are active the standard find() method
+     * is adapted and additional query conditions are applied.
+     *
+     *
+     * @inheritdoc
+     */
+    public static function find() {
+        if (self::$restrictQueryToBoardId != self::NO_BOARD_QUERY_RESTRICTION) {
+            return parent::find()->where(['board_id' => self::$restrictQueryToBoardId]);
+        } else {
+            return parent::find();
+        }
+    }
+
+    /**
+     * Retrieves the Current Active Board Id for this session and sets the
+     * Ticket Class Variable self::$restrictQueryToBoardId to its value.
+     * This causes all ticket queries to be restricted to the current BoardId
+     */
+    public static function restrictQueryToCurrentActiveBoard () {
+        $session = \Yii::$app->session;
+        $currentBoard = $session->get('currentBoard');
+
+        self::$restrictQueryToBoardId = $currentBoard;
+    }
+
+    /**
+     * Retrieves the Current Active Board Id for this session and sets the
+     * Ticket Class Variable self::$restrictQueryToBoardId to its value.
+     * This causes all ticket queries to be restricted to the current BoardId
+     */
+    public static function clearBoardQueryRestriction () {
+        self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
     }
 }
