@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TicketSearch */
@@ -14,9 +15,17 @@ use yii\widgets\ActiveForm;
     'method' => 'get',
 ]); ?>
 
-<?php echo $form->field($searchModel, 'text_search') ?>
-<?php echo $form->field($searchModel, 'from_date') ?>
-<?php echo $form->field($searchModel, 'to_date') ?>
+<?php
+    echo $form->field($searchModel, 'text_search');
+    echo $form->field($searchModel, 'from_date')->widget(\yii\jui\DatePicker::classname(), [
+        //'language' => 'ru',
+        //'dateFormat' => 'yyyy-MM-dd',
+    ]);
+    echo $form->field($searchModel, 'to_date')->widget(\yii\jui\DatePicker::classname(), [
+        //'language' => 'ru',
+        //'dateFormat' => 'yyyy-MM-dd',
+    ]);
+?>
 
 <div class="form-group">
     <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
