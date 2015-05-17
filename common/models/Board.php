@@ -3,6 +3,7 @@
 namespace common\models;
 
 use yii;
+use common\models\Ticket;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\web\NotFoundHttpException;
@@ -22,21 +23,24 @@ use yii\web\NotFoundHttpException;
  *
  * @property BoardColumn[] $boardColumns
  */
-class Board extends \yii\db\ActiveRecord
-{
+class Board extends \yii\db\ActiveRecord {
+
+    const NO_ACTIVE_BOARD_MESSAGE = 'An Active Board Has Been Set';
+    const NO_ACTIVE_BOARD_STATUS_TEST = 0;
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
+
         return 'board';
     }
 
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
+
         return [
             TimestampBehavior::className(),
             BlameableBehavior::className(),
@@ -46,8 +50,8 @@ class Board extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
+
         return [
             [['title', 'description', 'max_lanes'], 'required'],
             [['id', 'created_at', 'created_by', 'updated_by', 'updated_at', 'max_lanes'], 'integer'],
@@ -58,8 +62,8 @@ class Board extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
+
         return [
             'id' => 'ID',
             'created_at' => 'Created At',
@@ -75,62 +79,32 @@ class Board extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getColumns()
-    {
+    public function getColumns() {
+
         return $this->hasMany(Column::className(), ['board_id' => 'id'])
             ->orderBy('display_order')
             ->all();
     }
 
     /**
-     * Returns the current active board
+     * Retrieves the current active board ID for this session
+     * if not found an error is thrown
+     * If found returns the board active record matching the ID
      *
+     * @throws yii\web\NotFoundHttpException
      * @return \yii\db\ActiveRecord
      */
-    public static function getActiveboard()
-    {
+    public static function getActiveboard() {
+
         $session = Yii::$app->session;
-        $currentBoard = $session->get('currentBoardId');
-        return self::findOne($currentBoard);
-    }
+        $currentBoardId = $session->get('currentBoardId');
 
-    /**
-     * Returns all Tickets in the backlog of this board
-     *
-     * @return \yii\db\ActiveRecord
-     */
-    public function getBacklog()
-    {
-        return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
-            ->where(['column_id' => Ticket::DEFAULT_BACKLOG_STATUS])
-            ->orWhere(['column_id' => Ticket::ALTERNATE_BACKLOG_STATUS])
-            ->all();
-    }
-
-    /**
-     * Returns all active Tickets this board. Assigned to a column.
-     *
-     * todo: as of 20-Apr-2015 this method is not used, perhaps it should be removed, verify beforehand
-     *
-     * @return \yii\db\ActiveRecord
-     */
-    public function getActiveTickets()
-    {
-        return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
-            ->where('column_id > 0')
-            ->all();
-    }
-
-    /**
-     * Returns all completed Tickets this board
-     *
-     * @return \yii\db\ActiveRecord
-     */
-    public function getCompleted()
-    {
-        return $this->hasMany(Ticket::className(), ['board_id' => 'id'])
-            ->where('column_id < 0')
-            ->all();
+        if ($currentBoardId == self::NO_ACTIVE_BOARD_STATUS_TEST) {
+            throw new NotFoundHttpException(self::NO_ACTIVE_BOARD_MESSAGE);
+        } else {
+            Ticket::restrictQueryToBoard($currentBoardId);
+            return self::findOne($currentBoardId);
+        }
     }
 
 }

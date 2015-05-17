@@ -12,14 +12,19 @@ use common\models\Ticket;
  */
 class TicketSearch extends Ticket
 {
+    /* Combined search value for searching in description and title */
+    public $text_search;
+    public $from_date;
+    public $to_date;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'board_id'], 'integer'],
-            [['title', 'description'], 'safe'],
+            [['from_date', 'to_date'], 'integer'],
+            [['text_search'], 'safe'],
         ];
     }
 
@@ -51,19 +56,22 @@ class TicketSearch extends Ticket
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to any records when validation fails
-            // $query->where('0=1');
+            $query->where('0=1');
+
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'created_at' => $this->created_at,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'board_id' => $this->board_id,
-        ]);
+//        $query->andFilterWhere([
+//            'created_at' => $this->created_at,
+//            'created_by' => $this->created_by,
+//        ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere([
+                'or',
+                ['like', 'title', $this->text_search],
+                ['like', 'description', $this->text_search],
+            ]
+        );
 
         return $dataProvider;
     }

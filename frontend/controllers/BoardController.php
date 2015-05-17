@@ -5,16 +5,13 @@ namespace frontend\controllers; //namespace must be the first statement
 use yii;
 use common\models\Board;
 use common\models\TicketSearch;
-use common\models\Ticket;
 use yii\data\ActiveDataProvider;
 use common\models\User;
 use yii\filters\AccessControl;
-use yii\web\NotFoundHttpException;
 
 
 class BoardController extends \yii\web\Controller {
 
-    const BOARD_NOT_FOUND = 'Active Board Not Found';
     const DEFAULT_PAGE_SIZE = 18;
 
     /**
@@ -48,13 +45,32 @@ class BoardController extends \yii\web\Controller {
     }
 
     /**
+     * Initialize the Board to the Session Board_id, and implicitly
+     * restrict all ticket queries to members of this board for
+     * the actions: completed, backlog and index
+     *
+     * @param yii\base\Action $action
+     * @return bool
+     * @throws yii\web\BadRequestHttpException
+     */
+    public function beforeAction($action)
+    {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        if ($action->id == 'completed' or
+            $action->id == 'backlog' or
+            $action->id == 'index') {
+            Board::getActiveboard();
+        }
+
+        return true; // or false to not run the action
+    }
+    /**
      * Default Action, shows active tickets in a KanBan Board
      */
     public function actionIndex() {
-        if (!$board = Board::getActiveboard()) {
-            throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
-        }
-
         return $this->render('index', [
             'board' => $board,
         ]);
@@ -64,13 +80,8 @@ class BoardController extends \yii\web\Controller {
      * Shows tickets in the Backlog
      */
     public function actionBacklog() {
-        if (!$board = Board::getActiveboard()) {
-            throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
-        }
-
         $searchModel = new TicketSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere($searchModel->getBacklogQueryCondition());
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
 
         return $this->render('backlog', [
@@ -84,13 +95,8 @@ class BoardController extends \yii\web\Controller {
      * Shows completed tickets
      */
     public function actionCompleted() {
-        if (!$board = Board::getActiveboard()) {
-            throw new NotFoundHttpException(self::BOARD_NOT_FOUND);
-        }
-
         $searchModel = new TicketSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere($searchModel->getCompletedQueryCondition());
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
 
         return $this->render('completed', [
@@ -133,10 +139,10 @@ class BoardController extends \yii\web\Controller {
         $session = Yii::$app->session;
         $request = Yii::$app->request;
         $activeBoardId = $request->get('id');
-        $session->set('currentBoardId', $activeBoardId);
-        $boardTitle = Board::findOne($activeBoardId)->title;
-        $session->setFlash('success', "Board activated: $boardTitle");
-        Yii::$app->params['title'] = $boardTitle;
+        $session->set('currentBoardId' , $activeBoardId);
+        $boardRecord = Board::getActiveboard();
+        $session->setFlash('success', 'Board activated: ' . $boardRecord->title);
+        Yii::$app->params['title'] = $boardRecord->title;
         $this->goHome();
     }
 }

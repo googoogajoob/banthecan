@@ -59,6 +59,8 @@ class Ticket extends \yii\db\ActiveRecord
      * preserve this restriction. Subsequent use of a standard where() query will eliminate
      * this restriction.
      *
+     * This variable is set automatically from the board model
+     *
      * @var int
      */
     public static $restrictQueryToBoardId = 0;
@@ -154,19 +156,6 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Returns the condition to querying for backlog tickets
-     * This is intended to provide a comfortable means
-     * of adding the condition to query objects.
-     * @return Array
-     */
-    public function getBacklogQueryCondition() {
-        return ['or',
-            ['column_id' => self::DEFAULT_BACKLOG_STATUS],
-            ['column_id' => self::ALTERNATE_BACKLOG_STATUS]
-        ];
-    }
-
-    /**
      * Returns the status of a ticket, whether ot not it is currently active
      * on the KanBanBoard
      * @return Boolean true = active, false = not active
@@ -182,16 +171,6 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function isCompleted() {
         return (bool)($this->getColumnId() <= self::DEFAULT_COMPLETED_STATUS);
-    }
-
-    /**
-     * Returns the condition to querying for completed tickets
-     * This is intended to provide a comfortable means
-     * of adding the condition to query objects.
-     * @return Array
-     */
-    public function getCompletedQueryCondition() {
-        return ['column_id' => self::DEFAULT_COMPLETED_STATUS];
     }
 
     /**
@@ -247,23 +226,6 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Sets the Current Board of the Ticket to be the active current board
-     * @throws NotFoundHttpException
-     * @return $this common\models\ticket
-     */
-    public function setToCurrentActiveBoard() {
-        $session = Yii::$app->session;
-        $newBoardId = $session->get('currentBoardId');
-        if ($newBoardId) {
-            //everything is OK, current Board exists for this session
-            $this->board_id = $newBoardId;
-        } else {
-            //This should not occur, but just in case
-            throw new NotFoundHttpException(self::ACTIVE_BOARD_NOT_FOUND);
-        }
-    }
-
-    /**
      * Finds all Backlog Tickets
      *
      * @return array|ActiveRecord[] the query results.
@@ -315,7 +277,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public static function find() {
         if (self::$restrictQueryToBoardId != self::NO_BOARD_QUERY_RESTRICTION) {
-            return parent::find()->where(['board_id' => self::$restrictQueryToBoardId]);
+            return parent::find()->andWhere(['board_id' => self::$restrictQueryToBoardId]);
         } else {
             return parent::find();
         }
@@ -325,12 +287,10 @@ class Ticket extends \yii\db\ActiveRecord
      * Retrieves the Current Active Board Id for this session and sets the
      * Ticket Class Variable self::$restrictQueryToBoardId to its value.
      * This causes all ticket queries to be restricted to the current BoardId
+     * @param $currentBoardId Integer, Id to which all ticket queries will be restricted to
      */
-    public static function restrictQueryToCurrentActiveBoard () {
-        $session = \Yii::$app->session;
-        $currentBoard = $session->get('currentBoard');
-
-        self::$restrictQueryToBoardId = $currentBoard;
+    public static function restrictQueryToBoard($currentBoardId) {
+        self::$restrictQueryToBoardId = $currentBoardId;
     }
 
     /**
@@ -338,7 +298,7 @@ class Ticket extends \yii\db\ActiveRecord
      * Ticket Class Variable self::$restrictQueryToBoardId to its value.
      * This causes all ticket queries to be restricted to the current BoardId
      */
-    public static function clearBoardQueryRestriction () {
+    public static function clearBoardQueryRestriction() {
         self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
     }
 }

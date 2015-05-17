@@ -14,8 +14,9 @@ use yii\widgets\ActiveForm;
     'method' => 'get',
 ]); ?>
 
-<?php echo $form->field($searchModel, 'title') ?>
-<?php echo $form->field($searchModel, 'description') ?>
+<?php echo $form->field($searchModel, 'text_search') ?>
+<?php echo $form->field($searchModel, 'from_date') ?>
+<?php echo $form->field($searchModel, 'to_date') ?>
 
 <div class="form-group">
     <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
