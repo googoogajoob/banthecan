@@ -17,13 +17,13 @@ use yii\jui\DatePicker;
 
 <?php
     echo $form->field($searchModel, 'text_search');
+
     echo $form->field($searchModel, 'from_date')->widget(\yii\jui\DatePicker::classname(), [
-        //'language' => 'ru',
-        //'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control'],
     ]);
+
     echo $form->field($searchModel, 'to_date')->widget(\yii\jui\DatePicker::classname(), [
-        //'language' => 'ru',
-        //'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control'],
     ]);
 ?>
 

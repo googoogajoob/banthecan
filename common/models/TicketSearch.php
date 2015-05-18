@@ -23,7 +23,9 @@ class TicketSearch extends Ticket
     public function rules()
     {
         return [
-            [['from_date', 'to_date'], 'integer'],
+            [['from_date', 'to_date'], 'default', 'value' => null],
+            [['from_date'], 'date', 'timestampAttribute' => 'from_date'],
+            [['to_date'], 'date', 'timestampAttribute' => 'to_date'],
             [['text_search'], 'safe'],
         ];
     }
@@ -61,10 +63,9 @@ class TicketSearch extends Ticket
             return $dataProvider;
         }
 
-//        $query->andFilterWhere([
-//            'created_at' => $this->created_at,
-//            'created_by' => $this->created_by,
-//        ]);
+        $query->andFilterWhere(['>=', 'created_at', $this->from_date]);
+
+        $query->andFilterWhere(['<=', 'created_at', $this->to_date]);
 
         $query->andFilterWhere([
                 'or',
