@@ -1,4 +1,7 @@
 <?php
+
+use common\models\User;
+
 /**
  * Created by PhpStorm.
  * User: and
@@ -7,6 +10,6 @@
  */
 
 /* @var $this yii\web\View */
-/* @var $userId integer */
+/* @var $userId int */
 ?>
-<img src="/images/content/30x40/user-<?php echo $userId ?>.jpg"/>
+<img src="<?php echo User::getAvatarUrl($userId) ?>"/>
