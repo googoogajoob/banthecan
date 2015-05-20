@@ -12,4 +12,8 @@ use common\models\User;
 /* @var $this yii\web\View */
 /* @var $userId int */
 ?>
-<img src="<?php echo User::getAvatarUrl($userId) ?>"/>
+<img
+    src="<?php echo User::getAvatarUrl($userId, false); ?>"
+    onmouseover="this.src='<?php echo User::getAvatarUrl($userId); ?>'"
+    onmouseout="this.src='<?php echo User::getAvatarUrl($userId, false); ?>'"
+/>
