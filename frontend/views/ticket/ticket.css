@@ -38,3 +38,13 @@
     background-color: #707070;
     padding: 2px 4px 1px 2px;
 }
+
+#ticketsearch-user_search .checkbox {
+    float: left;
+    margin-top: 10px; /* !!! TODO: This is a KLUDGE LESS os causing the first to be different */
+    margin-right: 30px;
+}
+
+.ticket-avatar-hide {
+    display: none;
+}

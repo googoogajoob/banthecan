@@ -231,7 +231,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * A static function for building an Avatar URL. This may be preferable to the non-static
-     * vresions as it enables the creation of the URL without reading the User Record
+     * versions as it enables the creation of the URL without reading the User Record
      * from the database. If you have a valid User-Id (e.g. from another related record)
      * you can retrieve the URL.
      *
@@ -246,7 +246,14 @@ class User extends ActiveRecord implements IdentityInterface
     public static function getAvatarUrl($id = null, $color = true) {
         return self::makeAvatarUrl($id, $color);
     }
-
+    /**
+     * This function is used internally (thus the protected keyword) to generate a URL for
+     * an Avatar-Image of a user based on their Id
+     *
+     * @param integer $id user_id
+     * @param  boolean $color TRUE for the Color Avatar, False for Grayscale
+     * @return string Avatar Pathname or empty string if Id is invalid
+     */
     protected static function makeAvatarUrl($id = null, $color = true) {
         if ($id) {
             $filename = self::$avatarFilenameRoot . $id . '.' . self::$avatarFilenameExtension;
@@ -258,5 +265,12 @@ class User extends ActiveRecord implements IdentityInterface
         } else {
             return '';
         }
+    }
+
+    /**
+     * Returns a list of all users who are associated with the current active board.
+     */
+    public static function getBoardUsers() {
+        return self::find()->where(Board::getActiveboard()->id . ' in (board_id)')->all();
     }
 }

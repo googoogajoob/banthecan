@@ -13,7 +13,7 @@ use common\models\User;
 /* @var $userId int */
 ?>
 <img
-    src="<?php echo User::getAvatarUrl($userId, false); ?>"
-    onmouseover="this.src='<?php echo User::getAvatarUrl($userId); ?>'"
-    onmouseout="this.src='<?php echo User::getAvatarUrl($userId, false); ?>'"
+    src="<?php echo User::getAvatarUrl($userId); ?>"
+    onmouseover="this.src='<?php echo User::getAvatarUrl($userId, false); ?>'"
+    onmouseout="this.src='<?php echo User::getAvatarUrl($userId); ?>'"
 />

@@ -31,6 +31,7 @@ $this->title = 'Tickets';
             'description:ntext',
             'tagNames:ntext:Tags',
             'createdByName:ntext:Created By',
+            'createdByAvatar:image:',
             'created_at:datetime:Created',
             'updated_at:datetime:Updated',
             ['class' => 'yii\grid\ActionColumn'],

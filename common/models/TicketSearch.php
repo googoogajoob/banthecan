@@ -16,6 +16,7 @@ class TicketSearch extends Ticket
     public $text_search;
     public $from_date;
     public $to_date;
+    public $user_search = [];
 
     /**
      * @inheritdoc
@@ -26,7 +27,7 @@ class TicketSearch extends Ticket
             [['from_date', 'to_date'], 'default', 'value' => null],
             [['from_date'], 'date', 'timestampAttribute' => 'from_date'],
             [['to_date'], 'date', 'timestampAttribute' => 'to_date'],
-            [['text_search'], 'safe'],
+            [['text_search', 'user_search'], 'safe'],
         ];
     }
 
@@ -63,16 +64,20 @@ class TicketSearch extends Ticket
             return $dataProvider;
         }
 
+        // If Create From Date given add to query
         $query->andFilterWhere(['>=', 'created_at', $this->from_date]);
-
+        // If Created To Date given add to query
         $query->andFilterWhere(['<=', 'created_at', $this->to_date]);
-
+        // If Text search given, search for text in title and description
         $query->andFilterWhere([
                 'or',
                 ['like', 'title', $this->text_search],
                 ['like', 'description', $this->text_search],
             ]
         );
+        // If Users selected, restrict ticket search to the selected users (as created by)
+        $query->andFilterWhere(['created_by' => $this->user_search]);
+
 
         return $dataProvider;
     }

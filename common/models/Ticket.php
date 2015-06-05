@@ -145,6 +145,14 @@ class Ticket extends \yii\db\ActiveRecord
     public function getCreatedByName() {
         return $this->getCreatedBy()->one()->username;
     }
+
+    /**
+     * @return string
+     */
+    public function getCreatedByAvatar() {
+        return $this->getCreatedBy()->one()->avatarUrlColor;
+    }
+
     /**
      * Returns the status of a ticket, whether ot not it is currently active
      * on the KanBanBoard

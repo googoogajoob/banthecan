@@ -25,7 +25,7 @@ use yii\web\NotFoundHttpException;
  */
 class Board extends \yii\db\ActiveRecord {
 
-    const NO_ACTIVE_BOARD_MESSAGE = 'An Active Board Has Been Set';
+    const NO_ACTIVE_BOARD_MESSAGE = 'An Active Board Has Not Been Set';
     const NO_ACTIVE_BOARD_STATUS_TEST = 0;
 
     /**
