@@ -59,23 +59,25 @@ class Tags extends \yii\db\ActiveRecord
             if (count($tagSearch)) {
                 $tagSearchValues = $tagSearch;
             } else {
-                //nothing to search for return empty list
+                //nothing to search for return empty array
                 return [];
             }
         } elseif (is_string($tagSearch)) {
             if (trim($tagSearch) == '') {
-                //nothing to search for return empty list
+                //nothing to search for return empty array
                 return [];
             } else {
                 $tagSearchValues = explode(',', $tagSearch);
             }
-
+        } else {
+            //nothing to search for return empty array
+            return [];
         }
 
         return Tags::find()
-            ->select('`ticket_tag_mm`.`id`')
+            ->select('`ticket_tag_mm`.`ticket_id` id')
             ->innerJoin('ticket_tag_mm', '`tags`.`id` = `ticket_tag_mm`.`tag_id`')
-            ->where(['tags.name' => $tagSearchValues])
+            ->where(['`tags`.`name`' => $tagSearchValues])
             ->asArray()
             ->all();
     }

@@ -79,7 +79,7 @@ class TicketSearch extends Ticket
         // If Users selected, restrict ticket search to the selected users (as created by)
         $query->andFilterWhere(['created_by' => $this->user_search]);
         if(trim($this->tag_search) <> '') {
-            $query->andWhere([$this->id => Tags::getTicketId($this->tag_search)]);
+            $query->andFilterWhere(['id' => Tags::getTicketId($this->tag_search)]);
         }
 
         return $dataProvider;
