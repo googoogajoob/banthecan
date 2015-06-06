@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\jui\DatePicker;
 use common\models\User;
+use dosamigos\selectize\SelectizeTextInput;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TicketSearch */
@@ -34,7 +35,7 @@ use common\models\User;
         // visibility toggled via jQuery/javascript
         $colorId = 'user_search-avatar-color-' . $user->id;
         $grayId  = 'user_search-avatar-gray-'  . $user->id;
-        $showColor = in_array($user->id, $searchModel->user_search);
+        $showColor = is_array($searchModel->user_search) ? in_array($user->id, $searchModel->user_search) : false;
         $checkBoxSetup[$user->id] =
             html::img($user->avatarUrlColor, [
                 'alt' => $user->username,
@@ -65,6 +66,20 @@ use common\models\User;
                     }
                 ]
             );
+
+    echo $form->field($searchModel, 'tag_search')->widget(SelectizeTextInput::className(), [
+            // calls an action that returns a JSON object with matched
+            // tags
+            'loadUrl' => ['tag/list'],
+            'options' => ['class' => 'form-control'],
+            'clientOptions' => [
+                'plugins' => ['remove_button'],
+                'valueField' => 'name',
+                'labelField' => 'name',
+                'searchField' => ['name'],
+                'create' => true,
+            ],
+        ])->hint('Use commas to separate tags')
 
 ?>
 

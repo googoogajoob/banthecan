@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Ticket;
+//use common\models\Ticket;
 
 /**
  * TicketSearch represents the model behind the search form about `common\models\Ticket`.
@@ -17,6 +17,7 @@ class TicketSearch extends Ticket
     public $from_date;
     public $to_date;
     public $user_search = [];
+    public $tag_search;
 
     /**
      * @inheritdoc
@@ -27,7 +28,7 @@ class TicketSearch extends Ticket
             [['from_date', 'to_date'], 'default', 'value' => null],
             [['from_date'], 'date', 'timestampAttribute' => 'from_date'],
             [['to_date'], 'date', 'timestampAttribute' => 'to_date'],
-            [['text_search', 'user_search'], 'safe'],
+            [['text_search', 'user_search', 'tag_search'], 'safe'],
         ];
     }
 
@@ -77,7 +78,9 @@ class TicketSearch extends Ticket
         );
         // If Users selected, restrict ticket search to the selected users (as created by)
         $query->andFilterWhere(['created_by' => $this->user_search]);
-
+        if(trim($this->tag_search) <> '') {
+            $query->andWhere([$this->id => Tags::getTicketId($this->tag_search)]);
+        }
 
         return $dataProvider;
     }
