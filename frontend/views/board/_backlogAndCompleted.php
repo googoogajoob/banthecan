@@ -11,7 +11,7 @@ use yii\widgets\ListView;
 
 BacklogAsset::register($this);
 
-echo $this->render('@frontend/views/ticket/_ticketSearchForm',[
+echo $this->render('@frontend/views/ticket/_backlogTicketSearchForm',[
         'searchModel' => $searchModel,
         'action' => $action,
     ]);
