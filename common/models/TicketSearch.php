@@ -45,12 +45,23 @@ class TicketSearch extends Ticket
      * Creates data provider instance with search query applied
      *
      * @param array $params
+     * @param boolean $searchPool (-1 Completed, 0 Backlog, otherwise all)
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $searchPool = null)
     {
-        $query = Ticket::find();
+        switch ($searchPool) {
+            case -1:
+                $query = self::findCompleted();
+                break;
+            case 0:
+                $query = self::findBacklog();
+                break;
+            default:
+                $query = self::find();
+                break;
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

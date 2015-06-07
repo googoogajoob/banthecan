@@ -234,38 +234,28 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Finds all Backlog Tickets
+     * Query to find all Backlog Tickets
      *
-     * @return array|ActiveRecord[] the query results.
+     * @return yii\db\QueryInterface
      */
     public function findBacklog() {
-        $session = \Yii::$app->session;
-        $currentBoard = $session->get('currentBoard');
 
         return Ticket::find()
             ->where(['column_id' => 0])
             ->orWhere(['column_id' => null])
-            ->andWhere(['board_id' => $currentBoard])
-            ->asArray()
-            ->orderBy(['updated_at' => SORT_DESC])
-            ->all();
+            ->orderBy(['updated_at' => SORT_DESC]);
     }
 
     /**
-     * Finds all Completed Tickets
+     * Query to find all Completed Tickets
      *
-     * @return array|ActiveRecord[] the query results.
+     * @return yii\db\QueryInterface
      */
     public function findCompleted() {
-        $session = \Yii::$app->session;
-        $currentBoard = $session->get('currentBoard');
 
         return Ticket::find()
             ->where(['<', 'column_id', 0])
-            ->andWhere(['board_id' => $currentBoard])
-            ->asArray()
-            ->orderBy(['updated_at' => SORT_DESC])
-            ->all();
+            ->orderBy(['updated_at' => SORT_DESC]);
     }
 
     /**

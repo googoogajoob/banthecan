@@ -42,42 +42,9 @@ $ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
     // Ticket description
     //echo StringHelper::truncate($model->description, 100, ' ...'); //Limit using PHP
     //echo $model->description; //Limit using CSS overflow
-?>
 
-<?php
-    //Ticket Info Bar: Tags, toBacklog, toComplete, full display
-    echo Html::beginTag('div', ['class' => 'ticket-function-bar']);
+    echo $this->render('@frontend/views/ticket/_ticketFunctionBar', ['model' => $model]);
 
-    if ($tags = $model->tagNames) {
-        //Show That Tags exist, singular if only one, plural if more than one
-        //This only effects the Glyph-Icon which is shown
-        $tagArray = explode(',', $tags);
-        $glyphSingularPlural = count($tagArray) > 1 ? 'glyphicon-tags' : 'glyphicon-tag';
-        echo "<span
-                    class=\"glyphicon $glyphSingularPlural ticket-function-bar-glyph\"
-                    title=\"$tags\"
-                    data-toggle=\"tooltip\"
-                    data-placement=\"auto\"
-                    data-trigger=\"hover\"
-              ></span>";
-    }
-
-
-    $description = $model->description;
-    echo "<span
-                class=\"glyphicon glyphicon-align-justify ticket-function-bar-glyph\"
-                title=\"$description\"
-                data-toggle=\"tooltip\"
-                data-placement=\"auto\"
-                data-trigger=\"hover\"
-          ></span>";
-
-
-
-    echo Html::endTag('div');
-?>
-
-<?php
     // Wrap Contents in a div only when $divClass is set
     if (isset($divClass)) {
         echo Html::endTag('div');
