@@ -13,6 +13,7 @@ use yii\filters\AccessControl;
 class BoardController extends \yii\web\Controller {
 
     const DEFAULT_PAGE_SIZE = 18;
+    private $board = null;
 
     /**
      * @inheritdoc
@@ -62,7 +63,7 @@ class BoardController extends \yii\web\Controller {
         if ($action->id == 'completed' or
             $action->id == 'backlog' or
             $action->id == 'index') {
-            Board::getActiveboard();
+            $this->board = Board::getActiveboard();
         }
 
         return true; // or false to not run the action
@@ -72,7 +73,7 @@ class BoardController extends \yii\web\Controller {
      */
     public function actionIndex() {
         return $this->render('index', [
-            'board' => $board,
+            'board' => $this->board,
         ]);
     }
 
