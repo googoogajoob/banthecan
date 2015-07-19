@@ -24,9 +24,7 @@ echo Html::beginTag('div', ['class' => 'ticket-function-bar']);
         echo "<span
                 class=\"glyphicon $glyphSingularPlural ticket-function-bar-glyph\"
                 title=\"$tags\"
-                data-toggle=\"tooltip\"
-                data-placement=\"auto\"
-                data-trigger=\"hover\"
+                data-toggle-click=\"tooltip\"
               ></span>";
     }
 
@@ -34,20 +32,16 @@ echo Html::beginTag('div', ['class' => 'ticket-function-bar']);
     echo "<span
             class=\"glyphicon glyphicon-align-justify ticket-function-bar-glyph\"
             title=\"$description\"
-            data-toggle=\"tooltip\"
-            data-placement=\"auto\"
-            data-trigger=\"hover\"
+            data-toggle-click=\"tooltip\"
           ></span>";
 
     if (!$model->column_id) {
         //Show Glyph for moving ticket into the KanBanBoard
-        echo "<span
+        echo "<a href=\"\\ticket\\board\\$model->id\"><span
                     class=\"glyphicon glyphicon-share-alt ticket-function-bar-glyph\"
                     title=\"Move to KanBan Board\"
-                    data-toggle=\"tooltip\"
-                    data-placement=\"auto\"
-                    data-trigger=\"hover\"
-                  ></span>";
+                    data-toggle-hover=\"tooltip\"
+                  ></span></a>";
     }
 
 echo Html::endTag('div');

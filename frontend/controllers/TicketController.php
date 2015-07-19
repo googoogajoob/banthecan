@@ -133,6 +133,45 @@ class TicketController extends Controller
     }
 
     /**
+     * Moves a Ticket to the KanBanBoard
+     * The browser will be returned to the calling page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionBoard($id)
+    {
+        $this->findModel($id)->moveToKanBanBoard()->save();
+
+        return $this->goBack();
+    }
+
+    /**
+     * Moves a Ticket to Completed 'Backlog'
+     * The browser will be returned to the calling page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionCompleted($id)
+    {
+        $this->findModel($id)->moveToCompleted()->save();
+
+        return $this->goBack();
+    }
+
+    /**
+     * Moves a Ticket to the Backlog
+     * The browser will be returned to the calling page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionBacklog($id)
+    {
+        $this->findModel($id)->moveToBacklog()->save();
+
+        return $this->goBack();
+    }
+
+    /**
      * Finds the Ticket model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
