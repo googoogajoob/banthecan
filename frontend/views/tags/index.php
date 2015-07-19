@@ -4,30 +4,30 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
+/* @var $searchModel common\models\TagsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Board Columns';
+$this->title = 'Tags';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="board-column-index">
+<div class="tags-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Board Column', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Tags', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'created_at',
-            'updated_at',
-            'board_id',
-            'title:ntext',
-            'display_order',
+            'frequency',
+            'name:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

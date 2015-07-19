@@ -18,6 +18,7 @@ use yii\behaviors\BlameableBehavior;
  * @property integer $board_id
  * @property string  $title
  * @property integer $display_order
+ * @property integer $receiver
  *
  * @property Board $board
  * @property Ticket[] $tickets
@@ -49,9 +50,9 @@ class Column extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['board_id', 'name'], 'required'],
+            [['board_id', 'title'], 'required'],
             [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'board_id', 'display_order'], 'integer'],
-            [['title'], 'string']
+            [['title','receiver'], 'string']
         ];
     }
 

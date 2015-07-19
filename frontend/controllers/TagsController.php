@@ -3,17 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Ticket;
-use common\models\TicketSearch;
+use common\models\Tags;
+use common\models\TagsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\MethodNotAllowedHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TicketController implements the CRUD actions for Ticket model.
+ * TagsController implements the CRUD actions for Tags model.
  */
-class TicketController extends Controller
+class TagsController extends Controller
 {
     public function behaviors()
     {
@@ -28,39 +27,13 @@ class TicketController extends Controller
     }
 
     /**
-     * Reorder the tickets of one column per ajax
-     * @return mixed
-     * @throws MethodNotAllowedHttpException (405) when not called via ajax
-     */
-    public function actionReorder()
-    {
-        $request = Yii::$app->request;
-        if ($request->isAjax) {
-            $columnId = $request->post('columnId');
-            $ticketOrder = $request->post('ticketOrder');
-            foreach ($ticketOrder as $ticketOrderKey => $ticketId) {
-                $ticket = Ticket::findOne($ticketId);
-                $ticket->ticket_order = $ticketOrderKey;
-                $ticket->column_id = $columnId;
-                if ($ticket->update() === false) {
-                    yii::error("Ticket Reordering Error: Column:$columnId, Ticket:$ticketId, Order:$ticketOrderKey");
-                }
-            }
-        } else {
-            throw new MethodNotAllowedHttpException;
-        }
-    }
-
-
-    /**
-     * Lists all Ticket models.
+     * Lists all Tags models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TicketSearch();
+        $searchModel = new TagsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->setPagination(['pageSize' => 10]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -69,7 +42,7 @@ class TicketController extends Controller
     }
 
     /**
-     * Displays a single Ticket model.
+     * Displays a single Tags model.
      * @param integer $id
      * @return mixed
      */
@@ -81,15 +54,13 @@ class TicketController extends Controller
     }
 
     /**
-     * Creates a new Ticket model.
+     * Creates a new Tags model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Ticket();
-        $model->setToCurrentActiveBoard(); //A new ticket belongs to the current active board
-        $model->moveToBacklog(); //A new ticket always starts in the backlog
+        $model = new Tags();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -101,7 +72,7 @@ class TicketController extends Controller
     }
 
     /**
-     * Updates an existing Ticket model.
+     * Updates an existing Tags model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -120,7 +91,7 @@ class TicketController extends Controller
     }
 
     /**
-     * Deletes an existing Ticket model.
+     * Deletes an existing Tags model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -133,15 +104,15 @@ class TicketController extends Controller
     }
 
     /**
-     * Finds the Ticket model based on its primary key value.
+     * Finds the Tags model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Ticket the loaded model
+     * @return Tags the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Ticket::findOne($id)) !== null) {
+        if (($model = Tags::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

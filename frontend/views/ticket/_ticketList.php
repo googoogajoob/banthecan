@@ -9,11 +9,21 @@
 use yii\helpers\Html;
 
 /* @var $tickets common\models\Ticket */
+?>
 
+<div class="row">
+
+<?php
 foreach ($tickets as $ticket) {
+
+    echo html::beginTag('div', ['class' => 'col-xs-2']);
     echo $this->render('@frontend/views/ticket/_ticketBlock', [
         'ticket' => $ticket,
         'divClass' => 'ticket-widget-float',
     ]);
+    echo html::endTag('div');
+
 }
 ?>
+
+</div>

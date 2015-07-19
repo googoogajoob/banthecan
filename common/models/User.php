@@ -28,6 +28,26 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
     /**
+     * @var string configurable Directory Path for Color Avatars
+     */
+    public static $avatarPathColor = '/images/content/30x40/';
+
+    /**
+     * @var string configurable Directory Path for Grayscale Avatars
+     */
+    public static $avatarPathGray = '/images/content/30x40-gray/';
+
+    /**
+     * @var string configurable Root File Name for all Avatars
+     */
+    public static $avatarFilenameRoot = 'user-';
+
+    /**
+     * @var string configurable Filename Extension for all Avatars
+     */
+    public static $avatarFilenameExtension = 'jpg';
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -185,5 +205,72 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Attribute AvatarUrlColor is returned. The virtual attribute is defined by combining
+     * a configured path, filenameRoot as well as a filenameExtension together with the user_id
+     * to form a complete file/path name
+     *
+     * @return string
+     */
+    public function getAvatarUrlColor() {
+        return self::makeAvatarUrl($this->id, true);
+    }
+
+    /**
+     * Attribute AvatarUrlGray is returned. The virtual attribute is defined by combining
+     * a configured path, filenameRoot as well as a filenameExtension together with the user_id
+     * to form a complete file/path name
+     *
+     * @return string
+     */
+    public function getAvatarUrlGray() {
+        return self::makeAvatarUrl($this->id, false);
+    }
+
+    /**
+     * A static function for building an Avatar URL. This may be preferable to the non-static
+     * versions as it enables the creation of the URL without reading the User Record
+     * from the database. If you have a valid User-Id (e.g. from another related record)
+     * you can retrieve the URL.
+     *
+     * The URL is defined by combining
+     * a configured path, filenameRoot as well as a filenameExtension together with the user_id
+     * to form a complete file/path name
+     *
+     * @param integer $id user_id
+     * @param boolean $color TRUE for the Color Avatar, False for Grayscale
+     * @return string The Avatar URL or Empty String if $id == false
+     */
+    public static function getAvatarUrl($id = null, $color = true) {
+        return self::makeAvatarUrl($id, $color);
+    }
+    /**
+     * This function is used internally (thus the protected keyword) to generate a URL for
+     * an Avatar-Image of a user based on their Id
+     *
+     * @param integer $id user_id
+     * @param  boolean $color TRUE for the Color Avatar, False for Grayscale
+     * @return string Avatar Pathname or empty string if Id is invalid
+     */
+    protected static function makeAvatarUrl($id = null, $color = true) {
+        if ($id) {
+            $filename = self::$avatarFilenameRoot . $id . '.' . self::$avatarFilenameExtension;
+            if ($color) {
+                return  self::$avatarPathColor . $filename;
+            } else {
+                return  self::$avatarPathGray . $filename;
+            }
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     * Returns a list of all users who are associated with the current active board.
+     */
+    public static function getBoardUsers() {
+        return self::find()->where(Board::getActiveboard()->id . ' in (board_id)')->all();
     }
 }

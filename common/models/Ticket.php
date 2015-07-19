@@ -2,9 +2,10 @@
 
 namespace common\models;
 
-//use Yii;
+use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use dosamigos\taggable\Taggable;
 
 
 /**
@@ -15,8 +16,8 @@ use yii\behaviors\BlameableBehavior;
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
- * @property string $title
- * @property string $description
+ * @property string  $title
+ * @property string  $description
  * @property integer $column_id
  * @property integer $board_id
  *
@@ -44,7 +45,32 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * The default status (column_id) of tickets that are on the kanban board
      */
-    const DEFAULT_BOARD_STATUS = 1;
+    const DEFAULT_KANBANBOARD_STATUS = 1;
+
+    /**
+     * Error Message when assigning ticket to current active board
+     */
+    const ACTIVE_BOARD_NOT_FOUND = 'Current Active Board Not Found';
+
+    /**
+     * If this variable is (> 0) thann all queries obtained through the find() function
+     * will be restricted to this value, i.e. (board_id = self::$restrictQueryToBoardId)
+     * Subsequent query modifications must use the andWhere (and related) methods in order to
+     * preserve this restriction. Subsequent use of a standard where() query will eliminate
+     * this restriction.
+     *
+     * This variable is set automatically from the board model
+     *
+     * @var int
+     */
+    public static $restrictQueryToBoardId = 0;
+
+    /*
+     * Uses in conditions to test for a restrictedQuery based on board_Id
+     * Thwe value of this constant should be a value that a board_Id cannot have
+     */
+    const NO_BOARD_QUERY_RESTRICTION = 0;
+
 
     /**
      * @inheritdoc
@@ -62,6 +88,7 @@ class Ticket extends \yii\db\ActiveRecord
         return [
             TimestampBehavior::className(),
             BlameableBehavior::className(),
+            Taggable::className(),
         ];
     }
 
@@ -74,7 +101,8 @@ class Ticket extends \yii\db\ActiveRecord
             [['title', 'column_id'], 'required'],
             [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order'], 'integer'],
             [['title', 'description'], 'string'],
-            [['id'], 'unique']
+            [['id'], 'unique'],
+            [['tagNames'], 'safe'],
         ];
     }
 
@@ -100,17 +128,29 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getColumn()
-    {
+    public function getColumn() {
         return $this->hasOne(BoardColumn::className(), ['id' => 'column_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
-    {
+    public function getCreatedBy() {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedByName() {
+        return $this->getCreatedBy()->one()->username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedByAvatar() {
+        return $this->getCreatedBy()->one()->avatarUrlColor;
     }
 
     /**
@@ -128,8 +168,8 @@ class Ticket extends \yii\db\ActiveRecord
      * on the KanBanBoard
      * @return Boolean true = active, false = not active
      */
-    public function isBoard() {
-        return (bool)($this->getColumnId() >= self::DEFAULT_BOARD_STATUS);
+    public function isKanBanBoard() {
+        return (bool)($this->getColumnId() >= self::DEFAULT_KANBANBOARD_STATUS);
     }
 
     /**
@@ -147,7 +187,7 @@ class Ticket extends \yii\db\ActiveRecord
      * @return $this common\models\ticket
      */
     public function moveToBacklog() {
-        $this->setColumnId(self::DEFAULT_BACKLOG_STATUS);
+        $this->column_id = self::DEFAULT_BACKLOG_STATUS;
 
         return $this;
     }
@@ -163,9 +203,9 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function moveToCompleted($newTicketStatus = self::DEFAULT_COMPLETED_STATUS) {
         if ($newTicketStatus <= self::DEFAULT_COMPLETED_STATUS){
-            $this->setColumnId($newTicketStatus);
+            $this->column_id = $newTicketStatus;
         } else {
-            $this->setColumnId(self::DEFAULT_COMPLETED_STATUS);
+            $this->column_id = self::DEFAULT_COMPLETED_STATUS;
         }
 
         return $this;
@@ -176,8 +216,8 @@ class Ticket extends \yii\db\ActiveRecord
      *
      * @return $this common\models\ticket
      */
-    public function moveToBoard() {
-        $this->setColumnId(self::DEFAULT_BOARD_STATUS);
+    public function moveToKanBanBoard() {
+        $this->column_id = self::DEFAULT_KANBANBOARD_STATUS;
 
         return $this;
     }
@@ -187,44 +227,76 @@ class Ticket extends \yii\db\ActiveRecord
      *
      * @return $this common\models\ticket
      */
-    public function moveToColumn($newTicketStatus = self::DEFAULT_BOARD_STATUS) {
-        $this->setColumnId($newTicketStatus);
+    public function moveToColumn($newTicketStatus = self::DEFAULT_KANBANBOARD_STATUS) {
+        $this->column_id = $newTicketStatus;
 
         return $this;
     }
 
     /**
-     * Finds all Backlog Tickets
+     * Query to find all Backlog Tickets
      *
-     * @return array|ActiveRecord[] the query results.
+     * @return yii\db\QueryInterface
      */
     public function findBacklog() {
-        $session = \Yii::$app->session;
-        $currentBoard = $session->get('currentBoard');
 
         return Ticket::find()
             ->where(['column_id' => 0])
             ->orWhere(['column_id' => null])
-            ->andWhere(['board_id' => $currentBoard])
-            ->asArray()
-            ->orderBy(['updated_at' => SORT_DESC])
-            ->all();
+            ->orderBy(['updated_at' => SORT_DESC]);
     }
 
     /**
-     * Finds all Completed Tickets
+     * Query to find all Completed Tickets
      *
-     * @return array|ActiveRecord[] the query results.
+     * @return yii\db\QueryInterface
      */
     public function findCompleted() {
-        $session = \Yii::$app->session;
-        $currentBoard = $session->get('currentBoard');
 
         return Ticket::find()
             ->where(['<', 'column_id', 0])
-            ->andWhere(['board_id' => $currentBoard])
-            ->asArray()
-            ->orderBy(['updated_at' => SORT_DESC])
-            ->all();
+            ->orderBy(['updated_at' => SORT_DESC]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable('ticket_tag_mm', ['ticket_id' => 'id']);
+    }
+
+    /**
+     * If specific conditions are active the standard find() method
+     * is adapted and additional query conditions are applied.
+     *
+     *
+     * @inheritdoc
+     */
+    public static function find() {
+        if (self::$restrictQueryToBoardId != self::NO_BOARD_QUERY_RESTRICTION) {
+            return parent::find()->andWhere(['board_id' => self::$restrictQueryToBoardId]);
+        } else {
+            return parent::find();
+        }
+    }
+
+    /**
+     * Retrieves the Current Active Board Id for this session and sets the
+     * Ticket Class Variable self::$restrictQueryToBoardId to its value.
+     * This causes all ticket queries to be restricted to the current BoardId
+     * @param $currentBoardId Integer, Id to which all ticket queries will be restricted to
+     */
+    public static function restrictQueryToBoard($currentBoardId) {
+        self::$restrictQueryToBoardId = $currentBoardId;
+    }
+
+    /**
+     * Retrieves the Current Active Board Id for this session and sets the
+     * Ticket Class Variable self::$restrictQueryToBoardId to its value.
+     * This causes all ticket queries to be restricted to the current BoardId
+     */
+    public static function clearBoardQueryRestriction() {
+        self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
     }
 }

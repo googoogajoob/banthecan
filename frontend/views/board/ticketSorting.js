@@ -12,7 +12,7 @@ function columnTicketOrder(event, ui, rthis) {
     }
 
     $.ajax({
-        url: "ticket/reorder",
+        url: "/ticket/reorder",
         type: "post",
         data: {
                 'columnId':columnId[1],

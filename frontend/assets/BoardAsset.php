@@ -13,18 +13,18 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class AppAsset extends AssetBundle
+class BoardAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@frontend/views/';
     public $css = [
-        'css/site.css',
-        'css/banthecan.css',
+        'board/board.css',
+        'ticket/ticket.css',
     ];
     public $js = [
+        'board/ticketSorting.js',
+        'ticket/ticketTooltip.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        'frontend\assets\AppAsset'
     ];
 }

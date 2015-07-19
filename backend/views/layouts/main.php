@@ -1,5 +1,6 @@
 <?php
 use backend\assets\AppAsset;
+use backend\assets\BanTheCanAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -34,14 +35,10 @@ AppAsset::register($this);
 
             $menuItems = [
                 ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Table CRUD',
-                    'items' => [
-                        ['label' => 'Board', 'url' => ['/board/index']],
-                        ['label' => 'Board Column', 'url' => ['/boardcolumn/index']],
-                        ['label' => 'Ticket', 'url' => ['/ticket/index']],
-                        ['label' => 'Users', 'url' => ['/user/index']],
-                    ],
-                ],
+                ['label' => 'Boards', 'url' => ['/board/index']],
+                ['label' => 'Columns', 'url' => ['/column/index']],
+                ['label' => 'Tickets', 'url' => ['/ticket/index']],
+                ['label' => 'Users', 'url' => ['/user/index']],
             ];
 
             if (Yii::$app->user->isGuest) {

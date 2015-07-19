@@ -13,7 +13,7 @@ $this->title = 'Tickets';
 <div class="ticket-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Ticket', ['create'], ['class' => 'btn btn-success']) ?>
@@ -22,18 +22,18 @@ $this->title = 'Tickets';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager' => [
+            'firstPageLabel' => 'Begin',
+            'lastPageLabel' => 'End',
+        ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
             'title:ntext',
-            // 'description:ntext',
-            // 'column_id',
-
+            'description:ntext',
+            'tagNames:ntext:Tags',
+            'createdByName:ntext:Created By',
+            'createdByAvatar:image:',
+            'created_at:datetime:Created',
+            'updated_at:datetime:Updated',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

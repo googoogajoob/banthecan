@@ -1,10 +1,21 @@
 <?php
 
-use frontend\assets\BanTheCanAsset;
+use yii\helpers\Html;
 
-BanTheCanAsset::register($this);
-/* @var $tickets common\models\Ticket */
-$this->params['breadcrumbs'][] = 'Completed';
+/* @var $this yii\web\View */
+/* @var $searchModel common\models\TicketSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $action string */
 
-echo $this->render('../ticket/_ticketList', ['tickets' => $tickets]);
 ?>
+
+<h1 class="text-capitalize">
+    <?php echo Html::encode($action) ?>
+</h1>
+
+<?php
+echo $this->render('@frontend/views/board/_backlogAndCompleted', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+        'action' => $action,
+    ]);

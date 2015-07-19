@@ -4,10 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\TicketSearch */
+/* @var $model common\models\TagsSearch */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="ticket-search">
+<div class="tags-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -16,17 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'frequency') ?>
 
-    <?= $form->field($model, 'updated_at') ?>
-
-    <?= $form->field($model, 'created_by') ?>
-
-    <?= $form->field($model, 'title') ?>
-
-    <?php echo $form->field($model, 'description') ?>
-
-    <?php echo $form->field($model, 'column_id') ?>
+    <?= $form->field($model, 'name') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

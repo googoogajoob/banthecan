@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Ticket */
+/* @var $model common\models\BoardColumn */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Tickets', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Board Columns', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ticket-view">
+<div class="board-column-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,13 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'created_at',
+            'updated_at',
+            'created_by',
+            'updated_by',
+            'board_id',
             'title:ntext',
-            'description:ntext',
-            'tagNames:ntext:Tags',
-            'createdByName:ntext:Created By',
-            'createdByAvatar:image:',
-            'created_at:datetime:Created',
-            'updated_at:datetime:Updated',
+            'display_order',
+            'receiver',
         ],
     ]) ?>
 

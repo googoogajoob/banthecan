@@ -1,23 +1,19 @@
 <?php
 
-use yii;
+//use yii;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
-use frontend\assets\BanTheCanAsset;
 use common\models\Board;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
 AppAsset::register($this);
-BanTheCanAsset::register($this);
-
-$this->title = Board::getActiveboard()->title;
-
+//$this->title = Board::getActiveboard() ? Board::getActiveboard()->title : '';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -43,7 +39,7 @@ $this->title = Board::getActiveboard()->title;
 
             if (Yii::$app->user->isGuest) {
 
-                $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+                //$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
                 $menuItems[] = ['label' => 'Contact', 'url' => ['/site/contact']];
                 $menuItems[] = ['label' => 'About', 'url' => ['/site/about']];
@@ -51,6 +47,7 @@ $this->title = Board::getActiveboard()->title;
             } else {
 
                 $menuItems = [
+                    ['label' => 'Tags', 'url' => ['/tags']],
                     ['label' => 'Tickets', 'url' => ['/ticket']],
                     ['label' => 'Boards',
                         'items' => [

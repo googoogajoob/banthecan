@@ -13,16 +13,16 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class BanTheCanAsset extends AssetBundle
+class BacklogAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@frontend/views/ticket/';
     public $css = [
-        'css/banthecan.css',
+        'ticket.css',
     ];
     public $js = [
-        'javascript/banthecan.js',
+        'ticketTooltip.js',
     ];
     public $depends = [
+        'frontend\assets\AppAsset'
     ];
 }

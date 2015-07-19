@@ -3,16 +3,17 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\BoardColumn;
+use common\models\Column;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\MethodNotAllowedHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * BoardColumnController implements the CRUD actions for BoardColumn model.
  */
-class BoardcolumnController extends Controller
+class ColumnController extends Controller
 {
     public function behaviors()
     {
@@ -27,13 +28,40 @@ class BoardcolumnController extends Controller
     }
 
     /**
+     * Reorder the columns display order per ajax
+     * @return mixed
+     * @throws MethodNotAllowedHttpException (405) when not called via ajax
+     */
+    public function actionReorder()
+    {
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            $displayOrder = $request->post('displayOrder');
+            $newColumnOrder = 1;
+            foreach ($displayOrder as $displayOrderKey => $columnId) {
+                $column = Column::findOne($columnId);
+                $column->display_order = $newColumnOrder;
+                //$junk = $column->name;
+                //$column->name = $junk;
+                if ($column->update() === false) {
+                    yii::error("Ticket Reordering Error: Column:$columnId, Ticket:$ticketId, Order:$ticketOrderKey");
+                }
+                $newColumnOrder++;
+            }
+        } else {
+            throw new MethodNotAllowedHttpException;
+        }
+    }
+
+    /**
      * Lists all BoardColumn models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => BoardColumn::find(),
+            'query' => Column::find()->orderBy('display_order'),
+            'sort' => false,
         ]);
 
         return $this->render('index', [
@@ -60,7 +88,7 @@ class BoardcolumnController extends Controller
      */
     public function actionCreate()
     {
-        $model = new BoardColumn();
+        $model = new Column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -104,7 +132,7 @@ class BoardcolumnController extends Controller
     }
 
     /**
-     * Finds the BoardColumn model based on its primary key value.
+     * Finds the Column model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
      * @return BoardColumn the loaded model
@@ -112,7 +140,7 @@ class BoardcolumnController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = BoardColumn::findOne($id)) !== null) {
+        if (($model = Column::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
