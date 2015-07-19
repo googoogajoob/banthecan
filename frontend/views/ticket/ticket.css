@@ -6,7 +6,7 @@
     margin: 4px 0 4px 0;
 
     /* These three(?) settings can be accomplished with the Bootstrap Mixin text-overflow*/
-    overflow: hidden;
+    /*overflow: hidden;*/ /* When set this prevents tooltips from showing */
     text-overflow: ellipsis;
 
     /*white-space: nowrap;*/
