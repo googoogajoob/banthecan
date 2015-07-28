@@ -18,7 +18,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title>Ban-The-Can Admin</title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -26,24 +26,23 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'Ban The Can - BACKEND',
+                'brandLabel' => 'Ban-The-Can Admin',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
 
-            $menuItems = [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Boards', 'url' => ['/board/index']],
-                ['label' => 'Columns', 'url' => ['/column/index']],
-                ['label' => 'Tickets', 'url' => ['/ticket/index']],
-                ['label' => 'Users', 'url' => ['/user/index']],
-            ];
-
             if (Yii::$app->user->isGuest) {
                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
             } else {
+                $menuItems = [
+                    ['label' => 'Home', 'url' => ['/site/index']],
+                    ['label' => 'Boards', 'url' => ['/board/index']],
+                    ['label' => 'Columns', 'url' => ['/column/index']],
+                    ['label' => 'Tickets', 'url' => ['/ticket/index']],
+                    ['label' => 'Users', 'url' => ['/user/index']],
+                ];
                 $menuItems[] = [
                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],

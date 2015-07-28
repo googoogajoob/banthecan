@@ -12,7 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <p>The Admin area of <strong><em>Ban The Can</em></strong> requires an authenticated user.</p>
     <p>Please fill out the following fields to login:</p>
+    <p>
+        <a href="/site/initialize">INITIALIZE USER DB</a>
+    </p>
 
     <div class="row">
         <div class="col-lg-5">
