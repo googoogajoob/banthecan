@@ -273,4 +273,19 @@ class User extends ActiveRecord implements IdentityInterface
     public static function getBoardUsers() {
         return self::find()->where(Board::getActiveboard()->id . ' in (board_id)')->all();
     }
+
+    public function createDemoUser() {
+        $this->username = 'demo';
+        $this->password = 'demo';
+        $this->email = '';
+        $this->board_id = 1;
+        $this->password_reset_token = '';
+        $this->setPassword('demo');
+        $this->generateAuthKey();
+        if ($this->save()) {
+            return $this;
+        }
+
+        return null;
+    }
 }

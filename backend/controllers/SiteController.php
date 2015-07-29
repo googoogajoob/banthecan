@@ -5,6 +5,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use common\models\LoginForm;
+use common\models\User;
 use yii\filters\VerbFilter;
 
 /**
@@ -81,6 +82,9 @@ class SiteController extends Controller
     }
 
     public function actionInitialize() {
+        $model = new user();
+        $model->createDemoUser();
+
         return $this->goHome();
     }
 }
