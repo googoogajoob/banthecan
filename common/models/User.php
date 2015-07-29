@@ -26,6 +26,8 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+    const DEMO_USER_NAME = 'demo';
+    const DEMO_USER_PASSWORD = 'demo';
 
     /**
      * @var string configurable Directory Path for Color Avatars
@@ -274,9 +276,14 @@ class User extends ActiveRecord implements IdentityInterface
         return self::find()->where(Board::getActiveboard()->id . ' in (board_id)')->all();
     }
 
+    /**
+     * Creates a Demo User
+     *
+     * @return $this|null
+     */
     public function createDemoUser() {
-        $this->username = 'demo';
-        $this->password = 'demo';
+        $this->username = self::DEMO_USER_NAME;
+        $this->password = self::DEMO_USER_PASSWORD;
         $this->email = '';
         $this->board_id = 1;
         $this->password_reset_token = '';
@@ -287,5 +294,9 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return null;
+    }
+
+    public static function findDemoUser() {
+        return static::findByUsername(self::DEMO_USER_NAME);
     }
 }

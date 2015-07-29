@@ -23,8 +23,25 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'initialize'],
+                        'actions' => ['error'],
                         'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['login'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                        'matchCallback' => function($rule, $action) {
+                            return User::findDemoUser();
+                        }
+                    ],
+                    [
+                        'actions' => ['initialize'],
+                        'allow' => false,
+                        'roles' => ['?'],
+                        'matchCallback' => function($rule, $action) {
+                            return User::findDemoUser();
+                        }
                     ],
                     [
                         'actions' => ['logout', 'index'],
@@ -54,16 +71,16 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
+    public function actionIndex() {
         return $this->render('index');
     }
 
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
+        /* This is now taken care of by the Access Filter Rules
+          if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
-        }
+        }*/
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -82,9 +99,10 @@ class SiteController extends Controller
     }
 
     public function actionInitialize() {
-        $model = new user();
-        $model->createDemoUser();
+        return $this->render('initialize');
+        //$model = new user();
+        //$model->createDemoUser();
 
-        return $this->goHome();
+        //return $this->goHome();
     }
 }
