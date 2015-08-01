@@ -18,7 +18,6 @@ return [
             'enableStrictParsing' => true,
             //for other options see http://stackoverflow.com/questions/27316780/how-to-config-yii2-urlmanager-rules-with-aliases-and-get-parameter
             'rules' => [
-                ''                                          => '/',
                 '/'                                         => '/',
                 'site'                                      => '/',
                 'site/index'                                => '/',
