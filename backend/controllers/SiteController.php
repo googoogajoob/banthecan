@@ -23,7 +23,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['error'],
+                        'actions' => ['error', 'initialize'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -32,15 +32,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['?'],
                         'matchCallback' => function($rule, $action) {
-                            return User::findDemoUser();
-                        }
-                    ],
-                    [
-                        'actions' => ['initialize'],
-                        'allow' => false,
-                        'roles' => ['?'],
-                        'matchCallback' => function($rule, $action) {
-                            return User::findDemoUser();
+                            return \Yii::$app->user->isGuest AND User::findDemoUser();
                         }
                     ],
                     [
@@ -77,18 +69,11 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        /* This is now taken care of by the Access Filter Rules
-          if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }*/
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
+            return $this->render('login', ['model' => $model]);
         }
     }
 
@@ -99,10 +84,10 @@ class SiteController extends Controller
     }
 
     public function actionInitialize() {
-        return $this->render('initialize');
-        //$model = new user();
-        //$model->createDemoUser();
+        //return $this->render('initialize');
+        $model = new user();
+        $model->createDemoUser();
 
-        //return $this->goHome();
+        return $this->goHome();
     }
 }

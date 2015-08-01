@@ -1,6 +1,6 @@
 <?php
+
 use backend\assets\AppAsset;
-use backend\assets\BanTheCanAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -33,7 +33,12 @@ AppAsset::register($this);
                 ],
             ]);
 
-            if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->isGuest) {
+                $menuItems= [
+                    ['label' => 'Login', 'url' => ['/site/login']],
+                    ['label' => 'Initialize Website', 'url' => ['/site/initialize']],
+                ];
+            } else {
                 $menuItems = [
                     ['label' => 'Home', 'url' => ['/site/index']],
                     ['label' => 'Boards', 'url' => ['/board/index']],
