@@ -5,6 +5,8 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use common\models\User;
+
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -34,10 +36,10 @@ AppAsset::register($this);
             ]);
 
             if (Yii::$app->user->isGuest) {
-                $menuItems= [
-                    ['label' => 'Login', 'url' => ['/site/login']],
-                    ['label' => 'Initialize Website', 'url' => ['/site/initialize']],
-                ];
+               $menuItems= [
+                    ['label' => 'Login', 'url' => ['/site/login'], 'visible' => (bool) User::findDemoUser()],
+                    ['label' => 'Initialize Database', 'url' => ['/site/initialize']],
+               ];
             } else {
                 $menuItems = [
                     ['label' => 'Home', 'url' => ['/site/index']],

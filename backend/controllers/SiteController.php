@@ -23,7 +23,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['error', 'initialize'],
+                        'actions' => ['error', 'initialize', 'index'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -36,7 +36,7 @@ class SiteController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
