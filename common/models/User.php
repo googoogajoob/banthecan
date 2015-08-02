@@ -282,6 +282,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @return $this|null
      */
     public function createDemoUser() {
+			$this->deleteAll();
         $this->username = self::DEMO_USER_NAME;
         $this->password = self::DEMO_USER_PASSWORD;
         $this->email = '';
