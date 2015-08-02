@@ -38,7 +38,6 @@ AppAsset::register($this);
             if (Yii::$app->user->isGuest) {
                $menuItems= [
                     ['label' => 'Login', 'url' => ['/site/login'], 'visible' => (bool) User::findDemoUser()],
-                    ['label' => 'Initialize Database', 'url' => ['/site/initialize']],
                ];
             } else {
                 $menuItems = [
@@ -52,6 +51,8 @@ AppAsset::register($this);
                     ],
                 ];
             }
+
+            $menuItems[] = ['label' => 'Initialize Database', 'url' => ['/site/initialize']];
 
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],

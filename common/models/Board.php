@@ -3,10 +3,10 @@
 namespace common\models;
 
 use yii;
-use common\models\Ticket;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\web\NotFoundHttpException;
+use Faker\Factory;
 
 
 /**
@@ -27,6 +27,8 @@ class Board extends \yii\db\ActiveRecord {
 
     const NO_ACTIVE_BOARD_MESSAGE = 'An Active Board Has Not Been Set';
     const NO_ACTIVE_BOARD_STATUS_TEST = 0;
+    const DEMO_TITLE = 'Ban-The-Can Demonstration Board';
+    const DEMO_MAX_LANES = 1;
 
     /**
      * @inheritdoc
@@ -106,5 +108,25 @@ class Board extends \yii\db\ActiveRecord {
             return self::findOne($currentBoardId);
         }
     }
+
+    /**
+     * Creates a Demo Board
+     *
+     * @return $this|null
+     */
+    public function createDemoBoard() {
+        $faker = Factory::create();
+
+        $this->deleteAll();
+        $this->title = self::DEMO_TITLE;
+        $this->max_lanes = self::DEMO_MAX_LANES;
+        $this->description = "Description Text: " . $faker->text();
+        if ($this->save()) {
+            return $this;
+        }
+
+        return null;
+    }
+
 
 }

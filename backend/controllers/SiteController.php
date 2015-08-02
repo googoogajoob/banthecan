@@ -6,6 +6,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use common\models\LoginForm;
 use common\models\User;
+use common\models\Board;
 use yii\filters\VerbFilter;
 
 /**
@@ -25,7 +26,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['error', 'initialize', 'index'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        //'roles' => ['?'],
                     ],
                     [
                         'actions' => ['login'],
@@ -71,7 +72,7 @@ class SiteController extends Controller
     {
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goHome();
         } else {
             return $this->render('login', ['model' => $model]);
         }
@@ -85,8 +86,20 @@ class SiteController extends Controller
 
     public function actionInitialize() {
         //return $this->render('initialize');
-        $model = new user();
-        $model->createDemoUser();
+
+        //Created new Demo User
+        $user = new user();
+        $user->createDemoUser();
+
+        // Board Creation requires a logged in user, therefore login the newly created user
+        $login = new LoginForm();
+        $login->username = $user->username;
+        $login->password = $user->password;
+        $login->login();
+
+        //Create Demo Board
+        $board = new board();
+        $board->createDemoBoard($user->id);
 
         return $this->goHome();
     }
