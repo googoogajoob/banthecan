@@ -2,11 +2,12 @@
 
 namespace common\models;
 
+use Faker\Factory;
 use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\web\NotFoundHttpException;
-use Faker\Factory;
+
 
 
 /**
@@ -121,12 +122,12 @@ class Board extends \yii\db\ActiveRecord {
         $this->title = self::DEMO_TITLE;
         $this->max_lanes = self::DEMO_MAX_LANES;
         $this->description = "Description Text: " . $faker->text();
+
         if ($this->save()) {
             return $this;
         }
 
         return null;
     }
-
 
 }

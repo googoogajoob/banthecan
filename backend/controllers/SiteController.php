@@ -7,6 +7,8 @@ use yii\web\Controller;
 use common\models\LoginForm;
 use common\models\User;
 use common\models\Board;
+use common\models\Column;
+use common\models\Ticket;
 use yii\filters\VerbFilter;
 
 /**
@@ -88,7 +90,7 @@ class SiteController extends Controller
         //return $this->render('initialize');
 
         //Created new Demo User
-        $user = new user();
+        $user = new User();
         $user->createDemoUser();
 
         // Board Creation requires a logged in user, therefore login the newly created user
@@ -98,8 +100,19 @@ class SiteController extends Controller
         $login->login();
 
         //Create Demo Board
-        $board = new board();
-        $board->createDemoBoard($user->id);
+        $board = new Board();
+        $board->createDemoBoard();
+
+        $user->board_id = $board->id;
+        $user->update();
+
+        //Create Demo Columns
+        $column = new Column();
+        $column->createDemoColumns($board->id);
+
+        //Create Demo Tickets
+        $column = new Ticket();
+        $column->createDemoTickets($board->id);
 
         return $this->goHome();
     }

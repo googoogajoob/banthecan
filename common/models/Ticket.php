@@ -2,10 +2,11 @@
 
 namespace common\models;
 
-use yii;
-use yii\behaviors\TimestampBehavior;
-use yii\behaviors\BlameableBehavior;
+use Faker\Factory;
 use dosamigos\taggable\Taggable;
+use yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 
 /**
@@ -20,11 +21,16 @@ use dosamigos\taggable\Taggable;
  * @property string  $description
  * @property integer $column_id
  * @property integer $board_id
+ * @property integer $ticket_order
  *
  * @property BoardColumn $column
  */
 class Ticket extends \yii\db\ActiveRecord
 {
+    const DEMO_BACKLOG_TICKETS = 100;
+    const DEMO_BOARD_TICKETS = 5;
+    const DEMO_COMPLETED_TICKETS = 50;
+
     /**
      * The status (column_id) of tickets in the backlog
      */
@@ -299,4 +305,60 @@ class Ticket extends \yii\db\ActiveRecord
     public static function clearBoardQueryRestriction() {
         self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
     }
+
+    /**
+     * Creates a set of Demo Tickets
+     *
+     * @return boolean
+     */
+    public function createDemoTickets($boardId) {
+        $faker = Factory::create();
+
+        $this->deleteAll();
+
+        // Create Backlog Tickets
+        for ($i = 0; $i < self::DEMO_BACKLOG_TICKETS; $i++) {
+            $this->title =          $faker->text(30);
+            $this->description =    $faker->text();
+            $this->column_id =      self::DEFAULT_BACKLOG_STATUS;
+            $this->board_id = $boardId;
+            $this->ticket_order = 0;
+            $this->isNewRecord = true;
+            $this->id = null;
+            if (!$this->save()) {
+                return false;
+            }
+        }
+
+        // Create Completed Tickets
+        for ($i = 0; $i < self::DEMO_COMPLETED_TICKETS; $i++) {
+            $this->title =          $faker->text(30);
+            $this->description =    $faker->text();
+            $this->column_id =      self::DEFAULT_COMPLETED_STATUS;
+            $this->board_id = $boardId;
+            $this->ticket_order = 0;
+            $this->isNewRecord = true;
+            $this->id = null;
+            if (!$this->save()) {
+                return false;
+            }
+        }
+
+        // Create KanBanBoard Tickets
+        for ($i = 0; $i < self::DEMO_BOARD_TICKETS; $i++) {
+            $this->title =          $faker->text(30);
+            $this->description =    $faker->text();
+            $this->column_id =      self::DEFAULT_KANBANBOARD_STATUS;
+            $this->board_id = $boardId;
+            $this->ticket_order = $i;
+            $this->isNewRecord = true;
+            $this->id = null;
+            if (!$this->save()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
