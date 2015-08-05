@@ -25,8 +25,7 @@ use yii\behaviors\BlameableBehavior;
  */
 class Column extends \yii\db\ActiveRecord
 {
-
-    const DEMO_COLUMNS = [
+    private static $demoColumns = [
         ['title' => 'Agenda',       'order' => 1, 'receiver' => '3'],
         ['title' => 'Waiting',      'order' => 2, 'receiver' => '3'],
         ['title' => 'Discussion',   'order' => 3, 'receiver' => '2,4'],
@@ -99,7 +98,7 @@ class Column extends \yii\db\ActiveRecord
 
         $this->deleteAll();
 
-        foreach (self::DEMO_COLUMNS as $demoColumn) {
+        foreach (self::$demoColumns as $demoColumn) {
             $this->title =          $demoColumn['title'];
             $this->display_order =  $demoColumn['order'];
             $this->receiver =       $demoColumn['receiver'];;
