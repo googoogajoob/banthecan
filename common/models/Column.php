@@ -25,6 +25,13 @@ use yii\behaviors\BlameableBehavior;
  */
 class Column extends \yii\db\ActiveRecord
 {
+    private static $demoColumns = [
+        ['title' => 'Agenda',       'order' => 1, 'receiver' => '3'],
+        ['title' => 'Waiting',      'order' => 2, 'receiver' => '3'],
+        ['title' => 'Discussion',   'order' => 3, 'receiver' => '2,4'],
+        ['title' => 'Action',       'order' => 4, 'receiver' => '2,5'],
+        ['title' => 'Protocol',     'order' => 5, 'receiver' => '2'],
+    ];
     /**
      * @inheritdoc
      */
@@ -71,17 +78,6 @@ class Column extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     *
-     * todo: as of 20-Apr-2015 this method is not used, perhaps it could be removed
-     *
-     * @return \yii\db\ActiveRecord
-     */
-    public function getBoard()
-    {
-        return $this->hasOne(Board::className(), ['id' => 'board_id'])
-                    ->one();
-    }
 
     /**
      * @return \yii\db\ActiveRecord
@@ -92,4 +88,29 @@ class Column extends \yii\db\ActiveRecord
                     ->orderBy('ticket_order')
                     ->all();
     }
+
+    /**
+     * Creates a set of Demo Columns
+     *
+     * @return boolean
+     */
+    public function createDemoColumns($boardId) {
+
+        $this->deleteAll();
+
+        foreach (self::$demoColumns as $demoColumn) {
+            $this->title =          $demoColumn['title'];
+            $this->display_order =  $demoColumn['order'];
+            $this->receiver =       $demoColumn['receiver'];;
+            $this->board_id = $boardId;
+            $this->isNewRecord = true;
+            $this->id = null;
+            if (!$this->save()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

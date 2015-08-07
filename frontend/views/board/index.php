@@ -14,10 +14,6 @@ $this->params['breadcrumbs'][] = 'KanBanBoard';
 BoardAsset::register($this);
 ?>
 
-<div id="info">This is the info Div-Block. Do I really need this here?
- It's possible this is taken care of in the main layout. On the other hand somebody put this here for a reason
-    (it wasn't me) abd I'd like to know what it was. </div>
-
 <p class="bg-warning">
     <small><em><?= Html::encode($board->description) ?></em></small>
 </p>
