@@ -46,6 +46,11 @@ class User extends ActiveRecord implements IdentityInterface
     public static $avatarFilenameRoot = 'user-';
 
     /**
+     * @var string configurable Root File Name for all Avatars
+     */
+    public static $avatarGenericFilename = 'generic';
+
+    /**
      * @var string configurable Filename Extension for all Avatars
      */
     public static $avatarFilenameExtension = 'jpg';
@@ -258,15 +263,15 @@ class User extends ActiveRecord implements IdentityInterface
      * @return string Avatar Pathname or empty string if Id is invalid
      */
     protected static function makeAvatarUrl($id = null, $color = true) {
-        if ($id) {
-            $filename = self::$avatarFilenameRoot . $id . '.' . self::$avatarFilenameExtension;
-            if ($color) {
-                return  self::$avatarPathColor . $filename;
-            } else {
-                return  self::$avatarPathGray . $filename;
-            }
+        $filename = ($color ? self::$avatarPathColor : self::$avatarPathGray ) .
+                    self::$avatarFilenameRoot . $id . '.' . self::$avatarFilenameExtension;
+
+        if ($id and is_readable($filename) and !YII_ENV_DEMO) {
+            return $filename;
         } else {
-            return '';
+            // If User not valid or avatar not found or demo mode then show generic avatar
+            return ($color ? self::$avatarPathColor : self::$avatarPathGray ) .
+                    self::$avatarGenericFilename . '.' . self::$avatarFilenameExtension;
         }
     }
 
