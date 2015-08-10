@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 19, 2015 at 12:02 PM
+-- Generation Time: Aug 09, 2015 at 11:41 PM
 -- Server version: 10.0.20-MariaDB
 -- PHP Version: 5.6.1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `banthecan-test`
+-- Database: `banthecan-demo`
 --
 
 -- --------------------------------------------------------
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `auth_assignment`
 --
 
+DROP TABLE IF EXISTS `auth_assignment`;
 CREATE TABLE IF NOT EXISTS `auth_assignment` (
   `item_name` varchar(64) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -38,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 -- Table structure for table `auth_item`
 --
 
+DROP TABLE IF EXISTS `auth_item`;
 CREATE TABLE IF NOT EXISTS `auth_item` (
   `name` varchar(64) NOT NULL,
   `type` int(11) NOT NULL,
@@ -55,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
 -- Table structure for table `auth_item_child`
 --
 
+DROP TABLE IF EXISTS `auth_item_child`;
 CREATE TABLE IF NOT EXISTS `auth_item_child` (
   `parent` varchar(64) NOT NULL,
   `child` varchar(64) NOT NULL
@@ -66,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
 -- Table structure for table `auth_item_group`
 --
 
+DROP TABLE IF EXISTS `auth_item_group`;
 CREATE TABLE IF NOT EXISTS `auth_item_group` (
   `code` varchar(64) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -79,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `auth_item_group` (
 -- Table structure for table `auth_rule`
 --
 
+DROP TABLE IF EXISTS `auth_rule`;
 CREATE TABLE IF NOT EXISTS `auth_rule` (
   `name` varchar(64) NOT NULL,
   `data` text,
@@ -92,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `auth_rule` (
 -- Table structure for table `board`
 --
 
+DROP TABLE IF EXISTS `board`;
 CREATE TABLE IF NOT EXISTS `board` (
 `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
@@ -100,8 +106,9 @@ CREATE TABLE IF NOT EXISTS `board` (
   `updated_by` int(11) NOT NULL COMMENT 'Yii blameable behavior',
   `title` tinytext COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `max_lanes` int(11) NOT NULL COMMENT '# of lanes'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Initial Board design';
+  `max_lanes` int(11) NOT NULL COMMENT '# of lanes',
+  `entry_column` int(11) NOT NULL COMMENT 'Column ID for Tickets coming from the Backlog'
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Initial Board design';
 
 -- --------------------------------------------------------
 
@@ -109,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `board` (
 -- Table structure for table `column`
 --
 
+DROP TABLE IF EXISTS `column`;
 CREATE TABLE IF NOT EXISTS `column` (
 `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
@@ -119,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `column` (
   `title` tinytext COLLATE utf8_unicode_ci NOT NULL,
   `display_order` int(11) NOT NULL,
   `receiver` tinytext COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='colums fo a board';
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='colums fo a board';
 
 -- --------------------------------------------------------
 
@@ -127,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `column` (
 -- Table structure for table `dektrium-user`
 --
 
+DROP TABLE IF EXISTS `dektrium-user`;
 CREATE TABLE IF NOT EXISTS `dektrium-user` (
 `id` int(11) NOT NULL,
   `username` varchar(25) NOT NULL,
@@ -140,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `dektrium-user` (
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `flags` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='dektrium user DB';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='dektrium user DB';
 
 -- --------------------------------------------------------
 
@@ -148,6 +157,7 @@ CREATE TABLE IF NOT EXISTS `dektrium-user` (
 -- Table structure for table `migration`
 --
 
+DROP TABLE IF EXISTS `migration`;
 CREATE TABLE IF NOT EXISTS `migration` (
   `version` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
   `apply_time` int(11) DEFAULT NULL
@@ -159,6 +169,7 @@ CREATE TABLE IF NOT EXISTS `migration` (
 -- Table structure for table `profile`
 --
 
+DROP TABLE IF EXISTS `profile`;
 CREATE TABLE IF NOT EXISTS `profile` (
   `user_id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -176,6 +187,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
 -- Table structure for table `social_account`
 --
 
+DROP TABLE IF EXISTS `social_account`;
 CREATE TABLE IF NOT EXISTS `social_account` (
 `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -190,11 +202,12 @@ CREATE TABLE IF NOT EXISTS `social_account` (
 -- Table structure for table `tags`
 --
 
+DROP TABLE IF EXISTS `tags`;
 CREATE TABLE IF NOT EXISTS `tags` (
 `id` int(11) NOT NULL,
   `frequency` int(11) NOT NULL,
   `name` tinytext COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -202,6 +215,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
 -- Table structure for table `temp_top`
 --
 
+DROP TABLE IF EXISTS `temp_top`;
 CREATE TABLE IF NOT EXISTS `temp_top` (
   `fromP` text COLLATE utf8_unicode_ci NOT NULL,
   `top` text COLLATE utf8_unicode_ci NOT NULL,
@@ -216,6 +230,7 @@ CREATE TABLE IF NOT EXISTS `temp_top` (
 -- Table structure for table `ticket`
 --
 
+DROP TABLE IF EXISTS `ticket`;
 CREATE TABLE IF NOT EXISTS `ticket` (
 `id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
@@ -227,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `column_id` int(11) DEFAULT '0',
   `board_id` int(11) NOT NULL,
   `ticket_order` int(11) NOT NULL COMMENT 'Order of the tickets within a particular column, backlog, completed'
-) ENGINE=InnoDB AUTO_INCREMENT=346 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -235,6 +250,7 @@ CREATE TABLE IF NOT EXISTS `ticket` (
 -- Table structure for table `ticket_tag_mm`
 --
 
+DROP TABLE IF EXISTS `ticket_tag_mm`;
 CREATE TABLE IF NOT EXISTS `ticket_tag_mm` (
   `ticket_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL
@@ -246,6 +262,7 @@ CREATE TABLE IF NOT EXISTS `ticket_tag_mm` (
 -- Table structure for table `token`
 --
 
+DROP TABLE IF EXISTS `token`;
 CREATE TABLE IF NOT EXISTS `token` (
   `user_id` int(11) NOT NULL,
   `code` varchar(32) NOT NULL,
@@ -259,6 +276,7 @@ CREATE TABLE IF NOT EXISTS `token` (
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
 `id` int(11) NOT NULL,
   `username` tinytext COLLATE utf8_unicode_ci NOT NULL,
@@ -271,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `updated_at` int(11) NOT NULL,
   `password` tinytext COLLATE utf8_unicode_ci NOT NULL,
   `board_id` varchar(256) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Standard Yii User-DB';
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Standard Yii User-DB';
 
 -- --------------------------------------------------------
 
@@ -279,6 +297,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Table structure for table `user_visit_log`
 --
 
+DROP TABLE IF EXISTS `user_visit_log`;
 CREATE TABLE IF NOT EXISTS `user_visit_log` (
 `id` int(11) NOT NULL,
   `token` varchar(255) NOT NULL,
@@ -297,6 +316,7 @@ CREATE TABLE IF NOT EXISTS `user_visit_log` (
 -- Table structure for table `webvimark-user`
 --
 
+DROP TABLE IF EXISTS `webvimark-user`;
 CREATE TABLE IF NOT EXISTS `webvimark-user` (
 `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -311,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `webvimark-user` (
   `bind_to_ip` varchar(255) DEFAULT NULL,
   `email` varchar(128) DEFAULT NULL,
   `email_confirmed` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='webvimark User DB';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='webvimark User DB';
 
 --
 -- Indexes for dumped tables
@@ -433,17 +453,17 @@ ALTER TABLE `webvimark-user`
 -- AUTO_INCREMENT for table `board`
 --
 ALTER TABLE `board`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `column`
 --
 ALTER TABLE `column`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `dektrium-user`
 --
 ALTER TABLE `dektrium-user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `social_account`
 --
@@ -453,17 +473,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=346;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=311;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT for table `user_visit_log`
 --
@@ -473,62 +493,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `webvimark-user`
 --
 ALTER TABLE `webvimark-user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `auth_assignment`
---
-ALTER TABLE `auth_assignment`
-ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `auth_assignment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `webvimark-user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `auth_item`
---
-ALTER TABLE `auth_item`
-ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE,
-ADD CONSTRAINT `fk_auth_item_group_code` FOREIGN KEY (`group_code`) REFERENCES `auth_item_group` (`code`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `auth_item_child`
---
-ALTER TABLE `auth_item_child`
-ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `column`
---
-ALTER TABLE `column`
-ADD CONSTRAINT `column_ibfk_1` FOREIGN KEY (`board_id`) REFERENCES `board` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `profile`
---
-ALTER TABLE `profile`
-ADD CONSTRAINT `fk_user_profile` FOREIGN KEY (`user_id`) REFERENCES `dektrium-user` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `social_account`
---
-ALTER TABLE `social_account`
-ADD CONSTRAINT `fk_user_account` FOREIGN KEY (`user_id`) REFERENCES `dektrium-user` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `token`
---
-ALTER TABLE `token`
-ADD CONSTRAINT `fk_user_token` FOREIGN KEY (`user_id`) REFERENCES `dektrium-user` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `user_visit_log`
---
-ALTER TABLE `user_visit_log`
-ADD CONSTRAINT `user_visit_log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `webvimark-user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

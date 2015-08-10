@@ -7,13 +7,11 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
-use common\models\Board;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
 AppAsset::register($this);
-//$this->title = Board::getActiveboard() ? Board::getActiveboard()->title : '';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

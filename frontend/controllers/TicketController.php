@@ -11,7 +11,7 @@ use yii\web\MethodNotAllowedHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TicketController implements the CRUD actions for Ticket model.
+ * TicketController implements the CRUD actions (and other actions) for the Ticket model.
  */
 class TicketController extends Controller
 {

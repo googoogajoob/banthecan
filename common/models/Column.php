@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\Board;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -19,12 +20,15 @@ use yii\behaviors\BlameableBehavior;
  * @property string  $title
  * @property integer $display_order
  * @property integer $receiver
- *
  * @property Board $board
  * @property Ticket[] $tickets
  */
 class Column extends \yii\db\ActiveRecord
 {
+    // The receiver values should refer to the column IDs of the receiving columns
+    // However, the IDs of the columns are first known when they are created
+    // These values are therefore relative values, which will be used when creating the columns
+    // to determine the actual ID.
     private static $demoColumns = [
         ['title' => 'Agenda',       'order' => 1, 'receiver' => '3'],
         ['title' => 'Waiting',      'order' => 2, 'receiver' => '3'],
@@ -92,25 +96,63 @@ class Column extends \yii\db\ActiveRecord
     /**
      * Creates a set of Demo Columns
      *
+     * The relative reference IDs between the columns must be set
+     * to absolute IDs after the records have been saved since the (my)sql storage ID is not known
+     * until the columns are saved in the DB.
+     *
      * @return boolean
      */
     public function createDemoColumns($boardId) {
 
         $this->deleteAll();
 
+        $firstColumn = true;
         foreach (self::$demoColumns as $demoColumn) {
             $this->title =          $demoColumn['title'];
             $this->display_order =  $demoColumn['order'];
-            $this->receiver =       $demoColumn['receiver'];;
             $this->board_id = $boardId;
+
             $this->isNewRecord = true;
             $this->id = null;
+
+            //Save initial column, the relative columns field is calculate below
             if (!$this->save()) {
                 return false;
             }
+
+            if ($firstColumn) {
+                $firstColumnId = $this->id;
+                $firstColumn = false; //only execute tis if statement one time, the first time through the loop
+            }
+
+            $this->receiver = $this->convertRelativeIDtoActual($firstColumnId, $demoColumn['receiver']);
+            if (!$this->save()) {
+                return false;
+            }
+
         }
 
+        // The Board must know what the entry column ID is
+        $currentBoard = Board::findOne($boardId);
+        $currentBoard->entry_column = $firstColumnId;
+        $currentBoard->save();
+
         return true;
+    }
+
+    /**
+     * At some point this may need to be refined.
+     * There is no guarantee that the column will have succesive IDs, although in the DEMO scenario
+     * it will likely always be the case
+     *
+     */
+    private function convertRelativeIDtoActual($firstColumnID, $receiverList) {
+        $relativeList = explode(',', $receiverList);
+        foreach($relativeList as $recieverID) {
+            $returnList[] = $recieverID + $firstColumnID - 1;
+        }
+
+        return implode(',', $returnList);
     }
 
 }
