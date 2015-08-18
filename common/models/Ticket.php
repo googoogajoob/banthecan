@@ -311,49 +311,51 @@ class Ticket extends \yii\db\ActiveRecord
      * @return boolean
      */
     public function createDemoTickets($boardId) {
-        $faker = Factory::create();
+        if (YII_ENV_DEMO) {
+            $faker = Factory::create();
 
-        $this->deleteAll();
+            $this->deleteAll();
 
-        // Create Backlog Tickets
-        for ($i = 0; $i < self::DEMO_BACKLOG_TICKETS; $i++) {
-            $this->title =          $faker->text(30);
-            $this->description =    $faker->text();
-            $this->column_id =      self::DEFAULT_BACKLOG_STATUS;
-            $this->board_id = $boardId;
-            $this->ticket_order = 0;
-            $this->isNewRecord = true;
-            $this->id = null;
-            if (!$this->save()) {
-                return false;
+            // Create Backlog Tickets
+            for ($i = 0; $i < self::DEMO_BACKLOG_TICKETS; $i++) {
+                $this->title = $faker->text(30);
+                $this->description = $faker->text();
+                $this->column_id = self::DEFAULT_BACKLOG_STATUS;
+                $this->board_id = $boardId;
+                $this->ticket_order = 0;
+                $this->isNewRecord = true;
+                $this->id = null;
+                if (!$this->save()) {
+                    return false;
+                }
             }
-        }
 
-        // Create Completed Tickets
-        for ($i = 0; $i < self::DEMO_COMPLETED_TICKETS; $i++) {
-            $this->title =          $faker->text(30);
-            $this->description =    $faker->text();
-            $this->column_id =      self::DEFAULT_COMPLETED_STATUS;
-            $this->board_id = $boardId;
-            $this->ticket_order = 0;
-            $this->isNewRecord = true;
-            $this->id = null;
-            if (!$this->save()) {
-                return false;
+            // Create Completed Tickets
+            for ($i = 0; $i < self::DEMO_COMPLETED_TICKETS; $i++) {
+                $this->title = $faker->text(30);
+                $this->description = $faker->text();
+                $this->column_id = self::DEFAULT_COMPLETED_STATUS;
+                $this->board_id = $boardId;
+                $this->ticket_order = 0;
+                $this->isNewRecord = true;
+                $this->id = null;
+                if (!$this->save()) {
+                    return false;
+                }
             }
-        }
 
-        // Create KanBanBoard Tickets
-        for ($i = 0; $i < self::DEMO_BOARD_TICKETS; $i++) {
-            $this->title =          $faker->text(30);
-            $this->description =    $faker->text();
-            $this->column_id =      Board::findOne($boardId)->entry_column;
-            $this->board_id = $boardId;
-            $this->ticket_order = $i;
-            $this->isNewRecord = true;
-            $this->id = null;
-            if (!$this->save()) {
-                return false;
+            // Create KanBanBoard Tickets
+            for ($i = 0; $i < self::DEMO_BOARD_TICKETS; $i++) {
+                $this->title = $faker->text(30);
+                $this->description = $faker->text();
+                $this->column_id = Board::findOne($boardId)->entry_column;
+                $this->board_id = $boardId;
+                $this->ticket_order = $i;
+                $this->isNewRecord = true;
+                $this->id = null;
+                if (!$this->save()) {
+                    return false;
+                }
             }
         }
 

@@ -6,7 +6,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
-use frontend\widgets\Alert;
+use common\widgets\Alert;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -20,7 +20,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title>Ban the Can: <?= Html::encode($this->title) ?></title>
+    <title><?= (YII_ENV_DEMO ? 'DEMO: ' : '') ?> Ban the Can: <?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -28,7 +28,7 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => $this->title,
+                'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',

@@ -26,9 +26,12 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['error', 'initialize', 'index'],
+                        'actions' => ['error', 'index'],
                         'allow' => true,
-                        //'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['initialize'],
+                        'allow' => YII_ENV_DEMO,
                     ],
                     [
                         'actions' => ['login'],
@@ -67,6 +70,11 @@ class SiteController extends Controller
     }
 
     public function actionIndex() {
+        if (YII_ENV_DEMO and Yii::$app->user->isGuest) {
+            $session = Yii::$app->session;
+            $session->setFlash('info', 'You can create demo data with <a href="/site/initialize"><strong>Initialize Demo Database</strong></a> or <a href="/site/login"><strong>login</strong></a> as a demo user.');
+        }
+
         return $this->render('index');
     }
 
@@ -76,6 +84,10 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goHome();
         } else {
+            if (YII_ENV_DEMO) {
+                $session = Yii::$app->session;
+                $session->setFlash('info', 'Login as a Demo User with <u>username</u>: <strong>demo</strong> and <u>password</u>: <strong>demo</strong>.');
+            }
             return $this->render('login', ['model' => $model]);
         }
     }

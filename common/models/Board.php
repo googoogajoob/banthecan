@@ -8,8 +8,6 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\web\NotFoundHttpException;
 
-
-
 /**
  * This is the model class for table "board".
  *
@@ -117,16 +115,18 @@ class Board extends \yii\db\ActiveRecord {
      * @return $this|null
      */
     public function createDemoBoard() {
-        $faker = Factory::create();
+        if (YII_ENV_DEMO) {
+            $faker = Factory::create();
 
-        $this->deleteAll();
-        $this->title = self::DEMO_TITLE;
-        $this->max_lanes = self::DEMO_MAX_LANES;
-        $this->description = "Description Text: " . $faker->text();
-        $this->entry_column = 0; // Temp value until the Demo Columns are created,
+            $this->deleteAll();
+            $this->title = self::DEMO_TITLE;
+            $this->max_lanes = self::DEMO_MAX_LANES;
+            $this->description = "Description Text: " . $faker->text();
+            $this->entry_column = 0; // Temp value until the Demo Columns are created,
 
-        if ($this->save()) {
-            return $this;
+            if ($this->save()) {
+                return $this;
+            }
         }
 
         return null;

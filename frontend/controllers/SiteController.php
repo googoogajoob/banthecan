@@ -68,6 +68,11 @@ class SiteController extends Controller {
 
     public function actionIndex() {
 
+        if (YII_ENV_DEMO and Yii::$app->user->isGuest) {
+            $session = Yii::$app->session;
+            $session->setFlash('info', 'You can create demo data in the <a href="http://demo.admin.ban-the-can.net/"><strong>admin section</strong></a> or <a href="/site/login"><strong>login</strong></a> as a demo user.');
+        }
+
         return $this->render('index');
     }
 
@@ -77,6 +82,11 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->redirect('/board/select');
         } else {
+            if (YII_ENV_DEMO) {
+                $session = Yii::$app->session;
+                $session->setFlash('info', 'Login as a Demo User with <u>username</u>: <strong>demo</strong> and <u>password</u>: <strong>demo</strong>.');
+            }
+
             return $this->render('login', [
                 'model' => $model,
             ]);

@@ -288,22 +288,28 @@ class User extends ActiveRecord implements IdentityInterface
      * @return $this|null
      */
     public function createDemoUser() {
-        $this->deleteAll();
-        $this->username = self::DEMO_USER_NAME;
-        $this->password = self::DEMO_USER_PASSWORD;
-        $this->email = '';
-        $this->board_id = 1;
-        $this->password_reset_token = '';
-        $this->setPassword('demo');
-        $this->generateAuthKey();
-        if ($this->save()) {
-            return $this;
+        if (YII_ENV_DEMO) {
+            $this->deleteAll();
+            $this->username = self::DEMO_USER_NAME;
+            $this->password = self::DEMO_USER_PASSWORD;
+            $this->email = '';
+            $this->board_id = 1;
+            $this->password_reset_token = '';
+            $this->setPassword('demo');
+            $this->generateAuthKey();
+            if ($this->save()) {
+                return $this;
+            }
         }
 
         return null;
     }
 
     public static function findDemoUser() {
-        return static::findByUsername(self::DEMO_USER_NAME);
+        if (YII_ENV_DEMO) {
+            return static::findByUsername(self::DEMO_USER_NAME);
+        } else {
+            return false;
+        }
     }
 }

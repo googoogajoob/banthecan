@@ -104,38 +104,40 @@ class Column extends \yii\db\ActiveRecord
      */
     public function createDemoColumns($boardId) {
 
-        $this->deleteAll();
+        if (YII_ENV_DEMO) {
+            $this->deleteAll();
 
-        $firstColumn = true;
-        foreach (self::$demoColumns as $demoColumn) {
-            $this->title =          $demoColumn['title'];
-            $this->display_order =  $demoColumn['order'];
-            $this->board_id = $boardId;
+            $firstColumn = true;
+            foreach (self::$demoColumns as $demoColumn) {
+                $this->title = $demoColumn['title'];
+                $this->display_order = $demoColumn['order'];
+                $this->board_id = $boardId;
 
-            $this->isNewRecord = true;
-            $this->id = null;
+                $this->isNewRecord = true;
+                $this->id = null;
 
-            //Save initial column, the relative columns field is calculate below
-            if (!$this->save()) {
-                return false;
+                //Save initial column, the relative columns field is calculate below
+                if (!$this->save()) {
+                    return false;
+                }
+
+                if ($firstColumn) {
+                    $firstColumnId = $this->id;
+                    $firstColumn = false; //only execute tis if statement one time, the first time through the loop
+                }
+
+                $this->receiver = $this->convertRelativeIDtoActual($firstColumnId, $demoColumn['receiver']);
+                if (!$this->save()) {
+                    return false;
+                }
+
             }
 
-            if ($firstColumn) {
-                $firstColumnId = $this->id;
-                $firstColumn = false; //only execute tis if statement one time, the first time through the loop
-            }
-
-            $this->receiver = $this->convertRelativeIDtoActual($firstColumnId, $demoColumn['receiver']);
-            if (!$this->save()) {
-                return false;
-            }
-
+            // The Board must know what the entry column ID is
+            $currentBoard = Board::findOne($boardId);
+            $currentBoard->entry_column = $firstColumnId;
+            $currentBoard->save();
         }
-
-        // The Board must know what the entry column ID is
-        $currentBoard = Board::findOne($boardId);
-        $currentBoard->entry_column = $firstColumnId;
-        $currentBoard->save();
 
         return true;
     }
