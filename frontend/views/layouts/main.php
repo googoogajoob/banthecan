@@ -7,11 +7,13 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use common\models\Board;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
 AppAsset::register($this);
+$this->title = Board::getActiveboard()->title;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -20,7 +22,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= (YII_ENV_DEMO ? 'DEMO: ' : '') ?> Ban the Can: <?= Html::encode($this->title) ?></title>
+    <title>Ban the Can(<?= (YII_ENV_DEMO ? 'DEMO' : '') ?>): <?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
