@@ -1,0 +1,27 @@
+.menu-avatar-li {
+    padding-top: 6px;
+}
+
+.menu-avatar-a {
+    padding: 0 0 0 0 !important;
+}
+
+
+/** Todo: !!!### REPLACE THIS IN THE VIEWS WITH THE BOOTSTRAP VARIANT###!!!
+ * Bootstrap uses clearfix which needs a CSS compiler
+ */
+.clear-both {
+    clear: both;
+}
+
+/* ### BOOT STRAP OVERRIDES ### */
+
+/* makes Bootstrap Menus dropdown on Hover */
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}
+
+/* override dropdown menu width */
+.dropdown-menu {
+    min-width: 80px;
+}
