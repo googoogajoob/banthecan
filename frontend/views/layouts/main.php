@@ -13,7 +13,11 @@ use common\models\Board;
 /* @var $content string */
 
 AppAsset::register($this);
-$this->title = Board::getActiveboard()->title;
+if ($boardObject = Board::getActiveboard()) {
+    $this->title = $boardObject->title;
+} else {
+    $this->title = '';
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

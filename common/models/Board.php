@@ -102,7 +102,8 @@ class Board extends \yii\db\ActiveRecord {
         $currentBoardId = $session->get('currentBoardId');
 
         if ($currentBoardId == self::NO_ACTIVE_BOARD_STATUS_TEST) {
-            throw new NotFoundHttpException(self::NO_ACTIVE_BOARD_MESSAGE);
+            $session->setFlash('warning', self::NO_ACTIVE_BOARD_MESSAGE);
+            return null;
         } else {
             Ticket::restrictQueryToBoard($currentBoardId);
             return self::findOne($currentBoardId);
