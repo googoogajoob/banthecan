@@ -16,21 +16,22 @@
             the steps needed to bring a topic to completion. An example scenario would be (<em>Discussion, Creating Tasks, Writing a Protocol</em>). This would
             be something that applies to an organization that needs a tool for the management of discussion topics and the steps that accompany them.
             However, because the workflow is fully definable it can be used for a variety of workflow processes. Included in the workflow definition
-            are rules for restricting the movement of topics between the defined phases, thus forcing that the workflow is followed.        </p>
+            are rules for restricting the movement of topics between the defined phases, thus forcing that the workflow is followed.
+        </p>
         <p>
             The name deliberate play on words of the <a href="https://en.wikipedia.org/wiki/Kanban">Kanban scheduling system</a> and
             has been inspired by software which uses the Kanban system. Please explore it's features and discover if it is useful for your needs.
             It is an opensource project and therefore free to use. For detailed information please refer to the
-            <a href="/site/about">About page.</a>
+            <a href="http://demo.ban-the-can.net/site/about">About page.</a>
         </p>
 
         <div class="row">
             <div class="col-md-10 col-md-offset-1 lead">
                 <h2>If <strong>Ban-The-Can</strong> is something for you two options available.</h2>
-                    <ul class="text-left col-md-offset-1">
-                        <li>Download the software from <a href="https://github.com/gooGooGaJoob/banthecan">GitHub</a> for use on your own server</li>
-                        <li>Join the <a href="http://www.ban-the-can.net/">Ban-The-Can Website</a> to manage your organizational needs</li>
-                    </ul>
+                <ul class="text-left col-md-offset-1">
+                    <li>Download the software from <a href="https://github.com/gooGooGaJoob/banthecan">GitHub</a> for use on your own server</li>
+                    <li>Join the <a href="http://www.ban-the-can.net/">Ban-The-Can Website</a> to manage your organizational needs</li>
+                </ul>
             </div>
         </div>
     </div>

@@ -75,7 +75,11 @@ class SiteController extends Controller
             $session->setFlash('info', 'You can create demo data with <a href="/site/initialize"><strong>Initialize Demo Database</strong></a> or <a href="/site/login"><strong>login</strong></a> as a demo user.');
         }
 
-        return $this->render('index');
+        if (YII_ENV_DEMO) {
+            return $this->render('index-demo');
+        } else {
+            return $this->render('index');
+        }
     }
 
     public function actionLogin()
