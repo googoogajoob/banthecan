@@ -3,89 +3,135 @@
 namespace common\models\ticketDecoration;
 
 /**
- * DecorationInterfaceActiveQueryInterface defines the common interface to be implemented by active record query classes.
+ * DecorationInterface defines the common interface to be implemented by Decoration Implementation classes.
  *
- * That are methods for either normal queries that return active records but also relational queries
- * in which the query represents a relation between two active record classes and will return related
- * records only.
- *
- * A class implementing this interface should also use [[ActiveQueryTrait]] and [[ActiveRelationTrait]].
+ * The decorations are implemented as Yii-behaviors to the column class,
+ * thus the necessary functionality for Yii-behaviors is also required
  *
  * @author Andrew Potter <apc@andypotter.org>
  */
 interface TicketDecorationInterface {
+
+/* Methods sre Sorted according to MVC Architecture */
+/* ============================================ */
+
+/* Controller Related Methods */
+/* ========================== */
+
+/* MODEL Related Methods */
+/* ===================== */
     /**
-     * Sets the [[asArray]] property.
-     * @param boolean $value whether to return the query results in terms of arrays instead of Active Records.
-     * @return $this the query object itself
+     * Performs the tasks or functions that a decoration is designed to do
+     * @return boolean success or failure
      */
-    public function asArray($value = true);
+    public function performTask();
 
     /**
-     * Sets the [[indexBy]] property.
-     * @param string|callable $column the name of the column by which the query results should be indexed by.
-     * This can also be a callable (e.g. anonymous function) that returns the index value based on the given
-     * row or model data. The signature of the callable should be:
+     * Updates the decoration/behavior
      *
-     * ~~~
-     * // $model is an AR instance when `asArray` is false,
-     * // or an array of column values when `asArray` is true.
-     * function ($model)
-     * {
-     *     // return the index value corresponding to $model
-     * }
-     * ~~~
+     * Are other CRUD Methods needed?
      *
-     * @return $this the query object itself
+     * @return $this the decoration behavior itself
      */
-    public function indexBy($column);
+    public function update();
 
     /**
-     * Specifies the relations with which this query should be performed.
+     * Returns the Name of the Decoration. This is intended for situations
+     * like a drop-down menu selection box.
      *
-     * The parameters to this method can be either one or multiple strings, or a single array
-     * of relation names and the optional callbacks to customize the relations.
-     *
-     * A relation name can refer to a relation defined in [[ActiveQueryTrait::modelClass|modelClass]]
-     * or a sub-relation that stands for a relation of a related record.
-     * For example, `orders.address` means the `address` relation defined
-     * in the model class corresponding to the `orders` relation.
-     *
-     * The following are some usage examples:
-     *
-     * ~~~
-     * // find customers together with their orders and country
-     * Customer::find()->with('orders', 'country')->all();
-     * // find customers together with their orders and the orders' shipping address
-     * Customer::find()->with('orders.address')->all();
-     * // find customers together with their country and orders of status 1
-     * Customer::find()->with([
-     *     'orders' => function ($query) {
-     *         $query->andWhere('status = 1');
-     *     },
-     *     'country',
-     * ])->all();
-     * ~~~
-     *
-     * @return $this the query object itself
+     * @return string Name of the Decoration
      */
-    public function with();
+    public function whoAmI();
 
     /**
-     * Specifies the relation associated with the junction table for use in relational query.
-     * @param string $relationName the relation name. This refers to a relation declared in the [[ActiveRelationTrait::primaryModel|primaryModel]] of the relation.
-     * @param callable $callable a PHP callback for customizing the relation associated with the junction table.
-     * Its signature should be `function($query)`, where `$query` is the query to be customized.
-     * @return $this the relation object itself.
+     *
+     * @return $this a decoration object
      */
-    public function via($relationName, callable $callable = null);
+    static public function create();
 
     /**
-     * Finds the related records for the specified primary record.
-     * This method is invoked when a relation of an ActiveRecord is being accessed in a lazy fashion.
-     * @param string $name the relation name
-     * @param ActiveRecordInterface $model the primary model
-     * @return mixed the related record(s)
+     * Sets the movement conditions
+     *
+     * @return array conditions array
      */
-    public function findFor($name, $model);
+    public function setConditions($conditions);
+
+    /**
+     * Gets the movement conditions
+     *
+     * @return array conditions array
+     */
+    public function getConditions();
+
+    /**
+     * Sets the applied array
+     * where am I to be applied (Columns/backlog/completed)
+     *
+     * @return array applied array
+     */
+    public function setApplied($applied);
+
+    /**
+     * Gets the applied array
+     * where am I to be applied (Columns/backlog/completed)
+     *
+     * @return array applied array
+     */
+    public function getApplied();
+
+    /**
+     * Sets the visibility array
+     * where am I to be visible (Columns/backlog/completed)
+     *
+     * @return array visible array
+     */
+    public function setVisible($visibility);
+
+    /**
+     * Gets the visible array
+     * where am I to be visible (Columns/backlog/completed)
+     *
+     * @return array visible array
+     */
+    public function getVisible();
+
+    /**
+     * Sets the enables array
+     * where am I enabled (Columns/backlog/completed)
+     *
+     * @return array enabled array
+     */
+    public function setEnabled($enabled);
+
+    /**
+     * Gets the visible array
+     * where am I enabled (Columns/backlog/completed)
+     *
+     * @return array enabled array
+     */
+    public function getEnabled();
+
+/* View Related Methods */
+/* ==================== */
+    /**
+     * Show myself (in a functional situation)
+     *
+     * @return string html for showing the decoration
+     */
+    public function show();
+
+    /**
+     * Show myself (in a editable situation)
+     *
+     * @return string html for editing the decoration
+     */
+    public function showEdit();
+
+    /**
+     * Describe the capabilities of the decoration
+     *
+     * @return string html for the description of the decoration's capabilities
+     */
+    public function describe();
+     // What can I do, description of functionality
 }

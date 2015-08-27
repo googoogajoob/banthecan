@@ -5,3 +5,7 @@
  * Date: 8/27/15
  * Time: 2:06 AM
  */
+
+abstract class ticketDecoration implements ticketDecorationInterface {
+
+}
