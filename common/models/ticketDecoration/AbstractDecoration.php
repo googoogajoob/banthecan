@@ -2,50 +2,43 @@
 
 namespace common\models\ticketDecoration;
 
+use yii\base\Behavior;
+
 /**
- * DecorationInterface defines the common interface to be implemented by Decoration Implementation classes.
- *
- * The decorations are implemented as Yii-behaviors to the column class,
- * thus the necessary functionality for Yii-behaviors is also required
- *
- * @author Andrew Potter <apc@andypotter.org>
+ * Created by PhpStorm.
+ * User: and
+ * Date: 8/27/15
+ * Time: 2:06 AM
  */
-interface TicketDecorationInterface {
 
-/* Methods sre Sorted according to MVC Architecture */
-/* ============================================ */
+abstract class ticketDecoration extends Behavior implements ticketDecorationInterface {
 
-/* Controller Related Methods */
-/* ========================== */
-
-/* MODEL Related Methods */
-/* ===================== */
     /**
-     * Performs the tasks or functions that a decoration is designed to do
+     * This is intended for situations like a drop-down menu selection box.
+     */
+    public $name = 'Abstract Ticket Decoration';
+
+    /**
+     * Performs the tasks or functions that a ticketDecoration is designed to do
+     * when it is invoked.
+     *
      * @return boolean success or failure
      */
-    public function performTask();
+    abstract public function performTask();
 
     /**
-     * Updates the decoration/behavior
+     * Updates the ticketDecoration/behavior
      *
      * Are other CRUD Methods needed?
      *
-     * @return $this the decoration behavior itself
+     * @return $this the ticketDecoration behavior itself
      */
-    public function update();
+    abstract public function update();
 
-    /**
-     * Returns the Name of the Decoration. This is intended for situations
-     * like a drop-down menu selection box.
-     *
-     * @return string Name of the Decoration
-     */
-    public function whoAmI();
 
     /**
      *
-     * @return $this a decoration object
+     * @return $this a ticketDecoration object
      */
     static public function create();
 
@@ -111,27 +104,28 @@ interface TicketDecorationInterface {
      */
     public function getEnabled();
 
-/* View Related Methods */
-/* ==================== */
+    /* View Related Methods */
+    /* ==================== */
     /**
      * Show myself (in a functional situation)
      *
-     * @return string html for showing the decoration
+     * @return string html for showing the ticketDecoration
      */
     public function show();
 
     /**
      * Show myself (in a editable situation)
      *
-     * @return string html for editing the decoration
+     * @return string html for editing the ticketDecoration
      */
     public function showEdit();
 
     /**
-     * Describe the capabilities of the decoration
+     * Describe the capabilities of the ticketDecoration
      *
-     * @return string html for the description of the decoration's capabilities
+     * @return string html for the description of the ticketDecoration's capabilities
      */
     public function describe();
-     // What can I do, description of functionality
+    // What can I do, description of functionality
+
 }
