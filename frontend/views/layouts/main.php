@@ -6,14 +6,18 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
-use frontend\widgets\Alert;
+use common\widgets\Alert;
 use common\models\Board;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
 AppAsset::register($this);
-//$this->title = Board::getActiveboard() ? Board::getActiveboard()->title : '';
+if ($boardObject = Board::getActiveboard()) {
+    $this->title = $boardObject->title;
+} else {
+    $this->title = '';
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -22,7 +26,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title>Ban the Can: <?= Html::encode($this->title) ?></title>
+    <title>Ban the Can(<?= (YII_ENV_DEMO ? 'DEMO' : '') ?>): <?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -30,7 +34,7 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => $this->title,
+                'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',

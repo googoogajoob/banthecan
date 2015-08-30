@@ -2,12 +2,11 @@
 
 namespace common\models;
 
+use Faker\Factory;
 use yii;
-use common\models\Ticket;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\web\NotFoundHttpException;
-
 
 /**
  * This is the model class for table "board".
@@ -20,13 +19,16 @@ use yii\web\NotFoundHttpException;
  * @property string $title
  * @property string $description
  * @property integer $max_lanes
- *
+ * @property integer $entry_column
  * @property BoardColumn[] $boardColumns
+ *
  */
 class Board extends \yii\db\ActiveRecord {
 
     const NO_ACTIVE_BOARD_MESSAGE = 'An Active Board Has Not Been Set';
     const NO_ACTIVE_BOARD_STATUS_TEST = 0;
+    const DEMO_TITLE = 'Ban-The-Can Demonstration Board';
+    const DEMO_MAX_LANES = 1;
 
     /**
      * @inheritdoc
@@ -53,8 +55,8 @@ class Board extends \yii\db\ActiveRecord {
     public function rules() {
 
         return [
-            [['title', 'description', 'max_lanes'], 'required'],
-            [['id', 'created_at', 'created_by', 'updated_by', 'updated_at', 'max_lanes'], 'integer'],
+            [['title', 'description', 'max_lanes', 'entry_column'], 'required'],
+            [['id', 'created_at', 'created_by', 'updated_by', 'updated_at', 'max_lanes', 'entry_column'], 'integer'],
             [['title', 'description'], 'string']
         ];
     }
@@ -71,6 +73,7 @@ class Board extends \yii\db\ActiveRecord {
             'title' => 'Title',
             'description' => 'Description',
             'max_lanes' => 'Max Lanes',
+            'entry_column' => 'Entry Column'
         ];
     }
 
@@ -89,7 +92,6 @@ class Board extends \yii\db\ActiveRecord {
     /**
      * Retrieves the current active board ID for this session
      * if not found an error is thrown
-     * If found returns the board active record matching the ID
      *
      * @throws yii\web\NotFoundHttpException
      * @return \yii\db\ActiveRecord
@@ -100,11 +102,35 @@ class Board extends \yii\db\ActiveRecord {
         $currentBoardId = $session->get('currentBoardId');
 
         if ($currentBoardId == self::NO_ACTIVE_BOARD_STATUS_TEST) {
-            throw new NotFoundHttpException(self::NO_ACTIVE_BOARD_MESSAGE);
+            $session->setFlash('warning', self::NO_ACTIVE_BOARD_MESSAGE);
+            return null;
         } else {
             Ticket::restrictQueryToBoard($currentBoardId);
             return self::findOne($currentBoardId);
         }
+    }
+
+    /**
+     * Creates a Demo Board
+     *
+     * @return $this|null
+     */
+    public function createDemoBoard() {
+        if (YII_ENV_DEMO) {
+            $faker = Factory::create();
+
+            $this->deleteAll();
+            $this->title = self::DEMO_TITLE;
+            $this->max_lanes = self::DEMO_MAX_LANES;
+            $this->description = "Description Text: " . $faker->text();
+            $this->entry_column = 0; // Temp value until the Demo Columns are created,
+
+            if ($this->save()) {
+                return $this;
+            }
+        }
+
+        return null;
     }
 
 }

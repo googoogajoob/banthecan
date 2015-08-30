@@ -25,6 +25,9 @@ echo ListView::widget( [
         'pager' => [
             'firstPageLabel' => '|<',
             'lastPageLabel' => '>|',
+            'options' => [
+                'class' => 'pagination apc-pagination',
+            ],
         ]
     ]
 );

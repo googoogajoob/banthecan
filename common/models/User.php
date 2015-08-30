@@ -20,6 +20,7 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property integer $board_id
  *
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -43,6 +44,11 @@ class User extends ActiveRecord implements IdentityInterface
      * @var string configurable Root File Name for all Avatars
      */
     public static $avatarFilenameRoot = 'user-';
+
+    /**
+     * @var string configurable Root File Name for all Avatars
+     */
+    public static $avatarGenericFilename = 'generic';
 
     /**
      * @var string configurable Filename Extension for all Avatars
@@ -257,15 +263,15 @@ class User extends ActiveRecord implements IdentityInterface
      * @return string Avatar Pathname or empty string if Id is invalid
      */
     protected static function makeAvatarUrl($id = null, $color = true) {
-        if ($id) {
-            $filename = self::$avatarFilenameRoot . $id . '.' . self::$avatarFilenameExtension;
-            if ($color) {
-                return  self::$avatarPathColor . $filename;
-            } else {
-                return  self::$avatarPathGray . $filename;
-            }
+        $filename = ($color ? self::$avatarPathColor : self::$avatarPathGray ) .
+                    self::$avatarFilenameRoot . $id . '.' . self::$avatarFilenameExtension;
+
+        if ($id and is_readable($filename) and !YII_ENV_DEMO) {
+            return $filename;
         } else {
-            return '';
+            // If User not valid or avatar not found or demo mode then show generic avatar
+            return ($color ? self::$avatarPathColor : self::$avatarPathGray ) .
+                    self::$avatarGenericFilename . '.' . self::$avatarFilenameExtension;
         }
     }
 
@@ -282,21 +288,28 @@ class User extends ActiveRecord implements IdentityInterface
      * @return $this|null
      */
     public function createDemoUser() {
-        $this->username = self::DEMO_USER_NAME;
-        $this->password = self::DEMO_USER_PASSWORD;
-        $this->email = '';
-        $this->board_id = 1;
-        $this->password_reset_token = '';
-        $this->setPassword('demo');
-        $this->generateAuthKey();
-        if ($this->save()) {
-            return $this;
+        if (YII_ENV_DEMO) {
+            $this->deleteAll();
+            $this->username = self::DEMO_USER_NAME;
+            $this->password = self::DEMO_USER_PASSWORD;
+            $this->email = '';
+            $this->board_id = 1;
+            $this->password_reset_token = '';
+            $this->setPassword('demo');
+            $this->generateAuthKey();
+            if ($this->save()) {
+                return $this;
+            }
         }
 
         return null;
     }
 
     public static function findDemoUser() {
-        return static::findByUsername(self::DEMO_USER_NAME);
+        if (YII_ENV_DEMO) {
+            return static::findByUsername(self::DEMO_USER_NAME);
+        } else {
+            return false;
+        }
     }
 }

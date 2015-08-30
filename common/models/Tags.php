@@ -16,16 +16,14 @@ class Tags extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'tags';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['frequency', 'name'], 'required'], //id removed, new tags are not saved when it is required
             [['id', 'frequency'], 'integer'],
@@ -36,8 +34,7 @@ class Tags extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'frequency' => 'Frequency',

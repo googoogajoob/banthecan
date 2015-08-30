@@ -35,4 +35,3 @@ Examples of organizations that operate on a discussion level would be sports-clu
 * Once the **tickets** are completed they can be marked as such and then are no longer part of the active board. At this point completed tickets can be reviewed using filters, tags and other searching options. This is advantageous for creating reports if what topics have been discussed over a specific period.
 * Multiple **boards** can be defined, each having its own set of columns and rules as well as keeping the **tickets** organized per board.
 * Users can be member of specific boards and be given rights to execute specific functions. For example if one person is responsible for the protocol, they alone can be given the access rights to do so.
-

@@ -14,13 +14,6 @@
     clear: both;
 }
 
-/* Fix the Yii Pagination */
-.apc-pagination {
-    clear: both;
-    display: block;
-    padding-top: 20px;
-}
-
 /* ### BOOT STRAP OVERRIDES ### */
 
 /* makes Bootstrap Menus dropdown on Hover */

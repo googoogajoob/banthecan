@@ -2,10 +2,12 @@
 
 namespace common\models;
 
-use yii;
-use yii\behaviors\TimestampBehavior;
-use yii\behaviors\BlameableBehavior;
+use common\models\Board;
 use dosamigos\taggable\Taggable;
+use Faker\Factory;
+use yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 
 /**
@@ -20,11 +22,16 @@ use dosamigos\taggable\Taggable;
  * @property string  $description
  * @property integer $column_id
  * @property integer $board_id
- *
+ * @property integer $ticket_order
  * @property BoardColumn $column
+ *
  */
 class Ticket extends \yii\db\ActiveRecord
 {
+    const DEMO_BACKLOG_TICKETS = 100;
+    const DEMO_BOARD_TICKETS = 5;
+    const DEMO_COMPLETED_TICKETS = 50;
+
     /**
      * The status (column_id) of tickets in the backlog
      */
@@ -32,7 +39,7 @@ class Ticket extends \yii\db\ActiveRecord
 
     /**
      * Alternate status (column_id) of tickets in the backlog
-     * Tis is needed when using a mysql foreign Key Constraint on the tickets. On DELETE of the column the
+     * This is needed when using a mysql foreign Key Constraint on the tickets. On DELETE of the column the
      * column ID of the ticket is set back to null (0 is not feasible, no default value)
      */
     const ALTERNATE_BACKLOG_STATUS = null;
@@ -41,11 +48,6 @@ class Ticket extends \yii\db\ActiveRecord
      * The default status (column_id) of tickets that are completed
      */
     const DEFAULT_COMPLETED_STATUS = -1;
-
-    /**
-     * The default status (column_id) of tickets that are on the kanban board
-     */
-    const DEFAULT_KANBANBOARD_STATUS = 1;
 
     /**
      * Error Message when assigning ticket to current active board
@@ -164,16 +166,18 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Returns the status of a ticket, whether ot not it is currently active
+     * Returns the status of a ticket, whether or not it is currently active
      * on the KanBanBoard
      * @return Boolean true = active, false = not active
      */
     public function isKanBanBoard() {
-        return (bool)($this->getColumnId() >= self::DEFAULT_KANBANBOARD_STATUS);
+        // If the ticket is not in the Backlog or Completed Log, then it must be in the board
+        return (bool)(      $this->getColumnId() != self::DEFAULT_BACKLOG_STATUS
+                      and   $this->getColumnId() != self::DEFAULT_COMPLETED_STATUS);
     }
 
     /**
-     * Returns the status of a ticket, whether ot not it is currently active
+     * Returns the status of a ticket, whether or not it is currently active
      * on the KanBanBoard
      * @return Boolean true = active, false = not active
      */
@@ -212,12 +216,13 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Sets the Status of the Ticket to be on the Kanban Board, The Default Board column,start position is used
+     * Sets the Status of the Ticket to be on the Kanban Board,
+     * The Active Board,default start column is used
      *
      * @return $this common\models\ticket
      */
     public function moveToKanBanBoard() {
-        $this->column_id = self::DEFAULT_KANBANBOARD_STATUS;
+            $this->column_id = Board::getActiveBoard()->entry_column;
 
         return $this;
     }
@@ -227,7 +232,7 @@ class Ticket extends \yii\db\ActiveRecord
      *
      * @return $this common\models\ticket
      */
-    public function moveToColumn($newTicketStatus = self::DEFAULT_KANBANBOARD_STATUS) {
+    public function moveToColumn($newTicketStatus) {
         $this->column_id = $newTicketStatus;
 
         return $this;
@@ -299,4 +304,62 @@ class Ticket extends \yii\db\ActiveRecord
     public static function clearBoardQueryRestriction() {
         self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
     }
+
+    /**
+     * Creates a set of Demo Tickets
+     *
+     * @return boolean
+     */
+    public function createDemoTickets($boardId) {
+        if (YII_ENV_DEMO) {
+            $faker = Factory::create();
+
+            $this->deleteAll();
+
+            // Create Backlog Tickets
+            for ($i = 0; $i < self::DEMO_BACKLOG_TICKETS; $i++) {
+                $this->title = $faker->text(30);
+                $this->description = $faker->text();
+                $this->column_id = self::DEFAULT_BACKLOG_STATUS;
+                $this->board_id = $boardId;
+                $this->ticket_order = 0;
+                $this->isNewRecord = true;
+                $this->id = null;
+                if (!$this->save()) {
+                    return false;
+                }
+            }
+
+            // Create Completed Tickets
+            for ($i = 0; $i < self::DEMO_COMPLETED_TICKETS; $i++) {
+                $this->title = $faker->text(30);
+                $this->description = $faker->text();
+                $this->column_id = self::DEFAULT_COMPLETED_STATUS;
+                $this->board_id = $boardId;
+                $this->ticket_order = 0;
+                $this->isNewRecord = true;
+                $this->id = null;
+                if (!$this->save()) {
+                    return false;
+                }
+            }
+
+            // Create KanBanBoard Tickets
+            for ($i = 0; $i < self::DEMO_BOARD_TICKETS; $i++) {
+                $this->title = $faker->text(30);
+                $this->description = $faker->text();
+                $this->column_id = Board::findOne($boardId)->entry_column;
+                $this->board_id = $boardId;
+                $this->ticket_order = $i;
+                $this->isNewRecord = true;
+                $this->id = null;
+                if (!$this->save()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
 }
