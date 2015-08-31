@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use common\models\Board;
 use common\models\Ticket;
 use common\models\TicketSearch;
 use yii\web\Controller;
@@ -88,7 +89,7 @@ class TicketController extends Controller
     public function actionCreate()
     {
         $model = new Ticket();
-        $model->setToCurrentActiveBoard(); //A new ticket belongs to the current active board
+        $model->board_id = Board::getActiveBoard()->id; //A new ticket belongs to the current active board
         $model->moveToBacklog(); //A new ticket always starts in the backlog
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
