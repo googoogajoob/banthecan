@@ -17,6 +17,8 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      * This is intended for situations like a drop-down menu selection box.
      */
     public $name = 'Abstract Ticket Decoration';
+    public $behaviorColumnData = array();
+    public $behaviorTicketData = array();
 
     /**
      * Performs the tasks or functions that a ticketDecoration is designed to do
@@ -40,21 +42,21 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      *
      * @return $this a ticketDecoration object
      */
-    static public function create();
+    static public function create(){}
 
     /**
      * Sets the movement conditions
      *
      * @return array conditions array
      */
-    public function setConditions($conditions);
+    public function setConditions($conditions){}
 
     /**
      * Gets the movement conditions
      *
      * @return array conditions array
      */
-    public function getConditions();
+    public function getConditions(){}
 
     /**
      * Sets the applied array
@@ -62,7 +64,7 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      *
      * @return array applied array
      */
-    public function setApplied($applied);
+    public function setApplied($applied){}
 
     /**
      * Gets the applied array
@@ -70,7 +72,7 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      *
      * @return array applied array
      */
-    public function getApplied();
+    public function getApplied(){}
 
     /**
      * Sets the visibility array
@@ -78,7 +80,7 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      *
      * @return array visible array
      */
-    public function setVisible($visibility);
+    public function setVisible($visibility){}
 
     /**
      * Gets the visible array
@@ -86,7 +88,7 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      *
      * @return array visible array
      */
-    public function getVisible();
+    public function getVisible(){}
 
     /**
      * Sets the enables array
@@ -94,7 +96,7 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      *
      * @return array enabled array
      */
-    public function setEnabled($enabled);
+    public function setEnabled($enabled){}
 
     /**
      * Gets the visible array
@@ -102,7 +104,7 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      *
      * @return array enabled array
      */
-    public function getEnabled();
+    public function getEnabled(){}
 
     /* View Related Methods */
     /* ==================== */
@@ -111,21 +113,21 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      *
      * @return string html for showing the ticketDecoration
      */
-    public function show();
+    public function show(){}
 
     /**
      * Show myself (in a editable situation)
      *
      * @return string html for editing the ticketDecoration
      */
-    public function showEdit();
+    public function showEdit(){}
 
     /**
      * Describe the capabilities of the ticketDecoration
      *
      * @return string html for the description of the ticketDecoration's capabilities
      */
-    public function describe();
+    public function describe(){}
     // What can I do, description of functionality
 
 }

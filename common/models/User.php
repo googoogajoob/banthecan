@@ -266,7 +266,8 @@ class User extends ActiveRecord implements IdentityInterface
         $filename = ($color ? self::$avatarPathColor : self::$avatarPathGray ) .
                     self::$avatarFilenameRoot . $id . '.' . self::$avatarFilenameExtension;
 
-        if ($id and is_readable($filename) and !YII_ENV_DEMO) {
+        //if ($id and is_readable($filename) and !YII_ENV_DEMO) {
+        if ($id and !YII_ENV_DEMO) {
             return $filename;
         } else {
             // If User not valid or avatar not found or demo mode then show generic avatar
