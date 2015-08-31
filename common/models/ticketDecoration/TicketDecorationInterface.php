@@ -22,14 +22,14 @@ namespace common\models\ticketDecoration;
  * The, the requirements of the various participants is as follows:
  * ----------------------------------------------------------------
  * Columns:
- *     Maintin a list of decorations that are to be implemented in this column (CRUD)
- *     Persistance (likely with a serialized of CSV field of Decoration Type-IDs)
+ *     Maintain a list of decorations that are to be implemented in this column (CRUD)
+ *     Persistence (likely with a serialized of CSV field of Decoration Type-IDs)
  *     Tell Tickets what behaviors are required of them (clear behaviors of a ticket, when it is moved to a new column) 
  *     Currently The columns determine where tickets can move  
  *
  * Tickets:
- *     Must be able to dynamicaly allow the implementation of any behavior
- *     Must allow for persistance of a behaviors status for that ticket (serialized field)
+ *     Must be able to dynamically allow the implementation of any behavior
+ *     Must allow for persistence of a behaviors status for that ticket (serialized field)
  * 
  * Behaviors:
  *     Uniquely Identify itself
