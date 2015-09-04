@@ -3,38 +3,45 @@
 namespace common\models\ticketDecoration;
 
 /**
- * DecorationInterface defines the common interface to be implemented by Decoration Implementation classes.
- *
- * The decorations are implemented as Yii-behaviors to the column class,
- * thus the necessary functionality for Yii-behaviors is also required
+ * The Decoration Interface defines the common interface to be implemented
+ * by The Decoration Behavior classes, which are configured within columns and
+ * used as behaviors withing individual tickets.
  *
  * The Ticket Decoration Concept
  * =============================
  * A ticket decoration is an optional functionality of a ticket for performing a specialized task. Examples would be
- * Blocking/Allowing the movement of a ticket to another column based on specific conditions, create another object such as a task
- * from a ticket or voting on a protocol before a ticket can be completed.
+ * Blocking/Allowing the movement of a ticket to another column based on specific conditions, creating another object
+ * such as a "ToDo" task, or voting on a protocol before a ticket can be considered completed.
  *
- * Decorations are to be implemented as behaviors of the ticket class. Therefore the interact with the ticket, its view and
- * its 'business' logic  However, the existence of a decoration in a ticket is determined by the column where a ticket is 
- * located. Columns contain a set of decoration requirements (and/or) possibilities. As a ticket is moved from one column to 
- * another, the column dictates which behaviors a ticket can (or must) implement.
+ * Decorations are to be implemented as behaviors of the ticket class. Therefore they interact with the ticket,
+ * its view and its 'business' logic  However, the existence of a decoration in a ticket is determined by the column
+ * where a ticket is located. Columns contain a set of decoration requirements (and/or) possibilities. As a ticket is
+ * moved from one column to another, the column, where a ticket is located, dictates which behaviors a ticket
+ * can (or must) implement. The requirements of columns upon tickets is a configurable setting in the design
+ * of a Board.
  *
- * The, the requirements of the various participants is as follows:
+ * The requirements of the various participants is as follows:
  * ----------------------------------------------------------------
  * Columns:
- *     Maintain a list of decorations that are to be implemented in this column (CRUD)
- *     Persistence (likely with a serialized of CSV field of Decoration Type-IDs)
- *     Tell Tickets what behaviors are required of them (clear behaviors of a ticket, when it is moved to a new column) 
- *     Currently The columns determine where tickets can move  
+ *     - Maintain a list of decorations that are to be implemented in this column
+ *     - Maintain the configuration for how each behavior is to be implemented in this column's tickets
+ *     - Inform the tickets about what behaviors are expected of them
  *
  * Tickets:
- *     Must be able to dynamically allow the implementation of any behavior
- *     Must allow for persistence of a behaviors status for that ticket (serialized field)
+ *     - Dynamically allow the implementation of any behavior
+ *     - Allow for the persistence of a behaviors status for that ticket (serialized field)
  * 
- * Behaviors:
- *     Uniquely Identify itself
- *		 Provide its name and description 
- *     Perform all MVC functions that a behavior needs
+ * Behaviors (see file "TicketDecorationAnalysis.ods" for information about the conceptual planning):
+ *     - Uniquely Identify itself
+ *     - Provide its name and description
+ *     - Instantiate itself
+ *     - Perform all MVC functions that a behavior needs
+ *     - Get/Set Configuration Data
+ *     - Get/Set Ticket Persistence Data
+ *     - Show
+ *          - Default is to show itself as an icon within the ticket, in order to start (activate) the decoration
+ *          - For some decorations addition show options may be needed, these must be callable via the
+ *            show method using an additional ID parameter (0, 1, 2, 3 ...)
  *
  * @author Andrew Potter <apc@andypotter.org>
  */
