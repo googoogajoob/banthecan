@@ -17,8 +17,9 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
      * This is intended for situations like a drop-down menu selection box.
      */
     public $name = 'Abstract Ticket Decoration';
-    public $behaviorColumnData = array();
-    public $behaviorTicketData = array();
+    public $description = 'This is a description of the Abstract Ticket-Decoration Behavior';
+    public $configuration = array();
+    public $persistence = array();
 
     /**
      * Performs the tasks or functions that a ticketDecoration is designed to do

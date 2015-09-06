@@ -11,6 +11,7 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+    'params' => $params,
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -45,5 +46,4 @@ return [
             'errorAction' => 'site/error',
         ],
     ],
-    'params' => $params,
 ];

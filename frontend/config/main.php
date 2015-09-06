@@ -11,6 +11,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'params' => $params,
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -48,5 +49,4 @@ return [
         //    'locale' => 'de-DE',
         //],
     ],
-    'params' => $params,
 ];
