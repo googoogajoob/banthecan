@@ -65,37 +65,12 @@ namespace common\models\ticketDecoration;
  * @author Andrew Potter <apc@andypotter.org>
  */
 interface TicketDecorationInterface {
-    const MOVE_TO_BOARD_BEHAVIOR = 1;
-    const MOVE_TO_BACKLOG_BEHAVIOR = 2;
-    const MOVE_TO_COMPLETED_BEHAVIOR = 3;
-    const SHOW_FULL_TICKET_BEHAVIOR = 4;
-    const CREATE_TASK_BEHAVIOR = 5;
-    const CREATE_RESOLUTION_BEHAVIOR = 6;
-    const TIME_LIMIT_BEHAVIOR = 7;
-    const TIME_RECORD_BEHAVIOR = 8;
-    const PROTOCOL_BEHAVIOR = 9;
 
     /**
      * Performs the tasks or functions that a ticketDecoration is designed to do
      * @return boolean success or failure
      */
-    public function doBehavior();
-
-    /**
-     * Returns the Name of the Decoration. This is intended for situations
-     * like a drop-down menu selection box.
-     *
-     * @return string Name of the Decoration
-     */
-    public function getName();
-
-    /**
-     * Returns the Description of the Decoration. This is intended for situations
-     * like a drop-down menu selection box.
-     *
-     * @return string Description of the Decoration
-     */
-    public function getDescription();
+    public function doDecoration();
 
     /**
      * Returns the Configuration Data of the Decoration.
@@ -103,17 +78,17 @@ interface TicketDecorationInterface {
      *
      * @return array of key value pairs
      */
-    public function getConfigData();
-
+    public function getConfigurationData();
 
     /**
      * Set the Configuration Data of the Decoration.
+	  * The Confiration Data Array is completely replaced by the new array
      * This is what the column stores for the configuration of the decoration
      *
      * @param array of key value pairs
      * @return array of key value pairs
      */
-    public function setConfigData($config = array());
+    public function setConfigurationData($config = array());
 
     /**
      * Returns the Decoration Data of the Decoration.

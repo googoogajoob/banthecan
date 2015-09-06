@@ -13,122 +13,66 @@ use yii\base\Behavior;
 
 abstract class ticketDecoration extends Behavior implements ticketDecorationInterface {
 
-    /**
-     * This is intended for situations like a drop-down menu selection box.
-     */
-    public $name = 'Abstract Ticket Decoration';
-    public $description = 'This is a description of the Abstract Ticket-Decoration Behavior';
-    public $configuration = array();
-    public $persistence = array();
+    private $_configurationData = array();
+    private $_decorationData = array();
 
     /**
      * Performs the tasks or functions that a ticketDecoration is designed to do
-     * when it is invoked.
-     *
      * @return boolean success or failure
      */
-    abstract public function performTask();
+    abstract public function doDecoration();
 
     /**
-     * Updates the ticketDecoration/behavior
+     * Returns the Configuration Data of the Decoration.
+     * This is what the column stores for the configuration of the decoration
      *
-     * Are other CRUD Methods needed?
-     *
-     * @return $this the ticketDecoration behavior itself
+     * @return array of key value pairs
      */
-    abstract public function update();
-
+    public function getConfigurationData() {
+		return $this->_configurationData;
+	 }
 
     /**
+     * Set the Configuration Data of the Decoration.
+     * This is what the column stores for the configuration of the decoration
      *
-     * @return $this a ticketDecoration object
+     * @param array of key value pairs
+     * @return $this
      */
-    static public function create(){}
+    public function setConfigurationData($config = array()){
+		$this->_configurationData = $config;
+		
+		return $this;
+	 }
 
     /**
-     * Sets the movement conditions
+     * Returns the Decoration Data of the Decoration.
+     * This is what the ticket stores for the persistence of the decoration
      *
-     * @return array conditions array
+     * @return array of key value pairs
      */
-    public function setConditions($conditions){}
+    public function getDecorationData() {
+		return $this->_decorationData;
+	 }
 
     /**
-     * Gets the movement conditions
+     * Sets the Decoration Data of the Decoration.
+     * This is what the thicket stores for the persistence of the decoration
      *
-     * @return array conditions array
+     * @return $this
      */
-    public function getConditions(){}
+    public function setDecorationData($config = array()) {
+		$this->_decorationData = $config;
+		
+		return $this;
+	 }
 
     /**
-     * Sets the applied array
-     * where am I to be applied (Columns/backlog/completed)
-     *
-     * @return array applied array
-     */
-    public function setApplied($applied){}
-
-    /**
-     * Gets the applied array
-     * where am I to be applied (Columns/backlog/completed)
-     *
-     * @return array applied array
-     */
-    public function getApplied(){}
-
-    /**
-     * Sets the visibility array
-     * where am I to be visible (Columns/backlog/completed)
-     *
-     * @return array visible array
-     */
-    public function setVisible($visibility){}
-
-    /**
-     * Gets the visible array
-     * where am I to be visible (Columns/backlog/completed)
-     *
-     * @return array visible array
-     */
-    public function getVisible(){}
-
-    /**
-     * Sets the enables array
-     * where am I enabled (Columns/backlog/completed)
-     *
-     * @return array enabled array
-     */
-    public function setEnabled($enabled){}
-
-    /**
-     * Gets the visible array
-     * where am I enabled (Columns/backlog/completed)
-     *
-     * @return array enabled array
-     */
-    public function getEnabled(){}
-
-    /* View Related Methods */
-    /* ==================== */
-    /**
-     * Show myself (in a functional situation)
+     * Show a view of the Behavior
+     * The default is the Icon Click element
+     * A Decoration can have multiple views
      *
      * @return string html for showing the ticketDecoration
      */
-    public function show(){}
-
-    /**
-     * Show myself (in a editable situation)
-     *
-     * @return string html for editing the ticketDecoration
-     */
-    public function showEdit(){}
-
-    /**
-     * Describe the capabilities of the ticketDecoration
-     *
-     * @return string html for the description of the ticketDecoration's capabilities
-     */
-    public function describe(){}
-    // What can I do, description of functionality
-
+    abstract public function show($view = 'default');
 }
