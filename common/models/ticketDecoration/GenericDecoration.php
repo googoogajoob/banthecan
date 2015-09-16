@@ -11,4 +11,25 @@ namespace common\models\ticketDecoration;
 
 class GenericDecoration extends AbstractDecoration {
 
+    /**
+     * Performs the tasks or functions that a ticketDecoration is designed to do
+     * @return boolean success or failure
+     */
+    public function doDecoration() {
+        $junk = 5;
+
+        return true;
+    }
+
+    /**
+     * Show a view of the Behavior
+     * The default is the Icon Click element
+     * A Decoration can have multiple views
+     *
+     * @return string html for showing the ticketDecoration
+     */
+    public function show($view = 'default') {
+        return "<p>Hello World! I'm the generic Decoration</p>";
+    }
+
 }

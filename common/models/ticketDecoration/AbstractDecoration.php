@@ -16,6 +16,9 @@ abstract class ticketDecoration extends Behavior implements ticketDecorationInte
     private $_configurationData = array();
     private $_decorationData = array();
 
+    /* do I need to force the use of a constructor and init function
+       either here or in the interface? */
+
     /**
      * Performs the tasks or functions that a ticketDecoration is designed to do
      * @return boolean success or failure
