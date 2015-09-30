@@ -18,7 +18,7 @@ echo $this->render('@frontend/views/ticket/_backlogTicketSearchForm',[
 
 echo ListView::widget( [
         'dataProvider' => $dataProvider,
-        'itemView' => '@frontend/views/ticket/_ticketBlock',
+        'itemView' => '@frontend/views/ticket/_ticketSingle',
         'viewParams' => ['divClass' => 'ticket-widget-float'],
         'itemOptions' => ['class' => 'col-xs-2'],
         'options' => ['class' => 'row'],

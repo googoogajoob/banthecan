@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\helpers\Html;
 

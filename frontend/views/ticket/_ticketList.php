@@ -17,7 +17,7 @@ use yii\helpers\Html;
 foreach ($tickets as $ticket) {
 
     echo html::beginTag('div', ['class' => 'col-xs-2']);
-    echo $this->render('@frontend/views/ticket/_ticketBlock', [
+    echo $this->render('@frontend/views/ticket/_ticketSingle', [
         'ticket' => $ticket,
         'divClass' => 'ticket-widget-float',
     ]);
