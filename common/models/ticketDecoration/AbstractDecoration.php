@@ -11,7 +11,7 @@ use yii\base\Behavior;
  * Time: 2:06 AM
  */
 
-abstract class ticketDecoration extends Behavior implements ticketDecorationInterface {
+abstract class AbstractDecoration extends Behavior implements TicketDecorationInterface {
 
     private $_configurationData = array();
     private $_decorationData = array();

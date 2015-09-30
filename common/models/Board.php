@@ -16,9 +16,14 @@ use yii\web\NotFoundHttpException;
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
- * @property string $title
- * @property string $description
+ * @property string  $title
+ * @property string  $description
  * @property integer $max_lanes
+ * @property string  $backlog_name
+ * @property string  $kanban_name
+ * @property string  $completed_name
+ * @property string  $ticket_backlog_configuration
+ * @property string  $ticket_completed_configuration
  * @property integer $entry_column
  * @property BoardColumn[] $boardColumns
  *
@@ -57,7 +62,7 @@ class Board extends \yii\db\ActiveRecord {
         return [
             [['title', 'description', 'max_lanes', 'entry_column'], 'required'],
             [['id', 'created_at', 'created_by', 'updated_by', 'updated_at', 'max_lanes', 'entry_column'], 'integer'],
-            [['title', 'description'], 'string']
+            [['title', 'description', 'backlog_name', 'kanban_name', 'completed_name', 'ticket_backlog_configuration', 'ticket_completed_configuration'], 'string']
         ];
     }
 

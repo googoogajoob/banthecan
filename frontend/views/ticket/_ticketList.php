@@ -22,7 +22,6 @@ foreach ($tickets as $ticket) {
         'divClass' => 'ticket-widget-float',
     ]);
     echo html::endTag('div');
-
 }
 ?>
 

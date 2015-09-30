@@ -241,6 +241,7 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * Query to find all Backlog Tickets
      *
+     * ToDo: possibly move this into the instantiation of the TicketSearch Object
      * @return yii\db\QueryInterface
      */
     public function findBacklog() {
@@ -254,6 +255,7 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * Query to find all Completed Tickets
      *
+     * ToDo: possibly move this into the instantiation of the TicketSearch Object
      * @return yii\db\QueryInterface
      */
     public function findCompleted() {

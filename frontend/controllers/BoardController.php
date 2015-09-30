@@ -81,13 +81,16 @@ class BoardController extends \yii\web\Controller {
      * Shows tickets in the Backlog
      */
     public function actionBacklog() {
-        $searchModel = new TicketSearch();
+        $searchModel = Yii::createObject('common\models\TicketSearch');
+        $searchModel->attachBehavior('Generic', 'common\models\ticketDecoration\GenericDecoration');
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
 
         return $this->render('backlog', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'pageTitle' => $this->currentBoard->backlog_name,
             'action' => $this->action->id,
         ]);
     }
@@ -103,6 +106,7 @@ class BoardController extends \yii\web\Controller {
         return $this->render('completed', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'pageTitle' => $this->currentBoard->completed_name,
             'action' => $this->action->id,
         ]);
     }

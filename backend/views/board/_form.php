@@ -24,6 +24,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'max_lanes')->textInput() ?>
 
+    <?= $form->field($model, 'backlog_name')->textInput() ?>
+
+    <?= $form->field($model, 'kanban_name')->textInput() ?>
+
+    <?= $form->field($model, 'completed_name')->textInput() ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

@@ -6,11 +6,11 @@ use yii\helpers\Html;
 /* @var $searchModel common\models\TicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $action string */
-
+/* @var $pageTitle string */
 ?>
 
 <h1 class="text-capitalize">
-    <?php echo Html::encode($action) ?>
+    <?php echo Html::encode($pageTitle) ?>
 </h1>
 
 <?php

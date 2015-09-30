@@ -143,8 +143,8 @@ class Column extends \yii\db\ActiveRecord
     }
 
     /**
-     * At some point this may need to be refined.
-     * There is no guarantee that the column will have succesive IDs, although in the DEMO scenario
+     * ToDo: At some point this may need to be refined.
+     * There is no guarantee that the column will have successive IDs, although in the DEMO scenario
      * it will likely always be the case
      *
      */

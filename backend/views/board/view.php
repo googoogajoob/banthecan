@@ -34,7 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'title:ntext',
             'description:ntext',
             'max_lanes',
-        ],
+            'backlog_name',
+            'kanban_name',
+            'completed_name',
+         ],
     ]) ?>
 
 </div>
