@@ -42,7 +42,7 @@ $ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
     //echo StringHelper::truncate($model->description, 100, ' ...'); //Limit using PHP
     //echo $model->description; //Limit using CSS overflow
 
-    echo $this->render('@frontend/views/ticket/_ticketFunctionBar', ['model' => $model]);
+    echo $this->render('@frontend/views/ticket/_ticketDecorationBar', ['model' => $model]);
 
     // Wrap Contents in a div only when $divClass is set
     if (isset($divClass)) {
