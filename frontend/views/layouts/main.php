@@ -53,11 +53,11 @@ if ($boardObject = Board::getActiveboard()) {
                 $menuItems = [
                     ['label' => 'Tags', 'url' => ['/tags']],
                     ['label' => 'Tickets', 'url' => ['/ticket']],
-                    ['label' => 'Boards',
+                    ['label' => 'Boards', 'visible' => (boolean) $boardObject,
                         'items' => [
-                            ['label' => $boardObject->backlog_name, 'url' => ['/board/backlog']],
-                            ['label' => $boardObject->kanban_name, 'url' => ['/board']],
-                            ['label' => $boardObject->completed_name, 'url' => ['/board/completed']],
+                            ['label' => 'Backlog', 'url' => ['/board/backlog']],
+                            ['label' => 'KanBan', 'url' => ['/board']],
+                            ['label' => 'Completed', 'url' => ['/board/completed']],
                         ],
                     ],
                 ];

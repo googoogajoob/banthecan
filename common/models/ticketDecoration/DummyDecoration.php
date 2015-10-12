@@ -9,7 +9,7 @@ namespace common\models\ticketDecoration;
  * Time: 12:33 AM
  */
 
-class GenericDecoration extends AbstractDecoration {
+class DummyDecoration extends AbstractDecoration {
 
     private $_junk = 0;
 
@@ -35,7 +35,7 @@ class GenericDecoration extends AbstractDecoration {
      */
     public function show($view = 'default') {
         $view='junk';
-        return 'G';
+        return 'D';
     }
 
 }

@@ -20,7 +20,7 @@ namespace common\models\ticketDecoration;
  * can (or must) implement. The requirements of columns upon tickets is a configurable setting in the design
  * of a Board.
  *
- * (note of explanation): TicketDecorations are Yii-Behaviors applied to Ticket Class.
+ * (note of explanation): TicketDecorations are Yii-Behaviors applied to the Ticket Class.
  *                        Thus, "TicketDecoration" and "Behavior" are used somewhat
  *                        interchangeably.
  *

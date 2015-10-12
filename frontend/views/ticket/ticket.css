@@ -34,16 +34,23 @@
 
 .ticket-single-decorations {
     position: absolute;
-    bottom: 20px;
-    background-color: #707070;
+    bottom: 26px;
+    background-color: #a0a0a0;
     padding: 2px 4px 1px 2px;
 }
 
 .ticket-single-tags {
     position: absolute;
     bottom: 2px;
-    background-color: #707070;
-    padding: 2px 4px 1px 2px;
+    padding: 2px 4px 1px 0;
+}
+
+/* Need to convert this to Bootstrap CSS ans SASS */
+.ticket-tag {
+    border-radius: 8px;
+    background-color: #f0ad4e;
+    padding: 3px;
+    margin: 2px 2px 2px 0;
 }
 
 #ticketsearch-user_search .checkbox {

@@ -82,7 +82,13 @@ class BoardController extends \yii\web\Controller {
      */
     public function actionBacklog() {
         $searchModel = Yii::createObject('common\models\TicketSearch');
-        $searchModel->attachBehavior('Generic', 'common\models\ticketDecoration\GenericDecoration');
+
+        Yii::$container->set('TicketDecorationInterface',
+            [
+                'common\models\ticketDecoration\GenericDecoration',
+                'common\models\ticketDecoration\DummyDecoration'
+            ]
+        );
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;

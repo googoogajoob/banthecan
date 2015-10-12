@@ -2,12 +2,13 @@
 
 namespace common\models;
 
-use common\models\Board;
+//use common\models\Board;
 use dosamigos\taggable\Taggable;
 use Faker\Factory;
 use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 
 
 /**
@@ -73,6 +74,18 @@ class Ticket extends \yii\db\ActiveRecord
      */
     const NO_BOARD_QUERY_RESTRICTION = 0;
 
+    /**
+     * Override Init so that each ticket can obtain its decorations
+     */
+    public function init() {
+        if (Yii::$container->has('TicketDecorationInterface')) {
+            $junk = Yii::$container->getDefinitions();
+            foreach ($junk['TicketDecorationInterface'] as $ticketDecorationId => $ticketDecoration) {
+                $this->attachBehavior('ticketDecoration' . $ticketDecorationId, Yii::$container->get($ticketDecoration));
+            }
+        }
+        parent::init();
+    }
 
     /**
      * @inheritdoc
@@ -126,6 +139,13 @@ class Ticket extends \yii\db\ActiveRecord
             'ticket_order' => 'Ticket Order',
         ];
     }
+
+    /**
+     *
+     */
+/*    public function getDecoration() {
+        return $this->_decoration;
+    }*/
 
     /**
      * @return \yii\db\ActiveQuery
@@ -281,10 +301,11 @@ class Ticket extends \yii\db\ActiveRecord
      * @inheritdoc
      */
     public static function find() {
+        $x = Yii::createObject(ActiveQuery::className(), [get_called_class()]);
         if (self::$restrictQueryToBoardId != self::NO_BOARD_QUERY_RESTRICTION) {
-            return parent::find()->andWhere(['board_id' => self::$restrictQueryToBoardId]);
+            return $x->andWhere(['board_id' => self::$restrictQueryToBoardId]);
         } else {
-            return parent::find();
+            return $x;
         }
     }
 
