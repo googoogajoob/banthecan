@@ -33,6 +33,8 @@ class Ticket extends \yii\db\ActiveRecord
     const DEMO_BOARD_TICKETS = 5;
     const DEMO_COMPLETED_TICKETS = 50;
 
+    const TICKET_DECORATION_CLASS_ALIAS = 'ticketDecorationInterface';
+
     /**
      * The status (column_id) of tickets in the backlog
      */
@@ -78,11 +80,8 @@ class Ticket extends \yii\db\ActiveRecord
      * Override Init so that each ticket can obtain its decorations
      */
     public function init() {
-        if (Yii::$container->has('TicketDecorationInterface')) {
-            $junk = Yii::$container->getDefinitions();
-            foreach ($junk['TicketDecorationInterface'] as $ticketDecorationId => $ticketDecoration) {
-                $this->attachBehavior('ticketDecoration' . $ticketDecorationId, Yii::$container->get($ticketDecoration));
-            }
+        if (Yii::$container->has(self::TICKET_DECORATION_CLASS_ALIAS)) {
+            $this->attachBehaviors(Yii::$container->getDefinitions()[self::TICKET_DECORATION_CLASS_ALIAS]);
         }
         parent::init();
     }

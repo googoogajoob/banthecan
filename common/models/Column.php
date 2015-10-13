@@ -3,9 +3,10 @@
 namespace common\models;
 
 use common\models\Board;
-use Yii;
+use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use common\models\Ticket;
 
 
 /**
@@ -21,6 +22,7 @@ use yii\behaviors\BlameableBehavior;
  * @property integer $display_order
  * @property integer $receiver
  * @property Board $board
+ * @property string  $ticket_column_configuration
  * @property Ticket[] $tickets
  */
 class Column extends \yii\db\ActiveRecord
@@ -88,6 +90,11 @@ class Column extends \yii\db\ActiveRecord
      */
     public function getTickets()
     {
+        Yii::$container->set(
+            Ticket::TICKET_DECORATION_CLASS_ALIAS,
+            unserialize($this->ticket_column_configuration)
+        );
+
         return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
                     ->orderBy('ticket_order')
                     ->all();

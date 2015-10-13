@@ -4,6 +4,7 @@ namespace frontend\controllers; //namespace must be the first statement
 
 use yii;
 use common\models\Board;
+use common\models\Ticket;
 use common\models\TicketSearch;
 use yii\data\ActiveDataProvider;
 use common\models\User;
@@ -81,13 +82,14 @@ class BoardController extends \yii\web\Controller {
      * Shows tickets in the Backlog
      */
     public function actionBacklog() {
+        $boardRecord = Board::getActiveboard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
-        Yii::$container->set('TicketDecorationInterface',
-            [
-                'common\models\ticketDecoration\GenericDecoration',
-                'common\models\ticketDecoration\DummyDecoration'
-            ]
+        // Create a Container Dependency Injection Definition using an alias
+        // This alias is referenced by each ticket to attach the defined behaviors
+        Yii::$container->set(
+            Ticket::TICKET_DECORATION_CLASS_ALIAS,
+            unserialize($boardRecord->ticket_backlog_configuration)
         );
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
@@ -105,7 +107,16 @@ class BoardController extends \yii\web\Controller {
      * Shows completed tickets
      */
     public function actionCompleted() {
-        $searchModel = new TicketSearch();
+        $boardRecord = Board::getActiveboard();
+        $searchModel = Yii::createObject('common\models\TicketSearch');
+
+        // Create a Container Dependency Injection Definition using an alias
+        // This alias is referenced by each ticket to attach the defined behaviors
+        Yii::$container->set(
+            Ticket::TICKET_DECORATION_CLASS_ALIAS,
+            unserialize($boardRecord->ticket_completed_configuration)
+        );
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, -1);
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
 
