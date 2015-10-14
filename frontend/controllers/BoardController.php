@@ -87,6 +87,7 @@ class BoardController extends \yii\web\Controller {
 
         // Create a Container Dependency Injection Definition using an alias
         // This alias is referenced by each ticket to attach the defined behaviors
+        //ToDo: only if the value is valid
         Yii::$container->set(
             Ticket::TICKET_DECORATION_CLASS_ALIAS,
             unserialize($boardRecord->ticket_backlog_configuration)
@@ -112,6 +113,7 @@ class BoardController extends \yii\web\Controller {
 
         // Create a Container Dependency Injection Definition using an alias
         // This alias is referenced by each ticket to attach the defined behaviors
+        //ToDo: only if the value is valid
         Yii::$container->set(
             Ticket::TICKET_DECORATION_CLASS_ALIAS,
             unserialize($boardRecord->ticket_completed_configuration)
