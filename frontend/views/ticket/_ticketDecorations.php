@@ -10,9 +10,9 @@ use common\models\ticketDecoration\TicketDecorationInterface;
 echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
 
 foreach ($ticket->getBehaviors() as $ticketBehavior) {
-  if ($ticketBehavior instanceof TicketDecorationInterface) {
-    echo $ticketBehavior->show();
-  }
+    if ($ticketBehavior instanceof TicketDecorationInterface) {
+        echo $ticketBehavior->show();
+    }
 }
 
 echo Html::endTag('div');

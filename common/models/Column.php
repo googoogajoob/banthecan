@@ -90,11 +90,12 @@ class Column extends \yii\db\ActiveRecord
      */
     public function getTickets()
     {
-        // ToDo: if ticket_column_configuration is invalid (or empty) this should not be created
-        Yii::$container->set(
-            Ticket::TICKET_DECORATION_CLASS_ALIAS,
-            unserialize($this->ticket_column_configuration)
-        );
+        if (trim($this->ticket_column_configuration) != '') {
+            Yii::$container->set(
+                Ticket::TICKET_DECORATION_CLASS_ALIAS,
+                unserialize($this->ticket_column_configuration)
+            );
+        }
 
         return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
                     ->orderBy('ticket_order')
