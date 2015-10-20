@@ -81,7 +81,9 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function init() {
         if (Yii::$container->has(self::TICKET_DECORATION_CLASS_ALIAS)) {
-            $this->attachBehaviors(Yii::$container->getDefinitions()[self::TICKET_DECORATION_CLASS_ALIAS]);
+            $behaviorClasses = Yii::$container->getDefinitions()[self::TICKET_DECORATION_CLASS_ALIAS];
+            unset($behaviorClasses['class']);
+            $this->attachBehaviors($behaviorClasses);
         }
         parent::init();
     }

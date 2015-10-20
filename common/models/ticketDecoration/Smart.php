@@ -9,10 +9,9 @@ namespace common\models\ticketDecoration;
  * Time: 12:33 AM
  */
 
-class SmartDecoration extends AbstractDecoration {
+class Smart extends AbstractDecoration {
 
     private $_junk = 0;
-
 
     /*### MODEL STUFF ###*/
 

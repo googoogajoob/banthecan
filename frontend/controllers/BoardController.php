@@ -85,32 +85,10 @@ class BoardController extends \yii\web\Controller {
         $boardRecord = Board::getActiveboard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
-        //$tdManager = Yii::createObject('ticketDecorationManager');
-        $tdManager = Yii::createObject([
-            'class' => 'common\models\ticketDecoration\TicketDecorationManager',
-            'decorationClasses' => [
-                'Dummy' => [
-                    'class' => 'common\models\ticketDecoration\Dummy',
-                ],
-                'Generic' => [
-                    'class' => 'common\models\ticketDecoration\Generic',
-                ],
-                'Smart' => [
-                    'class' => 'common\models\ticketDecoration\Smart',
-                ],
-                'MoveToBoard' => [
-                    'class' => 'common\models\ticketDecoration\MoveToBoard',
-                ],
-            ],
-        ]);
         // Create a Container Dependency Injection Definition using an alias
         // This alias is referenced by each ticket to attach the defined behaviors
-        if (trim($boardRecord->ticket_completed_configuration) != '') {
-            Yii::$container->set(
-                Ticket::TICKET_DECORATION_CLASS_ALIAS,
-                unserialize($boardRecord->ticket_backlog_configuration)
-            );
-        }
+        Yii::$app->ticketDecorationManager
+                 ->registerDecorations(unserialize($boardRecord->ticket_backlog_configuration));
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
@@ -132,12 +110,8 @@ class BoardController extends \yii\web\Controller {
 
         // Create a Container Dependency Injection Definition using an alias
         // This alias is referenced by each ticket to attach the defined behaviors
-        if (trim($boardRecord->ticket_completed_configuration) != '') {
-            Yii::$container->set(
-                Ticket::TICKET_DECORATION_CLASS_ALIAS,
-                unserialize($boardRecord->ticket_completed_configuration)
-            );
-        }
+        Yii::$app->ticketDecorationManager
+            ->registerDecorations(unserialize($boardRecord->ticket_completed_configuration));
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, -1);
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;

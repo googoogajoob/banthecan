@@ -90,12 +90,10 @@ class Column extends \yii\db\ActiveRecord
      */
     public function getTickets()
     {
-        if (trim($this->ticket_column_configuration) != '') {
-            Yii::$container->set(
-                Ticket::TICKET_DECORATION_CLASS_ALIAS,
-                unserialize($this->ticket_column_configuration)
-            );
-        }
+        // Create a Container Dependency Injection Definition using an alias
+        // This alias is referenced by each ticket to attach the defined behaviors
+        Yii::$app->ticketDecorationManager
+            ->registerDecorations(unserialize($this->ticket_column_configuration));
 
         return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
                     ->orderBy('ticket_order')

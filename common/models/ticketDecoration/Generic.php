@@ -9,7 +9,7 @@ namespace common\models\ticketDecoration;
  * Time: 12:33 AM
  */
 
-class GenericDecoration extends AbstractDecoration {
+class Generic extends AbstractDecoration {
 
     private $_junk = 0;
 
