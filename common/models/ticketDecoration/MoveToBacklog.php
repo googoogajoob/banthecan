@@ -12,15 +12,9 @@ namespace common\models\ticketDecoration;
 class MoveToBoard extends AbstractDecoration {
 
 
-    /**
-     * Performs the tasks or functions that a ticketDecoration is designed to do
-     * @return boolean success or failure
-     */
-    public function doDecoration() {
-        return true;
-    }
-
+    /*##################*/
     /*### VIEW STUFF ###*/
+    /*##################*/
 
     /**
      * Show a view of the Behavior
@@ -30,8 +24,7 @@ class MoveToBoard extends AbstractDecoration {
      * @return string html for showing the ticketDecoration
      */
     public function show($view = 'default') {
-        $junk = $this->owner->id;
-        return '<a href="/ticket/board/' . $junk . '">M</a>';
+        return '<a href="/ticket/board/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
     }
 
 }
