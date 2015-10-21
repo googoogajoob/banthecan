@@ -143,7 +143,7 @@ class TicketController extends Controller
     {
         $this->findModel($id)->moveToKanBanBoard()->save();
 
-        return $this->goBack();
+        return $this->redirect('/board');
     }
 
     /**
@@ -156,7 +156,7 @@ class TicketController extends Controller
     {
         $this->findModel($id)->moveToCompleted()->save();
 
-        return $this->goBack();
+        return $this->redirect('/board/completed');
     }
 
     /**
@@ -169,7 +169,7 @@ class TicketController extends Controller
     {
         $this->findModel($id)->moveToBacklog()->save();
 
-        return $this->goBack();
+        return $this->redirect('/board/backlog');
     }
 
     /**
