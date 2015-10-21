@@ -9,25 +9,24 @@ namespace common\models\ticketDecoration;
  *
  * The Ticket Decoration Concept
  * =============================
- * A ticket decoration is an optional functionality of a ticket for performing a specialized task. Examples would be
- * Blocking/Allowing the movement of a ticket to another column based on specific conditions, creating another object
- * such as a "ToDo" task, or voting on a protocol before a ticket can be considered completed.
+ * A ticket decoration is an optional functionality of a ticket which performs a specialized task. Examples would be
+ * Moving a Ticket to the Backlog, KanBan or Completed Boards, Blocking the movement of a ticket to another column
+ * based on specific conditions, creating another object such as a "ToDo" task, or voting on a protocol before
+ * a ticket can be considered completed.
  *
- * Decorations are to be implemented as behaviors of the ticket class. Therefore they interact with the ticket,
- * its view and its 'business' logic  However, the existence of a decoration in a ticket is determined by the column
- * where a ticket is located. Columns contain a set of decoration requirements (and/or) possibilities. As a ticket is
- * moved from one column to another, the column, where a ticket is located, dictates which behaviors a ticket
- * can (or must) implement. The requirements of columns upon tickets is a configurable setting in the design
- * of a Board.
+ * Decorations are implemented as behaviors of the ticket class. The existence of a decoration in a ticket is determined
+ * by the column where a ticket is located (as well as the backlog and completed areas). Columns contain a set of decoration
+ * requirements (and/or) possibilities. As a ticket is moved from one column to another, the column, where a ticket is located,
+ * dictates which behaviors the ticket implements.The requirements of columns upon tickets is a configurable setting in the
+ * design of a Board and its columns.
  *
  * (note of explanation): TicketDecorations are Yii-Behaviors applied to the Ticket Class.
- *                        Thus, "TicketDecoration" and "Behavior" are used somewhat
- *                        interchangeably.
+ *                        Thus, "TicketDecoration" and "Behavior" are used interchangeably.
  *
  * The requirements of the various participants are as follows:
  * ------------------------------------------------------------
  * Columns:
- *     - Maintain a list of decorations that are to be implemented in this column
+ *     - Maintain a list of decorations that are to be implemented in the column
  *          - Implementation:
  *              - Columns: keep a list of ticketDecorations for the column.This requires a unique
  *                type-identifier for each behavior type
@@ -65,46 +64,6 @@ namespace common\models\ticketDecoration;
  * @author Andrew Potter <apc@andypotter.org>
  */
 interface TicketDecorationInterface {
-
-    /**
-     * Performs the tasks or functions that a ticketDecoration is designed to do
-     * @return boolean success or failure
-     */
-    public function doDecoration();
-
-    /**
-     * Returns the Configuration Data of the Decoration.
-     * This is what the column stores for the configuration of the decoration
-     *
-     * @return array of key value pairs
-     */
-    public function getConfigurationData();
-
-    /**
-     * Set the Configuration Data of the Decoration.
-	  * The Confiration Data Array is completely replaced by the new array
-     * This is what the column stores for the configuration of the decoration
-     *
-     * @param array of key value pairs
-     * @return array of key value pairs
-     */
-    public function setConfigurationData($config = array());
-
-    /**
-     * Returns the Decoration Data of the Decoration.
-     * This is what the thicket stores for the persistence of the decoration
-     *
-     * @return array of key value pairs
-     */
-    public function getDecorationData();
-
-    /**
-     * Sets the Decoration Data of the Decoration.
-     * This is what the thicket stores for the persistence of the decoration
-     *
-     * @return array of key value pairs
-     */
-    public function setDecorationData();
 
     /**
      * Show a view of the Behavior

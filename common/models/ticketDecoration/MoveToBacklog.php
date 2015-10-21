@@ -9,7 +9,7 @@ namespace common\models\ticketDecoration;
  * Time: 12:33 AM
  */
 
-class MoveToBoard extends AbstractDecoration {
+class MoveToBacklog extends AbstractDecoration {
 
 
     /*##################*/
@@ -24,7 +24,7 @@ class MoveToBoard extends AbstractDecoration {
      * @return string html for showing the ticketDecoration
      */
     public function show($view = 'default') {
-        return '<a href="/ticket/board/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
+        return '<a href="/ticket/backlog/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
     }
 
 }

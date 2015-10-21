@@ -11,20 +11,10 @@ namespace common\models\ticketDecoration;
 
 class Generic extends AbstractDecoration {
 
-    private $_junk = 0;
 
-
-    /*### MODEL STUFF ###*/
-
-    /**
-     * Performs the tasks or functions that a ticketDecoration is designed to do
-     * @return boolean success or failure
-     */
-    public function doDecoration() {
-        return true;
-    }
-
+    /*##################*/
     /*### VIEW STUFF ###*/
+    /*##################*/
 
     /**
      * Show a view of the Behavior
@@ -34,8 +24,7 @@ class Generic extends AbstractDecoration {
      * @return string html for showing the ticketDecoration
      */
     public function show($view = 'default') {
-        $view='junk';
-        return 'G';
+        return $this->linkIcon;
     }
 
 }

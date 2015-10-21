@@ -57,8 +57,21 @@ return [
         'ticketDecorationManager' => [
             'class' => 'common\models\ticketDecoration\TicketDecorationManager',
             'availableTicketDecorations' => [
-                'MoveToBoard' => [
-                    'class' => 'common\models\ticketDecoration\MoveToBoard',
+                'Generic' => [
+                    'class' => 'common\models\ticketDecoration\Generic',
+                    'linkIcon' => 'G',
+                ],
+                'MoveToBacklog' => [
+                    'class' => 'common\models\ticketDecoration\MoveToBacklog',
+                    'linkIcon' => 'B',
+                ],
+                'MoveToKanban' => [
+                    'class' => 'common\models\ticketDecoration\MoveToKanban',
+                    'linkIcon' => 'K',
+                ],
+                'MoveToCompleted' => [
+                    'class' => 'common\models\ticketDecoration\MoveToCompleted',
+                    'linkIcon' => 'C',
                 ],
             ],
         ],

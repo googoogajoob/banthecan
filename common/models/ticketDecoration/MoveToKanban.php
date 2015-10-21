@@ -9,7 +9,7 @@ namespace common\models\ticketDecoration;
  * Time: 12:33 AM
  */
 
-class MoveToBoard extends AbstractDecoration {
+class MoveToKanban extends AbstractDecoration {
 
 
     /*##################*/
