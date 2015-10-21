@@ -85,8 +85,6 @@ class BoardController extends \yii\web\Controller {
         $boardRecord = Board::getActiveboard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
-        // Create a Container Dependency Injection Definition using an alias
-        // This alias is referenced by each ticket to attach the defined behaviors
         Yii::$app->ticketDecorationManager
                  ->registerDecorations(unserialize($boardRecord->ticket_backlog_configuration));
 
@@ -108,8 +106,6 @@ class BoardController extends \yii\web\Controller {
         $boardRecord = Board::getActiveboard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
-        // Create a Container Dependency Injection Definition using an alias
-        // This alias is referenced by each ticket to attach the defined behaviors
         Yii::$app->ticketDecorationManager
             ->registerDecorations(unserialize($boardRecord->ticket_completed_configuration));
 

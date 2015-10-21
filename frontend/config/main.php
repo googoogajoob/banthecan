@@ -49,23 +49,14 @@ return [
         //    'locale' => 'de-DE',
         //],
 
-        // The TicketDecoration Manager Contains a list of all available Ticket Decorations
-        // as well as their configurations.
+        // The TicketDecoration Manager Contains a list of all
+        // available Ticket Decorations as well as their configurations.
         // Configurations in the DB for Board and Columns contain only the names
         // of the decorationClasses Array-Keys listed here
         // The details of the decoration class configurations are specified here
         'ticketDecorationManager' => [
             'class' => 'common\models\ticketDecoration\TicketDecorationManager',
-            'decorationClasses' => [
-                'Dummy' => [
-                    'class' => 'common\models\ticketDecoration\Dummy',
-                ],
-                'Generic' => [
-                    'class' => 'common\models\ticketDecoration\Generic',
-                ],
-                'Smart' => [
-                    'class' => 'common\models\ticketDecoration\Smart',
-                ],
+            'availableTicketDecorations' => [
                 'MoveToBoard' => [
                     'class' => 'common\models\ticketDecoration\MoveToBoard',
                 ],

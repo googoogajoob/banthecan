@@ -15,31 +15,54 @@ use yii\base\Object;
 
 class TicketDecorationManager extends Object {
 
-    public $decorationClasses;
+    private $_availableTicketDecorations;
+    private $_activeTicketDecorations = [];
+
 
     /**
-     * Extract the specified ticket decoration class configurations specified by $classNames
-     * and register them under the Alias Ticket::TICKET_DECORATION_CLASS_ALIAS in the DI-Container class
+     * @param $decorations array
+     * @return $this common\models\ticketDecoration\TicketDecorationManager
+     */
+    public function setAvailableTicketDecorations($decorations) {
+        $this->_availableTicketDecorations = $decorations;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAvailableTicketDecorations() {
+        return $this->_availableTicketDecorations;
+    }
+
+    /**
+     * Returns the configuration arrays for the current set of active ticket decorations
      *
-     * @param null $classNames
+     * @return array
+     */
+    public function getActiveTicketDecorations() {
+        return $this->_activeTicketDecorations;
+    }
+
+    /**
+     * Extract the specified ticket decorations from the list of available configurations
+     * and place them in the list of currently active decoration configurations
+     *
+     * @param $classNames array
+     * @return $this common\models\ticketDecoration\TicketDecorationManager
      */
     public function registerDecorations($classNames = null) {
+        $this->_activeTicketDecorations = []; // Start with empty list (reset) and add the new classes
+
         if (is_array($classNames)) {
-
-            // Start with an empty set and add the configurations that are specified
-            $decorationConfigurations = ['class' => Ticket::TICKET_DECORATION_CLASS_ALIAS];
-            $configurationExists = false;
-
             foreach ($classNames as $className) {
-                if (array_key_exists($className, $this->decorationClasses)) {
-                    $decorationConfigurations[] = $this->decorationClasses[$className]['class'];
-                    $configurationExists = true;
+                if (array_key_exists($className, $this->_availableTicketDecorations)) {
+                    $this->_activeTicketDecorations[$className] = $this->_availableTicketDecorations[$className];
                 }
             }
-
-            if ($configurationExists) {
-                Yii::$container->set(Ticket::TICKET_DECORATION_CLASS_ALIAS, $decorationConfigurations);
-            }
         }
+
+        return $this;
     }
 }

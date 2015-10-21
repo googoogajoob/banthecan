@@ -90,8 +90,6 @@ class Column extends \yii\db\ActiveRecord
      */
     public function getTickets()
     {
-        // Create a Container Dependency Injection Definition using an alias
-        // This alias is referenced by each ticket to attach the defined behaviors
         Yii::$app->ticketDecorationManager
             ->registerDecorations(unserialize($this->ticket_column_configuration));
 

@@ -5,6 +5,7 @@ namespace common\models;
 //use common\models\Board;
 use dosamigos\taggable\Taggable;
 use Faker\Factory;
+use common\models\ticketDecoration\TicketDecorationManager;
 use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -80,11 +81,8 @@ class Ticket extends \yii\db\ActiveRecord
      * Override Init so that each ticket can obtain its decorations
      */
     public function init() {
-        if (Yii::$container->has(self::TICKET_DECORATION_CLASS_ALIAS)) {
-            $behaviorClasses = Yii::$container->getDefinitions()[self::TICKET_DECORATION_CLASS_ALIAS];
-            unset($behaviorClasses['class']);
-            $this->attachBehaviors($behaviorClasses);
-        }
+        $this->attachBehaviors(Yii::$app->ticketDecorationManager->getActiveTicketDecorations());
+
         parent::init();
     }
 
