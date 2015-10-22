@@ -73,11 +73,18 @@ class Board extends \yii\db\ActiveRecord {
 
         return [
             'id' => 'ID',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Created',
+            'updated_at' => 'Updated',
+            'created_by' => 'Creator',
+            'updated_by' => 'Updater',
             'title' => 'Title',
             'description' => 'Description',
             'max_lanes' => 'Max Lanes',
+            'backlog_name' => 'Backlog Name',
+            'kanban_name' => 'Kanban Name',
+            'completed_name' => 'Completed Name',
+            'ticket_backlog_configuration' => 'Backlog Ticket Decorations',
+            'ticket_completed_configuration' => 'Completed Ticket Decorations',
             'entry_column' => 'Entry Column'
         ];
     }
