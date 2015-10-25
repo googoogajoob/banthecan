@@ -62,7 +62,11 @@ class Board extends \yii\db\ActiveRecord {
         return [
             [['title', 'description', 'max_lanes', 'entry_column'], 'required'],
             [['id', 'created_at', 'created_by', 'updated_by', 'updated_at', 'max_lanes', 'entry_column'], 'integer'],
-            [['title', 'description', 'backlog_name', 'kanban_name', 'completed_name', 'ticket_backlog_configuration', 'ticket_completed_configuration'], 'string']
+            [['title', 'description', 'backlog_name', 'kanban_name', 'completed_name'], 'string'],
+            [['ticket_backlog_configuration', 'ticket_completed_configuration'],
+                'in',
+                'range' => Yii::$app->ticketDecorationManager->getAvailableTicketDecorations(),
+                'allowArray' => true],
         ];
     }
 
@@ -87,6 +91,28 @@ class Board extends \yii\db\ActiveRecord {
             'ticket_completed_configuration' => 'Completed Ticket Decorations',
             'entry_column' => 'Entry Column'
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert) {
+
+        if (parent::beforeSave($insert)) {
+            $this->ticket_backlog_configuration = serialize($this->ticket_backlog_configuration);
+            $this->ticket_completed_configuration = serialize($this->ticket_completed_configuration);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function afterFind() {
+        parent::afterFind();
+        $this->ticket_backlog_configuration = unserialize($this->ticket_backlog_configuration);
+        $this->ticket_completed_configuration = unserialize($this->ticket_completed_configuration);
     }
 
     /**

@@ -15,8 +15,8 @@ use yii\base\Object;
 
 class TicketDecorationManager extends Object {
 
-    private $_availableTicketDecorations;
     private $_activeTicketDecorations = [];
+    private $_availableTicketDecorations = [];
 
 
     /**
@@ -30,10 +30,11 @@ class TicketDecorationManager extends Object {
     }
 
     /**
-     * @return array
+     * @return array Keys, i.e. class names of available decorations
      */
     public function getAvailableTicketDecorations() {
-        return $this->_availableTicketDecorations;
+        $junk = array_keys($this->_availableTicketDecorations);
+        return $junk;
     }
 
     /**
@@ -43,6 +44,24 @@ class TicketDecorationManager extends Object {
      */
     public function getActiveTicketDecorations() {
         return $this->_activeTicketDecorations;
+    }
+
+    /**
+     * Is $className an available ticket decoration
+     *
+     * @return boolean
+     */
+    public function isAvailable($className) {
+        return array_key_exists($className, $this->_availableTicketDecorations);
+    }
+
+    /**
+     * Is $className an active ticket decoration
+     *
+     * @return boolean
+     */
+    public function isActive($className) {
+        return array_key_exists($className, $this->_activeTicketDecorations);
     }
 
     /**

@@ -65,7 +65,12 @@ class Column extends \yii\db\ActiveRecord
         return [
             [['board_id', 'title'], 'required'],
             [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'board_id', 'display_order'], 'integer'],
-            [['title','receiver'], 'string']
+            [['title','receiver'], 'string'],
+            [['ticket_column_configuration'],
+                'in',
+                'range' => Yii::$app->ticketDecorationManager->getAvailableTicketDecorations(),
+                'allowArray' => true],
+
         ];
     }
 
@@ -78,10 +83,34 @@ class Column extends \yii\db\ActiveRecord
             'id' => 'ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'created_by' => 'Created By',
+            'updated_by' => 'Updated By',
             'board_id' => 'Board ID',
             'title' => 'Title',
             'display_order' => 'Display Order',
+            'receiver' => 'Receiver',
+            'ticket_column_configuration' => 'Ticket Column Configuration'
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert) {
+
+        if (parent::beforeSave($insert)) {
+            $this->ticket_column_configuration = serialize($this->ticket_column_configuration);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function afterFind() {
+        parent::afterFind();
+        $this->ticket_column_configuration = unserialize($this->ticket_column_configuration);
     }
 
 
@@ -91,7 +120,7 @@ class Column extends \yii\db\ActiveRecord
     public function getTickets()
     {
         Yii::$app->ticketDecorationManager
-            ->registerDecorations(unserialize($this->ticket_column_configuration));
+            ->registerDecorations($this->ticket_column_configuration);
 
         return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
                     ->orderBy('ticket_order')

@@ -25,9 +25,23 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'created_at',
             'updated_at',
+            'created_by',
+            'updated_by',
             'title:ntext',
             'description:ntext',
-            // 'max_lanes',
+            'max_lanes',
+            'backlog_name',
+            'kanban_name',
+            'completed_name',
+/*            [
+                'label' => 'Ticket Backlog Configuration',
+                'attribute' => 'ticket_backlog_configuration',
+            ],*/
+/*            [
+                'label' => 'Ticket Completed Configuration',
+                'value' => implode(', ', $dataProvider->ticket_completed_configuration),
+            ],*/
+            'entry_column',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

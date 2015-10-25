@@ -86,7 +86,7 @@ class BoardController extends \yii\web\Controller {
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
         Yii::$app->ticketDecorationManager
-                 ->registerDecorations(unserialize($boardRecord->ticket_backlog_configuration));
+                 ->registerDecorations($boardRecord->ticket_backlog_configuration);
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
@@ -107,7 +107,7 @@ class BoardController extends \yii\web\Controller {
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
         Yii::$app->ticketDecorationManager
-            ->registerDecorations(unserialize($boardRecord->ticket_completed_configuration));
+            ->registerDecorations($boardRecord->ticket_completed_configuration);
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, -1);
         $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
