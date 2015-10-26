@@ -23,24 +23,35 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
             'created_by',
             'updated_by',
             'title:ntext',
-            'description:ntext',
+            [
+                'attribute' => 'description',
+                'format' => 'ntext',
+            ],
             'max_lanes',
             'backlog_name',
             'kanban_name',
             'completed_name',
-/*            [
+            [
                 'label' => 'Ticket Backlog Configuration',
                 'attribute' => 'ticket_backlog_configuration',
-            ],*/
-/*            [
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $column) {
+                    return implode(', ', $model->ticket_backlog_configuration);
+                },
+            ],
+            [
                 'label' => 'Ticket Completed Configuration',
-                'value' => implode(', ', $dataProvider->ticket_completed_configuration),
-            ],*/
+                'attribute' => 'ticket_completed_configuration',
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $column) {
+                    return implode(', ', $model->ticket_completed_configuration);
+                },
+            ],
             'entry_column',
 
             ['class' => 'yii\grid\ActionColumn'],

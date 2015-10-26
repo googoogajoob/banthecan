@@ -29,15 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
         },
         'columns' => [
             'id',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
             'created_by',
             'updated_by',
             'board_id',
             'title:ntext',
             'display_order',
             'receiver',
-            'updated_at:datetime:Updated',
+            [
+                'label' => 'Ticket Column Configuration',
+                'attribute' => 'ticket_column_configuration',
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $column) {
+                    return implode(', ', $model->ticket_column_configuration);
+                },
+            ],
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
