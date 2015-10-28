@@ -16,10 +16,10 @@ return [
         'ticketDecorationManager' => [
             'class' => 'common\models\ticketDecoration\TicketDecorationManager',
             'availableTicketDecorations' => [
-                'Generic' => [
+                /*'Generic' => [
                     'class' => 'common\models\ticketDecoration\Generic',
                     'linkIcon' => 'G',
-                ],
+                ],*/
                 'MoveToBacklog' => [
                     'class' => 'common\models\ticketDecoration\MoveToBacklog',
                     'linkIcon' => 'B',

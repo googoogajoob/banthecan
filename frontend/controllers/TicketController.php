@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Board;
+use common\models\Column;
 use common\models\Ticket;
 use common\models\TicketSearch;
 use yii\web\Controller;
@@ -16,6 +17,10 @@ use yii\filters\VerbFilter;
  */
 class TicketController extends Controller
 {
+    /* This is needed in the views and in the controller,
+       it is placed here in the controller as a central reference point */
+    const TICKET_HTML_PREFIX = 'ticketwidget_';
+
     public function behaviors()
     {
         return [
@@ -35,21 +40,45 @@ class TicketController extends Controller
      */
     public function actionReorder()
     {
+        $changedColumnTicketId = -1; // Starting value indicates no ticket has changed columns
+
         $request = Yii::$app->request;
         if ($request->isAjax) {
+
             $columnId = $request->post('columnId');
+            Column::findOne($columnId)->activateTicketDecorations();
             $ticketOrder = $request->post('ticketOrder');
             foreach ($ticketOrder as $ticketOrderKey => $ticketId) {
                 $ticket = Ticket::findOne($ticketId);
                 $ticket->ticket_order = $ticketOrderKey;
-                $ticket->column_id = $columnId;
+                $ticket->column_id = intval($columnId);
+
+                $junk = $ticket->getDirtyAttributes();
+                if (array_key_exists('column_id', $junk)) {
+                    $changedColumnTicketId = $ticketId;
+                }
+
                 if ($ticket->update() === false) {
                     yii::error("Ticket Reordering Error: Column:$columnId, Ticket:$ticketId, Order:$ticketOrderKey");
                 }
             }
+
+            if ($changedColumnTicketId > 0) {
+                $ticketHtmlId = '#' . static::TICKET_HTML_PREFIX . $changedColumnTicketId;
+                $ticketDecorationHTML = $this->renderFile('@frontend/views/ticket/_ticketDecorations.php', ['ticket' => $ticket]);
+            } else {
+                $ticketHtmlId = 0; //indicates no column change to the client
+                $ticketDecorationHTML = '';
+            }
+
+            Yii::$app->response->format = 'json';
+
+            return ['ticketId' => $ticketHtmlId, 'decorationHtml' => $ticketDecorationHTML];
+
         } else {
             throw new MethodNotAllowedHttpException;
         }
+
     }
 
 

@@ -18,9 +18,14 @@ function columnTicketOrder(event, ui, rthis) {
                 'columnId':columnId[1],
                 'ticketOrder': ticketOrder
             },
-        /*success: function(){
-            alert("Ticket/Column Update SUCCESS");
-        },*/
+        success: function(returnData){
+            if (!$.isNumeric(returnData.id)) {
+                $(returnData.ticketId + ' .ticket-single-decorations').html(returnData.decorationHtml);
+                //alert("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
+            } else {
+                //alert("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
+            }
+        },
         error: function(jqXHR, textStatus, errorThrown){
             alert("Ticket/Column Update Failure:" + textStatus + ':' + errorThrown);
         }

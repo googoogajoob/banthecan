@@ -140,13 +140,6 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     *
-     */
-/*    public function getDecoration() {
-        return $this->_decoration;
-    }*/
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getColumn() {
@@ -306,6 +299,12 @@ class Ticket extends \yii\db\ActiveRecord
         } else {
             return $x;
         }
+    }
+
+    public function afterFind() {
+        parent::afterFind();
+        // Force attribute to be an integer
+        $this->column_id = intval($this->column_id);
     }
 
     /**

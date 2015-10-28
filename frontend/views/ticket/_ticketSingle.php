@@ -38,7 +38,10 @@ $ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
 <br /><br />
 
 <?php
+    echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
     echo $this->render('@frontend/views/ticket/_ticketDecorations', ['ticket' => $model]);
+    echo Html::endTag('div');
+
     echo $this->render('@frontend/views/ticket/_ticketTags', ['ticket' => $model]);
 
     // Wrap Contents in a div only when $divClass is set

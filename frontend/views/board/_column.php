@@ -1,6 +1,7 @@
 <?php
 
 use yii\jui\Sortable;
+use frontend\controllers\TicketController;
 
 /* @var $this yii\web\View */
 /* @var $column common\models\Column */
@@ -32,7 +33,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
                 'model' => $ticket,
             ]);
             $options = [
-                'id' => 'ticketwidget_'. $ticket->id,
+                'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,
                 'tag' => 'div',
                 'class' => 'ticket-widget',
             ];
