@@ -11,10 +11,14 @@ use yii\widgets\ListView;
 
 BacklogAsset::register($this);
 
+$this->beginBlock('search');
+
 echo $this->render('@frontend/views/ticket/_backlogTicketSearchForm',[
         'searchModel' => $searchModel,
         'action' => $action,
     ]);
+
+$this->endBlock();
 
 echo ListView::widget( [
         'dataProvider' => $dataProvider,
