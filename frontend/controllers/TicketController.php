@@ -81,7 +81,6 @@ class TicketController extends Controller
 
     }
 
-
     /**
      * Lists all Ticket models.
      * @return mixed

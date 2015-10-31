@@ -104,6 +104,24 @@ class TagsController extends Controller
     }
 
     /**
+     * List for Tag Drop Down Selection
+     */
+    public function actionList($query) {
+
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+
+            $tagList = Tags::find()->where(['like', 'name', $query])->orderBy('name')->asArray()->all();
+            Yii::$app->response->format = 'json';
+            return $tagList;
+
+        } else {
+            throw new MethodNotAllowedHttpException;
+        }
+
+    }
+
+    /**
      * Finds the Tags model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id

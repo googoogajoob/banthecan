@@ -5,7 +5,6 @@ namespace common\models;
 //use common\models\Board;
 use dosamigos\taggable\Taggable;
 use Faker\Factory;
-use common\models\ticketDecoration\TicketDecorationManager;
 use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -26,6 +25,7 @@ use yii\db\ActiveQuery;
  * @property integer $board_id
  * @property integer $ticket_order
  * @property BoardColumn $column
+ * @property string  $tagNames
  *
  */
 class Ticket extends \yii\db\ActiveRecord
@@ -136,6 +136,7 @@ class Ticket extends \yii\db\ActiveRecord
             'column_id' => 'Column ID',
             'board_id' => 'Board ID',
             'ticket_order' => 'Ticket Order',
+            'tagNames' => 'Tags',
         ];
     }
 

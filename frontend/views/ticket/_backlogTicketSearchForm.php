@@ -74,7 +74,7 @@ use dosamigos\selectize\SelectizeTextInput;
     echo $form->field($searchModel, 'tag_search')->widget(SelectizeTextInput::className(), [
             // calls an action that returns a JSON object with matched
             // tags
-            'loadUrl' => ['tag/list'],
+            'loadUrl' => ['tags/list'],
             'options' => ['class' => 'form-control'],
             'clientOptions' => [
                 'plugins' => ['remove_button'],
