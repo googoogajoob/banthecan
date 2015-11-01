@@ -13,7 +13,7 @@ use yii\filters\AccessControl;
 
 class BoardController extends \yii\web\Controller {
 
-    const DEFAULT_PAGE_SIZE = 18;
+    const DEFAULT_PAGE_SIZE = 24;
     private $currentBoard = null;
 
     /**
@@ -90,7 +90,7 @@ class BoardController extends \yii\web\Controller {
                  ->registerDecorations($boardRecord->ticket_backlog_configuration);
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
-        $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
+        $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
 
         return $this->render('backlog', [
             'searchModel' => $searchModel,
@@ -112,7 +112,7 @@ class BoardController extends \yii\web\Controller {
             ->registerDecorations($boardRecord->ticket_completed_configuration);
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, -1);
-        $dataProvider->pagination->pageSize = self::DEFAULT_PAGE_SIZE;
+        $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
 
         return $this->render('completed', [
             'searchModel' => $searchModel,

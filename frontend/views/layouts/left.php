@@ -83,7 +83,7 @@ if ($boardObject = Board::getActiveboard()) {
             NavBar::end();
         ?>
 
-        <div style="float: left; margin-top:51px; padding: 87px 0 0 20px;">
+        <div id="left-layout-sidebar">
             <?php
                 if (!$this->blocks) {
                     echo 'Search block not found';
@@ -95,22 +95,22 @@ if ($boardObject = Board::getActiveboard()) {
             ?>
         </div>
 
-        <div class="container" style="margin-left: 350px;">
-            <?php echo Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?php echo Alert::widget(); ?>
+        <div id="left-layout-main">
+            <div class="container-fluid">
+                <?php echo Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
+                <?php echo Alert::widget(); ?>
 
-            <?php echo $content ?>
-
-
+                <?php echo $content ?>
+            </div>
         </div>
     </div>
 
     <footer class="footer">
         <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="pull-right"><?= Yii::powered() ?></p>
+            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+            <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>
 

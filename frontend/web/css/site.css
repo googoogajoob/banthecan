@@ -89,3 +89,38 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+#left-layout-sidebar {
+    position: fixed;
+    left: 250px;
+    width: 250px;
+    margin-top: 50px;
+    margin-left: -250px;
+    padding: 17px 15px 0 8px;
+    height: 100%;
+    float: left;
+    background-color: #e0e0e0;
+}
+
+#left-layout-main {
+    width: auto;
+    padding-top: 50px;
+    margin-left: 250px;
+    margin-bottom: -50px;
+}
+
+.apc-summary {
+    padding-left: 15px;
+    clear: both;
+    display: block;
+}
+
+/* Fix the Yii Pagination */
+.apc-pagination {
+    clear: both;
+    display: block;
+    padding-top: 4px;
+    padding-left: 15px;
+    margin-top: 0;
+}
+
