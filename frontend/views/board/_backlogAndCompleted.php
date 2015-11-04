@@ -27,7 +27,10 @@ echo '<a href="' . $junk . '">Show all Tickets</a>';
 echo ListView::widget( [
         'dataProvider' => $dataProvider,
         'itemView' => '@frontend/views/ticket/_ticketSingle',
-        'viewParams' => ['divClass' => 'ticket-widget-float'],
+        'viewParams' => [
+            'divClass' => 'ticket-widget-float',
+            'showTagMax' => 2,
+        ],
         'itemOptions' => ['class' => 'col-xs-2'],
         'options' => ['class' => 'row'],
         'layout' => '{pager}{summary}{items}{pager}',
