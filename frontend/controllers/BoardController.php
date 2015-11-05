@@ -72,7 +72,10 @@ class BoardController extends \yii\web\Controller {
     /**
      * Default Action, shows active tickets in a KanBan Board
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
+        Yii::$app->getUser()->setReturnUrl('/board/index');
+
         return $this->render('index', [
             'board' => $this->currentBoard,
         ]);
@@ -91,6 +94,8 @@ class BoardController extends \yii\web\Controller {
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
+
+        Yii::$app->getUser()->setReturnUrl('/board/backlog');
 
         return $this->render('backlog', [
             'searchModel' => $searchModel,
@@ -113,6 +118,8 @@ class BoardController extends \yii\web\Controller {
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, -1);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
+
+        Yii::$app->getUser()->setReturnUrl('/board/completed');
 
         return $this->render('completed', [
             'searchModel' => $searchModel,

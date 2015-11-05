@@ -171,9 +171,7 @@ class TicketController extends Controller
     {
         $this->findModel($id)->moveToKanBanBoard()->save();
 
-        $junk = Yii::$app->request;
-
-        return $this->redirect('/board');
+        return $this->goBack();
     }
 
     /**
@@ -186,7 +184,7 @@ class TicketController extends Controller
     {
         $this->findModel($id)->moveToCompleted()->save();
 
-        return $this->redirect('/board/completed');
+        return $this->goBack();
     }
 
     /**
@@ -199,7 +197,7 @@ class TicketController extends Controller
     {
         $this->findModel($id)->moveToBacklog()->save();
 
-        return $this->redirect('/board/backlog');
+        return $this->goBack();
     }
 
     /**
