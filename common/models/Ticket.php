@@ -30,6 +30,7 @@ use yii\db\ActiveQuery;
  */
 class Ticket extends \yii\db\ActiveRecord
 {
+    const TICKET_TAG_MM_TABLE = 'ticket_tag_mm';
     const DEMO_BACKLOG_TICKETS = 100;
     const DEMO_BOARD_TICKETS = 5;
     const DEMO_COMPLETED_TICKETS = 50;
@@ -283,7 +284,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable('ticket_tag_mm', ['ticket_id' => 'id']);
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable(SELF::TICKET_TAG_MM_TABLE, ['ticket_id' => 'id']);
     }
 
     /**

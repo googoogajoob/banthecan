@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\Ticket;
 
 /**
  * This is the model class for table "tags".
@@ -42,6 +43,15 @@ class Tags extends \yii\db\ActiveRecord
         ];
     }
 
+    public function afterDelete()
+    {
+        $this->getDb()
+            ->createCommand()
+            ->delete(Ticket::TICKET_TAG_MM_TABLE, ['tag_id' => $this->id])
+            ->execute();
+
+        parent::afterDelete();
+    }
     /**
      * Return Ticket IDs of Tickets which contain tag names
      *
@@ -72,8 +82,8 @@ class Tags extends \yii\db\ActiveRecord
         }
 
         return Tags::find()
-            ->select('`ticket_tag_mm`.`ticket_id` id')
-            ->innerJoin('ticket_tag_mm', '`tags`.`id` = `ticket_tag_mm`.`tag_id`')
+            ->select(Ticket::TICKET_TAG_MM_TABLE . '.`ticket_id` id')
+            ->innerJoin(Ticket::TICKET_TAG_MM_TABLE, '.`tags`.`id` = ' . Ticket::TICKET_TAG_MM_TABLE . '.`tag_id`')
             ->where(['`tags`.`name`' => $tagSearchValues])
             ->asArray()
             ->all();

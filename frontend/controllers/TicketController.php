@@ -171,6 +171,8 @@ class TicketController extends Controller
     {
         $this->findModel($id)->moveToKanBanBoard()->save();
 
+        $junk = Yii::$app->request;
+
         return $this->redirect('/board');
     }
 
