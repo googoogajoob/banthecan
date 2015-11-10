@@ -96,7 +96,8 @@ a.desc:after {
     width: 250px;
     margin-top: 50px;
     margin-left: -250px;
-    padding: 17px 15px 0 8px;
+    margin-bottom: -50px;
+    padding-top: 17px;
     height: 100%;
     float: left;
     background-color: #e0e0e0;
@@ -106,6 +107,26 @@ a.desc:after {
     width: auto;
     padding-top: 50px;
     margin-left: 250px;
+    margin-bottom: -50px;
+}
+
+#right-layout-sidebar {
+    position: fixed;
+    right: 350px;
+    width: 350px;
+    margin-top: 50px;
+    margin-right: -350px;
+    margin-bottom: -50px;
+    padding-top: 17px;
+    height: 100%;
+    float: right;
+    background-color: #e0e0e0;
+}
+
+#right-layout-main {
+    width: auto;
+    padding-top: 50px;
+    margin-right: 350px;
     margin-bottom: -50px;
 }
 

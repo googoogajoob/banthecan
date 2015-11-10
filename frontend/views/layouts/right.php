@@ -83,21 +83,21 @@ if ($boardObject = Board::getActiveboard()) {
             NavBar::end();
         ?>
 
-        <div id="left-layout-sidebar">
+        <div id="right-layout-sidebar">
             <div class="container-fluid">
                 <?php
                     if (!$this->blocks) {
                         echo 'Search block not found';
-                    } elseif (array_key_exists('left-sidebar', $this->blocks)) {
-                        echo $this->blocks['left-sidebar'];
+                    } elseif (array_key_exists('right-sidebar', $this->blocks)) {
+                        echo $this->blocks['right-sidebar'];
                     } else {
-                        echo 'Search block not found';
+                        echo 'Right Sidebar block not found';
                     }
                 ?>
             </div>
         </div>
 
-        <div id="left-layout-main">
+        <div id="right-layout-main">
             <div class="container-fluid">
                 <?php echo Breadcrumbs::widget([
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

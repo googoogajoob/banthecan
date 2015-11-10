@@ -11,7 +11,7 @@ use yii\widgets\ListView;
 
 BacklogAsset::register($this);
 
-$this->beginBlock('search');
+$this->beginBlock('left-sidebar');
 
 echo $this->render('@frontend/views/ticket/_backlogTicketSearchForm',[
         'searchModel' => $searchModel,
