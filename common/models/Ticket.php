@@ -262,8 +262,7 @@ class Ticket extends \yii\db\ActiveRecord
 
         return Ticket::find()
             ->where(['column_id' => 0])
-            ->orWhere(['column_id' => null])
-            ->orderBy(['updated_at' => SORT_DESC]);
+            ->orWhere(['column_id' => null]);
     }
 
     /**
@@ -275,8 +274,7 @@ class Ticket extends \yii\db\ActiveRecord
     public function findCompleted() {
 
         return Ticket::find()
-            ->where(['<', 'column_id', 0])
-            ->orderBy(['updated_at' => SORT_DESC]);
+            ->where(['<', 'column_id', 0]);
     }
 
     /**

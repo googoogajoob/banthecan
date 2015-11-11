@@ -4,9 +4,8 @@ namespace frontend\controllers; //namespace must be the first statement
 
 use yii;
 use common\models\Board;
-use common\models\Ticket;
-use common\models\TicketSearch;
 use yii\data\ActiveDataProvider;
+use yii\data\Sort;
 use common\models\User;
 use yii\filters\AccessControl;
 
@@ -93,8 +92,10 @@ class BoardController extends \yii\web\Controller {
         Yii::$app->ticketDecorationManager
                  ->registerDecorations($boardRecord->ticket_backlog_configuration);
 
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
+        $dataProvider->sort = $this->createSortObject();
 
         Yii::$app->getUser()->setReturnUrl('/board/backlog');
 
@@ -119,6 +120,7 @@ class BoardController extends \yii\web\Controller {
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, -1);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
+        $dataProvider->sort = $this->createSortObject();
 
         Yii::$app->getUser()->setReturnUrl('/board/completed');
 
@@ -168,5 +170,26 @@ class BoardController extends \yii\web\Controller {
         $session->setFlash('success', 'Board activated: ' . $boardRecord->title);
         Yii::$app->params['title'] = $boardRecord->title;
         $this->goHome();
+    }
+
+    /**
+     * Creates the sort Object Needed for Backlog and Completed Listings
+     * @return yii\data\Sort
+     */
+    protected function createSortObject()
+    {
+        $sort = new Sort([
+            'attributes' => [
+                'title',
+                'created_at' => [
+                    'label' => 'Created'
+                ],
+                'updated_at' => [
+                    'label' => 'Updated'
+                ],
+            ],
+        ]);
+
+        return $sort;
     }
 }

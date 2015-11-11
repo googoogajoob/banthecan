@@ -19,8 +19,7 @@ use yii\widgets\DetailView;
             'tagNames:ntext:Tags',
             'createdByName:ntext:Created By',
             'createdByAvatar:image:',
-            'created_at:datetime:Created',
-            'updated_at:datetime:Updated',
+            'created_at:RelativeTime:Created',
         ],
     ])
 ?>

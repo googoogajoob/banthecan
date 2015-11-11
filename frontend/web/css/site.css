@@ -99,8 +99,8 @@ a.desc:after {
     margin-bottom: -50px;
     padding-top: 17px;
     height: 100%;
-    float: left;
-    background-color: #e0e0e0;
+    /*float: left;*/
+    background-color: #f0f0f0;
 }
 
 #left-layout-main {
@@ -120,7 +120,7 @@ a.desc:after {
     padding-top: 17px;
     height: 100%;
     float: right;
-    background-color: #e0e0e0;
+    background-color: #f0f0f0;
 }
 
 #right-layout-main {

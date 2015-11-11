@@ -21,22 +21,8 @@ echo $this->render('@frontend/views/ticket/_backlogTicketSearchForm',[
 
 $this->endBlock();
 
-$dataProvider->sort = new Sort([
-    'attributes' => [
-        'created_at',
-        'title',
-    ],
-]);
-
 echo ListView::widget( [
         'dataProvider' => $dataProvider,
-        'sorter' => [
-            'label' => 'Sort Options',
-            'attributes' => [
-                'created_at',
-                'title',
-            ],
-        ],
         'itemView' => '@frontend/views/ticket/_ticketSingle',
         'viewParams' => [
             'divClass' => 'ticket-widget-float',
@@ -44,7 +30,7 @@ echo ListView::widget( [
         ],
         'itemOptions' => ['class' => 'col-xs-2'],
         'options' => ['class' => 'row'],
-        'layout' => '{pager}{summary}{items}{pager}',
+        'layout' => '{pager}{summary}{sorter}{items}{pager}',
         'summaryOptions' => ['class' => 'summary apc-summary'],
         'pager' => [
             'firstPageLabel' => '<span class="glyphicon glyphicon-step-backward"></span>',
@@ -54,6 +40,6 @@ echo ListView::widget( [
             'options' => ['class' => 'pagination apc-pagination'],
             'maxButtonCount' => 10,
             'hideOnSinglePage' => true,
-        ]
+        ],
     ]
 );
