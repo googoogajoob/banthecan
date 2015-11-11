@@ -65,15 +65,15 @@ class TicketController extends Controller
 
             if ($changedColumnTicketId > 0) {
                 $ticketHtmlId = '#' . static::TICKET_HTML_PREFIX . $changedColumnTicketId;
-                $ticketDecorationHTML = $this->renderFile('@frontend/views/ticket/_ticketDecorations.php', ['ticket' => $ticket]);
+                $ticketDecorationHtml = $this->renderFile('@frontend/views/ticket/_ticketDecorations.php', ['ticket' => $ticket]);
             } else {
                 $ticketHtmlId = 0; //indicates no column change to the client
-                $ticketDecorationHTML = '';
+                $ticketDecorationHtml = '';
             }
 
             Yii::$app->response->format = 'json';
 
-            return ['ticketId' => $ticketHtmlId, 'decorationHtml' => $ticketDecorationHTML];
+            return ['ticketId' => $ticketHtmlId, 'decorationHtml' => $ticketDecorationHtml];
 
         } else {
             throw new MethodNotAllowedHttpException;
@@ -104,9 +104,17 @@ class TicketController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            $ticketViewHtml = $this->renderFile('@frontend/views/ticket/viewAjax.php', ['model' => $this->findModel($id)]);
+            Yii::$app->response->format = 'json';
+
+            return ['ticketViewHtml' => $ticketViewHtml];
+        } else {
+            $ticketViewHtml = $this->render('view', ['model' => $this->findModel($id)]);
+
+            return $ticketViewHtml;
+        }
     }
 
     /**

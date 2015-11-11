@@ -11,6 +11,7 @@ namespace common\models\ticketDecoration;
 
 class MoveToKanban extends AbstractDecoration {
 
+    public $linkIcon = 'K';
 
     /*##################*/
     /*### VIEW STUFF ###*/

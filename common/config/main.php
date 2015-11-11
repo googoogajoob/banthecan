@@ -22,15 +22,19 @@ return [
                 ],*/
                 'MoveToBacklog' => [
                     'class' => 'common\models\ticketDecoration\MoveToBacklog',
-                    'linkIcon' => 'B',
+                    'linkIcon' => '<span class="glyphicon glyphicon-th"></span>',
                 ],
                 'MoveToKanban' => [
                     'class' => 'common\models\ticketDecoration\MoveToKanban',
-                    'linkIcon' => 'K',
+                    'linkIcon' => '<span class="glyphicon glyphicon-object-align-top"></span>',
                 ],
                 'MoveToCompleted' => [
                     'class' => 'common\models\ticketDecoration\MoveToCompleted',
-                    'linkIcon' => 'C',
+                    'linkIcon' => '<span class="glyphicon glyphicon-check"></span>',
+                ],
+                'ViewDetail' => [
+                    'class' => 'common\models\ticketDecoration\ViewDetail',
+                    'linkIcon' => '<span class="glyphicon glyphicon-eye-open"></span>',
                 ],
             ],
         ],

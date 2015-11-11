@@ -11,6 +11,7 @@ namespace common\models\ticketDecoration;
 
 class MoveToBacklog extends AbstractDecoration {
 
+    public $linkIcon = 'B';
 
     /*##################*/
     /*### VIEW STUFF ###*/

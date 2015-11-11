@@ -27,9 +27,10 @@
 }
 
 .ticket-single-decorations-glyph {
-    color: #ff872f;
+    /*color: #ff872f;*/
     margin: 0 0 0 4px;
-    z-index: 1;
+    float: left;
+    /*z-index: 1;*/
 }
 
 .ticket-single-decorations {

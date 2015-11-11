@@ -2,6 +2,7 @@
 
 use frontend\assets\BacklogAsset;
 use yii\widgets\ListView;
+use yii\data\Sort;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TicketSearch */
@@ -20,12 +21,22 @@ echo $this->render('@frontend/views/ticket/_backlogTicketSearchForm',[
 
 $this->endBlock();
 
-$junk = $dataProvider->pagination->createUrl(0, -1) . '&pageSize=-1';
-
-echo '<a href="' . $junk . '">Show all Tickets</a>';
+$dataProvider->sort = new Sort([
+    'attributes' => [
+        'created_at',
+        'title',
+    ],
+]);
 
 echo ListView::widget( [
         'dataProvider' => $dataProvider,
+        'sorter' => [
+            'label' => 'Sort Options',
+            'attributes' => [
+                'created_at',
+                'title',
+            ],
+        ],
         'itemView' => '@frontend/views/ticket/_ticketSingle',
         'viewParams' => [
             'divClass' => 'ticket-widget-float',
@@ -36,8 +47,10 @@ echo ListView::widget( [
         'layout' => '{pager}{summary}{items}{pager}',
         'summaryOptions' => ['class' => 'summary apc-summary'],
         'pager' => [
-            'firstPageLabel' => '|<',
-            'lastPageLabel' => '>|',
+            'firstPageLabel' => '<span class="glyphicon glyphicon-step-backward"></span>',
+            'lastPageLabel' => '<span class="glyphicon glyphicon-step-forward"></span>',
+            'prevPageLabel' => '<span class="glyphicon glyphicon-chevron-left"></span>',
+            'nextPageLabel' => '<span class="glyphicon glyphicon-chevron-right"></span>',
             'options' => ['class' => 'pagination apc-pagination'],
             'maxButtonCount' => 10,
             'hideOnSinglePage' => true,

@@ -23,6 +23,7 @@ class BoardAsset extends AssetBundle
     public $js = [
         'board/ticketSorting.js',
         'ticket/ticketTooltip.js',
+        'ticket/ticketDetailView.js'
     ];
     public $depends = [
         'frontend\assets\AppAsset'

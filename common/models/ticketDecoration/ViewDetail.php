@@ -2,6 +2,8 @@
 
 namespace common\models\ticketDecoration;
 
+use yii\helpers\Html;
+
 /**
  * Created by PhpStorm.
  * User: and
@@ -9,9 +11,10 @@ namespace common\models\ticketDecoration;
  * Time: 12:33 AM
  */
 
-class MoveToCompleted extends AbstractDecoration {
+class ViewDetail extends AbstractDecoration
+{
 
-    public $linkIcon = 'C';
+    public $linkIcon = 'V';
 
     /*##################*/
     /*### VIEW STUFF ###*/
@@ -24,8 +27,14 @@ class MoveToCompleted extends AbstractDecoration {
      *
      * @return string html for showing the ticketDecoration
      */
-    public function show($view = 'default') {
-        return '<a href="/ticket/completed/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
+    public function show($view = 'default')
+    {
+        return Html::a(
+            $this->linkIcon,
+            '/ticket/view/' . $this->owner->id, [
+                'onClick' => 'ticketDetailView(' . $this->owner->id . '); return false;',
+            ]
+        );
     }
 
 }

@@ -13,15 +13,6 @@ use common\models\Ticket;
 // for info about triggering the sortable events
 
 BoardAsset::register($this);
-
-$model = Ticket::findOne(3393);
-$this->beginBlock('right-sidebar');
-
-echo $this->render('@frontend/views/ticket/view',[
-'model' => $model,
-]);
-
-$this->endBlock();
 ?>
 
 <h1 class="text-capitalize">
