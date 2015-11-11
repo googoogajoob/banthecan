@@ -7,9 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Ticket */
 ?>
 
-<div class="ticket-view">
-
-    <img id="ajax-loader" src="/images/ajax-loader.gif" class="hidden"/>
+<div class="ticket-view opacity">
 
     <h3><?= Html::encode($model->title) ?></h3>
 
@@ -28,3 +26,5 @@ use yii\widgets\DetailView;
 ?>
 
 </div>
+
+<img id="ajax-loader" src="/images/ajax-loader.gif" class="hidden"/>

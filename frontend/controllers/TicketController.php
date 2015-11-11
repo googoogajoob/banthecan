@@ -108,7 +108,6 @@ class TicketController extends Controller
         if ($request->isAjax) {
             $ticketViewHtml = $this->renderFile('@frontend/views/ticket/viewAjax.php', ['model' => $this->findModel($id)]);
             Yii::$app->response->format = 'json';
-
             return ['ticketViewHtml' => $ticketViewHtml];
         } else {
             $ticketViewHtml = $this->render('view', ['model' => $this->findModel($id)]);

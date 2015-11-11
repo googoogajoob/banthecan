@@ -63,3 +63,7 @@
 .ticket-avatar-hide {
     display: none;
 }
+
+.ticket-detail-opaque {
+    opacity: 0.5;
+}
