@@ -85,7 +85,7 @@ class BoardController extends \yii\web\Controller {
      * Shows tickets in the Backlog
      */
     public function actionBacklog() {
-        $this->layout = 'left';
+        $this->layout = 'left-right';
         $boardRecord = Board::getActiveboard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
 

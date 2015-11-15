@@ -41,5 +41,10 @@ echo ListView::widget( [
             'maxButtonCount' => 10,
             'hideOnSinglePage' => true,
         ],
+        'sorter' => [
+            'options' => [
+                'class' => 'junk'
+            ]
+        ],
     ]
 );

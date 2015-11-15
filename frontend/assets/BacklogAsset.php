@@ -21,6 +21,7 @@ class BacklogAsset extends AssetBundle
     ];
     public $js = [
         'ticketTooltip.js',
+        'ticketDetailView.js'
     ];
     public $depends = [
         'frontend\assets\AppAsset'

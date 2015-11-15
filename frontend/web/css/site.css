@@ -112,10 +112,10 @@ a.desc:after {
 
 #right-layout-sidebar {
     position: fixed;
-    right: 350px;
-    width: 350px;
+    right: 250px;
+    width: 250px;
     margin-top: 50px;
-    margin-right: -350px;
+    margin-right: -250px;
     margin-bottom: -50px;
     padding-top: 17px;
     height: 100%;
@@ -126,7 +126,15 @@ a.desc:after {
 #right-layout-main {
     width: auto;
     padding-top: 50px;
-    margin-right: 350px;
+    margin-right: 250px;
+    margin-bottom: -50px;
+}
+
+#left-right-layout-main {
+    width: auto;
+    padding-top: 50px;
+    margin-left: 250px;
+    margin-right: 250px;
     margin-bottom: -50px;
 }
 
