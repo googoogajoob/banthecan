@@ -94,3 +94,14 @@ ul.ticket-view-ajax {
     font-size: 100%;
     padding-bottom:10px;
 }
+
+.carousel-caption {
+    /*padding-bottom: 0;*/
+    color: #000;
+    text-shadow: none;
+    position: static;
+    border-radius: 6px;
+    background-color: #f0ad4e;
+    padding: 2px;
+    margin: 0;
+}
