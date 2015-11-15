@@ -11,5 +11,5 @@ $(function () {
         placement: 'auto',
         trigger: 'hover'
     });
-    $('#junk').popover();
+    $('.ticket-glyph-tags').popover();
 });
