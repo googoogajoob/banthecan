@@ -2,6 +2,7 @@
 
 //use yii;
 use yii\helpers\Html;
+use yii\bootstrap\Button;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
@@ -39,6 +40,9 @@ if ($boardObject = Board::getActiveboard()) {
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
+                'innerContainerOptions' => [
+                    'class' => 'container-fluid'
+                ]
             ]);
 
             if (Yii::$app->user->isGuest) {
@@ -75,11 +79,32 @@ if ($boardObject = Board::getActiveboard()) {
                 ];
             }
 
+        echo Button::widget([
+            'label' => 'Action',
+            'options' => ['class' => 'btn-lg'],
+        ]);
+        ?>
+
+        <button class="btn btn-primary" type="button" data-toggle="collapse"
+                data-target="#left-layout-sidebar" aria-expanded="true"
+                aria-controls="collapseExample">
+            Left sidebar
+        </button>
+
+        <?php
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems,
             ]);
+        ?>
 
+        <button class="btn btn-primary" type="button" data-toggle="collapse"
+                data-target="#right-layout-sidebar" aria-expanded="true"
+                aria-controls="collapseExample">
+            Right sidebar
+        </button>
+
+        <?php
             NavBar::end();
         ?>
 

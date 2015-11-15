@@ -39,6 +39,9 @@ if ($boardObject = Board::getActiveboard()) {
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
+                'innerContainerOptions' => [
+                    'class' => 'container-fluid'
+                ]
             ]);
 
             if (Yii::$app->user->isGuest) {
