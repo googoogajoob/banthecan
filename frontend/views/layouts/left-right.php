@@ -79,32 +79,35 @@ if ($boardObject = Board::getActiveboard()) {
                 ];
             }
 
-        echo Button::widget([
-            'label' => 'Action',
-            'options' => ['class' => 'btn-lg'],
-        ]);
-        ?>
+            echo Button::widget([
+                'label' => 'Left Sidebar',
+                'options' => [
+                    'class' => 'btn btn-primary',
+                    'type' =>'button',
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#left-layout-sidebar',
+                    'aria-expanded' => 'false',
+                    //'aria-controls' => '???',
+                ],
+            ]);
 
-        <button class="btn btn-primary" type="button" data-toggle="collapse"
-                data-target="#left-layout-sidebar" aria-expanded="true"
-                aria-controls="collapseExample">
-            Left sidebar
-        </button>
-
-        <?php
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems,
             ]);
-        ?>
 
-        <button class="btn btn-primary" type="button" data-toggle="collapse"
-                data-target="#right-layout-sidebar" aria-expanded="true"
-                aria-controls="collapseExample">
-            Right sidebar
-        </button>
+            echo Button::widget([
+                'label' => 'Right Sidebar',
+                'options' => [
+                    'class' => 'btn btn-primary',
+                    'type' =>'button',
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#right-layout-sidebar',
+                    'aria-expanded' => 'false',
+                    //'aria-controls' => '???',
+                ],
+            ]);
 
-        <?php
             NavBar::end();
         ?>
 
