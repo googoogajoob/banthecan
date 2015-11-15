@@ -32,6 +32,10 @@ return [
                     'class' => 'common\models\ticketDecoration\ViewDetail',
                     'linkIcon' => '<span class="glyphicon glyphicon-eye-open"></span>',
                 ],
+                'ViewTags' => [
+                    'class' => 'common\models\ticketDecoration\ViewTags',
+                    'linkIcon' => '<span class="glyphicon glyphicon-tags"></span>',
+                ],
             ],
         ],
     ],

@@ -11,10 +11,10 @@ use yii\helpers\Html;
  * Time: 12:33 AM
  */
 
-class ViewDetail extends AbstractDecoration
+class ViewTags extends AbstractDecoration
 {
 
-    public $linkIcon = 'D';
+    public $linkIcon = 'T';
 
     /*##################*/
     /*### VIEW STUFF ###*/
@@ -29,12 +29,16 @@ class ViewDetail extends AbstractDecoration
      */
     public function show($view = 'default')
     {
-        return Html::a(
+        //return '<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here is some amazing content. It is very engaging. Right?">Click to toggle popover</button>';
+
+        return '<span id="junk" class="glyphicon glyphicon-tags" data-toggle="popover" title="Ticket Tags" data-content="And here is some amazing content. It is very engaging. Right?"></span>';
+
+        /*return Html::a(
             $this->linkIcon,
             '/ticket/view/' . $this->owner->id, [
                 'onClick' => 'ticketDetailView(' . $this->owner->id . '); return false;',
             ]
-        );
+        );*/
     }
 
 }

@@ -11,4 +11,5 @@ $(function () {
         placement: 'auto',
         trigger: 'hover'
     });
+    $('#junk').popover();
 });
