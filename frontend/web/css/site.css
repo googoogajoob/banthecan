@@ -16,7 +16,7 @@ body {
 
 .footer {
     height: 60px;
-    background-color: #f5f5f5;
+    background-color: #f0f0f0;
     border-top: 1px solid #ddd;
     padding-top: 20px;
 }
@@ -92,50 +92,48 @@ a.desc:after {
 
 #left-layout-sidebar {
     position: fixed;
-    left: 250px;
-    width: 250px;
-    margin-top: 50px;
-    margin-left: -250px;
-    margin-bottom: -50px;
-    padding-top: 17px;
+    left: 200px;
+    width: 200px;
     height: 100%;
-    /*float: left;*/
+    float: left;
     background-color: #f0f0f0;
+    margin-top: 54px;
+    margin-left: -200px;
+    margin-bottom: -60px;
 }
 
 #left-layout-main {
     width: auto;
     padding-top: 50px;
-    margin-left: 250px;
-    margin-bottom: -50px;
+    margin-left: 200px;
+    margin-bottom: -60px;
 }
 
 #right-layout-sidebar {
     position: fixed;
-    right: 250px;
-    width: 250px;
-    margin-top: 50px;
-    margin-right: -250px;
-    margin-bottom: -50px;
-    padding-top: 17px;
+    right: 200px;
+    width: 200px;
     height: 100%;
     float: right;
     background-color: #f0f0f0;
+    margin-top: 54px;
+    margin-right: -200px;
+    margin-bottom: -60px;
 }
 
 #right-layout-main {
     width: auto;
     padding-top: 50px;
-    margin-right: 250px;
-    margin-bottom: -50px;
+    margin-right: 200px;
+    margin-bottom: -60px;
 }
 
 #left-right-layout-main {
     width: auto;
     padding-top: 50px;
-    margin-left: 250px;
-    margin-right: 250px;
-    margin-bottom: -50px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: -60px;
 }
 
 .apc-summary {
@@ -152,4 +150,3 @@ a.desc:after {
     padding-left: 15px;
     margin-top: 0;
 }
-

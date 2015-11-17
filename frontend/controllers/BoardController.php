@@ -92,7 +92,6 @@ class BoardController extends \yii\web\Controller {
         Yii::$app->ticketDecorationManager
                  ->registerDecorations($boardRecord->ticket_backlog_configuration);
 
-
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
         $dataProvider->sort = $this->createSortObject();
@@ -184,9 +183,9 @@ class BoardController extends \yii\web\Controller {
                 'created_at' => [
                     'label' => 'Created'
                 ],
-                'updated_at' => [
+                /*'updated_at' => [
                     'label' => 'Updated'
-                ],
+                ],*/
             ],
         ]);
 

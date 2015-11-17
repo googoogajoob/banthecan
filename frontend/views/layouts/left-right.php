@@ -1,7 +1,7 @@
 <?php
 
 //use yii;
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use yii\bootstrap\Button;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -79,33 +79,9 @@ if ($boardObject = Board::getActiveboard()) {
                 ];
             }
 
-            echo Button::widget([
-                'label' => 'Left Sidebar',
-                'options' => [
-                    'class' => 'btn btn-primary',
-                    'type' =>'button',
-                    'data-toggle' => 'collapse',
-                    'data-target' => '#left-layout-sidebar',
-                    'aria-expanded' => 'false',
-                    //'aria-controls' => '???',
-                ],
-            ]);
-
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems,
-            ]);
-
-            echo Button::widget([
-                'label' => 'Right Sidebar',
-                'options' => [
-                    'class' => 'btn btn-primary',
-                    'type' =>'button',
-                    'data-toggle' => 'collapse',
-                    'data-target' => '#right-layout-sidebar',
-                    'aria-expanded' => 'false',
-                    //'aria-controls' => '???',
-                ],
             ]);
 
             NavBar::end();
@@ -140,10 +116,16 @@ if ($boardObject = Board::getActiveboard()) {
         </div>
 
         <div id="left-right-layout-main">
+            <?php
+                echo Html::icon('circle-arrow-right', ['class' => 'pull-left']);
+                echo Html::icon('circle-arrow-left', ['class' => 'pull-right']);
+            ?>
             <div class="container-fluid">
-                <?php echo Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]) ?>
+                <?php
+                    echo Breadcrumbs::widget([
+                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    ]);
+                ?>
                 <?php echo Alert::widget(); ?>
 
                 <?php echo $content ?>
@@ -152,7 +134,7 @@ if ($boardObject = Board::getActiveboard()) {
     </div>
 
     <footer class="footer">
-        <div class="container">
+        <div class="container-fluid">
             <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>

@@ -1,7 +1,7 @@
 <?php
 
 //use yii;
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
@@ -101,10 +101,15 @@ if ($boardObject = Board::getActiveboard()) {
         </div>
 
         <div id="left-layout-main">
+            <?php
+                //echo Html::icon('circle-arrow-right', ['class' => 'pull-left']);
+            ?>
             <div class="container-fluid">
-                <?php echo Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]) ?>
+                <?php
+                    echo Breadcrumbs::widget([
+                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]);
+                ?>
                 <?php echo Alert::widget(); ?>
 
                 <?php echo $content ?>

@@ -25,3 +25,12 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 .dropdown-menu {
     min-width: 80px;
 }
+
+ul.ticket-sorter {
+    padding-left: 15px;
+    margin-bottom: 0;
+}
+
+.ticket-sorter li {
+    display: inline-block;
+}

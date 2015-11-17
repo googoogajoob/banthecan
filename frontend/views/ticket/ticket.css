@@ -43,7 +43,7 @@
 .ticket-single-tags {
     position: absolute;
     bottom: 2px;
-    padding: 2px 4px 1px 0;
+    padding: 2px 4px 0 0;
 }
 
 /* Need to convert this to Bootstrap CSS ans SASS */
@@ -102,6 +102,6 @@ ul.ticket-view-ajax {
     position: static;
     border-radius: 6px;
     background-color: #f0ad4e;
-    padding: 2px;
+    padding: 1px 4px;
     margin: 0;
 }

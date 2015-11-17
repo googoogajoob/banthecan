@@ -21,6 +21,8 @@ echo $this->render('@frontend/views/ticket/_backlogTicketSearchForm',[
 
 $this->endBlock();
 
+echo 'Hey Dude';
+
 echo ListView::widget( [
         'dataProvider' => $dataProvider,
         'itemView' => '@frontend/views/ticket/_ticketSingle',
@@ -43,7 +45,7 @@ echo ListView::widget( [
         ],
         'sorter' => [
             'options' => [
-                'class' => 'junk'
+                'class' => 'ticket-sorter'
             ]
         ],
     ]
