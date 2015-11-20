@@ -102,13 +102,6 @@ a.desc:after {
     margin-bottom: -60px;
 }
 
-#left-layout-main {
-    width: auto;
-    padding-top: 50px;
-    margin-left: 200px;
-    margin-bottom: -60px;
-}
-
 #right-layout-sidebar {
     position: fixed;
     right: 200px;
@@ -121,19 +114,23 @@ a.desc:after {
     margin-bottom: -60px;
 }
 
-#right-layout-main {
+#layout-main {
     width: auto;
     padding-top: 50px;
-    margin-right: 200px;
     margin-bottom: -60px;
 }
 
-#left-right-layout-main {
-    width: auto;
-    padding-top: 50px;
+.left-layout-main {
+    margin-left: 200px;
+}
+
+.right-layout-main {
+    margin-right: 200px;
+}
+
+.left-right-layout-main {
     margin-left: 200px;
     margin-right: 200px;
-    margin-bottom: -60px;
 }
 
 .apc-summary {

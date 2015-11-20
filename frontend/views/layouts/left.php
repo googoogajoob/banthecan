@@ -100,9 +100,12 @@ if ($boardObject = Board::getActiveboard()) {
             </div>
         </div>
 
-        <div id="left-layout-main">
+        <div id="layout-main" class="left-layout-main">
             <?php
-                //echo Html::icon('circle-arrow-right', ['class' => 'pull-left']);
+                echo Html::icon('circle-arrow-left', [
+                    'id' => 'toggle-left-sidebar',
+                    'class' => 'pull-left apc-layout-toggle-button'
+                ]);
             ?>
             <div class="container-fluid">
                 <?php

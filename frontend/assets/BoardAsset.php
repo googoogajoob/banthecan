@@ -21,6 +21,7 @@ class BoardAsset extends AssetBundle
         'ticket/ticket.css',
     ];
     public $js = [
+        'board/boardEffects.js',
         'board/ticketSorting.js',
         'ticket/ticketTooltip.js',
         'ticket/ticketDetailView.js'

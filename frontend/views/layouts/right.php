@@ -100,9 +100,12 @@ if ($boardObject = Board::getActiveboard()) {
             </div>
         </div>
 
-        <div id="right-layout-main">
+        <div id="layout-main" class="right-layout-main">
             <?php
-                echo Html::icon('circle-arrow-left', ['class' => 'pull-right']);
+                echo Html::icon('circle-arrow-right', [
+                    'id' => 'toggle-right-sidebar',
+                    'class' => 'pull-right apc-layout-toggle-button',
+                ]);
             ?>
             <div class="container-fluid">
                 <?php echo Breadcrumbs::widget([
