@@ -168,6 +168,9 @@ class BoardController extends \yii\web\Controller {
         $boardRecord = Board::getActiveboard();
         $session->setFlash('success', 'Board activated: ' . $boardRecord->title);
         Yii::$app->params['title'] = $boardRecord->title;
+        if ($cookie = Yii::$app->response->cookies->get('_identity')) {
+            $cookie->expire = time() + 86400 * 365;
+        }
         $this->goHome();
     }
 
