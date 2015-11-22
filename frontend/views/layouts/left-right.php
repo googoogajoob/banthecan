@@ -26,94 +26,25 @@ if ($boardObject = Board::getActiveboard()) {
 <head>
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
+    <?php echo Html::csrfMetaTags() ?>
     <title>Ban the Can(<?= (YII_ENV_DEMO ? 'DEMO' : '') ?>): <?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
     <?php $this->beginBody() ?>
+
     <div class="wrap">
+
         <?php
-            NavBar::begin([
-                'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
-                ],
-                'innerContainerOptions' => [
-                    'class' => 'container-fluid'
+            echo $this->renderFile(
+                '@frontend/views/layouts/partials/_navigation.php', [
+                'boardObject' => $boardObject,
                 ]
-            ]);
-
-            if (Yii::$app->user->isGuest) {
-
-                //$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-                $menuItems[] = ['label' => 'Contact', 'url' => ['/site/contact']];
-                $menuItems[] = ['label' => 'About', 'url' => ['/site/about']];
-
-            } else {
-
-                $menuItems = [
-                    ['label' => 'Tags', 'url' => ['/tags']],
-                    ['label' => 'Tickets', 'url' => ['/ticket']],
-                    ['label' => 'Boards', 'visible' => (boolean) $boardObject,
-                        'items' => [
-                            ['label' => 'Backlog', 'url' => ['/board/backlog']],
-                            ['label' => 'KanBan', 'url' => ['/board']],
-                            ['label' => 'Completed', 'url' => ['/board/completed']],
-                        ],
-                    ],
-                ];
-
-                $menuItems[] = html::tag('li',
-                        $this->render('../site/_userIcon',['userId' => Yii::$app->getUser()->id]),
-                        ['class' => 'menu-avatar-li']);
-
-                $menuItems[] = ['label' => '', 'items' => [
-                        ['label' => 'Select Board', 'url' => ['/board/select']],
-                        ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
-                        ['label' => 'About', 'url' => ['/site/about']],
-                        ['label' => 'Contact', 'url' => ['/site/contact']]
-                    ],
-                ];
-            }
-
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => $menuItems,
-            ]);
-
-            NavBar::end();
+            );
+            echo $this->renderFile('@frontend/views/layouts/partials/_left-sidebar.php');
+            echo $this->renderFile('@frontend/views/layouts/partials/_right-sidebar.php');
         ?>
 
-        <div id="left-layout-sidebar">
-            <div class="container-fluid">
-                <?php
-                    if (!$this->blocks) {
-                        echo 'Search block not found';
-                    } elseif (array_key_exists('left-sidebar', $this->blocks)) {
-                        echo $this->blocks['left-sidebar'];
-                    } else {
-                        echo 'Search block not found';
-                    }
-                ?>
-            </div>
-        </div>
-
-        <div id="right-layout-sidebar">
-            <div class="container-fluid">
-                <?php
-                if (!$this->blocks) {
-                    echo 'Search block not found';
-                } elseif (array_key_exists('right-sidebar', $this->blocks)) {
-                    echo $this->blocks['right-sidebar'];
-                } else {
-                    echo 'Right Sidebar block not found';
-                }
-                ?>
-            </div>
-        </div>
 
         <div id="layout-main" class="left-right-layout-main">
             <?php
@@ -126,6 +57,7 @@ if ($boardObject = Board::getActiveboard()) {
                     'class' => 'pull-right apc-layout-toggle-button',
                 ]);
             ?>
+
             <div class="container-fluid">
                 <?php
                     echo Breadcrumbs::widget([
@@ -136,15 +68,11 @@ if ($boardObject = Board::getActiveboard()) {
 
                 <?php echo $content ?>
             </div>
+
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="container-fluid">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-            <p class="pull-right"><?= Yii::powered() ?></p>
-        </div>
-    </footer>
+    <?php echo $this->renderFile('@frontend/views/layouts/partials/_footer.php'); ?>
 
     <?php $this->endBody() ?>
 </body>
