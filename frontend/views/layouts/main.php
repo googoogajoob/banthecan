@@ -2,6 +2,7 @@
 
 //use yii;
 use yii\helpers\Html;
+use yii\bootstrap\Button;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
@@ -25,13 +26,14 @@ if ($boardObject = Board::getActiveboard()) {
 <head>
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
+    <?php echo Html::csrfMetaTags() ?>
     <title>Ban the Can(<?= (YII_ENV_DEMO ? 'DEMO' : '') ?>): <?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
     <?php $this->beginBody() ?>
     <div class="wrap">
+
         <?php
             NavBar::begin([
                 'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
@@ -81,6 +83,38 @@ if ($boardObject = Board::getActiveboard()) {
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems,
+            ]);
+
+            echo Button::widget([
+                'label' => 'Create Ticket',
+                'options' => [
+                    'class' => 'btn-primary apc-header-button',
+                    'id' => 'header-create-button',
+                ]
+            ]);
+
+            echo Button::widget([
+                'label' => 'Backlog',
+                'options' => [
+                    'class' => 'btn-primary apc-header-button',
+                    'id' => 'header-backlog-button',
+                ]
+            ]);
+
+            echo Button::widget([
+                'label' => 'Kanban',
+                'options' => [
+                    'class' => 'btn-primary apc-header-button',
+                    'id' => 'header-kanban-button',
+                ]
+            ]);
+
+            echo Button::widget([
+                'label' => 'Completed',
+                'options' => [
+                    'class' => 'btn-primary apc-header-button',
+                    'id' => 'header-completed-button',
+                ]
             ]);
 
             NavBar::end();
