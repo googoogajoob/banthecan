@@ -94,6 +94,7 @@ class BoardController extends \yii\web\Controller {
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
+        $dataProvider->pagination->pageSizeLimit = [1, 500];
         $dataProvider->sort = $this->createSortObject();
 
         Yii::$app->getUser()->setReturnUrl('/board/backlog');
@@ -119,6 +120,7 @@ class BoardController extends \yii\web\Controller {
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, -1);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
+        $dataProvider->pagination->pageSizeLimit = [1, 500];
         $dataProvider->sort = $this->createSortObject();
 
         Yii::$app->getUser()->setReturnUrl('/board/completed');

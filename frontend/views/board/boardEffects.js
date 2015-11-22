@@ -61,4 +61,10 @@ $(document).ready(function () {
     $('#toggle-left-sidebar').click(function() {
         return toggleLeftSidebar();
     });
+    $('#backlog-per-page').change(function() {
+        this.form.submit();
+    });
+    $('#completed-per-page').change(function() {
+        this.form.submit();
+    });
 });

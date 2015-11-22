@@ -21,7 +21,7 @@ use dosamigos\selectize\SelectizeTextInput;
     echo $form->field($searchModel, 'text_search');
 ?>
 
-<div class="collapse in" id="searchOptions"> <!-- Collapsible -->
+<div class="collapse in" id="searchOptions">
 
     <?php
     echo $form->field($searchModel, 'from_date')->widget(DatePicker::classname(), [
@@ -86,7 +86,8 @@ use dosamigos\selectize\SelectizeTextInput;
         ])->hint('Use commas to separate tags')
 
 ?>
-</div> <!-- Collapsible -->
+</div>
+
 <div class="form-group">
     <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
