@@ -25,27 +25,23 @@ echo Html::a(
     ]
 );
 
-echo Html::a(
-    'Backlog',
-    '/board/backlog', [
+echo Html::a('Backlog',
+        '/board/backlog', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-backlog-button',
     ]
 );
 
-echo Html::a(
-    'Create Ticket',
-    '#', [
-        'class' => 'btn btn-success apc-header-button pull-right',
-        'id' => 'header-create-button',
-    ]
-);
-
-Modal::begin([
-    'header' => '<h2>Hello world</h2>',
-    'toggleButton' => ['label' => 'click me'],
+echo Html::button('Create Ticket', [
+    'value' => '/ticket/create',
+    'class' => 'btn btn-success apc-header-button pull-right',
+    'id' => 'header-create-button',
 ]);
 
-echo 'Say hello...';
-
+Modal::begin([
+    'header' => '<h2>Create Ticket</h2>',
+    'id' => 'create-ticket-modal',
+    'size' => 'modal-lg',
+]);
+echo '<div id="create-ticket-modal-content"></div>';
 Modal::end();

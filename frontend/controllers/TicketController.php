@@ -130,9 +130,12 @@ class TicketController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            $request = Yii::$app->request;
+            if ($request->isAjax) {
+                return $this->renderAjax('create', ['model' => $model]);
+            } else {
+                return $this->render('create', ['model' => $model]);
+            }
         }
     }
 
