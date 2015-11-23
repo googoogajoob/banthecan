@@ -108,7 +108,9 @@ class TicketController extends Controller
         if ($request->isAjax) {
             $ticketViewHtml = $this->renderFile('@frontend/views/ticket/viewAjax.php', ['model' => $this->findModel($id)]);
             Yii::$app->response->format = 'json';
+
             return ['ticketViewHtml' => $ticketViewHtml];
+
         } else {
             $ticketViewHtml = $this->render('view', ['model' => $this->findModel($id)]);
 
@@ -117,8 +119,37 @@ class TicketController extends Controller
     }
 
     /**
+     * Creates a new Ticket model. Intended to be used from a Bootstrap Modal widget.
+     * This is basically a copy of the create action, which has been modified to work with modal/ajax
+     *
+     * @return mixed
+     */
+    public function actionNew()
+    {
+        $model = new Ticket();
+        $model->board_id = Board::getActiveBoard()->id; //A new ticket belongs to the current active board
+        $model->moveToBacklog(); //A new ticket always starts in the backlog
+
+        $returnUrl = Yii::$app->request->post('returnUrl');
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            return $this->redirect($returnUrl);
+
+        } else {
+
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'returnUrl' => Yii::$app->request->getReferrer(),
+            ]);
+
+        }
+    }
+
+    /**
      * Creates a new Ticket model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -128,14 +159,13 @@ class TicketController extends Controller
         $model->moveToBacklog(); //A new ticket always starts in the backlog
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->id]);
+
         } else {
-            $request = Yii::$app->request;
-            if ($request->isAjax) {
-                return $this->renderAjax('create', ['model' => $model]);
-            } else {
-                return $this->render('create', ['model' => $model]);
-            }
+
+            return $this->render('create', ['model' => $model]);
+
         }
     }
 

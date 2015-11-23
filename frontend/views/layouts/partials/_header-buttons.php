@@ -33,7 +33,7 @@ echo Html::a('Backlog',
 );
 
 echo Html::button('Create Ticket', [
-    'value' => '/ticket/create',
+    'value' => '/ticket/new',
     'class' => 'btn btn-success apc-header-button pull-right',
     'id' => 'header-create-button',
 ]);

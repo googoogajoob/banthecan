@@ -5,6 +5,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
+/* @var $returnUrl common\models\Ticket */
 
 $this->title = 'Create Ticket';
 $this->params['breadcrumbs'][] = ['label' => 'Tickets', 'url' => ['index']];
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'returnUrl' => isset($returnUrl) ? $returnUrl : null
     ]) ?>
 
 </div>

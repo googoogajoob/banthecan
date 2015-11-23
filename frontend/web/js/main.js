@@ -3,5 +3,8 @@ $(document).ready(function() {
         $('#create-ticket-modal').modal('show')
             .find('#create-ticket-modal-content')
             .load($(this).attr('value'));
+
+        junk = $(location).attr('href');
+
     });
 });

@@ -192,6 +192,10 @@ class BoardController extends \yii\web\Controller {
                     'label' => 'Updated'
                 ],*/
             ],
+            'defaultOrder' => [
+                'created_at' => SORT_DESC,
+                'title' => SORT_ASC,
+            ]
         ]);
 
         return $sort;
