@@ -34,9 +34,10 @@ class ViewTags extends AbstractDecoration
                 '',
                 [
                     'class' => 'ticket-glyph-tags glyphicon glyphicon-tags',
-                    'data-toggle' => 'popover',
                     'title' => 'Ticket-Tags',
-                    'data-content' => Html::encode($taglist)
+                    'data-toggle' => 'popover',
+                    'data-trigger' => 'hover',
+                    'data-content' => Html::encode($taglist),
                 ]
             );
         } else {
