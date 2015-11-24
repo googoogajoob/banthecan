@@ -2,13 +2,13 @@
 
 namespace common\models;
 
-//use common\models\Board;
 use dosamigos\taggable\Taggable;
 use Faker\Factory;
 use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use common\models\Tags;
 
 
 /**
@@ -333,9 +333,18 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function createDemoTickets($boardId) {
         if (YII_ENV_DEMO) {
-            $faker = Factory::create();
 
             $this->deleteAll();
+            Tags::deleteAll();
+
+            $faker = Factory::create();
+
+            $tagPool = [];
+            for ($i=0; $i<10; $i++){
+                $tagPool[] = 'Tag' . substr($faker->text(5), 0, -1); // eliminate '.' at end
+            }
+            // Array Unique preserves Keys, I don't want them preserved
+            $tagPool = explode(',', implode(',', array_unique($tagPool)));
 
             // Create Backlog Tickets
             for ($i = 0; $i < self::DEMO_BACKLOG_TICKETS; $i++) {
@@ -346,9 +355,16 @@ class Ticket extends \yii\db\ActiveRecord
                 $this->ticket_order = 0;
                 $this->isNewRecord = true;
                 $this->id = null;
+                $this->tagNames = $this->getRandomDemoTags($tagPool);
                 if (!$this->save()) {
                     return false;
                 }
+
+                $this->created_at -= rand(0, 2600000); //random creation ca.in the previous 4 weeks
+                if (!$this->save('false', ['created_at'])) {
+                    return false;
+                }
+
             }
 
             // Create Completed Tickets
@@ -360,9 +376,16 @@ class Ticket extends \yii\db\ActiveRecord
                 $this->ticket_order = 0;
                 $this->isNewRecord = true;
                 $this->id = null;
+                $this->tagNames = $this->getRandomDemoTags($tagPool);
                 if (!$this->save()) {
                     return false;
                 }
+
+                $this->created_at -= rand(0, 2600000); //random creation ca.in the previous 4 weeks
+                if (!$this->save('false', ['created_at'])) {
+                    return false;
+                }
+
             }
 
             // Create KanBanBoard Tickets
@@ -374,13 +397,42 @@ class Ticket extends \yii\db\ActiveRecord
                 $this->ticket_order = $i;
                 $this->isNewRecord = true;
                 $this->id = null;
+                $this->tagNames = $this->getRandomDemoTags($tagPool);
                 if (!$this->save()) {
                     return false;
                 }
+
+                $this->created_at -= rand(0, 2600000); //random creation ca.in the previous 4 weeks
+                if (!$this->save('false', ['created_at'])) {
+                    return false;
+                }
+
             }
         }
 
         return true;
     }
 
+    private function getRandomDemoTags($tagPool) {
+        $tagPoolCount = count($tagPool);
+
+        $tagPercentage = rand(1, 100);
+        $assignTag = $tagPercentage > 65 ? 1 : 0; // percentage change of tags being assigned
+        $returnList = '';
+
+        if ($assignTag) {
+            // Now determine which tags from the Pool should be assigned
+            $isFirst = true;
+            for($i=0; $i<$tagPoolCount; $i++) {
+                $binaryUse = rand(0, 1); // zero or one, determines if this tag from the pool is used
+                if ($binaryUse) {
+                    $preComma = $isFirst ? '' : ',';
+                    $returnList .= $preComma . $tagPool[$i];
+                    $isFirst = false;
+                }
+            }
+        }
+
+        return $returnList;
+    }
 }

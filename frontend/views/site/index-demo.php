@@ -18,7 +18,7 @@
             However, because the workflow is fully definable it can be used for a variety of workflow processes. Included in the workflow definition
             are rules for restricting the movement of topics between the defined phases, thus forcing that the workflow is followed.        </p>
         <p>
-            The name deliberate play on words of the <a href="https://en.wikipedia.org/wiki/Kanban">Kanban scheduling system</a> and
+            The name is a deliberate play on words of the <a href="https://en.wikipedia.org/wiki/Kanban">Kanban scheduling system</a> and
             has been inspired by software which uses the Kanban system. Please explore it's features and discover if it is useful for your needs.
             It is an opensource project and therefore free to use. For detailed information please refer to the
             <a href="/site/about">About page.</a>

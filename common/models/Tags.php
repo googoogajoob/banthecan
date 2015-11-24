@@ -88,4 +88,17 @@ class Tags extends \yii\db\ActiveRecord
             ->asArray()
             ->all();
     }
+
+    /**
+     * Needed for creating Records in the DEMO DB.
+     * When Tags are deleted the ticket_tag_mm table should be cleared also
+     */
+    public static function deleteAll($condition = null) {
+        parent::deleteAll($condition);
+
+        $command = static::getDb()->createCommand();
+        $command->delete(Ticket::TICKET_TAG_MM_TABLE);
+
+        return $command->execute();
+    }
 }

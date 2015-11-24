@@ -163,6 +163,20 @@ class Board extends \yii\db\ActiveRecord {
             $this->description = "Description Text: " . $faker->text();
             $this->entry_column = 0; // Temp value until the Demo Columns are created,
 
+            $decorationClasses = Yii::$app->ticketDecorationManager->getAvailableTicketDecorations();
+            $this->ticket_backlog_configuration = [
+                $decorationClasses[1],
+                $decorationClasses[2],
+                $decorationClasses[3],
+                $decorationClasses[4],
+            ];
+            $this->ticket_completed_configuration = [
+                $decorationClasses[0],
+                $decorationClasses[1],
+                $decorationClasses[3],
+                $decorationClasses[4],
+            ];
+
             if ($this->save()) {
                 return $this;
             }

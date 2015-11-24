@@ -2,11 +2,10 @@
 
 namespace common\models;
 
-use common\models\Board;
 use yii;
+use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
-use common\models\Ticket;
 
 
 /**
@@ -25,7 +24,7 @@ use common\models\Ticket;
  * @property string  $ticket_column_configuration
  * @property Ticket[] $tickets
  */
-class Column extends \yii\db\ActiveRecord
+class Column extends ActiveRecord
 {
     // The receiver values should refer to the column IDs of the receiving columns
     // However, the IDs of the columns are first known when they are created
@@ -148,6 +147,8 @@ class Column extends \yii\db\ActiveRecord
         if (YII_ENV_DEMO) {
             $this->deleteAll();
 
+            $decorationClasses = Yii::$app->ticketDecorationManager->getAvailableTicketDecorations();
+
             $firstColumn = true;
             foreach (self::$demoColumns as $demoColumn) {
                 $this->title = $demoColumn['title'];
@@ -157,6 +158,13 @@ class Column extends \yii\db\ActiveRecord
                 $this->isNewRecord = true;
                 $this->id = null;
 
+                $this->ticket_column_configuration = [
+                    $decorationClasses[0],
+                    $decorationClasses[2],
+                    $decorationClasses[3],
+                    $decorationClasses[4],
+                ];
+
                 //Save initial column, the relative columns field is calculate below
                 if (!$this->save()) {
                     return false;
@@ -164,11 +172,11 @@ class Column extends \yii\db\ActiveRecord
 
                 if ($firstColumn) {
                     $firstColumnId = $this->id;
-                    $firstColumn = false; //only execute tis if statement one time, the first time through the loop
+                    $firstColumn = false; //only execute this if statement one time, the first time through the loop
                 }
 
                 $this->receiver = $this->convertRelativeIDtoActual($firstColumnId, $demoColumn['receiver']);
-                if (!$this->save()) {
+                if (!$this->save(false, ['receiver'])) {
                     return false;
                 }
 
@@ -191,8 +199,8 @@ class Column extends \yii\db\ActiveRecord
      */
     private function convertRelativeIDtoActual($firstColumnID, $receiverList) {
         $relativeList = explode(',', $receiverList);
-        foreach($relativeList as $recieverID) {
-            $returnList[] = $recieverID + $firstColumnID - 1;
+        foreach($relativeList as $receiverID) {
+            $returnList[] = $receiverID + $firstColumnID - 1;
         }
 
         return implode(',', $returnList);
