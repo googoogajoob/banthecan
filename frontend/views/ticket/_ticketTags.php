@@ -13,11 +13,14 @@ if ($taglist = $ticket->tagNames) {
     echo Html::beginTag('div', ['class' => 'ticket-single-tags']);
 
     $tagArray = explode(',', $taglist);
+    $tagCount = count($tagArray);
+    $i = 1;
     foreach ($tagArray as $tag) {
         $carouselItems[] = [
             'content' => '',
-            'caption' => $tag,
+            'caption' => "<small>$i/$tagCount</small> $tag",
         ];
+        $i++;
     }
 
     echo Carousel::widget([
