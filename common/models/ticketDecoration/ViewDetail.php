@@ -33,6 +33,8 @@ class ViewDetail extends AbstractDecoration
             $this->linkIcon,
             '/ticket/view/' . $this->owner->id, [
                 'onClick' => 'ticketDetailView(' . $this->owner->id . '); return false;',
+                'data-toggle' => 'tooltip',
+                'title' => 'View Detail',
             ]
         );
     }

@@ -25,7 +25,7 @@ class MoveToKanban extends AbstractDecoration {
      * @return string html for showing the ticketDecoration
      */
     public function show($view = 'default') {
-        return '<a href="/ticket/board/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
+        return '<a data-toggle="tooltip" title="Move to KanBan Board" href="/ticket/board/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
     }
 
 }

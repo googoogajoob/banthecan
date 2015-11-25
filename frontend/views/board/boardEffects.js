@@ -63,16 +63,23 @@ function changeBacklogPageSize() {
 }
 
 $(document).ready(function () {
+
     $('#toggle-right-sidebar').click(function() {
         return toggleRightSidebar();
     });
+
     $('#toggle-left-sidebar').click(function() {
         return toggleLeftSidebar();
     });
+
     $('#backlog-per-page').change(function() {
         changeBacklogPageSize();
     });
+
     $('#completed-per-page').change(function() {
         this.form.submit();
     });
+
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
 });
