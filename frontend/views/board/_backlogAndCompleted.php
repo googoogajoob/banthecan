@@ -8,6 +8,7 @@ use yii\helpers\Html;
 /* @var $searchModel common\models\TicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $action string */
+/* @var $currentPageSize integer */
 
 
 BacklogAsset::register($this);
@@ -16,6 +17,7 @@ $this->beginBlock('left-sidebar');
 
 echo $this->render('@frontend/views/ticket/_backlogTicketSearchForm',[
         'searchModel' => $searchModel,
+        'currentPageSize' => $currentPageSize,
         'action' => $action,
     ]);
 

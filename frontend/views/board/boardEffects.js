@@ -54,6 +54,14 @@ function toggleLeftSidebar() {
     return true;
 }
 
+function changeBacklogPageSize() {
+    $('#backlog-search-per-page').val(
+        $('#backlog-per-page').val()
+    );
+
+    $('#backlog-search-submit').submit();
+}
+
 $(document).ready(function () {
     $('#toggle-right-sidebar').click(function() {
         return toggleRightSidebar();
@@ -62,7 +70,7 @@ $(document).ready(function () {
         return toggleLeftSidebar();
     });
     $('#backlog-per-page').change(function() {
-        this.form.submit();
+        changeBacklogPageSize();
     });
     $('#completed-per-page').change(function() {
         this.form.submit();

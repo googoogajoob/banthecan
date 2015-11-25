@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $action string */
 /* @var $pageTitle string */
+/* @var $currentPageSize integer */
 ?>
 
 <h1 class="text-capitalize">
@@ -17,7 +18,7 @@ use yii\helpers\Html;
 
 <?php
 
-echo Html::beginForm('/board/backlog', 'get', ['role' => 'form']);
+echo Html::beginForm('/board/backlog', 'post', ['role' => 'form']);
 
 echo Html::dropDownList(
     'per-page',
@@ -38,5 +39,6 @@ echo Html::endForm();
 echo $this->render('@frontend/views/board/_backlogAndCompleted', [
         'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
+        'currentPageSize' => $currentPageSize,
         'action' => $action,
     ]);

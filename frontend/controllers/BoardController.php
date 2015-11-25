@@ -85,6 +85,9 @@ class BoardController extends \yii\web\Controller {
      * Shows tickets in the Backlog
      */
     public function actionBacklog() {
+
+        $currentPageSize = Yii::$app->request->post('per-page', self::DEFAULT_PAGE_SIZE);
+
         $this->layout = 'left-right';
         $boardRecord = Board::getActiveboard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
@@ -92,18 +95,21 @@ class BoardController extends \yii\web\Controller {
         Yii::$app->ticketDecorationManager
                  ->registerDecorations($boardRecord->ticket_backlog_configuration);
 
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
+        $dataProvider = $searchModel->search(Yii::$app->request->post(), 0);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
         $dataProvider->pagination->pageSizeLimit = [1, 500];
+        $dataProvider->pagination->pageSize = $currentPageSize;
         $dataProvider->sort = $this->createSortObject();
 
         Yii::$app->getUser()->setReturnUrl('/board/backlog');
+
 
         return $this->render('backlog', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'pageTitle' => $this->currentBoard->backlog_name,
             'action' => $this->action->id,
+            'currentPageSize' => $currentPageSize,
         ]);
     }
 
