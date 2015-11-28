@@ -18,7 +18,7 @@ use yii\helpers\Html;
 
 <?php
 
-echo Html::beginForm('/board/backlog', 'post', ['role' => 'form']);
+echo Html::beginForm('/board/backlog', 'get', ['role' => 'form']);
 
 echo Html::dropDownList(
     'per-page',

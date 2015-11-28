@@ -46,7 +46,7 @@ class BoardController extends \yii\web\Controller {
     }
 
     /**
-     * Initialize the Board to the Session Board_id, and implicitly
+     * Initialize the Board to the Current Board_id, and implicitly
      * restrict all ticket queries to members of this board for
      * the actions: completed, backlog and index
      *
@@ -86,7 +86,7 @@ class BoardController extends \yii\web\Controller {
      */
     public function actionBacklog() {
 
-        $currentPageSize = Yii::$app->request->post('per-page', self::DEFAULT_PAGE_SIZE);
+        $currentPageSize = Yii::$app->request->get('per-page', self::DEFAULT_PAGE_SIZE);
 
         $this->layout = 'left-right';
         $boardRecord = Board::getActiveboard();
@@ -95,7 +95,7 @@ class BoardController extends \yii\web\Controller {
         Yii::$app->ticketDecorationManager
                  ->registerDecorations($boardRecord->ticket_backlog_configuration);
 
-        $dataProvider = $searchModel->search(Yii::$app->request->post(), 0);
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), 0);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
         $dataProvider->pagination->pageSizeLimit = [1, 500];
         $dataProvider->pagination->pageSize = $currentPageSize;
@@ -166,7 +166,7 @@ class BoardController extends \yii\web\Controller {
 
     /**
      * Activates the Board for the current User. This means the selected board is made
-     * available globally via cookies and(or) sessions
+     * available globally via cookies
      */
     public function actionActivate() {
         $session = Yii::$app->session;

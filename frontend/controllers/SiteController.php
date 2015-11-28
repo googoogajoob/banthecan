@@ -84,7 +84,8 @@ class SiteController extends Controller {
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect('/board/select');
+            //return $this->redirect('/board/select');
+            return $this->goHome();
         } else {
             if (YII_ENV_DEMO) {
                 $session = Yii::$app->session;

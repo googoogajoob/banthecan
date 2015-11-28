@@ -17,7 +17,7 @@ use dosamigos\selectize\SelectizeTextInput;
 <?php
     $form = ActiveForm::begin([
         'action' => ['board/' . $action],
-        'method' => 'post',
+        'method' => 'get',
     ]);
 
     echo Html::hiddenInput('per-page', $currentPageSize , [

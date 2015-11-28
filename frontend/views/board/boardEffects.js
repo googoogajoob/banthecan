@@ -54,14 +54,6 @@ function toggleLeftSidebar() {
     return true;
 }
 
-function changeBacklogPageSize() {
-    $('#backlog-search-per-page').val(
-        $('#backlog-per-page').val()
-    );
-
-    $('#backlog-search-submit').submit();
-}
-
 $(document).ready(function () {
 
     $('#toggle-right-sidebar').click(function() {
@@ -73,7 +65,7 @@ $(document).ready(function () {
     });
 
     $('#backlog-per-page').change(function() {
-        changeBacklogPageSize();
+        this.form.submit();
     });
 
     $('#completed-per-page').change(function() {
