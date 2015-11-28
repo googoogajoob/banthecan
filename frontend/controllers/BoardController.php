@@ -63,7 +63,7 @@ class BoardController extends \yii\web\Controller {
         if ($action->id == 'completed' or
             $action->id == 'backlog' or
             $action->id == 'index') {
-            $this->currentBoard = Board::getActiveboard();
+            $this->currentBoard = Board::getActiveBoard();
         }
 
         return true; // or false to not run the action
@@ -89,7 +89,7 @@ class BoardController extends \yii\web\Controller {
         $currentPageSize = Yii::$app->request->get('per-page', self::DEFAULT_PAGE_SIZE);
 
         $this->layout = 'left-right';
-        $boardRecord = Board::getActiveboard();
+        $boardRecord = Board::getActiveBoard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
         Yii::$app->ticketDecorationManager
@@ -118,7 +118,7 @@ class BoardController extends \yii\web\Controller {
      */
     public function actionCompleted() {
         $this->layout = 'left-right';
-        $boardRecord = Board::getActiveboard();
+        $boardRecord = Board::getActiveBoard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
         Yii::$app->ticketDecorationManager
@@ -173,7 +173,7 @@ class BoardController extends \yii\web\Controller {
         $request = Yii::$app->request;
         $activeBoardId = $request->get('id');
         $session->set('currentBoardId' , $activeBoardId);
-        $boardRecord = Board::getActiveboard();
+        $boardRecord = Board::getActiveBoard();
         $session->setFlash('success', 'Board activated: ' . $boardRecord->title);
         Yii::$app->params['title'] = $boardRecord->title;
         if ($cookie = Yii::$app->response->cookies->get('_identity')) {

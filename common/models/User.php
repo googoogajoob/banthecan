@@ -280,7 +280,7 @@ class User extends ActiveRecord implements IdentityInterface
      * Returns a list of all users who are associated with the current active board.
      */
     public static function getBoardUsers() {
-        return self::find()->where(Board::getActiveboard()->id . ' in (board_id)')->all();
+        return self::find()->where(Board::getActiveBoard()->id . ' in (board_id)')->all();
     }
 
     /**

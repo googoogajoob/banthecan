@@ -128,13 +128,13 @@ class Board extends \yii\db\ActiveRecord {
     }
 
     /**
-     * Retrieves the current active board ID for this session
-     * if not found an error is thrown
+     * Retrieves the current active board record corresponding to the current board ID for this session
+     * If not found an error is thrown
      *
      * @throws yii\web\NotFoundHttpException
      * @return \yii\db\ActiveRecord
      */
-    public static function getActiveboard() {
+    public static function getActiveBoard() {
 
         $session = Yii::$app->session;
         $currentBoardId = $session->get('currentBoardId');
@@ -146,6 +146,13 @@ class Board extends \yii\db\ActiveRecord {
             Ticket::restrictQueryToBoard($currentBoardId);
             return self::findOne($currentBoardId);
         }
+    }
+
+    /**
+     * @param $boardId
+     */
+    public function setActiveBoard($boardId) {
+
     }
 
     /**
