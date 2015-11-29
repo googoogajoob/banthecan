@@ -1,6 +1,6 @@
 <?php
 
-use common\models\User;
+use frontend\models\User;
 
 /**
  * Created by PhpStorm.

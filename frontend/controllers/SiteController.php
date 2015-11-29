@@ -84,14 +84,12 @@ class SiteController extends Controller {
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            //return $this->redirect('/board/select');
             return $this->goHome();
         } else {
             if (YII_ENV_DEMO) {
                 $session = Yii::$app->session;
                 $session->setFlash('info', 'Login as a Demo User with <u>username</u>: <strong>demo</strong> and <u>password</u>: <strong>demo</strong>.');
             }
-
             return $this->render('login', [
                 'model' => $model,
             ]);

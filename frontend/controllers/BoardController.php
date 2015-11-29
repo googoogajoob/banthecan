@@ -4,11 +4,8 @@ namespace frontend\controllers; //namespace must be the first statement
 
 use yii;
 use common\models\Board;
-use yii\data\ActiveDataProvider;
 use yii\data\Sort;
-use common\models\User;
 use yii\filters\AccessControl;
-
 
 class BoardController extends \yii\web\Controller {
 
@@ -142,13 +139,11 @@ class BoardController extends \yii\web\Controller {
     /**
      * Allows the current user to select the active board from his/her board options
      */
-    public function actionSelect() {
-        $userBoardId = explode(',', User::findOne(Yii::$app->getUser()->id)->board_id);
-
-        $userBoards = new ActiveDataProvider([
-            'query' => Board::find()->where(['id' => $userBoardId]),
-        ]);
-        $boardCount = $userBoards->getTotalCount();
+    public function actionSelect()
+    {
+        $currentUser = Yii::$app->user->getIdentity();
+        $userBoards = explode(',', $currentUser->board_id);
+        $boardCount = count($userBoards);
 
         if ($boardCount == 0) {
             // No Boards, log user out
@@ -156,30 +151,12 @@ class BoardController extends \yii\web\Controller {
             return $this->render('noBoard');
         } elseif ($boardCount == 1) {
             // Only one board for user, activate it automatically
-            $activeBoardId = $userBoards->getModels()[0]->id;
-            $this->redirect(['activate','id' => $activeBoardId]);
+            Board::setActiveBoard($userBoards[0]);
+            $this->goHome();
         } else {
             // USer must select which board to activate
-            return $this->render('select',['userBoards' => $userBoards]);
+            return $this->render('select',['userBoards' => Board::findAll($userBoards)]);
         }
-    }
-
-    /**
-     * Activates the Board for the current User. This means the selected board is made
-     * available globally via cookies
-     */
-    public function actionActivate() {
-        $session = Yii::$app->session;
-        $request = Yii::$app->request;
-        $activeBoardId = $request->get('id');
-        $session->set('currentBoardId' , $activeBoardId);
-        $boardRecord = Board::getActiveBoard();
-        $session->setFlash('success', 'Board activated: ' . $boardRecord->title);
-        Yii::$app->params['title'] = $boardRecord->title;
-        if ($cookie = Yii::$app->response->cookies->get('_identity')) {
-            $cookie->expire = time() + 86400 * 365;
-        }
-        $this->goHome();
     }
 
     /**

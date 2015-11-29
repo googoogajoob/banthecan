@@ -6,7 +6,6 @@ use Faker\Factory;
 use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
-use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "board".
@@ -30,8 +29,7 @@ use yii\web\NotFoundHttpException;
  */
 class Board extends \yii\db\ActiveRecord {
 
-    const NO_ACTIVE_BOARD_MESSAGE = 'An Active Board Has Not Been Set';
-    const NO_ACTIVE_BOARD_STATUS_TEST = 0;
+    const NO_ACTIVE_BOARD_MESSAGE = 'An active board must be <a href="/board/select">selected</a> in order to proceed.';
     const DEMO_TITLE = 'Ban-The-Can Demonstration Board';
     const DEMO_MAX_LANES = 1;
 
@@ -129,30 +127,43 @@ class Board extends \yii\db\ActiveRecord {
 
     /**
      * Retrieves the current active board record corresponding to the current board ID for this session
-     * If not found an error is thrown
      *
-     * @throws yii\web\NotFoundHttpException
-     * @return \yii\db\ActiveRecord
+     * @return \yii\db\ActiveRecord | null when board record not found
      */
-    public static function getActiveBoard() {
-
+    public static function getActiveBoard()
+    {
         $session = Yii::$app->session;
         $currentBoardId = $session->get('currentBoardId');
+        $newActiveBoard = self::findOne($currentBoardId);
 
-        if ($currentBoardId == self::NO_ACTIVE_BOARD_STATUS_TEST) {
+        if ($newActiveBoard) {
+            Ticket::restrictQueryToBoard($currentBoardId);
+            return $newActiveBoard;
+        } else {
             $session->setFlash('warning', self::NO_ACTIVE_BOARD_MESSAGE);
             return null;
-        } else {
-            Ticket::restrictQueryToBoard($currentBoardId);
-            return self::findOne($currentBoardId);
         }
     }
 
     /**
      * @param $boardId
+     *
+     * @return \yii\db\ActiveRecord | null when board record not found
      */
-    public function setActiveBoard($boardId) {
+    public function setActiveBoard($boardId)
+    {
+        $session = Yii::$app->session;
+        $newActiveBoard = self::findOne($boardId);
 
+        if ($newActiveBoard) {
+            $session->set('currentBoardId' , $boardId);
+            //$session->setFlash('success', 'Board activated: ' . $boardRecord->title);
+            //Yii::$app->params['title'] = $boardRecord->title;
+            return $newActiveBoard;
+        } else {
+            $session->setFlash('warning', self::NO_ACTIVE_BOARD_MESSAGE);
+            return null;
+        }
     }
 
     /**

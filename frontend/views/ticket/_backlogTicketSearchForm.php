@@ -3,8 +3,7 @@
 use yii\bootstrap\Html;
 use yii\bootstrap\ActiveForm;
 use yii\jui\DatePicker;
-use common\models\User;
-use frontend\controllers\BoardController;
+use frontend\models\User;
 use dosamigos\selectize\SelectizeTextInput;
 
 /* @var $this yii\web\View */
