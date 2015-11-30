@@ -6,6 +6,7 @@ use Faker\Factory;
 use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use frontend\models\User;
 
 /**
  * This is the model class for table "board".
@@ -132,37 +133,29 @@ class Board extends \yii\db\ActiveRecord {
      */
     public static function getActiveBoard()
     {
-        $session = Yii::$app->session;
-        $currentBoardId = $session->get('currentBoardId');
-        $newActiveBoard = self::findOne($currentBoardId);
+        $userRecord = Yii::$app->user->identity;
+        $newActiveBoard = false;
 
-        if ($newActiveBoard) {
-            Ticket::restrictQueryToBoard($currentBoardId);
-            return $newActiveBoard;
-        } else {
-            $session->setFlash('warning', self::NO_ACTIVE_BOARD_MESSAGE);
-            return null;
+        if ($userRecord) {
+            $sessionBoardId = $userRecord->getSessionActiveBoardId();
+            $cookieBoardId = $userRecord->getCookieActiveBoardId();
+
+            $lookForBoardId = $sessionBoardId ? $sessionBoardId : $cookieBoardId;
+            if ($lookForBoardId) {
+                $newActiveBoard = self::findOne($lookForBoardId);
+            }
         }
-    }
-
-    /**
-     * @param $boardId
-     *
-     * @return \yii\db\ActiveRecord | null when board record not found
-     */
-    public function setActiveBoard($boardId)
-    {
-        $session = Yii::$app->session;
-        $newActiveBoard = self::findOne($boardId);
 
         if ($newActiveBoard) {
-            $session->set('currentBoardId' , $boardId);
-            //$session->setFlash('success', 'Board activated: ' . $boardRecord->title);
-            //Yii::$app->params['title'] = $boardRecord->title;
+            Ticket::restrictQueryToBoard($lookForBoardId);
+
             return $newActiveBoard;
+
         } else {
-            $session->setFlash('warning', self::NO_ACTIVE_BOARD_MESSAGE);
+            Yii::$app->session->setFlash('warning', self::NO_ACTIVE_BOARD_MESSAGE);
+
             return null;
+
         }
     }
 

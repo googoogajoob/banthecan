@@ -86,11 +86,10 @@ class BoardController extends \yii\web\Controller {
         $currentPageSize = Yii::$app->request->get('per-page', self::DEFAULT_PAGE_SIZE);
 
         $this->layout = 'left-right';
-        $boardRecord = Board::getActiveBoard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
         Yii::$app->ticketDecorationManager
-                 ->registerDecorations($boardRecord->ticket_backlog_configuration);
+                 ->registerDecorations($this->currentBoard->ticket_backlog_configuration);
 
         $dataProvider = $searchModel->search(Yii::$app->request->get(), 0);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
@@ -115,11 +114,10 @@ class BoardController extends \yii\web\Controller {
      */
     public function actionCompleted() {
         $this->layout = 'left-right';
-        $boardRecord = Board::getActiveBoard();
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
         Yii::$app->ticketDecorationManager
-            ->registerDecorations($boardRecord->ticket_completed_configuration);
+            ->registerDecorations($this->currentBoard->ticket_completed_configuration);
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, -1);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
@@ -143,19 +141,22 @@ class BoardController extends \yii\web\Controller {
     {
         $currentUser = Yii::$app->user->getIdentity();
         $userBoards = explode(',', $currentUser->board_id);
-        $boardCount = count($userBoards);
+        $userBoardRecords = Board::findAll($userBoards);
+        $boardCount = count($userBoardRecords);
 
         if ($boardCount == 0) {
             // No Boards, log user out
             Yii::$app->user->logout();
             return $this->render('noBoard');
+
         } elseif ($boardCount == 1) {
-            // Only one board for user, activate it automatically
-            Board::setActiveBoard($userBoards[0]);
+            // Board should already be selected
+            Board::getActiveBoard();
             $this->goHome();
+
         } else {
-            // USer must select which board to activate
-            return $this->render('select',['userBoards' => Board::findAll($userBoards)]);
+            // User must select which board to activate
+            return $this->render('select',['userBoards' => $userBoardRecords]);
         }
     }
 
