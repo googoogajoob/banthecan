@@ -127,7 +127,7 @@ class Board extends \yii\db\ActiveRecord {
     }
 
     /**
-     * Retrieves the current active board record corresponding to the current board ID for this session
+     * Retrieves the current active board record corresponding to the current board ID for this session or cookie
      *
      * @return \yii\db\ActiveRecord | null when board record not found
      */
@@ -137,25 +137,17 @@ class Board extends \yii\db\ActiveRecord {
         $newActiveBoard = false;
 
         if ($userRecord) {
-            $sessionBoardId = $userRecord->getSessionActiveBoardId();
-            $cookieBoardId = $userRecord->getCookieActiveBoardId();
-
-            $lookForBoardId = $sessionBoardId ? $sessionBoardId : $cookieBoardId;
-            if ($lookForBoardId) {
+            if ($lookForBoardId = $userRecord->getActiveBoardId()) {
                 $newActiveBoard = self::findOne($lookForBoardId);
             }
         }
 
         if ($newActiveBoard) {
             Ticket::restrictQueryToBoard($lookForBoardId);
-
             return $newActiveBoard;
-
         } else {
             Yii::$app->session->setFlash('warning', self::NO_ACTIVE_BOARD_MESSAGE);
-
             return null;
-
         }
     }
 

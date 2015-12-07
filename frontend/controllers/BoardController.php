@@ -6,6 +6,7 @@ use yii;
 use common\models\Board;
 use yii\data\Sort;
 use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
 
 class BoardController extends \yii\web\Controller {
 
@@ -151,13 +152,30 @@ class BoardController extends \yii\web\Controller {
 
         } elseif ($boardCount == 1) {
             // Board should already be selected
+            $currentUser->setActiveBoard($userBoards);
             Board::getActiveBoard();
             $this->goHome();
 
         } else {
             // User must select which board to activate
-            return $this->render('select',['userBoards' => $userBoardRecords]);
+            $dataProvider = new ActiveDataProvider([
+                'query' => Board::find()->where(['id' => $userBoards]),
+            ]);
+
+            return $this->render('select',['userBoards' => $dataProvider]);
         }
+    }
+
+    /**
+     *
+     */
+    public function actionActivate($id)
+    {
+        $currentUser = Yii::$app->user->getIdentity();
+        $currentUser->deactivateAllBoards();
+        $currentUser->setActiveBoard([$id]);
+        //Board::getActiveBoard();
+        $this->goHome();
     }
 
     /**

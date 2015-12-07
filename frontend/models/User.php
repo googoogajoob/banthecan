@@ -39,13 +39,20 @@ class User extends \common\models\User implements IdentityInterface
         yii::$app->user->on(WebUser::EVENT_AFTER_LOGIN, [$this, 'afterLoginHandler']);
     }
 
+    public function afterLoginHandler($event)
+    {
+        $this->setActiveBoard(explode(',', $event->identity->board_id));
+    }
+
     /**
-     * After a User is logged in a Board for ths user must be activated.
-     * A user can be a member of 1 or more boards, (or a member of no boards).
-     * In normal operation the active board is stored in the session as well as the users Identity cookie.
-     * This function checks of this is the case and if not attempts to set things up in this way.
+     * After a User is logged in, a Board for this user will be activated.
      *
-     * The result of this handler depends on the contents of the session and cookie values as wells as
+     * A user can be a member of 1 or more boards, (or a member of no boards).
+     *
+     * In normal operation the active board is stored in the session as well as the Active Board cookie.
+     * This function checks if this is the case and if not, attempts to set things up in this way.
+     *
+     * The result of this handler depends on the contents of the session and cookie values as well as
      * the contents of the user's board_id attribute.
      *
      * If the session value is present it will be checked if it is valid and all values set appropriately
@@ -54,48 +61,49 @@ class User extends \common\models\User implements IdentityInterface
      *
      * If neither session nor cookie values exist then the value is determined from the user record
      *
-     * The result of this handler depends in part on the contents of the users board_id attribute.
+     * The contents of the users board_id attribute are evaluated as follows:
      * It can contain:
      *  - no board ID
      *  - one board ID
      *  - many board IDs
+     *  - (in addition, board IDs can be valid or invalid, i.e. the corresponding Board exists)
      *
      * If no board Id, cookie and session are set to zero
      * If one board ID, the values are automatically set to this ID
-     * Id many board IDs, the values for the session and cookie are set to the first Board ID,
+     * Id many board IDs, the values for the session and cookie are set to the first valid Board ID,
      *
-     * @param $event
+     * @param $userBoardIds array
      */
-    public function afterLoginHandler($event)
+    public function setActiveBoard($userBoardIds)
     {
-        $userBoardIds = explode(',', $event->identity->board_id);
         $sessionBoardId = $this->getSessionActiveBoardId();
         $cookieBoardId = $this->getCookieActiveBoardId();
 
         if ($sessionBoardId) {
             if ($this->boardExists($sessionBoardId) && in_array($sessionBoardId, $userBoardIds)) {
-                $this->setCookieActiveBoardId($sessionBoardId);
+                $this->activateBoard($sessionBoardId);
             } else {
-                // deactivate
-                $this->setSessionActiveBoardId(0);
-                $this->setCookieActiveBoardId(0);
+                $this->deactivateAllBoards();
             }
         } elseif ($cookieBoardId) {
             if ($this->boardExists($cookieBoardId) && in_array($cookieBoardId, $userBoardIds)) {
-                $this->setSessionActiveBoardId($cookieBoardId);
+                $this->activateBoard($cookieBoardId);
             } else {
-                // deactivate
-                $this->setSessionActiveBoardId(0);
-                $this->setCookieActiveBoardId(0);
+                $this->deactivateAllBoards();
             }
         } elseif (count($userBoardIds)) {
-            if ($this->boardExists($userBoardIds[0])) {
-                $this->setSessionActiveBoardId($userBoardIds[0]);
-                $this->setCookieActiveBoardId($userBoardIds[0]);
+            // Find the first Board Id from the user which actually exists as a Board
+            $boardFound = false;
+            foreach($userBoardIds as $searchForBoardId) {
+                if ($this->boardExists($searchForBoardId)) {
+                    $boardFound = $searchForBoardId;
+                    break;
+                }
+            }
+            if ($boardFound) {
+                $this->activateBoard($boardFound);
             } else {
-                // deactivate
-                $this->setSessionActiveBoardId(0);
-                $this->setCookieActiveBoardId(0);
+                $this->deactivateAllBoards();
             }
         }
     }
@@ -139,6 +147,39 @@ class User extends \common\models\User implements IdentityInterface
         ]));
 
         return;
+    }
+
+    /**
+     * Returns the active board ID for this user. Session has precedence over the Cookie value
+     *
+     * @return mixed|string
+     */
+    public function getActiveBoardId()
+    {
+        $sessionBoardId = $this->getSessionActiveBoardId();
+        $cookieBoardId = $this->getCookieActiveBoardId();
+
+        return $sessionBoardId ? $sessionBoardId : $cookieBoardId;
+    }
+
+    /**
+     * Sets the session and cookie values to be 0, i.e. inactive for this user
+     */
+    public function deactivateAllBoards()
+    {
+        $this->setSessionActiveBoardId(0);
+        $this->setCookieActiveBoardId(0);
+    }
+
+    /**
+     * Sets the session and cookie values to be $boardId
+     *
+     * @param $boardId
+     */
+    public function activateBoard($boardId)
+    {
+        $this->setSessionActiveBoardId($boardId);
+        $this->setCookieActiveBoardId($boardId);
     }
 
     /**
