@@ -37,6 +37,7 @@ ul.ticket-sorter {
 
 .apc-layout-toggle-button {
     margin: 2px;
+    font-size: 250%;
 }
 .apc-layout-toggle-button:hover {
     color: #003eff;
