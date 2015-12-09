@@ -84,7 +84,10 @@ class BoardController extends \yii\web\Controller {
      */
     public function actionBacklog() {
 
-        $currentPageSize = Yii::$app->request->get('per-page', self::DEFAULT_PAGE_SIZE);
+        $currentPageSize = Yii::$app->request->post(
+            'per-page',
+            Yii::$app->request->get('per-page', self::DEFAULT_PAGE_SIZE)
+        );
 
         $this->layout = 'left-right';
         $searchModel = Yii::createObject('common\models\TicketSearch');

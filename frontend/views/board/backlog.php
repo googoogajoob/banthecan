@@ -18,7 +18,7 @@ use yii\helpers\Html;
 
 <?php
 
-echo Html::beginForm('/board/backlog', 'get', ['role' => 'form']);
+echo Html::beginForm(Yii::$app->request->absoluteUrl, 'post', ['role' => 'form']);
 
 echo Html::dropDownList(
     'per-page',
@@ -31,7 +31,7 @@ echo Html::dropDownList(
         '96' => '96',
         '192' => '192',
     ],
-    ['id' => 'backlog-per-page', 'prompt' => 'Select Page Size']
+    ['id' => 'backlog-per-page']
 );
 
 echo Html::endForm();

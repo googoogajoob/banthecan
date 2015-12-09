@@ -36,9 +36,9 @@ echo ListView::widget( [
         'summaryOptions' => ['class' => 'summary apc-summary'],
         'pager' => [
             'firstPageLabel' => '<span class="glyphicon glyphicon-step-backward"></span>',
-            'lastPageLabel' => '<span class="glyphicon glyphicon-step-forward"></span>',
-            'prevPageLabel' => '<span class="glyphicon glyphicon-chevron-left"></span>',
-            'nextPageLabel' => '<span class="glyphicon glyphicon-chevron-right"></span>',
+            'lastPageLabel'  => '<span class="glyphicon glyphicon-step-forward"></span>',
+            'prevPageLabel'  => '<span class="glyphicon glyphicon-chevron-left"></span>',
+            'nextPageLabel'  => '<span class="glyphicon glyphicon-chevron-right"></span>',
             'options' => ['class' => 'pagination apc-pagination'],
             'maxButtonCount' => 10,
             'hideOnSinglePage' => true,
