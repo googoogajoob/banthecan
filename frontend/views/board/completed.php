@@ -17,7 +17,7 @@ use yii\helpers\Html;
 
 <?php
 
-echo Html::beginForm('/board/completed', 'get', ['role' => 'form']);
+echo Html::beginForm(Yii::$app->request->absoluteUrl, 'post', ['role' => 'form']);
 
 echo Html::dropDownList(
     'per-page',
@@ -30,7 +30,7 @@ echo Html::dropDownList(
         '96' => '96',
         '192' => '192',
     ],
-    ['id' => 'completed-per-page', 'prompt' => 'Select Page Size']
+    ['id' => 'completed-per-page']
 );
 
 echo Html::endForm();
@@ -38,5 +38,6 @@ echo Html::endForm();
 echo $this->render('@frontend/views/board/_backlogAndCompleted', [
         'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
+        'currentPageSize' => $currentPageSize,
         'action' => $action,
     ]);

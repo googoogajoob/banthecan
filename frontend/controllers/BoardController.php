@@ -103,7 +103,6 @@ class BoardController extends \yii\web\Controller {
 
         Yii::$app->getUser()->setReturnUrl('/board/backlog');
 
-
         return $this->render('backlog', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -117,15 +116,22 @@ class BoardController extends \yii\web\Controller {
      * Shows completed tickets
      */
     public function actionCompleted() {
+
+        $currentPageSize = Yii::$app->request->post(
+            'per-page',
+            Yii::$app->request->get('per-page', self::DEFAULT_PAGE_SIZE)
+        );
+
         $this->layout = 'left-right';
         $searchModel = Yii::createObject('common\models\TicketSearch');
 
         Yii::$app->ticketDecorationManager
-            ->registerDecorations($this->currentBoard->ticket_completed_configuration);
+                 ->registerDecorations($this->currentBoard->ticket_completed_configuration);
 
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, -1);
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), -1);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
         $dataProvider->pagination->pageSizeLimit = [1, 500];
+        $dataProvider->pagination->pageSize = $currentPageSize;
         $dataProvider->sort = $this->createSortObject();
 
         Yii::$app->getUser()->setReturnUrl('/board/completed');
@@ -135,6 +141,7 @@ class BoardController extends \yii\web\Controller {
             'dataProvider' => $dataProvider,
             'pageTitle' => $this->currentBoard->completed_name,
             'action' => $this->action->id,
+            'currentPageSize' => $currentPageSize,
         ]);
     }
 
