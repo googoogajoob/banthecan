@@ -16,6 +16,10 @@
     position: relative;
 }
 
+.ticket-detail-selected {
+    background-color: peachpuff;
+}
+
 .ticket-widget-float {
     float: left;
 }

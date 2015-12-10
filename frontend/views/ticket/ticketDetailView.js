@@ -7,6 +7,13 @@ function ticketDetailView(id) {
     $('#ajax-loader').removeClass('hidden').addClass('show');
     $('#right-layout-sidebar .container-fluid .ticket-view').addClass('ticket-detail-opaque');
 
+    /* Clear Background of previously selected Tickets for the detail view */
+    $('.ticket-detail-selected').removeClass('ticket-detail-selected');
+
+    /* Change Background of Ticket Selected for Detail view */
+    ticketId = '#ticketwidget_' + id;
+    $(ticketId).addClass('ticket-detail-selected');
+
     $.ajax({
         url: '/ticket/view',
         type: "get",

@@ -30,7 +30,9 @@ echo ListView::widget( [
             'divClass' => 'ticket-widget-float',
             'showTagMax' => 2,
         ],
-        'itemOptions' => ['class' => 'col-xs-62 col-sm-4 col-md-3 col-lg-2'],
+        'itemOptions' => [
+            'class' => 'col-xs-62 col-sm-4 col-md-3 col-lg-2',
+        ],
         'options' => ['class' => 'row'],
         'layout' => '{pager}{summary}{sorter}{items}{pager}',
         'summaryOptions' => ['class' => 'summary apc-summary'],
