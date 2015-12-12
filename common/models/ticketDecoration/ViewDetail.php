@@ -29,10 +29,10 @@ class ViewDetail extends AbstractDecoration
      */
     public function show($view = 'default')
     {
-        return Html::a(
-            $this->linkIcon,
-            '/ticket/view/' . $this->owner->id, [
-                'onClick' => 'ticketDetailView(' . $this->owner->id . '); return false;',
+        return Html::tag(
+            'div',
+            $this->linkIcon, [
+                'onClick' => 'ticketDetailView(' . $this->owner->id . ');',
                 'data-toggle' => 'tooltip',
                 'title' => 'View Detail',
             ]
