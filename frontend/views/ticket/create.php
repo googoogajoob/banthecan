@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1 class="col-sm-offset-2"><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
+    <?= $this->render('partials/_form', [
         'model' => $model,
         'returnUrl' => isset($returnUrl) ? $returnUrl : null
     ]) ?>

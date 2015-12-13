@@ -43,7 +43,7 @@ if (Yii::$app->user->isGuest) {
     ];
 
     $menuItems[] = html::tag('li',
-        $this->render('@frontend/views/site/_userIcon',['userId' => Yii::$app->getUser()->id]),
+        $this->render('@frontend/views/site/partials/_userIcon',['userId' => Yii::$app->getUser()->id]),
         ['class' => 'menu-avatar-li']);
 
     $menuItems[] = ['label' => '', 'items' => [

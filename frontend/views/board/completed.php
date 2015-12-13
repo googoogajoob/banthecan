@@ -35,7 +35,7 @@ echo Html::dropDownList(
 
 echo Html::endForm();
 
-echo $this->render('@frontend/views/board/_backlogAndCompleted', [
+echo $this->render('@frontend/views/board/partials/_backlogAndCompleted', [
         'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
         'currentPageSize' => $currentPageSize,

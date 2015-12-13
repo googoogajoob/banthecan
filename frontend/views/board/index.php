@@ -26,7 +26,7 @@ BoardAsset::register($this);
 <div class="row">
     <?php
         foreach($board->getColumns() as $column) {
-            echo $this->render('@frontend/views/board/_column', ['column' => $column]);
+            echo $this->render('@frontend/views/board/partials/_column', ['column' => $column]);
         }
     ?>
 </div>

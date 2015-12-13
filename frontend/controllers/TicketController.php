@@ -65,7 +65,7 @@ class TicketController extends Controller
 
             if ($changedColumnTicketId > 0) {
                 $ticketHtmlId = '#' . static::TICKET_HTML_PREFIX . $changedColumnTicketId;
-                $ticketDecorationHtml = $this->renderFile('@frontend/views/ticket/_ticketDecorations.php', ['ticket' => $ticket]);
+                $ticketDecorationHtml = $this->renderFile('@frontend/views/ticket/partials/_ticketDecorations.php', ['ticket' => $ticket]);
             } else {
                 $ticketHtmlId = 0; //indicates no column change to the client
                 $ticketDecorationHtml = '';
