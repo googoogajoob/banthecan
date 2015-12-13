@@ -1,0 +1,54 @@
+<?php
+
+use frontend\assets\BacklogAsset;
+use yii\widgets\ListView;
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $searchModel common\models\TicketSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $action string */
+/* @var $currentPageSize integer */
+
+
+BacklogAsset::register($this);
+
+$this->beginBlock('left-sidebar');
+
+echo $this->render('@frontend/views/ticket/partials/_backlogTicketSearchForm',[
+        'searchModel' => $searchModel,
+        'currentPageSize' => $currentPageSize,
+        'action' => $action,
+    ]);
+
+$this->endBlock();
+
+echo ListView::widget( [
+        'dataProvider' => $dataProvider,
+        'itemView' => '@frontend/views/ticket/partials/_ticketSingle',
+        'viewParams' => [
+            'divClass' => 'ticket-widget-float',
+            'showTagMax' => 2,
+        ],
+        'itemOptions' => [
+            'class' => 'col-xs-62 col-sm-4 col-md-3 col-lg-2',
+        ],
+        'options' => ['class' => 'row'],
+        'layout' => '{pager}{summary}{sorter}{items}{pager}',
+        'summaryOptions' => ['class' => 'summary apc-summary'],
+        'pager' => [
+            'firstPageLabel' => '<span class="glyphicon glyphicon-step-backward"></span>',
+            'lastPageLabel'  => '<span class="glyphicon glyphicon-step-forward"></span>',
+            'prevPageLabel'  => '<span class="glyphicon glyphicon-chevron-left"></span>',
+            'nextPageLabel'  => '<span class="glyphicon glyphicon-chevron-right"></span>',
+            'options' => ['class' => 'pagination apc-pagination'],
+            'maxButtonCount' => 10,
+            'hideOnSinglePage' => true,
+        ],
+        'sorter' => [
+            'options' => [
+                'class' => 'ticket-sorter'
+            ]
+        ],
+    ]
+);
