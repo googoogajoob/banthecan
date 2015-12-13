@@ -18,7 +18,7 @@ if ($taglist = $ticket->tagNames) {
     foreach ($tagArray as $tag) {
         $carouselItems[] = [
             'content' => '',
-            'caption' => "$tag&nbsp;-&nbsp;<small>($i/$tagCount)</small>",
+            'caption' => "$tag&nbsp;&ndash;&nbsp;<small>($i/$tagCount)</small>",
         ];
         $i++;
     }
