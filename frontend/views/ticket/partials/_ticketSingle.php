@@ -35,11 +35,12 @@ $ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
     <?php echo $this->render('@frontend/views/site/partials/_userIcon', ['userId' => $model->created_by]);?>
 </div>
 
-<strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $model->title ?></a></strong><br />
+<?php echo Yii::$app->formatter->asDate($model->created_at, 'long'); ?>
 
 <div class="clear-both"></div>
 
-<?php echo Yii::$app->formatter->asDate($model->created_at, 'long'); ?>
+<strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $model->title ?></a></strong><br />
+
 <br /><br />
 
 <?php

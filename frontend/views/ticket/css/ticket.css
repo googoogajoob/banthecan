@@ -41,14 +41,14 @@
 
 .ticket-single-decorations {
     position: absolute;
-    bottom: 26px;
+    bottom: 2px;
     background-color: #a0a0a0;
     padding: 2px 4px 1px 2px;
 }
 
 .ticket-single-tags {
     position: absolute;
-    bottom: 2px;
+    bottom: 26px;
     padding: 2px 4px 0 0;
 }
 
