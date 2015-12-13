@@ -6,26 +6,34 @@ function toggleRightSidebar() {
     currentStateVisible = $('#right-layout-sidebar').is(':visible');
 
     if (currentStateVisible) {
-        $('#right-layout-sidebar').hide();
-        $('#layout-main').animate({
-                'margin-right': '0'
-            },
-            "fast"
-        );
-        $('#toggle-right-sidebar').removeClass('glyphicon-circle-arrow-right').addClass('glyphicon-circle-arrow-left');
+        hideRightSidebar();
     } else {
-        $('#layout-main').animate({
-                'margin-right': '200'
-            },
-            "fast",
-            function () {
-                $('#right-layout-sidebar').show();
-            }
-        );
-        $('#toggle-right-sidebar').removeClass('glyphicon-circle-arrow-left').addClass('glyphicon-circle-arrow-right');
+        showRightSidebar();
     }
 
     return true;
+}
+
+function showRightSidebar() {
+    $('#layout-main').animate({
+            'margin-right': '200'
+        },
+        "fast",
+        function () {
+            $('#right-layout-sidebar').show();
+        }
+    );
+    $('#toggle-right-sidebar').removeClass('glyphicon-circle-arrow-left').addClass('glyphicon-circle-arrow-right');
+}
+
+function hideRightSidebar() {
+    $('#right-layout-sidebar').hide();
+    $('#layout-main').animate({
+            'margin-right': '0'
+        },
+        "fast"
+    );
+    $('#toggle-right-sidebar').removeClass('glyphicon-circle-arrow-right').addClass('glyphicon-circle-arrow-left');
 }
 
 function toggleLeftSidebar() {

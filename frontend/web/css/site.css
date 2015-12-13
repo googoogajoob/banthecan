@@ -103,6 +103,7 @@ a.desc:after {
 }
 
 #right-layout-sidebar {
+    display: none;
     position: fixed;
     right: 200px;
     width: 200px;
@@ -125,12 +126,12 @@ a.desc:after {
 }
 
 .right-layout-main {
-    margin-right: 200px;
+    margin-right: 0px;
 }
 
 .left-right-layout-main {
     margin-left: 200px;
-    margin-right: 200px;
+    margin-right: 0px;
 }
 
 .apc-summary {

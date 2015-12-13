@@ -13,6 +13,7 @@ function ticketDetailView(id) {
     /* Change Background of Ticket Selected for Detail view */
     ticketId = '#ticketwidget_' + id;
     $(ticketId).addClass('ticket-detail-selected');
+    showRightSidebar();
 
     $.ajax({
         url: '/ticket/view',
