@@ -31,14 +31,19 @@ if (Yii::$app->user->isGuest) {
 } else {
 
     $menuItems = [
-        ['label' => 'Tags', 'url' => ['/tags']],
-        ['label' => 'Tickets', 'url' => ['/ticket']],
-        ['label' => 'Boards', 'visible' => (boolean) $boardObject,
+        ['label' => 'Data',
             'items' => [
-                ['label' => 'Backlog', 'url' => ['/board/backlog']],
-                ['label' => 'KanBan', 'url' => ['/board']],
-                ['label' => 'Completed', 'url' => ['/board/completed']],
+                ['label' => 'Tickets', 'url' => ['/ticket']],
+                ['label' => 'Tags', 'url' => ['/tags']],
             ],
+        ],
+    ];
+
+    $menuItems[] = ['label' => 'Ban The Can', 'items' => [
+            ['label' => 'Select Board', 'url' => ['/board/select']],
+            ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
+            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'About', 'url' => ['/site/about']],
         ],
     ];
 
@@ -46,13 +51,6 @@ if (Yii::$app->user->isGuest) {
         $this->render('@frontend/views/site/partials/_userIcon',['userId' => Yii::$app->getUser()->id]),
         ['class' => 'menu-avatar-li']);
 
-    $menuItems[] = ['label' => '', 'items' => [
-        ['label' => 'Select Board', 'url' => ['/board/select']],
-        ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']]
-    ],
-    ];
 }
 
 echo Nav::widget([
