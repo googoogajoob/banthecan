@@ -282,7 +282,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable(SELF::TICKET_TAG_MM_TABLE, ['ticket_id' => 'id']);
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable(self::TICKET_TAG_MM_TABLE, ['ticket_id' => 'id']);
     }
 
     /**
