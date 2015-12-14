@@ -6,7 +6,6 @@ use Faker\Factory;
 use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
-use frontend\models\User;
 
 /**
  * This is the model class for table "board".
