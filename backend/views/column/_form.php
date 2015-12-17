@@ -10,25 +10,23 @@ use yii\widgets\ActiveForm;
 
 <div class="board-column-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php
+        $form = ActiveForm::begin();
+        echo $form->field($model, 'id')->textInput();
+        echo $form->field($model, 'created_at')->textInput();
+        echo $form->field($model, 'updated_at')->textInput();
+        echo $form->field($model, 'created_by')->textInput();
+        echo $form->field($model, 'updated_by')->textInput();
+        echo $form->field($model, 'board_id')->textInput();
+        echo $form->field($model, 'title')->textarea(['rows' => 2]);
+        echo $form->field($model, 'display_order')->textInput();
+        echo $form->field($model, 'receiver')->textInput();
 
-    <?= $form->field($model, 'id')->textInput() ?>
+        $decorationClasses = Yii::$app->ticketDecorationManager->getAvailableTicketDecorations();
+        $decorations = array_combine($decorationClasses, $decorationClasses);
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'board_id')->textInput() ?>
-
-    <?= $form->field($model, 'title')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'display_order')->textInput() ?>
-
-    <?= $form->field($model, 'receiver')->textInput() ?>
+        echo $form->field($model, 'ticket_column_configuration')->checkboxList($decorations);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\Ticket;
 
 /**
  * This is the model class for table "tags".
@@ -16,16 +17,14 @@ class Tags extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'tags';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['frequency', 'name'], 'required'], //id removed, new tags are not saved when it is required
             [['id', 'frequency'], 'integer'],
@@ -36,8 +35,7 @@ class Tags extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'frequency' => 'Frequency',
@@ -45,6 +43,15 @@ class Tags extends \yii\db\ActiveRecord
         ];
     }
 
+    public function afterDelete()
+    {
+        $this->getDb()
+            ->createCommand()
+            ->delete(Ticket::TICKET_TAG_MM_TABLE, ['tag_id' => $this->id])
+            ->execute();
+
+        parent::afterDelete();
+    }
     /**
      * Return Ticket IDs of Tickets which contain tag names
      *
@@ -75,10 +82,23 @@ class Tags extends \yii\db\ActiveRecord
         }
 
         return Tags::find()
-            ->select('`ticket_tag_mm`.`ticket_id` id')
-            ->innerJoin('ticket_tag_mm', '`tags`.`id` = `ticket_tag_mm`.`tag_id`')
+            ->select(Ticket::TICKET_TAG_MM_TABLE . '.`ticket_id` id')
+            ->innerJoin(Ticket::TICKET_TAG_MM_TABLE, '.`tags`.`id` = ' . Ticket::TICKET_TAG_MM_TABLE . '.`tag_id`')
             ->where(['`tags`.`name`' => $tagSearchValues])
             ->asArray()
             ->all();
+    }
+
+    /**
+     * Needed for creating Records in the DEMO DB.
+     * When Tags are deleted the ticket_tag_mm table should be cleared also
+     */
+    public static function deleteAll($condition = null) {
+        parent::deleteAll($condition);
+
+        $command = static::getDb()->createCommand();
+        $command->delete(Ticket::TICKET_TAG_MM_TABLE);
+
+        return $command->execute();
     }
 }

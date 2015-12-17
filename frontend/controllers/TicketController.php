@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
+use common\models\Board;
+use common\models\Column;
 use common\models\Ticket;
 use common\models\TicketSearch;
 use yii\web\Controller;
@@ -11,10 +13,14 @@ use yii\web\MethodNotAllowedHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TicketController implements the CRUD actions for Ticket model.
+ * TicketController implements the CRUD actions (and other actions) for the Ticket model.
  */
 class TicketController extends Controller
 {
+    /* This is needed in the views and in the controller,
+       it is placed here in the controller as a central reference point */
+    const TICKET_HTML_PREFIX = 'ticketwidget_';
+
     public function behaviors()
     {
         return [
@@ -34,23 +40,46 @@ class TicketController extends Controller
      */
     public function actionReorder()
     {
+        $changedColumnTicketId = -1; // Starting value indicates no ticket has changed columns
+
         $request = Yii::$app->request;
         if ($request->isAjax) {
+
             $columnId = $request->post('columnId');
+            Column::findOne($columnId)->activateTicketDecorations();
             $ticketOrder = $request->post('ticketOrder');
             foreach ($ticketOrder as $ticketOrderKey => $ticketId) {
                 $ticket = Ticket::findOne($ticketId);
                 $ticket->ticket_order = $ticketOrderKey;
-                $ticket->column_id = $columnId;
+                $ticket->column_id = intval($columnId);
+
+                $junk = $ticket->getDirtyAttributes();
+                if (array_key_exists('column_id', $junk)) {
+                    $changedColumnTicketId = $ticketId;
+                }
+
                 if ($ticket->update() === false) {
                     yii::error("Ticket Reordering Error: Column:$columnId, Ticket:$ticketId, Order:$ticketOrderKey");
                 }
             }
+
+            if ($changedColumnTicketId > 0) {
+                $ticketHtmlId = '#' . static::TICKET_HTML_PREFIX . $changedColumnTicketId;
+                $ticketDecorationHtml = $this->renderFile('@frontend/views/ticket/partials/_ticketDecorations.php', ['ticket' => $ticket]);
+            } else {
+                $ticketHtmlId = 0; //indicates no column change to the client
+                $ticketDecorationHtml = '';
+            }
+
+            Yii::$app->response->format = 'json';
+
+            return ['ticketId' => $ticketHtmlId, 'decorationHtml' => $ticketDecorationHtml];
+
         } else {
             throw new MethodNotAllowedHttpException;
         }
-    }
 
+    }
 
     /**
      * Lists all Ticket models.
@@ -75,28 +104,68 @@ class TicketController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            $ticketViewHtml = $this->renderFile('@frontend/views/ticket/viewAjax.php', ['model' => $this->findModel($id)]);
+            Yii::$app->response->format = 'json';
+
+            return ['ticketViewHtml' => $ticketViewHtml];
+
+        } else {
+            $ticketViewHtml = $this->render('view', ['model' => $this->findModel($id)]);
+
+            return $ticketViewHtml;
+        }
+    }
+
+    /**
+     * Creates a new Ticket model. Intended to be used from a Bootstrap Modal widget.
+     * This is basically a copy of the create action, which has been modified to work with modal/ajax
+     *
+     * @return mixed
+     */
+    public function actionNew()
+    {
+        $model = new Ticket();
+        $model->board_id = Board::getActiveBoard()->id; //A new ticket belongs to the current active board
+        $model->moveToBacklog(); //A new ticket always starts in the backlog
+
+        $returnUrl = Yii::$app->request->post('returnUrl');
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            return $this->redirect($returnUrl);
+
+        } else {
+
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'returnUrl' => Yii::$app->request->getReferrer(),
+            ]);
+
+        }
     }
 
     /**
      * Creates a new Ticket model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
     {
         $model = new Ticket();
-        $model->setToCurrentActiveBoard(); //A new ticket belongs to the current active board
+        $model->board_id = Board::getActiveBoard()->id; //A new ticket belongs to the current active board
         $model->moveToBacklog(); //A new ticket always starts in the backlog
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->id]);
+
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+
+            return $this->render('create', ['model' => $model]);
+
         }
     }
 

@@ -1,0 +1,113 @@
+.ticket-widget, .ticket-widget-float {
+    background-color: #9ec4f2;
+    height: 150px;
+    width: 100%;
+    padding: 2px 3px;
+    margin: 4px 0 4px 0;
+
+    /* These three(?) settings can be accomplished with the Bootstrap Mixin text-overflow*/
+    /*overflow: hidden;*/ /* When set this prevents tooltips from showing */
+    text-overflow: ellipsis;
+
+    /*white-space: nowrap;*/
+
+    /* This is need to provide a reference for absolute positioning in ticket-function-bar
+       see: http://www.w3schools.com/css/css_positioning.asp*/
+    position: relative;
+}
+
+.ticket-detail-selected {
+    background-color: peachpuff;
+}
+
+.ticket-widget-float {
+    float: left;
+}
+
+.ticket-avatar {
+    text-align:right;
+    float: left;
+    margin: 0 4px 0 0;
+}
+
+.ticket-single-decorations-glyph {
+    margin: 0 0 0 4px;
+    float: left;
+}
+
+.ticket-single-decorations-glyph span {
+    color: #202020;
+}
+
+.ticket-single-decorations {
+    position: absolute;
+    bottom: 2px;
+    background-color: #a0a0a0;
+    padding: 2px 4px 1px 2px;
+}
+
+.ticket-single-tags {
+    position: absolute;
+    bottom: 26px;
+    padding: 2px 4px 0 0;
+}
+
+/* Need to convert this to Bootstrap CSS ans SASS */
+.ticket-tag {
+    border-radius: 8px;
+    background-color: #f0ad4e;
+    padding: 3px;
+    margin: 2px 2px 2px 0;
+}
+
+#ticketsearch-user_search .checkbox {
+    float: left;
+    margin-top: 10px; /* !!! TODO: This is a KLUDGE, LESS os causing the first to be different */
+    margin-right: 30px;
+}
+
+.ticket-avatar-hide {
+    display: none;
+}
+
+.ticket-detail-opaque {
+    opacity: 0.5;
+}
+
+ul.ticket-view-ajax {
+    list-style-type: none;
+    list-style-position: outside;
+    display: block;
+    padding-left: 0;
+}
+
+.ticket-view-ajax li {
+    display: list-item;
+    list-style-type: none;
+    list-style-position: outside;
+}
+
+.ticket-view-ajax li span.label {
+    display: block;
+    color: #000;
+    font-size: 100%;
+    padding-left: 0;
+    text-align: left;
+}
+
+.ticket-view-ajax li span.data {
+    display: inline-block;
+    font-size: 100%;
+    padding-bottom:10px;
+}
+
+.carousel-caption {
+    /*padding-bottom: 0;*/
+    color: #000;
+    text-shadow: none;
+    position: static;
+    border-radius: 6px;
+    background-color: #f0ad4e;
+    padding: 1px 4px;
+    margin: 0;
+}

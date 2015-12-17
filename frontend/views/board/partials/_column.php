@@ -1,6 +1,7 @@
 <?php
 
 use yii\jui\Sortable;
+use frontend\controllers\TicketController;
 
 /* @var $this yii\web\View */
 /* @var $column common\models\Column */
@@ -20,7 +21,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
 
 ?>
 
-<div class="col-xs-2">
+<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
 
     <h4 class="board-column-title"> <?php echo $column->title; ?> </h4>
 
@@ -28,11 +29,12 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
         // Get the HTML of all ticket content for this column concatenated into one string
         $columnItems = [];
         foreach($column->getTickets() as $ticket) {
-            $content = $this->render('@frontend/views/ticket/_ticketBlock',[
+            $content = $this->render('@frontend/views/ticket/partials/_ticketSingle',[
                 'model' => $ticket,
+                'showTagMax' => false,
             ]);
             $options = [
-                'id' => 'ticketwidget_'. $ticket->id,
+                'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,
                 'tag' => 'div',
                 'class' => 'ticket-widget',
             ];

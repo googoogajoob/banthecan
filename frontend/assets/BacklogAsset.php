@@ -15,12 +15,14 @@ use yii\web\AssetBundle;
  */
 class BacklogAsset extends AssetBundle
 {
-    public $sourcePath = '@frontend/views/ticket/';
+    public $sourcePath = '@frontend/views/';
     public $css = [
-        'ticket.css',
+        'ticket/css/ticket.css',
     ];
     public $js = [
-        'ticketTooltip.js',
+        'board/js/boardEffects.js',
+        'ticket/js/ticketTooltip.js',
+        'ticket/js/ticketDetailView.js'
     ];
     public $depends = [
         'frontend\assets\AppAsset'

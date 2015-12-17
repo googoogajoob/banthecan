@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'id',
             'created_at',
             'updated_at',
             'created_by',
@@ -36,6 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'title:ntext',
             'display_order',
             'receiver',
+            [
+                'label' => 'Ticket Column Configuration',
+                'value' => implode(', ', $model->ticket_column_configuration),
+            ],
         ],
     ]) ?>
 

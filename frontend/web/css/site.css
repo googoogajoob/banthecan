@@ -16,7 +16,7 @@ body {
 
 .footer {
     height: 60px;
-    background-color: #f5f5f5;
+    background-color: #f0f0f0;
     border-top: 1px solid #ddd;
     padding-top: 20px;
 }
@@ -88,4 +88,68 @@ a.desc:after {
     border-left: 3px solid #eed3d7;
     padding: 10px 20px;
     margin: 0 0 15px 0;
+}
+
+#left-layout-sidebar {
+    position: fixed;
+    left: 200px;
+    width: 200px;
+    height: 100%;
+    float: left;
+    background-color: #f0f0f0;
+    margin-top: 54px;
+    margin-left: -200px;
+    margin-bottom: -60px;
+}
+
+#right-layout-sidebar {
+    display: none;
+    position: fixed;
+    right: 200px;
+    width: 200px;
+    height: 100%;
+    float: right;
+    background-color: #f0f0f0;
+    margin-top: 54px;
+    margin-right: -200px;
+    margin-bottom: -60px;
+}
+
+#layout-main {
+    width: auto;
+    padding-top: 50px;
+    margin-bottom: -60px;
+}
+
+.left-layout-main {
+    margin-left: 200px;
+}
+
+.right-layout-main {
+    margin-right: 0px;
+}
+
+.left-right-layout-main {
+    margin-left: 200px;
+    margin-right: 0px;
+}
+
+.apc-summary {
+    padding-left: 15px;
+    clear: both;
+    display: block;
+}
+
+/* Fix the Yii Pagination */
+.apc-pagination {
+    clear: both;
+    display: block;
+    padding-top: 4px;
+    padding-left: 15px;
+    margin-top: 0;
+}
+
+.apc-header-button {
+    margin-top: 8px;
+    margin-right: 8px;
 }

@@ -2,10 +2,13 @@
 
 namespace common\models;
 
-use yii;
-use yii\behaviors\TimestampBehavior;
-use yii\behaviors\BlameableBehavior;
 use dosamigos\taggable\Taggable;
+use Faker\Factory;
+use yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
+use common\models\Tags;
 
 
 /**
@@ -20,11 +23,20 @@ use dosamigos\taggable\Taggable;
  * @property string  $description
  * @property integer $column_id
  * @property integer $board_id
- *
+ * @property integer $ticket_order
  * @property BoardColumn $column
+ * @property string  $tagNames
+ *
  */
 class Ticket extends \yii\db\ActiveRecord
 {
+    const TICKET_TAG_MM_TABLE = 'ticket_tag_mm';
+    const DEMO_BACKLOG_TICKETS = 100;
+    const DEMO_BOARD_TICKETS = 5;
+    const DEMO_COMPLETED_TICKETS = 50;
+
+    const TICKET_DECORATION_CLASS_ALIAS = 'ticketDecorationInterface';
+
     /**
      * The status (column_id) of tickets in the backlog
      */
@@ -32,7 +44,7 @@ class Ticket extends \yii\db\ActiveRecord
 
     /**
      * Alternate status (column_id) of tickets in the backlog
-     * Tis is needed when using a mysql foreign Key Constraint on the tickets. On DELETE of the column the
+     * This is needed when using a mysql foreign Key Constraint on the tickets. On DELETE of the column the
      * column ID of the ticket is set back to null (0 is not feasible, no default value)
      */
     const ALTERNATE_BACKLOG_STATUS = null;
@@ -43,19 +55,14 @@ class Ticket extends \yii\db\ActiveRecord
     const DEFAULT_COMPLETED_STATUS = -1;
 
     /**
-     * The default status (column_id) of tickets that are on the kanban board
-     */
-    const DEFAULT_KANBANBOARD_STATUS = 1;
-
-    /**
      * Error Message when assigning ticket to current active board
      */
     const ACTIVE_BOARD_NOT_FOUND = 'Current Active Board Not Found';
 
     /**
-     * If this variable is (> 0) thann all queries obtained through the find() function
+     * If this variable is (> 0) all queries obtained through the find() function
      * will be restricted to this value, i.e. (board_id = self::$restrictQueryToBoardId)
-     * Subsequent query modifications must use the andWhere (and related) methods in order to
+     * Subsequent query modifications must use the and where (and related) methods in order to
      * preserve this restriction. Subsequent use of a standard where() query will eliminate
      * this restriction.
      *
@@ -66,11 +73,19 @@ class Ticket extends \yii\db\ActiveRecord
     public static $restrictQueryToBoardId = 0;
 
     /*
-     * Uses in conditions to test for a restrictedQuery based on board_Id
-     * Thwe value of this constant should be a value that a board_Id cannot have
+     * Used in conditions to test for a restrictedQuery based on board_Id
+     * The value of this constant should be a value that a board_Id cannot have
      */
     const NO_BOARD_QUERY_RESTRICTION = 0;
 
+    /**
+     * Override Init so that each ticket can obtain its decorations
+     */
+    public function init() {
+        $this->attachBehaviors(Yii::$app->ticketDecorationManager->getActiveTicketDecorations());
+
+        parent::init();
+    }
 
     /**
      * @inheritdoc
@@ -122,6 +137,7 @@ class Ticket extends \yii\db\ActiveRecord
             'column_id' => 'Column ID',
             'board_id' => 'Board ID',
             'ticket_order' => 'Ticket Order',
+            'tagNames' => 'Tags',
         ];
     }
 
@@ -164,16 +180,18 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Returns the status of a ticket, whether ot not it is currently active
+     * Returns the status of a ticket, whether or not it is currently active
      * on the KanBanBoard
      * @return Boolean true = active, false = not active
      */
     public function isKanBanBoard() {
-        return (bool)($this->getColumnId() >= self::DEFAULT_KANBANBOARD_STATUS);
+        // If the ticket is not in the Backlog or Completed Log, then it must be in the board
+        return (bool)(      $this->getColumnId() != self::DEFAULT_BACKLOG_STATUS
+                      and   $this->getColumnId() != self::DEFAULT_COMPLETED_STATUS);
     }
 
     /**
-     * Returns the status of a ticket, whether ot not it is currently active
+     * Returns the status of a ticket, whether or not it is currently active
      * on the KanBanBoard
      * @return Boolean true = active, false = not active
      */
@@ -212,12 +230,13 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
-     * Sets the Status of the Ticket to be on the Kanban Board, The Default Board column,start position is used
+     * Sets the Status of the Ticket to be on the Kanban Board,
+     * The Active Board,default start column is used
      *
      * @return $this common\models\ticket
      */
     public function moveToKanBanBoard() {
-        $this->column_id = self::DEFAULT_KANBANBOARD_STATUS;
+        $this->column_id = Board::getActiveBoard()->entry_column;
 
         return $this;
     }
@@ -227,7 +246,7 @@ class Ticket extends \yii\db\ActiveRecord
      *
      * @return $this common\models\ticket
      */
-    public function moveToColumn($newTicketStatus = self::DEFAULT_KANBANBOARD_STATUS) {
+    public function moveToColumn($newTicketStatus) {
         $this->column_id = $newTicketStatus;
 
         return $this;
@@ -236,26 +255,26 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * Query to find all Backlog Tickets
      *
+     * ToDo: possibly move this into the instantiation of the TicketSearch Object
      * @return yii\db\QueryInterface
      */
     public function findBacklog() {
 
         return Ticket::find()
             ->where(['column_id' => 0])
-            ->orWhere(['column_id' => null])
-            ->orderBy(['updated_at' => SORT_DESC]);
+            ->orWhere(['column_id' => null]);
     }
 
     /**
      * Query to find all Completed Tickets
      *
+     * ToDo: possibly move this into the instantiation of the TicketSearch Object
      * @return yii\db\QueryInterface
      */
     public function findCompleted() {
 
         return Ticket::find()
-            ->where(['<', 'column_id', 0])
-            ->orderBy(['updated_at' => SORT_DESC]);
+            ->where(['<', 'column_id', 0]);
     }
 
     /**
@@ -263,7 +282,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable('ticket_tag_mm', ['ticket_id' => 'id']);
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable(self::TICKET_TAG_MM_TABLE, ['ticket_id' => 'id']);
     }
 
     /**
@@ -274,11 +293,18 @@ class Ticket extends \yii\db\ActiveRecord
      * @inheritdoc
      */
     public static function find() {
+        $x = Yii::createObject(ActiveQuery::className(), [get_called_class()]);
         if (self::$restrictQueryToBoardId != self::NO_BOARD_QUERY_RESTRICTION) {
-            return parent::find()->andWhere(['board_id' => self::$restrictQueryToBoardId]);
+            return $x->andWhere(['board_id' => self::$restrictQueryToBoardId]);
         } else {
-            return parent::find();
+            return $x;
         }
+    }
+
+    public function afterFind() {
+        parent::afterFind();
+        // Force attribute to be an integer
+        $this->column_id = intval($this->column_id);
     }
 
     /**
@@ -298,5 +324,115 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public static function clearBoardQueryRestriction() {
         self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
+    }
+
+    /**
+     * Creates a set of Demo Tickets
+     *
+     * @return boolean
+     */
+    public function createDemoTickets($boardId) {
+        if (YII_ENV_DEMO) {
+
+            $this->deleteAll();
+            Tags::deleteAll();
+
+            $faker = Factory::create();
+
+            $tagPool = [];
+            for ($i=0; $i<10; $i++){
+                $tagPool[] = 'Tag' . substr($faker->text(5), 0, -1); // eliminate '.' at end
+            }
+            // Array Unique preserves Keys, I don't want them preserved
+            $tagPool = explode(',', implode(',', array_unique($tagPool)));
+
+            // Create Backlog Tickets
+            for ($i = 0; $i < self::DEMO_BACKLOG_TICKETS; $i++) {
+                $this->title = $faker->text(30);
+                $this->description = $faker->text();
+                $this->column_id = self::DEFAULT_BACKLOG_STATUS;
+                $this->board_id = $boardId;
+                $this->ticket_order = 0;
+                $this->isNewRecord = true;
+                $this->id = null;
+                $this->tagNames = $this->getRandomDemoTags($tagPool);
+                if (!$this->save()) {
+                    return false;
+                }
+
+                $this->created_at -= rand(0, 2600000); //random creation ca.in the previous 4 weeks
+                if (!$this->save('false', ['created_at'])) {
+                    return false;
+                }
+
+            }
+
+            // Create Completed Tickets
+            for ($i = 0; $i < self::DEMO_COMPLETED_TICKETS; $i++) {
+                $this->title = $faker->text(30);
+                $this->description = $faker->text();
+                $this->column_id = self::DEFAULT_COMPLETED_STATUS;
+                $this->board_id = $boardId;
+                $this->ticket_order = 0;
+                $this->isNewRecord = true;
+                $this->id = null;
+                $this->tagNames = $this->getRandomDemoTags($tagPool);
+                if (!$this->save()) {
+                    return false;
+                }
+
+                $this->created_at -= rand(0, 2600000); //random creation ca.in the previous 4 weeks
+                if (!$this->save('false', ['created_at'])) {
+                    return false;
+                }
+
+            }
+
+            // Create KanBanBoard Tickets
+            for ($i = 0; $i < self::DEMO_BOARD_TICKETS; $i++) {
+                $this->title = $faker->text(30);
+                $this->description = $faker->text();
+                $this->column_id = Board::findOne($boardId)->entry_column;
+                $this->board_id = $boardId;
+                $this->ticket_order = $i;
+                $this->isNewRecord = true;
+                $this->id = null;
+                $this->tagNames = $this->getRandomDemoTags($tagPool);
+                if (!$this->save()) {
+                    return false;
+                }
+
+                $this->created_at -= rand(0, 2600000); //random creation ca.in the previous 4 weeks
+                if (!$this->save('false', ['created_at'])) {
+                    return false;
+                }
+
+            }
+        }
+
+        return true;
+    }
+
+    private function getRandomDemoTags($tagPool) {
+        $tagPoolCount = count($tagPool);
+
+        $tagPercentage = rand(1, 100);
+        $assignTag = $tagPercentage > 65 ? 1 : 0; // percentage change of tags being assigned
+        $returnList = '';
+
+        if ($assignTag) {
+            // Now determine which tags from the Pool should be assigned
+            $isFirst = true;
+            for($i=0; $i<$tagPoolCount; $i++) {
+                $binaryUse = rand(0, 1); // zero or one, determines if this tag from the pool is used
+                if ($binaryUse) {
+                    $preComma = $isFirst ? '' : ',';
+                    $returnList .= $preComma . $tagPool[$i];
+                    $isFirst = false;
+                }
+            }
+        }
+
+        return $returnList;
     }
 }

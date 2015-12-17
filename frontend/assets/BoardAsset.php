@@ -17,12 +17,14 @@ class BoardAsset extends AssetBundle
 {
     public $sourcePath = '@frontend/views/';
     public $css = [
-        'board/board.css',
-        'ticket/ticket.css',
+        'board/css/board.css',
+        'ticket/css/ticket.css',
     ];
     public $js = [
-        'board/ticketSorting.js',
-        'ticket/ticketTooltip.js',
+        'board/js/boardEffects.js',
+        'board/js/ticketSorting.js',
+        'ticket/js/ticketTooltip.js',
+        'ticket/js/ticketDetailView.js'
     ];
     public $depends = [
         'frontend\assets\AppAsset'

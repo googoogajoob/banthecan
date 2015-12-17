@@ -9,8 +9,11 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+    ],
     'controllerNamespace' => 'frontend\controllers',
+    'params' => $params,
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -18,7 +21,6 @@ return [
             'enableStrictParsing' => true,
             //for other options see http://stackoverflow.com/questions/27316780/how-to-config-yii2-urlmanager-rules-with-aliases-and-get-parameter
             'rules' => [
-                //''                                          => '/',
                 '/'                                         => '/',
                 'site'                                      => '/',
                 'site/index'                                => '/',
@@ -30,7 +32,7 @@ return [
             ],
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'frontend\models\User',
             'enableAutoLogin' => true,
         ],
         'log' => [
@@ -49,5 +51,4 @@ return [
         //    'locale' => 'de-DE',
         //],
     ],
-    'params' => $params,
 ];
