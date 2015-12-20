@@ -10,6 +10,7 @@ use common\models\Board;
 use common\models\Column;
 use common\models\Ticket;
 use yii\filters\VerbFilter;
+use backend\models\SignupForm;
 
 /**
  * Site controller
@@ -37,9 +38,17 @@ class SiteController extends Controller
                         'actions' => ['login'],
                         'allow' => true,
                         'roles' => ['?'],
-                        /*'matchCallback' => function($rule, $action) {
-                            return \Yii::$app->user->isGuest AND User::findDemoUser();
-                        }*/
+                        'matchCallback' => function($rule, $action) {
+                            return \Yii::$app->user->isGuest && User::count() > 0;
+                        }
+                    ],
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                        'matchCallback' => function($rule, $action) {
+                            return \Yii::$app->user->isGuest && User::count() == 0;
+                        }
                     ],
                     [
                         'actions' => ['logout'],
@@ -132,4 +141,26 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+    /**
+     * Create initial Admin User
+     *
+     * @return \yii\web\Response
+     */
+    public function actionCreate() {
+
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
+
 }
