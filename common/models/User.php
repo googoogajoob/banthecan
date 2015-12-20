@@ -318,7 +318,6 @@ class User extends ActiveRecord implements IdentityInterface
     public static function count()
     {
         $query = new Query;
-        $t = self::tableName();
         $rv = $query->from(self::tableName())->count();
 
         return $rv;

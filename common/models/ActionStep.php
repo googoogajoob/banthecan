@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "action_step".
@@ -25,6 +27,17 @@ class ActionStep extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'action_step';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+
+        return [
+            TimestampBehavior::className(),
+            BlameableBehavior::className(),
+        ];
     }
 
     /**

@@ -4,11 +4,15 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\db\Query;
 use common\models\LoginForm;
 use common\models\User;
 use common\models\Board;
 use common\models\Column;
 use common\models\Ticket;
+use common\models\ActionStep;
+use common\models\Resolution;
+use common\models\SiteNews;
 use yii\filters\VerbFilter;
 use backend\models\SignupForm;
 
@@ -87,7 +91,22 @@ class SiteController extends Controller
         if (YII_ENV_DEMO) {
             return $this->render('index-demo');
         } else {
-            return $this->render('index');
+            $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
+            $query = new Query;
+
+            $activity['Tickets'] = $query
+                ->from(Ticket::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+            $activity['Action']  = $query
+                ->from(ActionStep::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+            $activity['Resolution'] = $query
+                ->from(Resolution::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+
+            $news = SiteNews::find()->all();
+
+            return $this->render('index', ['activity' => $activity, 'news' => $news]);
         }
     }
 

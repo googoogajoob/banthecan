@@ -1,50 +1,56 @@
 <?php
 /* @var $this yii\web\View */
+/* @var $activity array */
+/* @var $news ActiveRecord */
 
 $this->title = 'Ban the Can Backend';
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <h1>Ban The Can Administration</h1>
+        <p class="lead">Here you can edit all DB Tables used in the Front End</p>
     </div>
 
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+            <div class="col-lg-6">
+                <h2>Site News</h2>
+                <table class="table table-condensed table-striped">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Event</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach($news as $k => $v) {
+                        echo '<tr><td>' . Yii::$app->formatter->asDate($v->updated_at, 'long') . '</td><td>' . $v->title . '</td></tr>';
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-lg-6">
+                <h2>Activity - In the previous 7 days</h2>
+                <table class="table table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Updates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            foreach($activity as $k => $v) {
+                                echo '<tr><td>' . $k . '</td><td>' . $v . '</td></tr>';
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
 

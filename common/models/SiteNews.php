@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "site_news".
@@ -34,6 +36,17 @@ class SiteNews extends \yii\db\ActiveRecord
             [['created_at', 'updated_at', 'created_by', 'updated_by', 'title', 'description'], 'required'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['title', 'description'], 'string'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+
+        return [
+            TimestampBehavior::className(),
+            BlameableBehavior::className(),
         ];
     }
 
