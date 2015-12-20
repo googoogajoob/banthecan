@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * SiteNewsController implements the CRUD actions for SiteNews model.
  */
-class SiteNewsController extends Controller
+class SitenewsController extends Controller
 {
     public function behaviors()
     {

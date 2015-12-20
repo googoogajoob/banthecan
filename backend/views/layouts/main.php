@@ -70,6 +70,9 @@ AppAsset::register($this);
             ['label' => 'Columns', 'url' => ['/column/index']],
             ['label' => 'Tickets', 'url' => ['/ticket/index']],
             ['label' => 'Users', 'url' => ['/user/index']],
+            ['label' => 'Action', 'url' => ['/actionstep/index']],
+            ['label' => 'Resolution', 'url' => ['/resolution/index']],
+            ['label' => 'News', 'url' => ['/sitenews/index']],
             [
                 'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                 'url' => ['/site/logout'],

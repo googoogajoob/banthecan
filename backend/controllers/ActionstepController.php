@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * ActionStepController implements the CRUD actions for ActionStep model.
  */
-class ActionStepController extends Controller
+class ActionstepController extends Controller
 {
     public function behaviors()
     {
