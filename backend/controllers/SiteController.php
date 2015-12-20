@@ -104,7 +104,7 @@ class SiteController extends Controller
                 ->from(Resolution::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])->count();
 
-            $news = SiteNews::find()->all();
+            $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
 
             return $this->render('index', ['activity' => $activity, 'news' => $news]);
         }
