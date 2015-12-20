@@ -37,9 +37,9 @@ class SiteController extends Controller
                         'actions' => ['login'],
                         'allow' => true,
                         'roles' => ['?'],
-                        'matchCallback' => function($rule, $action) {
+                        /*'matchCallback' => function($rule, $action) {
                             return \Yii::$app->user->isGuest AND User::findDemoUser();
-                        }
+                        }*/
                     ],
                     [
                         'actions' => ['logout'],

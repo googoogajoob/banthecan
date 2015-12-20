@@ -36,29 +36,33 @@ AppAsset::register($this);
     ]);
 
     if (Yii::$app->user->isGuest) {
-        // If in Demo Mode only show login when a demo user exists, otherwise always
-        //
-        // Logic Table for the Visibility Setting
-        // --------------------------------------
-        //
-        //                  | Demo Mode = Yes | Demo Mode = No |
-        // -----------------------------------------------------
-        // Demo User = Yes  |      YES        |      YES       |
-        // -----------------+-----------------+----------------|
-        // Demo User = No   |      NO         |      YES       |
-        //                  ====================================
-        $showLogin = !(!(bool)User::findDemoUser() and YII_ENV_DEMO);
+        // If in Demo Mode only show login when a demo user exists, otherwise if snx users exist
+
+        if (YII_ENV_DEMO) {
+            $showLogin = (bool)User::findDemoUser();
+        } else {
+            $showLogin = (bool)(User::count() > 0);
+        }
+
         $menuItems = [
             [
                 'label' => 'Login',
                 'url' => ['/site/login'],
                 'visible' => $showLogin,
             ],
+            [
+                'label' => 'Create Initial Admin User',
+                'url' => ['/site/create'],
+                'visible' => !YII_ENV_DEMO && !$showLogin,
+            ],
         ];
-        if (YII_ENV_DEMO and !$showLogin) {
+
+        if (YII_ENV_DEMO && !$showLogin) {
             $session = Yii::$app->session;
             $session->setFlash('info', 'A Demo User does not exist. You must <a href="/site/initialize"><strong>initialize</strong></a> the Demo Database from the menu. After this you will be automatically logged in as a <strong>demo</strong> user.');
         }
+
+
     } else {
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
