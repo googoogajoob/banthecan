@@ -12,13 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php
         $form = ActiveForm::begin();
-        echo $form->field($model, 'id')->textInput();
-        echo $form->field($model, 'created_at')->textInput();
-        echo $form->field($model, 'updated_at')->textInput();
-        echo $form->field($model, 'created_by')->textInput();
-        echo $form->field($model, 'updated_by')->textInput();
+        //echo $form->field($model, 'id')->textInput();
+        //echo $form->field($model, 'created_at')->textInput();
+        //echo $form->field($model, 'updated_at')->textInput();
+        //echo $form->field($model, 'created_by')->textInput();
+        //echo $form->field($model, 'updated_by')->textInput();
         echo $form->field($model, 'title')->textarea(['rows' => 1]);
-        echo $form->field($model, 'description')->textarea(['rows' => 4]);
+        echo $form->field($model, 'description')->textarea(['rows' => 2]);
         echo $form->field($model, 'max_lanes')->textInput();
         echo $form->field($model, 'entry_column')->textInput();
         echo $form->field($model, 'backlog_name')->textInput();
