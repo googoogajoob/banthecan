@@ -7,6 +7,12 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\db\Query;
+use common\models\Ticket;
+use common\models\ActionStep;
+use common\models\Resolution;
+use common\models\SiteNews;
+use common\models\Board;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -76,7 +82,25 @@ class SiteController extends Controller {
         if (YII_ENV_DEMO) {
             return $this->render('index-demo');
         } else {
-            return $this->render('index');
+            $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
+            $query = new Query;
+
+            $activity['Tickets'] = $query
+                ->from(Ticket::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+            $activity['Action']  = $query
+                ->from(ActionStep::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+            $activity['Resolution'] = $query
+                ->from(Resolution::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+
+            $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
+
+            return $this->render('index', [
+                'activity' => $activity,
+                'news' => $news,
+                'board' => Board::getActiveBoard()]);
         }
     }
 
