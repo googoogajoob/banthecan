@@ -41,13 +41,13 @@ class User extends \common\models\User implements IdentityInterface
 
     public function afterLoginHandler($event)
     {
-        $this->setActiveBoard(explode(',', $event->identity->board_id));
+        $this->setUserActiveBoard(explode(',', $event->identity->board_id));
     }
 
     /**
      * After a User is logged in, a Board for this user will be activated.
      *
-     * A user can be a member of 1 or more boards, (or a member of no boards).
+     * A user can be a member of zero, one or more boards (when zero the user is automatically logged out).
      *
      * In normal operation the active board is stored in the session as well as the Active Board cookie.
      * This function checks if this is the case and if not, attempts to set things up in this way.
@@ -74,7 +74,7 @@ class User extends \common\models\User implements IdentityInterface
      *
      * @param $userBoardIds array
      */
-    public function setActiveBoard($userBoardIds)
+    public function setUserActiveBoard($userBoardIds)
     {
         $sessionBoardId = $this->getSessionActiveBoardId();
         $cookieBoardId = $this->getCookieActiveBoardId();
@@ -154,7 +154,7 @@ class User extends \common\models\User implements IdentityInterface
      *
      * @return mixed|string
      */
-    public function getActiveBoardId()
+    public function getUserActiveBoardId()
     {
         $sessionBoardId = $this->getSessionActiveBoardId();
         $cookieBoardId = $this->getCookieActiveBoardId();
@@ -186,7 +186,8 @@ class User extends \common\models\User implements IdentityInterface
      * @param $boardId
      * @return null|static
      */
-    protected function boardExists($boardId) {
+    protected function boardExists($boardId)
+    {
         return Board::findOne($boardId);
     }
 

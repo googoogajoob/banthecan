@@ -136,7 +136,7 @@ class Board extends \yii\db\ActiveRecord {
         $newActiveBoard = false;
 
         if ($userRecord) {
-            if ($lookForBoardId = $userRecord->getActiveBoardId()) {
+            if ($lookForBoardId = $userRecord->getUserActiveBoardId()) {
                 $newActiveBoard = self::findOne($lookForBoardId);
             }
         }
