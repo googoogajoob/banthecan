@@ -39,11 +39,6 @@ class User extends \common\models\User implements IdentityInterface
         yii::$app->user->on(WebUser::EVENT_AFTER_LOGIN, [$this, 'afterLoginHandler']);
     }
 
-    public function afterLoginHandler($event)
-    {
-        $this->setUserActiveBoard(explode(',', $event->identity->board_id));
-    }
-
     /**
      * After a User is logged in, a Board for this user will be activated.
      *
@@ -72,10 +67,11 @@ class User extends \common\models\User implements IdentityInterface
      * If one board ID, the values are automatically set to this ID
      * Id many board IDs, the values for the session and cookie are set to the first valid Board ID,
      *
-     * @param $userBoardIds array
+     * @param $event Yii\web\UserEvent
      */
-    public function setUserActiveBoard($userBoardIds)
+    public function afterLoginHandler($event)
     {
+        $userBoardIds = explode(',', $event->identity->board_id);
         $sessionBoardId = $this->getSessionActiveBoardId();
         $cookieBoardId = $this->getCookieActiveBoardId();
 
@@ -141,12 +137,10 @@ class User extends \common\models\User implements IdentityInterface
     {
         $cookieCollection = Yii::$app->response->getCookies();
 
-        $cookieCollection-> add(new \yii\web\Cookie([
+        return $cookieCollection-> add(new \yii\web\Cookie([
             'name' => self::ACTIVE_BOARD_COOKIE_NAME,
             'value' => $value
         ]));
-
-        return;
     }
 
     /**
@@ -178,8 +172,12 @@ class User extends \common\models\User implements IdentityInterface
      */
     public function activateBoard($boardId)
     {
-        $this->setSessionActiveBoardId($boardId);
-        $this->setCookieActiveBoardId($boardId);
+        if ($this->boardExists($boardId)) {
+            $this->setSessionActiveBoardId($boardId);
+            $this->setCookieActiveBoardId($boardId);
+        } else {
+            $this->deactivateAllBoards();
+        }
     }
 
     /**

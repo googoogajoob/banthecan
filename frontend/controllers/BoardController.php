@@ -179,7 +179,7 @@ class BoardController extends \yii\web\Controller {
      */
     public function actionActivate($id)
     {
-        Yii::$app->user->getIdentity()->setUserActiveBoard([$id]);
+        Yii::$app->user->getIdentity()->activateBoard($id);
         $this->goHome();
     }
 
