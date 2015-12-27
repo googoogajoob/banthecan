@@ -200,6 +200,14 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable(self::TICKET_TAG_MM_TABLE, ['ticket_id' => 'id']);
+    }
+
+    /**
      * Sets the Status of the Ticket to be in the Backlog
      *
      * @return $this common\models\ticket
@@ -255,49 +263,36 @@ class Ticket extends \yii\db\ActiveRecord
     /**
      * Query to find all Backlog Tickets
      *
-     * ToDo: possibly move this into the instantiation of the TicketSearch Object
+
      * @return yii\db\QueryInterface
      */
-    public function findBacklog() {
-
-        return Ticket::find()
-            ->where(['column_id' => 0])
-            ->orWhere(['column_id' => null]);
+    public static function findBacklog() {
+        return Ticket::find(parent::find()->where(['column_id' => 0])->orWhere(['column_id' => null]));
     }
 
     /**
      * Query to find all Completed Tickets
      *
-     * ToDo: possibly move this into the instantiation of the TicketSearch Object
      * @return yii\db\QueryInterface
      */
-    public function findCompleted() {
-
-        return Ticket::find()
-            ->where(['<', 'column_id', 0]);
+    public static function findCompleted() {
+        return Ticket::find(parent::find()->where(['<', 'column_id', 0]));
     }
 
     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTags()
-    {
-        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable(self::TICKET_TAG_MM_TABLE, ['ticket_id' => 'id']);
-    }
-
-    /**
-     * If specific conditions are active the standard find() method
-     * is adapted and additional query conditions are applied.
-     *
+     * If specific conditions are stipulated via the Query Object the standard find() method
+     * is adapted and the additional query conditions are applied.
      *
      * @inheritdoc
      */
-    public static function find() {
-        $x = Yii::createObject(ActiveQuery::className(), [get_called_class()]);
+    public static function find($query = null) {
+        if (!$query) {
+            $query = parent::find();
+        }
         if (self::$restrictQueryToBoardId != self::NO_BOARD_QUERY_RESTRICTION) {
-            return $x->andWhere(['board_id' => self::$restrictQueryToBoardId]);
+            return $query->andWhere(['board_id' => self::$restrictQueryToBoardId]);
         } else {
-            return $x;
+            return $query;
         }
     }
 
@@ -314,6 +309,7 @@ class Ticket extends \yii\db\ActiveRecord
      * @param $currentBoardId Integer, Id to which all ticket queries will be restricted to
      */
     public static function restrictQueryToBoard($currentBoardId) {
+        Yii::trace("Restrict Query To Board ($currentBoardId)",'APC');
         self::$restrictQueryToBoardId = $currentBoardId;
     }
 

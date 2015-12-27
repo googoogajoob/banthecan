@@ -12,13 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php
         $form = ActiveForm::begin();
-        echo $form->field($model, 'id')->textInput();
-        echo $form->field($model, 'created_at')->textInput();
-        echo $form->field($model, 'updated_at')->textInput();
-        echo $form->field($model, 'created_by')->textInput();
-        echo $form->field($model, 'updated_by')->textInput();
+        //echo $form->field($model, 'id')->textInput();
+        //echo $form->field($model, 'created_at')->textInput();
+        //echo $form->field($model, 'updated_at')->textInput();
+        //echo $form->field($model, 'created_by')->textInput();
+        //echo $form->field($model, 'updated_by')->textInput();
         echo $form->field($model, 'board_id')->textInput();
-        echo $form->field($model, 'title')->textarea(['rows' => 2]);
+        echo $form->field($model, 'title')->textarea(['rows' => 1]);
         echo $form->field($model, 'display_order')->textInput();
         echo $form->field($model, 'receiver')->textInput();
 

@@ -161,10 +161,8 @@ class BoardController extends \yii\web\Controller {
             return $this->render('noBoard');
 
         } elseif ($boardCount == 1) {
-            // Board should already be selected
-            $currentUser->setActiveBoard($userBoards);
-            Board::getActiveBoard();
-            $this->goHome();
+            // The only available board is selected automatically
+            $this->actionActivate($userBoards);
 
         } else {
             // User must select which board to activate
@@ -181,10 +179,7 @@ class BoardController extends \yii\web\Controller {
      */
     public function actionActivate($id)
     {
-        $currentUser = Yii::$app->user->getIdentity();
-        $currentUser->deactivateAllBoards();
-        $currentUser->setActiveBoard([$id]);
-        //Board::getActiveBoard();
+        Yii::$app->user->getIdentity()->activateBoard($id);
         $this->goHome();
     }
 

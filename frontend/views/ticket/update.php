@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('partials/_form', [
         'model' => $model,
+        'returnUrl' => isset($returnUrl) ? $returnUrl : null
     ]) ?>
 
 </div>
