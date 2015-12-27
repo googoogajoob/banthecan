@@ -133,16 +133,12 @@ class TicketController extends Controller
         $returnUrl = Yii::$app->request->post('returnUrl');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             return $this->redirect($returnUrl);
-
         } else {
-
             return $this->renderAjax('create', [
                 'model' => $model,
                 'returnUrl' => Yii::$app->request->getReferrer(),
             ]);
-
         }
     }
 
@@ -159,13 +155,9 @@ class TicketController extends Controller
         $model->moveToBacklog(); //A new ticket always starts in the backlog
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             return $this->redirect(['view', 'id' => $model->id]);
-
         } else {
-
             return $this->render('create', ['model' => $model]);
-
         }
     }
 
@@ -184,6 +176,7 @@ class TicketController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+//                'returnUrl' => Yii::$app->request->getReferrer(),
             ]);
         }
     }
