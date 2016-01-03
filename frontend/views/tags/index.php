@@ -16,7 +16,7 @@ $this->title = 'Tags';
     <?php // echo $this->render('partials/_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tags', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('app', 'Create Tags'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

@@ -7,7 +7,12 @@ use yii\helpers\Html;
 /* @var $userBoards yii\data\ActiveDataProvider */
 ?>
 <div class="row clearfix">
-<p class="lead bg-primary col-xs-12 text-center">You are a member of more than one board.<br/> Select which board you want to use.</p>
+<p class="lead bg-primary col-xs-12 text-center">
+    <?php
+        echo \Yii::t('app',
+        'You are a member of more than one board.<br/> Select which board you want to use.');
+    ?>
+</p>
 </div>
 
 <div class="row">

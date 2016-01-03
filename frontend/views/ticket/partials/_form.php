@@ -45,14 +45,14 @@ use dosamigos\selectize\SelectizeTextInput;
                 'searchField' => ['name'],
                 'create' => true,
             ],
-        ])->hint('Use commas to separate tags');
+        ])->hint(\Yii::t('app', 'Use commas to separate tags'));
 
     ?>
 
     <div class="col-sm-offset-2">
         <div class="form-group">
             <?php
-                echo Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+                echo Html::submitButton($model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
             ?>
         </div>
     </div>

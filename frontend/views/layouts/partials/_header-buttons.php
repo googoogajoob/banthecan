@@ -10,7 +10,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Modal;
 
 echo Html::a(
-    'Completed',
+    \Yii::t('app', 'Completed'),
     '/board/completed', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-completed-button',
@@ -25,21 +25,23 @@ echo Html::a(
     ]
 );
 
-echo Html::a('Backlog',
-        '/board/backlog', [
+echo Html::a(
+    \Yii::t('app','Backlog'),
+    '/board/backlog', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-backlog-button',
     ]
 );
 
-echo Html::button('Create Ticket', [
-    'value' => '/ticket/new',
-    'class' => 'btn btn-success apc-header-button pull-right',
-    'id' => 'header-create-button',
-]);
+echo Html::button(
+    \Yii::t('app','Create Ticket'), [
+        'value' => '/ticket/new',
+        'class' => 'btn btn-success apc-header-button pull-right',
+        'id' => 'header-create-button',
+    ]);
 
 Modal::begin([
-    'header' => '<h2>Create Ticket</h2>',
+    'header' => '<h2>' . \Yii::t('app','Create Ticket') . '</h2>',
     'id' => 'create-ticket-modal',
     'size' => 'modal-lg',
 ]);
