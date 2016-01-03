@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\BoardColumn */
 
-$this->title = 'Create Board Column';
-$this->params['breadcrumbs'][] = ['label' => 'Board Columns', 'url' => ['index']];
+$this->title = \Yii::t('app', 'Create Board Column');
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Board Columns'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="board-column-create">

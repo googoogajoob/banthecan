@@ -9,7 +9,7 @@ use backend\assets\ColumnAsset;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ColumnAsset::register($this);
-$this->title = 'Board Columns';
+$this->title = \Yii::t('app', 'Board Columns');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?php echo Html::encode($this->title) ?></h1>
 
     <p>
-        <?php echo Html::a('Create Board Column', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php echo Html::a(\Yii::t('app', 'Create Board Column'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php echo GridView::widget([
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'display_order',
             'receiver',
             [
-                'label' => 'Ticket Column Configuration',
+                'label' => \Yii::t('app', 'Ticket Column Configuration'),
                 'attribute' => 'ticket_column_configuration',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {

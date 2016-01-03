@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Boards';
+$this->title = \Yii::t('app', 'Boards');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="board-index">
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Board', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('app', 'Create Board'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'kanban_name',
             'completed_name',
             [
-                'label' => 'Ticket Backlog Configuration',
+                'label' => \Yii::t('app', 'Ticket Backlog Configuration'),
                 'attribute' => 'ticket_backlog_configuration',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'label' => 'Ticket Completed Configuration',
+                'label' => \Yii::t('app', 'Ticket Completed Configuration'),
                 'attribute' => 'ticket_completed_configuration',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {

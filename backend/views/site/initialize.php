@@ -10,6 +10,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <a href="/site/initialize">INITIALIZE USER DB</a>
+        <a href="/site/initialize"><?php echo \Yii::t('app', 'INITIALIZE USER DB'); ?></a>
     </p>
 </div>

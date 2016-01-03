@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\BoardColumn */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Board Columns', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Board Columns'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="board-column-view">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => \Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'display_order',
             'receiver',
             [
-                'label' => 'Ticket Column Configuration',
+                'label' => \Yii::t('app', 'Ticket Column Configuration'),
                 'value' => implode(', ', $model->ticket_column_configuration),
             ],
         ],

@@ -59,7 +59,8 @@ AppAsset::register($this);
 
         if (YII_ENV_DEMO && !$showLogin) {
             $session = Yii::$app->session;
-            $session->setFlash('info', 'A Demo User does not exist. You must <a href="/site/initialize"><strong>initialize</strong></a> the Demo Database from the menu. After this you will be automatically logged in as a <strong>demo</strong> user.');
+            $session->setFlash('info',
+                \Yii::t('app', 'A Demo User does not exist. You must <a href="/site/initialize"><strong>initialize</strong></a> the Demo Database from the menu. After this you will be automatically logged in as a <strong>demo</strong> user.'));
         }
 
 
@@ -82,9 +83,9 @@ AppAsset::register($this);
     }
 
     $menuItems[] = [
-        'label' => 'Initialize Demo Database',
+        'label' => \Yii::t('app', 'Initialize Demo Database'),
         'url' => ['/site/initialize'],
-        'linkOptions' => ['title' => 'Create a fresh demo database including a demo user'],
+        'linkOptions' => ['title' => \Yii::t('app', 'Create a fresh demo database including a demo user')],
         'visible' => YII_ENV_DEMO,
     ];
 
