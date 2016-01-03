@@ -19,12 +19,12 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h2>Site News</h2>
+                <h2><?php echo \Yii::t('app', 'Site News'); ?></h2>
                 <table class="table table-condensed table-striped">
                     <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Event</th>
+                        <th><?php echo \Yii::t('app', 'Date'); ?></th>
+                        <th><?php echo \Yii::t('app', 'Event'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,12 +38,12 @@
             </div>
 
             <div class="col-lg-6">
-                <h2>Activity - In the previous 7 days</h2>
+                <h2><?php echo \Yii::t('app', 'Activity - In the previous 7 days'); ?></h2>
                 <table class="table table-condensed table-striped">
                     <thead>
                     <tr>
-                        <th>Table</th>
-                        <th>Updates</th>
+                        <th><?php echo \Yii::t('app', 'Table'); ?></th>
+                        <th><?php echo \Yii::t('app', 'Updates'); ?></th>
                     </tr>
                     </thead>
                     <tbody>

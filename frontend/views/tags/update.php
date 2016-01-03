@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model common\models\Tags */
 
 $this->title = 'Update Tags: ' . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Tags', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tags'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = \Yii::t('app', 'Update');
 ?>
 <div class="tags-update">
 

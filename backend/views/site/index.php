@@ -8,20 +8,20 @@ $this->title = 'Ban the Can Backend';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Ban The Can Administration</h1>
-        <p class="lead">Here you can edit all DB Tables used in the Front End</p>
+        <h1><?php echo \Yii::t('app', 'Ban The Can Administration'); ?></h1>
+        <p class="lead"><?php echo \Yii::t('app', 'Here you can edit all DB Tables used in the Front End'); ?></p>
     </div>
 
     <div class="body-content">
 
         <div class="row">
             <div class="col-lg-6">
-                <h2>Site News</h2>
+                <h2><?php echo \Yii::t('app', 'Site News'); ?></h2>
                 <table class="table table-condensed table-striped">
                     <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Event</th>
+                        <th><?php echo \Yii::t('app', 'Date'); ?></th>
+                        <th><?php echo \Yii::t('app', 'Event'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -35,12 +35,12 @@ $this->title = 'Ban the Can Backend';
             </div>
 
             <div class="col-lg-6">
-                <h2>Activity - In the previous 7 days</h2>
+                <h2><?php echo \Yii::t('app', 'Activity - In the previous 7 days'); ?></h2>
                 <table class="table table-condensed table-striped">
                     <thead>
                         <tr>
-                            <th>Table</th>
-                            <th>Updates</th>
+                            <th><?php echo \Yii::t('app', 'Table'); ?></th>
+                            <th><?php echo \Yii::t('app', 'Updates'); ?></th>
                         </tr>
                     </thead>
                     <tbody>

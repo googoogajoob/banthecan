@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Board */
 
-$this->title = 'Update Board: ' . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Boards', 'url' => ['index']];
+$this->title = \Yii::t('app', 'Update Board: ') . ' ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Boards'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = \Yii::t('app', 'Update');
 ?>
 <div class="board-update">
 

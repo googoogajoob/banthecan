@@ -7,14 +7,17 @@ use yii\captcha\Captcha;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\ContactForm */
 
-$this->title = 'Contact';
+$this->title = \Yii::t('app', 'Contact');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-contact">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
+        <?php
+            echo \Yii::t('app',
+                'If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.');
+        ?>
     </p>
 
     <div class="row">

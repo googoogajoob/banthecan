@@ -16,15 +16,15 @@ $this->title = 'Tickets';
     <?php //echo $this->render('partials/_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ticket', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('app', 'Create Ticket'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'pager' => [
-            'firstPageLabel' => 'Begin',
-            'lastPageLabel' => 'End',
+            'firstPageLabel' => \Yii::t('app', 'Begin'),
+            'lastPageLabel' => \Yii::t('app', 'End'),
         ],
         'columns' => [
             'title:ntext',

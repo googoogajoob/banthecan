@@ -83,16 +83,16 @@ use dosamigos\selectize\SelectizeTextInput;
             'searchField' => ['name'],
             'create' => true,
         ],
-    ])->hint('Use commas to separate tags')
+    ])->hint(\Yii::t('app', 'Use commas to separate tags'));
 
 ?>
 
 <div class="form-group">
-    <?= Html::submitButton('Search', [
+    <?= Html::submitButton(\Yii::t('app', 'Search'), [
         'class' => 'btn btn-primary',
         'id' => 'backlog-search-submit',
-    ]) ?>
-    <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+    ]); ?>
+    <?= Html::resetButton(\Yii::t('app', 'Reset'), ['class' => 'btn btn-default']); ?>
 </div>
 
 <?php ActiveForm::end(); ?>
