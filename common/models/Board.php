@@ -145,7 +145,7 @@ class Board extends \yii\db\ActiveRecord {
             Ticket::restrictQueryToBoard($lookForBoardId);
             return $newActiveBoard;
         } else {
-            Yii::$app->session->setFlash('warning', self::NO_ACTIVE_BOARD_MESSAGE);
+            Yii::$app->session->setFlash('warning', \Yii::t('app', self::NO_ACTIVE_BOARD_MESSAGE));
             return null;
         }
     }
