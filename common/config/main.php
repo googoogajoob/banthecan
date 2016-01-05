@@ -8,6 +8,19 @@ return [
         'assetManager' => [
             'appendTimestamp' => true,
         ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        //'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
         // The TicketDecoration Manager Contains a list of all
         // available Ticket Decorations as well as their configurations.
         // Configurations in the DB for Board and Columns contain only the names

@@ -66,7 +66,7 @@ AppAsset::register($this);
 
     } else {
         $menuItems = [
-            ['label' => \Yii::t('app',s 'Home'), 'url' => ['/site/index']],
+            ['label' => \Yii::t('app', 'Home'), 'url' => ['/site/index']],
             ['label' => \Yii::t('app', 'Boards'), 'url' => ['/board/index']],
             ['label' => \Yii::t('app', 'Columns'), 'url' => ['/column/index']],
             ['label' => \Yii::t('app', 'Tickets'), 'url' => ['/ticket/index']],
