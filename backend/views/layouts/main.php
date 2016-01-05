@@ -66,16 +66,16 @@ AppAsset::register($this);
 
     } else {
         $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Boards', 'url' => ['/board/index']],
-            ['label' => 'Columns', 'url' => ['/column/index']],
-            ['label' => 'Tickets', 'url' => ['/ticket/index']],
-            ['label' => 'Users', 'url' => ['/user/index']],
-            ['label' => 'Action', 'url' => ['/actionstep/index']],
-            ['label' => 'Resolution', 'url' => ['/resolution/index']],
-            ['label' => 'News', 'url' => ['/sitenews/index']],
+            ['label' => \Yii::t('app', 'Home'), 'url' => ['/site/index']],
+            ['label' => \Yii::t('app', 'Boards'), 'url' => ['/board/index']],
+            ['label' => \Yii::t('app', 'Columns'), 'url' => ['/column/index']],
+            ['label' => \Yii::t('app', 'Tickets'), 'url' => ['/ticket/index']],
+            ['label' => \Yii::t('app', 'Users'), 'url' => ['/user/index']],
+            ['label' => \Yii::t('app', 'Action'), 'url' => ['/actionstep/index']],
+            ['label' => \Yii::t('app', 'Resolution'), 'url' => ['/resolution/index']],
+            ['label' => \Yii::t('app', 'News'), 'url' => ['/sitenews/index']],
             [
-                'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                'label' => \Yii::t('app', 'Logout') . '(' . Yii::$app->user->identity->username . ')',
                 'url' => ['/site/logout'],
                 'linkOptions' => ['data-method' => 'post'],
             ],

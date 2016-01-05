@@ -24,26 +24,26 @@ NavBar::begin([
 if (Yii::$app->user->isGuest) {
 
     //$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-    $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    $menuItems[] = ['label' => 'Contact', 'url' => ['/site/contact']];
-    $menuItems[] = ['label' => 'About', 'url' => ['/site/about']];
+    $menuItems[] = ['label' => \Yii::t('app', 'Login'), 'url' => ['/site/login']];
+    $menuItems[] = ['label' => \Yii::t('app', 'Contact'), 'url' => ['/site/contact']];
+    $menuItems[] = ['label' => \Yii::t('app', 'About'), 'url' => ['/site/about']];
 
 } else {
 
     $menuItems = [
         ['label' => 'Data',
             'items' => [
-                ['label' => 'Tickets', 'url' => ['/ticket']],
-                ['label' => 'Tags', 'url' => ['/tags']],
+                ['label' => \Yii::t('app', 'Tickets'), 'url' => ['/ticket']],
+                ['label' => \Yii::t('app', 'Tags'), 'url' => ['/tags']],
             ],
         ],
     ];
 
-    $menuItems[] = ['label' => 'Ban The Can', 'items' => [
-            ['label' => 'Select Board', 'url' => ['/board/select']],
-            ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'About', 'url' => ['/site/about']],
+    $menuItems[] = ['label' => \Yii::t('app', 'Ban The Can'), 'items' => [
+            ['label' => \Yii::t('app', 'Select Board'), 'url' => ['/board/select']],
+            ['label' => \Yii::t('app', 'Logout'), 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
+            ['label' => \Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
+            ['label' => \Yii::t('app', 'About'), 'url' => ['/site/about']],
         ],
     ];
 

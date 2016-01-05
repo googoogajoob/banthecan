@@ -14,7 +14,7 @@ use yii\helpers\Html;
     <?php echo Html::encode($pageTitle) ?>
 </h1>
 
-<span class="pull-left">Page Size:&nbsp;</span>
+<span class="pull-left"><?php echo \Yii::t('app', 'Page Size:');?>&nbsp;</span>
 
 <?php
 
