@@ -23,13 +23,22 @@ use dosamigos\selectize\SelectizeTextInput;
         'id' => 'backlog-search-per-page'
     ]);
 
-    echo $form->field($searchModel, 'text_search');
+    $clearIcon = '<span id="ticketSearchClear-text" class="glyphicon glyphicon-remove-circle"></span>';
+    echo $form->field($searchModel, 'text_search',[
+        'template' => "{label}\n{input}$clearIcon\n{hint}\n{error}"
+    ]);
 
-    echo $form->field($searchModel, 'from_date')->widget(DatePicker::classname(), [
+    $clearIcon = '<span id="ticketSearchClear-fromdate" class="glyphicon glyphicon-remove-circle"></span>';
+    echo $form->field($searchModel, 'from_date',[
+        'template' => "{label}\n{input}$clearIcon\n{hint}\n{error}"
+    ])->widget(DatePicker::classname(), [
         'options' => ['class' => 'form-control'],
     ]);
 
-    echo $form->field($searchModel, 'to_date')->widget(DatePicker::classname(), [
+    $clearIcon = '<span id="ticketSearchClear-todate" class="glyphicon glyphicon-remove-circle"></span>';
+    echo $form->field($searchModel, 'to_date',[
+        'template' => "{label}\n{input}$clearIcon\n{hint}\n{error}"
+    ])->widget(DatePicker::classname(), [
         'options' => ['class' => 'form-control'],
     ]);
 
@@ -88,11 +97,10 @@ use dosamigos\selectize\SelectizeTextInput;
 ?>
 
 <div class="form-group">
-    <?= Html::submitButton(\Yii::t('app', 'Search'), [
+    <?php echo Html::submitButton(\Yii::t('app', 'Search'), [
         'class' => 'btn btn-primary',
         'id' => 'backlog-search-submit',
     ]); ?>
-    <?= Html::resetButton(\Yii::t('app', 'Reset'), ['class' => 'btn btn-default']); ?>
 </div>
 
 <?php ActiveForm::end(); ?>
