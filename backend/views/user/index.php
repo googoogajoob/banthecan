@@ -12,32 +12,29 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<h1><?= Html::encode($this->title) ?></h1>
+<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(\Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<p><?= Html::a(\Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
+</p>
 
-    <?= GridView::widget([
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'username:ntext',
             'password_hash:ntext',
             'password_reset_token:ntext',
             'email:ntext',
-            // 'auth_key:ntext',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
-            // 'password:ntext',
+// 'auth_key:ntext',
+// 'status',
+// 'created_at',
+// 'updated_at',
+// 'password:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-</div>
+['class' => 'yii\grid\ActionColumn'],
+],
+]); ?></div>
