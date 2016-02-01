@@ -14,36 +14,36 @@ use yii\helpers\Html;
 class ViewTags extends AbstractDecoration
 {
 
-    public $linkIcon = 'T';
+	public $linkIcon = 'T';
 
-    /*##################*/
-    /*### VIEW STUFF ###*/
-    /*##################*/
+	/*##################*/
+	/*### VIEW STUFF ###*/
+	/*##################*/
 
-    /**
-     * Show a view of the Behavior
-     * The default is the Icon Click element
-     * A Decoration can have multiple views
-     *
-     * @return string html for showing the ticketDecoration
-     */
-    public function show($view = 'default')
-    {
-        if ($taglist = $this->owner->tagNames) {
-            return Html::tag('span',
+	/**
+	 * Show a view of the Behavior
+	 * The default is the Icon Click element
+	 * A Decoration can have multiple views
+	 *
+	 * @return string html for showing the ticketDecoration
+	 */
+	public function show($view = 'default')
+	{
+		if ($taglist = $this->owner->tagNames) {
+			return Html::tag('span',
                 '',
-                [
+			[
                     'class' => 'ticket-glyph-tags glyphicon glyphicon-tags',
                     'title' => 'Tags',
                     'data-toggle' => 'popover',
                     'data-trigger' => 'hover',
                     'data-content' => Html::encode($taglist),
-                ]
-            );
-        } else {
-            return '';
-        }
+			]
+			);
+		} else {
+			return '';
+		}
 
-    }
+	}
 
 }

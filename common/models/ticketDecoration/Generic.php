@@ -12,19 +12,19 @@ namespace common\models\ticketDecoration;
 class Generic extends AbstractDecoration {
 
 
-    /*##################*/
-    /*### VIEW STUFF ###*/
-    /*##################*/
+	/*##################*/
+	/*### VIEW STUFF ###*/
+	/*##################*/
 
-    /**
-     * Show a view of the Behavior
-     * The default is the Icon Click element
-     * A Decoration can have multiple views
-     *
-     * @return string html for showing the ticketDecoration
-     */
-    public function show($view = 'default') {
-        return $this->linkIcon;
-    }
+	/**
+	 * Show a view of the Behavior
+	 * The default is the Icon Click element
+	 * A Decoration can have multiple views
+	 *
+	 * @return string html for showing the ticketDecoration
+	 */
+	public function show($view = 'default') {
+		return $this->linkIcon;
+	}
 
 }

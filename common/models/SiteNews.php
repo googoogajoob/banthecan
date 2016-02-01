@@ -19,43 +19,43 @@ use yii\behaviors\BlameableBehavior;
  */
 class SiteNews extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'site_news';
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName()
+	{
+		return 'site_news';
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['title'], 'required'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['title', 'description'], 'string'],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+		[['title'], 'required'],
+		[['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+		[['title', 'description'], 'string'],
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors() {
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
 
-        return [
-            TimestampBehavior::className(),
-            BlameableBehavior::className(),
-        ];
-    }
+		return [
+		TimestampBehavior::className(),
+		BlameableBehavior::className(),
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
             'id' => 'ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -63,6 +63,6 @@ class SiteNews extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'title' => 'Title',
             'description' => 'Description',
-        ];
-    }
+		];
+	}
 }

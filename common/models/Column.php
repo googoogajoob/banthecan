@@ -26,59 +26,59 @@ use yii\behaviors\BlameableBehavior;
  */
 class Column extends ActiveRecord
 {
-    // The receiver values should refer to the column IDs of the receiving columns
-    // However, the IDs of the columns are first known when they are created
-    // These values are therefore relative values, which will be used when creating the columns
-    // to determine the actual ID.
-    private static $demoColumns = [
-        ['title' => 'Agenda',       'order' => 1, 'receiver' => '3'],
-        ['title' => 'Waiting',      'order' => 2, 'receiver' => '3'],
-        ['title' => 'Discussion',   'order' => 3, 'receiver' => '2,4'],
-        ['title' => 'Action',       'order' => 4, 'receiver' => '2,5'],
-        ['title' => 'Protocol',     'order' => 5, 'receiver' => '2'],
-    ];
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'column';
-    }
+	// The receiver values should refer to the column IDs of the receiving columns
+	// However, the IDs of the columns are first known when they are created
+	// These values are therefore relative values, which will be used when creating the columns
+	// to determine the actual ID.
+	private static $demoColumns = [
+	['title' => 'Agenda',       'order' => 1, 'receiver' => '3'],
+	['title' => 'Waiting',      'order' => 2, 'receiver' => '3'],
+	['title' => 'Discussion',   'order' => 3, 'receiver' => '2,4'],
+	['title' => 'Action',       'order' => 4, 'receiver' => '2,5'],
+	['title' => 'Protocol',     'order' => 5, 'receiver' => '2'],
+	];
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName()
+	{
+		return 'column';
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-            BlameableBehavior::className(),
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors()
+	{
+		return [
+		TimestampBehavior::className(),
+		BlameableBehavior::className(),
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['board_id', 'title'], 'required'],
-            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'board_id', 'display_order'], 'integer'],
-            [['title','receiver'], 'string'],
-            [['ticket_column_configuration'],
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+		[['board_id', 'title'], 'required'],
+		[['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'board_id', 'display_order'], 'integer'],
+		[['title','receiver'], 'string'],
+		[['ticket_column_configuration'],
                 'in',
                 'range' => Yii::$app->ticketDecorationManager->getAvailableTicketDecorations(),
                 'allowArray' => true],
 
-        ];
-    }
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
             'id' => 'ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -89,121 +89,121 @@ class Column extends ActiveRecord
             'display_order' => 'Display Order',
             'receiver' => 'Receiver',
             'ticket_column_configuration' => 'Ticket Column Configuration'
-        ];
-    }
+            ];
+	}
 
-    /**
-     * @param bool $insert
-     * @return bool
-     */
-    public function beforeSave($insert) {
+	/**
+	 * @param bool $insert
+	 * @return bool
+	 */
+	public function beforeSave($insert) {
 
-        if (parent::beforeSave($insert)) {
-            $this->ticket_column_configuration = serialize($this->ticket_column_configuration);
+		if (parent::beforeSave($insert)) {
+			$this->ticket_column_configuration = serialize($this->ticket_column_configuration);
 
-            return true;
-        }
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public function afterFind() {
-        parent::afterFind();
-        $this->ticket_column_configuration = unserialize($this->ticket_column_configuration);
-    }
+	public function afterFind() {
+		parent::afterFind();
+		$this->ticket_column_configuration = unserialize($this->ticket_column_configuration);
+	}
 
 
-    /**
-     * @return \yii\db\ActiveRecord
-     */
-    public function getTickets()
-    {
-        $this->activateTicketDecorations();
+	/**
+	 * @return \yii\db\ActiveRecord
+	 */
+	public function getTickets()
+	{
+		$this->activateTicketDecorations();
 
-        return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
-                    ->orderBy('ticket_order')
-                    ->all();
-    }
+		return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
+		->orderBy('ticket_order')
+		->all();
+	}
 
-    /**
-     * activates the ticket decorations applicable to this column
-     */
-    public function activateTicketDecorations() {
-        Yii::$app->ticketDecorationManager
-            ->registerDecorations($this->ticket_column_configuration);
-    }
+	/**
+	 * activates the ticket decorations applicable to this column
+	 */
+	public function activateTicketDecorations() {
+		Yii::$app->ticketDecorationManager
+		->registerDecorations($this->ticket_column_configuration);
+	}
 
-    /**
-     * Creates a set of Demo Columns
-     *
-     * The relative reference IDs between the columns must be set
-     * to absolute IDs after the records have been saved since the (my)sql storage ID is not known
-     * until the columns are saved in the DB.
-     *
-     * @return boolean
-     */
-    public function createDemoColumns($boardId) {
+	/**
+	 * Creates a set of Demo Columns
+	 *
+	 * The relative reference IDs between the columns must be set
+	 * to absolute IDs after the records have been saved since the (my)sql storage ID is not known
+	 * until the columns are saved in the DB.
+	 *
+	 * @return boolean
+	 */
+	public function createDemoColumns($boardId) {
 
-        if (YII_ENV_DEMO) {
-            $this->deleteAll();
+		if (YII_ENV_DEMO) {
+			$this->deleteAll();
 
-            $decorationClasses = Yii::$app->ticketDecorationManager->getAvailableTicketDecorations();
+			$decorationClasses = Yii::$app->ticketDecorationManager->getAvailableTicketDecorations();
 
-            $firstColumn = true;
-            foreach (self::$demoColumns as $demoColumn) {
-                $this->title = $demoColumn['title'];
-                $this->display_order = $demoColumn['order'];
-                $this->board_id = $boardId;
+			$firstColumn = true;
+			foreach (self::$demoColumns as $demoColumn) {
+				$this->title = $demoColumn['title'];
+				$this->display_order = $demoColumn['order'];
+				$this->board_id = $boardId;
 
-                $this->isNewRecord = true;
-                $this->id = null;
+				$this->isNewRecord = true;
+				$this->id = null;
 
-                $this->ticket_column_configuration = [
-                    $decorationClasses[0],
-                    $decorationClasses[2],
-                    $decorationClasses[3],
-                    $decorationClasses[4],
-                ];
+				$this->ticket_column_configuration = [
+				$decorationClasses[0],
+				$decorationClasses[2],
+				$decorationClasses[3],
+				$decorationClasses[4],
+				];
 
-                //Save initial column, the relative columns field is calculate below
-                if (!$this->save()) {
-                    return false;
-                }
+				//Save initial column, the relative columns field is calculate below
+				if (!$this->save()) {
+					return false;
+				}
 
-                if ($firstColumn) {
-                    $firstColumnId = $this->id;
-                    $firstColumn = false; //only execute this if statement one time, the first time through the loop
-                }
+				if ($firstColumn) {
+					$firstColumnId = $this->id;
+					$firstColumn = false; //only execute this if statement one time, the first time through the loop
+				}
 
-                $this->receiver = $this->convertRelativeIDtoActual($firstColumnId, $demoColumn['receiver']);
-                if (!$this->save(false, ['receiver'])) {
-                    return false;
-                }
+				$this->receiver = $this->convertRelativeIDtoActual($firstColumnId, $demoColumn['receiver']);
+				if (!$this->save(false, ['receiver'])) {
+					return false;
+				}
 
-            }
+			}
 
-            // The Board must know what the entry column ID is
-            $currentBoard = Board::findOne($boardId);
-            $currentBoard->entry_column = $firstColumnId;
-            $currentBoard->save();
-        }
+			// The Board must know what the entry column ID is
+			$currentBoard = Board::findOne($boardId);
+			$currentBoard->entry_column = $firstColumnId;
+			$currentBoard->save();
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    /**
-     * ToDo: At some point this may need to be refined.
-     * There is no guarantee that the column will have successive IDs, although in the DEMO scenario
-     * it will likely always be the case
-     *
-     */
-    private function convertRelativeIDtoActual($firstColumnID, $receiverList) {
-        $relativeList = explode(',', $receiverList);
-        foreach($relativeList as $receiverID) {
-            $returnList[] = $receiverID + $firstColumnID - 1;
-        }
+	/**
+	 * ToDo: At some point this may need to be refined.
+	 * There is no guarantee that the column will have successive IDs, although in the DEMO scenario
+	 * it will likely always be the case
+	 *
+	 */
+	private function convertRelativeIDtoActual($firstColumnID, $receiverList) {
+		$relativeList = explode(',', $receiverList);
+		foreach($relativeList as $receiverID) {
+			$returnList[] = $receiverID + $firstColumnID - 1;
+		}
 
-        return implode(',', $returnList);
-    }
+		return implode(',', $returnList);
+	}
 
 }

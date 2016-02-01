@@ -47,7 +47,7 @@ namespace common\models\ticketDecoration;
  *          - Implementation
  *              - Ticket: persist the status of each behavior
  *              - Behavior: Get/(allow)Set the behavior status
- * 
+ *
  * Behaviors (see file "TicketDecorationAnalysis.ods" for information about the conceptual planning):
  *     - Uniquely Identify itself
  *          - Implementation: Ticket Decoration Manager knows the IDs of each Behavior Type
@@ -65,12 +65,12 @@ namespace common\models\ticketDecoration;
  */
 interface TicketDecorationInterface {
 
-    /**
-     * Show a view of the Behavior
-     * The default is the Icon Click element
-     * A Decoration can have multiple views
-     *
-     * @return string html for showing the ticketDecoration
-     */
-    public function show($view = 'default');
+	/**
+	 * Show a view of the Behavior
+	 * The default is the Icon Click element
+	 * A Decoration can have multiple views
+	 *
+	 * @return string html for showing the ticketDecoration
+	 */
+	public function show($view = 'default');
 }

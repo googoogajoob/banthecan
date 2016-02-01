@@ -12,56 +12,56 @@ use common\models\Tags;
  */
 class TagsSearch extends Tags
 {
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['id', 'frequency'], 'integer'],
-            [['name'], 'safe'],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+		[['id', 'frequency'], 'integer'],
+		[['name'], 'safe'],
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function scenarios()
+	{
+		// bypass scenarios() implementation in the parent class
+		return Model::scenarios();
+	}
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = Tags::find();
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 */
+	public function search($params)
+	{
+		$query = Tags::find();
 
-        $dataProvider = new ActiveDataProvider([
+		$dataProvider = new ActiveDataProvider([
             'query' => $query,
-        ]);
+		]);
 
-        $this->load($params);
+		$this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
 
-        $query->andFilterWhere([
+		$query->andFilterWhere([
             'id' => $this->id,
             'frequency' => $this->frequency,
-        ]);
+		]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
 
-        return $dataProvider;
-    }
+		return $dataProvider;
+	}
 }

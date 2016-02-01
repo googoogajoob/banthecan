@@ -18,13 +18,13 @@
  */
 return [
     'A Demo User does not exist. You must <a href="/site/initialize"><strong>initialize</strong></a> the Demo Database from the menu. After this you will be automatically logged in as a <strong>demo</strong> user.'
-        => 'Ein Demo Benutzer existiert nicht. Die Datenbank kann vom Menu <a href="/site/initialize"><strong>initialisiert</strong></a> werden. Danach wirst du als <strong>demo</strong> user automatisch eingeloggt.',
+    => 'Ein Demo Benutzer existiert nicht. Die Datenbank kann vom Menu <a href="/site/initialize"><strong>initialisiert</strong></a> werden. Danach wirst du als <strong>demo</strong> user automatisch eingeloggt.',
     'About' => 'Info',
     'Action' => 'Aktion',
     'Action Steps' => 'Aktionsschritte',
     'Activity - In the previous 7 days' => 'Aktivit&auml;t - aus den vergangenen 7 Tagen',
     'An active board must be <a href="/board/select">selected</a> in order to proceed.'
-        => 'Um weiter zu machen, muss ein Tafel <a href="/board/select">aktiviert werden</a>.',
+    => 'Um weiter zu machen, muss ein Tafel <a href="/board/select">aktiviert werden</a>.',
     'Are you sure you want to delete this item?' => 'Willst du diesen Eintrag tats&auml;chlich l&ouml;schen?',
     'Backlog' => 'R&uuml;ckstand',
     'Ban The Can Administration' => 'Ban The Can Verwaltung',
@@ -71,7 +71,7 @@ return [
     'Ticket Column Configuration' => 'Ticket-Spalten Konfiguration',
     'Ticket Completed Configuration' => 'Ticket-Erledigt Konfiguration',
     'You are a member of more than one board.<br/> Select which board you want to use.'
-        => 'Du geh&ouml;rst mehreren Tafeln.<br/>Eins muss selektiert werden.',
+    => 'Du geh&ouml;rst mehreren Tafeln.<br/>Eins muss selektiert werden.',
     //'Tickets' => '',
     /*'Update' => '',
     'Update Board Column: ' => '',
@@ -97,4 +97,4 @@ return [
     'Use commas to separate tags' => '@@@@',
 
     */
-];
+    ];

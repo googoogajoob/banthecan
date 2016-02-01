@@ -20,43 +20,43 @@ use yii\behaviors\BlameableBehavior;
  */
 class Resolution extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'resolution';
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName()
+	{
+		return 'resolution';
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors() {
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
 
-        return [
-            TimestampBehavior::className(),
-            BlameableBehavior::className(),
-        ];
-    }
+		return [
+		TimestampBehavior::className(),
+		BlameableBehavior::className(),
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['created_at', 'updated_at', 'created_by', 'updated_by', 'title', 'description', 'ticket_id'], 'required'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id'], 'integer'],
-            [['title', 'description'], 'string'],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+		[['created_at', 'updated_at', 'created_by', 'updated_by', 'title', 'description', 'ticket_id'], 'required'],
+		[['created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id'], 'integer'],
+		[['title', 'description'], 'string'],
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
             'id' => 'ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -65,6 +65,6 @@ class Resolution extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
             'ticket_id' => 'Ticket ID',
-        ];
-    }
+		];
+	}
 }
