@@ -10,20 +10,16 @@ $this->title = 'Signup';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Html::encode($this->title) ?></h1>
 
-    <p><?php echo \Yii::t('app', 'Please fill out the following fields to signup:');?></p>
+<p><?php echo \Yii::t('app', 'Please fill out the following fields to signup:');?></p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-                <?= $form->field($model, 'username') ?>
-                <?= $form->field($model, 'email') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton(\Yii::t('app', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
+<div class="row">
+<div class="col-lg-5"><?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+<?= $form->field($model, 'username') ?> <?= $form->field($model, 'email') ?>
+<?= $form->field($model, 'password')->passwordInput() ?>
+<div class="form-group"><?= Html::submitButton(\Yii::t('app', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+</div>
+<?php ActiveForm::end(); ?></div>
+</div>
 </div>
