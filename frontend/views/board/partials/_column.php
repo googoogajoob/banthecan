@@ -23,47 +23,47 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
 
 <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
 
-    <h4 class="board-column-title"> <?php echo $column->title; ?> </h4>
+<h4 class="board-column-title"><?php echo $column->title; ?></h4>
 
-    <?php
-        // Get the HTML of all ticket content for this column concatenated into one string
-        $columnItems = [];
-        foreach($column->getTickets() as $ticket) {
-            $content = $this->render('@frontend/views/ticket/partials/_ticketSingle',[
+<?php
+// Get the HTML of all ticket content for this column concatenated into one string
+$columnItems = [];
+foreach($column->getTickets() as $ticket) {
+	$content = $this->render('@frontend/views/ticket/partials/_ticketSingle',[
                 'model' => $ticket,
                 'showTagMax' => false,
-            ]);
-            $options = [
+	]);
+	$options = [
                 'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,
                 'tag' => 'div',
                 'class' => 'ticket-widget',
-            ];
-            $columnItems[] = [
+	];
+	$columnItems[] = [
                 'content' => $content,
                 'options' => $options,
-            ];
-        }
+	];
+}
 
-        // create the column as a sortable widget container
-        // --------------------------------------------------------
-        // Read the serialized list of Column Ids and create for it
-        // a comma separated list of the ID's with COLUMN_ID_PREFIX prepended to the ID
-        if (trim($column->receiver) <> '') {
-            $connectedColumns = explode(',', $column->receiver);
-            $prefix = '#' . COLUMN_ID_PREFIX;
-            $separator = ', #' . COLUMN_ID_PREFIX;
-            $connectedColumns = $prefix . implode($separator, $connectedColumns);
-        } else {
-            $connectedColumns = '';
-        }
+// create the column as a sortable widget container
+// --------------------------------------------------------
+// Read the serialized list of Column Ids and create for it
+// a comma separated list of the ID's with COLUMN_ID_PREFIX prepended to the ID
+if (trim($column->receiver) <> '') {
+	$connectedColumns = explode(',', $column->receiver);
+	$prefix = '#' . COLUMN_ID_PREFIX;
+	$separator = ', #' . COLUMN_ID_PREFIX;
+	$connectedColumns = $prefix . implode($separator, $connectedColumns);
+} else {
+	$connectedColumns = '';
+}
 
-        echo Sortable::widget([
+echo Sortable::widget([
             'items' => $columnItems,
             'options' => ['id' => COLUMN_ID_PREFIX . $column->id, 'tag' => 'div', 'class' => 'board-column'],
             'clientOptions' => [
                 'cursor' => 'move',
                 'connectWith' => $connectedColumns,
-            ],
+],
             'clientEvents' => [
                 'activate' => 'function (event, ui) {
                     showColumnReceiver(event, ui, this);
@@ -79,9 +79,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
                        columnTicketOrder(event, ui, this);
                     }
                 }',
-            ],
-        ]);
-    ?>
-
-</div>
+],
+]);
+?></div>
 

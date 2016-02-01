@@ -12,25 +12,22 @@ $this->title = 'Tags';
 ?>
 <div class="tags-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('partials/_search', ['model' => $searchModel]); ?>
+<h1><?= Html::encode($this->title) ?></h1>
+<?php // echo $this->render('partials/_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(\Yii::t('app', 'Create Tags'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<p><?= Html::a(\Yii::t('app', 'Create Tags'), ['create'], ['class' => 'btn btn-success']) ?>
+</p>
 
-    <?= GridView::widget([
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'frequency',
             'name:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-</div>
+['class' => 'yii\grid\ActionColumn'],
+],
+]); ?></div>

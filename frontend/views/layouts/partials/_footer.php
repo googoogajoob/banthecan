@@ -8,10 +8,10 @@
 ?>
 
 <footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; APC Webservices <?php echo date('Y') ?></p>
-        <p class="pull-right"><?php echo Yii::powered() ?></p>
-    </div>
+<div class="container">
+<p class="pull-left">&copy; APC Webservices <?php echo date('Y') ?></p>
+<p class="pull-right"><?php echo Yii::powered() ?></p>
+</div>
 </footer>
 
 

@@ -1,4 +1,5 @@
-        <?php
+
+<?php
 
 use yii\bootstrap\Html;
 use yii\bootstrap\ActiveForm;
@@ -10,10 +11,8 @@ use dosamigos\selectize\SelectizeTextInput;
 /* @var $returnUrl common\models\Ticket */
 ?>
 
-<div class="ticket-form">
-
-    <?php
-        $form = ActiveForm::begin([
+<div class="ticket-form"><?php
+$form = ActiveForm::begin([
                 'layout' => 'horizontal',
                 'fieldConfig' => [
                     'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
@@ -23,19 +22,19 @@ use dosamigos\selectize\SelectizeTextInput;
                         'wrapper' => 'col-sm-6',
                         'error' => '',
                         'hint' => '',
-                ],
-            ],
-        ]);
+],
+],
+]);
 
-        echo Html::hiddenInput('returnUrl', $returnUrl);
+echo Html::hiddenInput('returnUrl', $returnUrl);
 
-        echo $form->field($model, 'title')->textarea(['rows' => 1]);
+echo $form->field($model, 'title')->textarea(['rows' => 1]);
 
-        echo $form->field($model, 'description')->textarea(['rows' => 6]);
+echo $form->field($model, 'description')->textarea(['rows' => 6]);
 
-        echo $form->field($model, 'tagNames')->widget(SelectizeTextInput::className(), [
-            // calls an action that returns a JSON object with matched
-            // tags
+echo $form->field($model, 'tagNames')->widget(SelectizeTextInput::className(), [
+// calls an action that returns a JSON object with matched
+// tags
             'loadUrl' => ['tags/list'],
             'options' => ['class' => 'form-control'],
             'clientOptions' => [
@@ -44,19 +43,15 @@ use dosamigos\selectize\SelectizeTextInput;
                 'labelField' => 'name',
                 'searchField' => ['name'],
                 'create' => true,
-            ],
-        ])->hint(\Yii::t('app', 'Use commas to separate tags'));
+],
+])->hint(\Yii::t('app', 'Use commas to separate tags'));
 
-    ?>
+?>
 
-    <div class="col-sm-offset-2">
-        <div class="form-group">
-            <?php
-                echo Html::submitButton($model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
-            ?>
-        </div>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
+<div class="col-sm-offset-2">
+<div class="form-group"><?php
+echo Html::submitButton($model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+?></div>
 </div>
+
+<?php ActiveForm::end(); ?></div>

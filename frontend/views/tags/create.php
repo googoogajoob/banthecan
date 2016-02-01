@@ -12,10 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tags-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('partials/_form', [
+<?= $this->render('partials/_form', [
         'model' => $model,
-    ]) ?>
-
-</div>
+]) ?></div>

@@ -9,15 +9,15 @@ use yii\widgets\DetailView;
 
 <div class="ticket-view">
 
-    <h3><?= Html::encode($model->title) ?></h3>
+<h3><?= Html::encode($model->title) ?></h3>
 
 <?php
-    echo DetailView::widget([
+echo DetailView::widget([
         'model' => $model,
         'options' => [
             'tag' => 'ul',
             'class' => 'ticket-view-ajax clearfix',
-        ],
+],
         'template' => '<li><span class="label">{label}</span><span class="data">{value}</span></li>',
         'attributes' => [
             'description:ntext',
@@ -25,10 +25,9 @@ use yii\widgets\DetailView;
             'createdByName:ntext:Created By',
             'createdByAvatar:image:',
             'created_at:RelativeTime:Created',
-        ],
-    ])
-?>
+],
+])
+?></div>
 
-</div>
-
-<img id="ajax-loader" src="/images/ajax-loader.gif" class="hidden"/>
+<img
+	id="ajax-loader" src="/images/ajax-loader.gif" class="hidden" />

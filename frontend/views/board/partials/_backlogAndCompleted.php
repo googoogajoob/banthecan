@@ -19,7 +19,7 @@ echo $this->render('@frontend/views/ticket/partials/_backlogTicketSearchForm',[
         'searchModel' => $searchModel,
         'currentPageSize' => $currentPageSize,
         'action' => $action,
-    ]);
+]);
 
 $this->endBlock();
 
@@ -29,10 +29,10 @@ echo ListView::widget( [
         'viewParams' => [
             'divClass' => 'ticket-widget-float',
             'showTagMax' => 2,
-        ],
+],
         'itemOptions' => [
             'class' => 'col-xs-62 col-sm-4 col-md-3 col-lg-2',
-        ],
+],
         'options' => ['class' => 'row'],
         'layout' => '{pager}{summary}{sorter}{items}{pager}',
         'summaryOptions' => ['class' => 'summary apc-summary'],
@@ -44,11 +44,11 @@ echo ListView::widget( [
             'options' => ['class' => 'pagination apc-pagination'],
             'maxButtonCount' => 10,
             'hideOnSinglePage' => true,
-        ],
+],
         'sorter' => [
             'options' => [
                 'class' => 'ticket-sorter'
-            ]
-        ],
-    ]
-);
+                ]
+                ],
+                ]
+                );

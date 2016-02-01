@@ -12,20 +12,19 @@ $this->title = 'Tickets';
 ?>
 <div class="ticket-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php //echo $this->render('partials/_search', ['model' => $searchModel]); ?>
+<h1><?= Html::encode($this->title) ?></h1>
+<?php //echo $this->render('partials/_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(\Yii::t('app', 'Create Ticket'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<p><?= Html::a(\Yii::t('app', 'Create Ticket'), ['create'], ['class' => 'btn btn-success']) ?>
+</p>
 
-    <?= GridView::widget([
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'pager' => [
             'firstPageLabel' => \Yii::t('app', 'Begin'),
             'lastPageLabel' => \Yii::t('app', 'End'),
-        ],
+],
         'columns' => [
             'title:ntext',
             'description:ntext',
@@ -34,8 +33,6 @@ $this->title = 'Tickets';
             'createdByAvatar:image:',
             'created_at:datetime:Created',
             'updated_at:datetime:Updated',
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-</div>
+['class' => 'yii\grid\ActionColumn'],
+],
+]); ?></div>
