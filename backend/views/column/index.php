@@ -15,17 +15,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="board-column-index">
 
-    <h1><?php echo Html::encode($this->title) ?></h1>
+<h1><?php echo Html::encode($this->title) ?></h1>
 
-    <p>
-        <?php echo Html::a(\Yii::t('app', 'Create Board Column'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<p><?php echo Html::a(\Yii::t('app', 'Create Board Column'), ['create'], ['class' => 'btn btn-success']) ?>
+</p>
 
-    <?php echo GridView::widget([
+<?php echo GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions' => ['id' => 'sort', 'class' => 'table table-striped table-bordered'],
         'rowOptions' => function($model, $key, $index, $grid) {
-            return ['id' => 'row_' . $key, 'display-order' => $model->display_order];
+return ['id' => 'row_' . $key, 'display-order' => $model->display_order];
         },
         'columns' => [
             'id',
@@ -37,20 +36,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'title:ntext',
             'display_order',
             'receiver',
-            [
+        [
                 'label' => \Yii::t('app', 'Ticket Column Configuration'),
                 'attribute' => 'ticket_column_configuration',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {
-                    return implode(', ', $model->ticket_column_configuration);
+        return implode(', ', $model->ticket_column_configuration);
                 },
-            ],
+                ],
 
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]);
+                ['class' => 'yii\grid\ActionColumn'],
+                ],
+                ]);
 
-    ?>
-
-</div>
+                ?></div>

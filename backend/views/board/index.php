@@ -11,16 +11,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="board-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(\Yii::t('app', 'Create Board'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<p><?= Html::a(\Yii::t('app', 'Create Board'), ['create'], ['class' => 'btn btn-success']) ?>
+</p>
 
-    <?= GridView::widget([
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'created_at:datetime',
@@ -28,34 +27,32 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_by',
             'updated_by',
             'title:ntext',
-            [
+[
                 'attribute' => 'description',
                 'format' => 'ntext',
-            ],
+],
             'max_lanes',
             'backlog_name',
             'kanban_name',
             'completed_name',
-            [
+[
                 'label' => \Yii::t('app', 'Ticket Backlog Configuration'),
                 'attribute' => 'ticket_backlog_configuration',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {
-                    return implode(', ', $model->ticket_backlog_configuration);
+return implode(', ', $model->ticket_backlog_configuration);
                 },
-            ],
-            [
+                ],
+                [
                 'label' => \Yii::t('app', 'Ticket Completed Configuration'),
                 'attribute' => 'ticket_completed_configuration',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {
-                    return implode(', ', $model->ticket_completed_configuration);
+                return implode(', ', $model->ticket_completed_configuration);
                 },
-            ],
+                ],
             'entry_column',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-</div>
+                ['class' => 'yii\grid\ActionColumn'],
+                ],
+                ]); ?></div>
