@@ -12,6 +12,9 @@ nbproject
 .project
 .settings
 
+#eclipse
+.metadata
+
 # windows thumbnail cache
 Thumbs.db
 
