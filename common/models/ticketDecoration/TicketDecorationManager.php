@@ -6,7 +6,7 @@
  * Time: 8:22 PM
  */
 
-namespace array_fliparray_flipcommon\models\ticketDecoration;
+namespace common\models\ticketDecoration;
 
 use common\models\Ticket;
 use yii;
