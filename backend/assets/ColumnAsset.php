@@ -15,13 +15,13 @@ use yii\web\AssetBundle;
  */
 class ColumnAsset extends AssetBundle
 {
-    public $sourcePath = '@backend/views/column/';
-    public $css = [
-    ];
-    public $js = [
+	public $sourcePath = '@backend/views/column/';
+	public $css = [
+	];
+	public $js = [
         'columnReorder.js',
-    ];
-    public $depends = [
+	];
+	public $depends = [
         'yii\jui\JuiAsset',
-    ];
+	];
 }

@@ -12,10 +12,8 @@ $this->params['breadcrumbs'][] = \Yii::t('app', 'Update');
 ?>
 <div class="tags-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('partials/_form', [
+<?= $this->render('partials/_form', [
         'model' => $model,
-    ]) ?>
-
-</div>
+]) ?></div>

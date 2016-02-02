@@ -11,21 +11,21 @@ namespace common\models\ticketDecoration;
 
 class MoveToCompleted extends AbstractDecoration {
 
-    public $linkIcon = 'C';
+	public $linkIcon = 'C';
 
-    /*##################*/
-    /*### VIEW STUFF ###*/
-    /*##################*/
+	/*##################*/
+	/*### VIEW STUFF ###*/
+	/*##################*/
 
-    /**
-     * Show a view of the Behavior
-     * The default is the Icon Click element
-     * A Decoration can have multiple views
-     *
-     * @return string html for showing the ticketDecoration
-     */
-    public function show($view = 'default') {
-        return '<a data-toggle="tooltip" title="Move to Completed" href="/ticket/completed/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
-    }
+	/**
+	 * Show a view of the Behavior
+	 * The default is the Icon Click element
+	 * A Decoration can have multiple views
+	 *
+	 * @return string html for showing the ticketDecoration
+	 */
+	public function show($view = 'default') {
+		return '<a data-toggle="tooltip" title="Move to Completed" href="/ticket/completed/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
+	}
 
 }

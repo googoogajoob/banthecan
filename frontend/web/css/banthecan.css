@@ -1,52 +1,51 @@
 .menu-avatar-li {
-    padding-top: 6px;
-    margin-right: 1px;
+	padding-top: 6px;
+	margin-right: 1px;
 }
 
 .menu-avatar-a {
-    padding: 0 0 0 0 !important;
+	padding: 0 0 0 0 !important;
 }
-
 
 /** Todo: !!!### REPLACE THIS IN THE VIEWS WITH THE BOOTSTRAP VARIANT###!!!
  * Bootstrap uses clearfix which needs a CSS compiler
  */
 .clear-both {
-    clear: both;
+	clear: both;
 }
 
 /* ### BOOT STRAP OVERRIDES ### */
-
-/* makes Bootstrap Menus dropdown on Hover */
-ul.nav li.dropdown:hover > ul.dropdown-menu {
-    display: block;
+	/* makes Bootstrap Menus dropdown on Hover */
+ul.nav li.dropdown:hover>ul.dropdown-menu {
+	display: block;
 }
 
 /* override dropdown menu width */
 .dropdown-menu {
-    min-width: 80px;
+	min-width: 80px;
 }
 
 ul.ticket-sorter {
-    padding-left: 15px;
-    margin-bottom: 0;
+	padding-left: 15px;
+	margin-bottom: 0;
 }
 
 .ticket-sorter li {
-    display: inline-block;
+	display: inline-block;
 }
 
 .apc-layout-toggle-button {
-    margin: 2px;
-    font-size: 250%;
+	margin: 2px;
+	font-size: 250%;
 }
+
 .apc-layout-toggle-button:hover {
-    color: #003eff;
+	color: #003eff;
 }
 
 /* Modal Display Problem, everything remains grayed out, backdrop color
 see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under-background
 */
 .modal-backdrop {
-    z-index: -1;
+	z-index: -1;
 }

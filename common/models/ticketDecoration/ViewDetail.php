@@ -14,29 +14,29 @@ use yii\helpers\Html;
 class ViewDetail extends AbstractDecoration
 {
 
-    public $linkIcon = 'D';
+	public $linkIcon = 'D';
 
-    /*##################*/
-    /*### VIEW STUFF ###*/
-    /*##################*/
+	/*##################*/
+	/*### VIEW STUFF ###*/
+	/*##################*/
 
-    /**
-     * Show a view of the Behavior
-     * The default is the Icon Click element
-     * A Decoration can have multiple views
-     *
-     * @return string html for showing the ticketDecoration
-     */
-    public function show($view = 'default')
-    {
-        return Html::tag(
+	/**
+	 * Show a view of the Behavior
+	 * The default is the Icon Click element
+	 * A Decoration can have multiple views
+	 *
+	 * @return string html for showing the ticketDecoration
+	 */
+	public function show($view = 'default')
+	{
+		return Html::tag(
             'div',
-            $this->linkIcon, [
+		$this->linkIcon, [
                 'onClick' => 'ticketDetailView(' . $this->owner->id . ');',
                 'data-toggle' => 'tooltip',
                 'title' => 'View Detail',
-            ]
-        );
-    }
+		]
+		);
+	}
 
 }

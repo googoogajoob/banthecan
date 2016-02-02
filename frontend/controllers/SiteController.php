@@ -24,185 +24,185 @@ use yii\filters\AccessControl;
  */
 class SiteController extends Controller {
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors() {
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
 
-        return [
+		return [
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['logout', 'signup'],
                 'rules' => [
-                    [
+		[
                         'actions' => ['signup'],
                         'allow' => true,
                         'roles' => ['?'],
-                    ],
-                    [
+		],
+		[
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
-                    ],
-                ],
-            ],
-            //Why is this needed?
+		],
+		],
+		],
+		//Why is this needed?
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
+		],
+		],
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function actions() {
+	/**
+	 * @inheritdoc
+	 */
+	public function actions() {
 
-        return [
+		return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ],
+		],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
+		],
+		];
+	}
 
-    public function actionIndex() {
+	public function actionIndex() {
 
-        if (YII_ENV_DEMO and Yii::$app->user->isGuest) {
-            $session = Yii::$app->session;
-            $session->setFlash('info', 'You can create demo data in the <a href="http://demo.admin.ban-the-can.net/"><strong>admin section</strong></a> or <a href="/site/login"><strong>login</strong></a> as a demo user.');
-        }
+		if (YII_ENV_DEMO and Yii::$app->user->isGuest) {
+			$session = Yii::$app->session;
+			$session->setFlash('info', 'You can create demo data in the <a href="http://demo.admin.ban-the-can.net/"><strong>admin section</strong></a> or <a href="/site/login"><strong>login</strong></a> as a demo user.');
+		}
 
-        if (YII_ENV_DEMO) {
-            return $this->render('index-demo');
-        } else {
-            $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
-            $query = new Query;
+		if (YII_ENV_DEMO) {
+			return $this->render('index-demo');
+		} else {
+			$sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
+			$query = new Query;
 
-            $activity['Tickets'] = $query
-                ->from(Ticket::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
-            $activity['Action']  = $query
-                ->from(ActionStep::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
-            $activity['Resolution'] = $query
-                ->from(Resolution::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+			$activity['Tickets'] = $query
+			->from(Ticket::tableName())
+			->where(['>', 'updated_at', $sevenDaysAgo])->count();
+			$activity['Action']  = $query
+			->from(ActionStep::tableName())
+			->where(['>', 'updated_at', $sevenDaysAgo])->count();
+			$activity['Resolution'] = $query
+			->from(Resolution::tableName())
+			->where(['>', 'updated_at', $sevenDaysAgo])->count();
 
-            $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
+			$news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
 
-            return $this->render('index', [
+			return $this->render('index', [
                 'activity' => $activity,
                 'news' => $news,
                 'board' => Board::getActiveBoard()]);
-        }
-    }
+		}
+	}
 
-    public function actionLogin() {
+	public function actionLogin() {
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goHome();
-        } else {
-            if (YII_ENV_DEMO) {
-                $session = Yii::$app->session;
-                $session->setFlash('info', 'Login as a Demo User with <u>username</u>: <strong>demo</strong> and <u>password</u>: <strong>demo</strong>.');
-            }
-            return $this->render('login', [
+		$model = new LoginForm();
+		if ($model->load(Yii::$app->request->post()) && $model->login()) {
+			return $this->goHome();
+		} else {
+			if (YII_ENV_DEMO) {
+				$session = Yii::$app->session;
+				$session->setFlash('info', 'Login as a Demo User with <u>username</u>: <strong>demo</strong> and <u>password</u>: <strong>demo</strong>.');
+			}
+			return $this->render('login', [
                 'model' => $model,
-            ]);
-        }
-    }
+			]);
+		}
+	}
 
-    public function actionLogout() {
+	public function actionLogout() {
 
-        Yii::$app->user->logout();
+		Yii::$app->user->logout();
 
-        return $this->goHome();
-    }
+		return $this->goHome();
+	}
 
-    public function actionContact() {
+	public function actionContact() {
 
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success',
+		$model = new ContactForm();
+		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+			if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+				Yii::$app->session->setFlash('success',
                     'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending email.');
-            }
+			} else {
+				Yii::$app->session->setFlash('error', 'There was an error sending email.');
+			}
 
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
+			return $this->refresh();
+		} else {
+			return $this->render('contact', [
                 'model' => $model,
-            ]);
-        }
-    }
+			]);
+		}
+	}
 
-    public function actionAbout() {
+	public function actionAbout() {
 
-        return $this->render('about');
-    }
+		return $this->render('about');
+	}
 
-    public function actionSignup() {
+	public function actionSignup() {
 
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
-        }
+		$model = new SignupForm();
+		if ($model->load(Yii::$app->request->post())) {
+			if ($user = $model->signup()) {
+				if (Yii::$app->getUser()->login($user)) {
+					return $this->goHome();
+				}
+			}
+		}
 
-        return $this->render('signup', [
+		return $this->render('signup', [
             'model' => $model,
-        ]);
-    }
+		]);
+	}
 
-    public function actionRequestPasswordReset() {
+	public function actionRequestPasswordReset() {
 
-        $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
+		$model = new PasswordResetRequestForm();
+		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+			if ($model->sendEmail()) {
+				Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
 
-                return $this->goHome();
-            } else {
-                Yii::$app->getSession()->setFlash('error',
+				return $this->goHome();
+			} else {
+				Yii::$app->getSession()->setFlash('error',
                     'Sorry, we are unable to reset password for email provided.');
-            }
-        }
+			}
+		}
 
-        return $this->render('requestPasswordResetToken', [
+		return $this->render('requestPasswordResetToken', [
             'model' => $model,
-        ]);
-    }
+		]);
+	}
 
-    public function actionResetPassword($token) {
+	public function actionResetPassword($token) {
 
-        try {
-            $model = new ResetPasswordForm($token);
-        } catch (InvalidParamException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
+		try {
+			$model = new ResetPasswordForm($token);
+		} catch (InvalidParamException $e) {
+			throw new BadRequestHttpException($e->getMessage());
+		}
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->getSession()->setFlash('success', 'New password was saved.');
+		if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+			Yii::$app->getSession()->setFlash('success', 'New password was saved.');
 
-            return $this->goHome();
-        }
+			return $this->goHome();
+		}
 
-        return $this->render('resetPassword', [
+		return $this->render('resetPassword', [
             'model' => $model,
-        ]);
-    }
+		]);
+	}
 }
 

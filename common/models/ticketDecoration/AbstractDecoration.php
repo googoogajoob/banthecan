@@ -13,14 +13,14 @@ use yii\base\Behavior;
 
 abstract class AbstractDecoration extends Behavior implements TicketDecorationInterface {
 
-    public $linkIcon = '?'; // Default Icon for the Abstract Class, others should override this
+	public $linkIcon = '?'; // Default Icon for the Abstract Class, others should override this
 
-    /**
-     * Show a view of the Behavior
-     * The default is the Icon Click element
-     * A Decoration can have multiple views
-     *
-     * @return string html for showing the ticketDecoration
-     */
-    abstract public function show($view = 'default');
+	/**
+	 * Show a view of the Behavior
+	 * The default is the Icon Click element
+	 * A Decoration can have multiple views
+	 *
+	 * @return string html for showing the ticketDecoration
+	 */
+	abstract public function show($view = 'default');
 }

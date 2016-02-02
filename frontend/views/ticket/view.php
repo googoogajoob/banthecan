@@ -12,20 +12,18 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ticket-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(\Yii::t('app', 'Update'), ['/ticket/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(\Yii::t('app', 'Delete'), ['/ticket/delete', 'id' => $model->id], [
+<p><?= Html::a(\Yii::t('app', 'Update'), ['/ticket/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+<?= Html::a(\Yii::t('app', 'Delete'), ['/ticket/delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => \Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+],
+]) ?></p>
 
-    <?= DetailView::widget([
+<?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'title:ntext',
@@ -35,7 +33,5 @@ $this->params['breadcrumbs'][] = $this->title;
             'createdByAvatar:image:',
             'created_at:datetime:Created',
             'updated_at:datetime:Updated',
-        ],
-    ]) ?>
-
-</div>
+],
+]) ?></div>
