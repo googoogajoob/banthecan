@@ -49,8 +49,8 @@ echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
 echo $this->render('@frontend/views/ticket/partials/_ticketDecorations', ['ticket' => $model]);
 echo Html::endTag('div');
 
-if ($showTagMax) {
-	echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model, 'showTagMax' => $showTagMax]);
+if ($showTags) {
+	echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model]);
 }
 
 // Wrap Contents in a div only when $divClass is set

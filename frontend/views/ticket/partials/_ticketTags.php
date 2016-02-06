@@ -5,7 +5,7 @@ use yii\bootstrap\Carousel;
 
 /* @var $this yii\web\View */
 /* @var $ticket common\models\Ticket */
-/* @var $showTagMax int/boolean maximum number of tags to display*/
+/* @var $showTags boolean switch for tags display*/
 
 //Ticket Decoration Bar displays the Ticket decorations
 if ($taglist = $ticket->tagNames) {
