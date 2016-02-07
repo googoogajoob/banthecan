@@ -21,8 +21,8 @@ class TagsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
-		],
-		],
+				],
+			],
 		];
 	}
 

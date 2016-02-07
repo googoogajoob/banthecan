@@ -70,6 +70,7 @@ return [
     'Ticket Backlog Configuration' => 'Ticket-R&uuml;ckstand Konfiguration',
     'Ticket Column Configuration' => 'Ticket-Spalten Konfiguration',
     'Ticket Completed Configuration' => 'Ticket-Erledigt Konfiguration',
+    'User Settings' => 'Benutzer Einstellungen',
     'You are a member of more than one board.<br/> Select which board you want to use.'
     => 'Du geh&ouml;rst mehreren Tafeln.<br/>Eins muss selektiert werden.',
     //'Tickets' => '',
