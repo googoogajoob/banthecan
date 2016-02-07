@@ -18,10 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php echo GridView::widget([
         'dataProvider' => $dataProvider, 'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
+            [
+                'label' => 'Avatar',
+                'attribute' => 'id',
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $column) {
+                    return $this->render('@frontend/views/site/partials/_userIcon', ['userId' => $model->id]);
+                },
+            ],
             'username:ntext',
-            'password_hash:ntext',
-            'password_reset_token:ntext',
+            //'password_hash:ntext',
+            //'password_reset_token:ntext',
             'email:ntext',
             // 'auth_key:ntext',
             // 'status',

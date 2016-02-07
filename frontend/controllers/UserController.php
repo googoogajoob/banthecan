@@ -10,17 +10,18 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /** *
- * UserControllerimplements the CRUD actions for
- * Usermodel. */
+ * UserController implements the CRUD actions for
+ * Usermodel.
+ */
 class UserController extends Controller
 {
     public function behaviors() {
 
         return [
             'verbs' => [
-                'class' =>
-                    VerbFilter::className(),
-                'actions' => ['delete' => ['POST'],],
+                'class' => VerbFilter::className(),
+                'actions' => ['delete' => ['POST'],
+                ],
             ],
         ];
     }
@@ -29,7 +30,7 @@ class UserController extends Controller
      * Lists all Usermodels.
      * @return mixed
      */
-    public function actionIndex()
+    /*public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
             'query' =>
@@ -39,18 +40,17 @@ class UserController extends Controller
             'dataProvider' =>
                 $dataProvider,
         ]);
-    }
+    } */
 
     /**
-     * Displays a single Usermodel.
+     * Displays a single Usermodel of the current user.
      *
-     * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView()
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel(Yii::$app->getUser()->id),
         ]);
     }
 
@@ -60,7 +60,7 @@ class UserController extends Controller
      * the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    /* public function actionCreate()
     {
         $model = new
         User();
@@ -72,19 +72,17 @@ class UserController extends Controller
         } else {
             return $this->render('create', ['model' => $model,]);
         }
-    }
+    } */
 
     /**
-     * Updates an existing Usermodel.
+     * Updates the Usermodel for the current user.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
-     * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
-        $model = $this->findModel(
-            $id);
+        $model = $this->findModel(Yii::$app->getUser()->id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect([
                 'view',
@@ -102,12 +100,12 @@ class UserController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    /* public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
+    } */
 
     /**
      * Finds the Usermodel based on its primary key value.

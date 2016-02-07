@@ -11,7 +11,8 @@ use yii\widgets\ActiveForm;
 
 <?php
 	$form = ActiveForm::begin();
-	echo $form->field($model, 'status')->textInput()
+	echo $form->field($model, 'username')->textInput();
+	echo $form->field($model, 'email')->textInput();
 ?>
 
 <div class="form-group">
