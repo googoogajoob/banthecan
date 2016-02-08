@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /** *
  * UserController implements the CRUD actions for
@@ -91,6 +92,20 @@ class UserController extends Controller
         } else {
             return $this->render('update', ['model' => $model,]);
         }
+    }
+
+    public function actionUpload()
+    {
+        if (Yii::$app->request->isPost) {
+            $model = $this->findModel(Yii::$app->getUser()->id);
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // file is uploaded successfully
+                return;
+            }
+        }
+
+        return $this->render('update', ['model' => $model]);
     }
 
     /**

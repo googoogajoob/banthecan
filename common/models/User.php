@@ -32,6 +32,11 @@ class User extends ActiveRecord implements IdentityInterface
 	const DEMO_USER_PASSWORD = 'demo';
 
 	/**
+	 * @var UploadedFile
+	 */
+	public $imageFile;
+
+	/**
 	 * @var string configurable Directory Path for Color Avatars
 	 */
 	public static $avatarPathColor = '/images/content/30x40/';
@@ -83,7 +88,8 @@ class User extends ActiveRecord implements IdentityInterface
 			['status', 'default', 'value' => self::STATUS_ACTIVE],
 			['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
 			[['username', 'email'], 'required'],
-            ['email', 'email']
+            ['email', 'email'],
+			[['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
 		];
 	}
 
@@ -323,5 +329,15 @@ class User extends ActiveRecord implements IdentityInterface
 		$rv = $query->from(self::tableName())->count();
 
 		return $rv;
+	}
+
+	public function upload()
+	{
+		if ($this->validate()) {
+			$this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
