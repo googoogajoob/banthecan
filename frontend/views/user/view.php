@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php
-            echo Html::a(Yii::t('app', 'Update'),
+            echo Html::a(Yii::t('app', 'Edit'),
                 ['update'],
                 ['class' => 'btn btn-primary']);
         ?>

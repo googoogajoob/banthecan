@@ -44,6 +44,7 @@ return [
     'Create a fresh demo database including a demo user' => 'Erzeuge eine frische Demo-Datenbank und neuen demo-Benutzer',
     'Date' => 'Datum',
     'Delete' => 'L&ouml;schen',
+    'Edit' => 'Editieren',
     'Event' => 'Ereignis',
     'Here you can edit all DB Tables used in the Front End' => 'Hier kannst du all DB Tabellen vom Frontend editieren',
     'If you forgot your password you can' => 'Beim vergessenen Passwort kannst du',
@@ -70,6 +71,7 @@ return [
     'Ticket Backlog Configuration' => 'Ticket-R&uuml;ckstand Konfiguration',
     'Ticket Column Configuration' => 'Ticket-Spalten Konfiguration',
     'Ticket Completed Configuration' => 'Ticket-Erledigt Konfiguration',
+    'Update' => 'Speichern',
     'User Settings' => 'Benutzer Einstellungen',
     'You are a member of more than one board.<br/> Select which board you want to use.'
     => 'Du geh&ouml;rst mehreren Tafeln.<br/>Eins muss selektiert werden.',
