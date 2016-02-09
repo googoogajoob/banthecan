@@ -6,6 +6,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Query;
+use yii\imagine\Image;
 use yii\web\IdentityInterface;
 
 /**
@@ -37,14 +38,19 @@ class User extends ActiveRecord implements IdentityInterface
 	public $imageFile;
 
 	/**
+	 * @var string configurable Directory Path for Avatar Original Uploads
+	 */
+	public static $avatarPathOriginal = '/web/images/content/original/'; // Server File System based
+
+	/**
 	 * @var string configurable Directory Path for Color Avatars
 	 */
-	public static $avatarPathColor = '/images/content/30x40/';
+	public static $avatarPathColor = '/images/content/30x40/'; // Web File System based
 
 	/**
 	 * @var string configurable Directory Path for Grayscale Avatars
 	 */
-	public static $avatarPathGray = '/images/content/30x40-gray/';
+	public static $avatarPathGray = '/images/content/30x40-gray/'; // Web File System based
 
 	/**
 	 * @var string configurable Root File Name for all Avatars
@@ -75,7 +81,7 @@ class User extends ActiveRecord implements IdentityInterface
 	public function behaviors()
 	{
 		return [
-		TimestampBehavior::className(),
+		    TimestampBehavior::className(),
 		];
 	}
 
@@ -334,10 +340,35 @@ class User extends ActiveRecord implements IdentityInterface
 	public function upload()
 	{
 		if ($this->validate()) {
-			$this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
-			return true;
+
+            $saveFilename = Yii::$app->basePath
+                . self::$avatarPathOriginal
+                . self::$avatarFilenameRoot
+                . Yii::$app->getUser()->id
+                . '.'
+                . $this->imageFile->extension;
+
+			if ($this->imageFile->saveAs($saveFilename)) {
+
+                $this->createAvatarImages($saveFilename);
+
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
 		} else {
+
 			return false;
+
 		}
 	}
+
+    protected function createAvatarImages($sourceImageFile)
+    {
+
+    }
 }
