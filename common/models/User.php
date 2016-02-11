@@ -39,6 +39,7 @@ class User extends ActiveRecord implements IdentityInterface
 
 	/**
 	 * @var string configurable Directory Path for Avatar Original Uploads
+     * @ToDo Can we get rid of the 'web' path part so that all is the same scope (either web or server)
 	 */
 	public static $avatarPathOriginal = '/web/images/content/original/'; // Server File System based
 
@@ -46,6 +47,11 @@ class User extends ActiveRecord implements IdentityInterface
 	 * @var string configurable Directory Path for Color Avatars
 	 */
 	public static $avatarPathColor = '/images/content/30x40/'; // Web File System based
+
+	/**
+	 * @var string configurable Directory Path for Color Avatars
+	 */
+	public static $avatarPathLarge = '/images/content/90x120/'; // Web File System based
 
 	/**
 	 * @var string configurable Directory Path for Grayscale Avatars
@@ -350,9 +356,7 @@ class User extends ActiveRecord implements IdentityInterface
 
 			if ($this->imageFile->saveAs($saveFilename)) {
 
-                $this->createAvatarImages($saveFilename);
-
-                return true;
+                return $this->createAvatarImages($saveFilename);
 
             } else {
 
@@ -367,8 +371,47 @@ class User extends ActiveRecord implements IdentityInterface
 		}
 	}
 
+	/**
+	 * Based on a file name the other avatar images are created
+	 *
+	 * @param $sourceImageFile
+     * @return boolean
+	 */
     protected function createAvatarImages($sourceImageFile)
     {
+        $avatarFilename = Yii::$app->basePath
+            . '/web'
+            . self::$avatarPathLarge
+            . self::$avatarFilenameRoot
+            . Yii::$app->getUser()->id
+            . '.'
+            . $this->imageFile->extension;
 
+        Image::thumbnail($sourceImageFile, 90, 120)
+            ->save($avatarFilename, ['quality' => 70]);
+
+        $avatarFilename = Yii::$app->basePath
+            . '/web'
+            . self::$avatarPathColor
+            . self::$avatarFilenameRoot
+            . Yii::$app->getUser()->id
+            . '.'
+            . $this->imageFile->extension;
+
+        Image::thumbnail($sourceImageFile, 30, 40)
+            ->save($avatarFilename, ['quality' => 50]);
+
+        $avatarFilename = Yii::$app->basePath
+            . '/web'
+            . self::$avatarPathGray
+            . self::$avatarFilenameRoot
+            . Yii::$app->getUser()->id
+            . '.'
+            . $this->imageFile->extension;
+
+        Image::thumbnail($sourceImageFile, 30, 40)->mask()
+            ->save($avatarFilename, ['quality' => 50]);
+
+        return true;
     }
 }
