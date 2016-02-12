@@ -12,9 +12,9 @@ use yii\bootstrap\ActiveForm;
 
 	<?php
 		$form = ActiveForm::begin();
-
 		echo $form->field($model, 'username')->textInput();
 		echo $form->field($model, 'email')->textInput();
+		echo $form->field($model, 'password')->passwordInput();
 	?>
 
 	<div class="form-group">
