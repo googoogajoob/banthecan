@@ -99,11 +99,21 @@ class User extends ActiveRecord implements IdentityInterface
 		return [
 			['status', 'default', 'value' => self::STATUS_ACTIVE],
 			['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-			[['username', 'email'], 'required'],
-            ['email', 'email'],
+			[['username'], 'required'],
+            ['email', 'email', 'skipOnEmpty' => true],
 			[['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
 			['password', 'safe'],
 		];
+	}
+
+	public function beforeSave($insert) {
+
+        if ($this->isAttributeChanged('password')) {
+            $this->setPassword($this->password);
+            $this->password = '';
+        }
+
+		return parent::beforeSave($insert);
 	}
 
 	/**
