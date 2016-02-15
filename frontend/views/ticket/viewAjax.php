@@ -21,6 +21,7 @@ echo DetailView::widget([
         'template' => '<li><span class="label">{label}</span><span class="data">{value}</span></li>',
         'attributes' => [
             'description:ntext',
+            'protocol:ntext',
             'tagNames:ntext:Tags',
             'createdByName:ntext:Created By',
             'createdByAvatar:image:',

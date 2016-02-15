@@ -11,16 +11,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ticket-index">
 
-<h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
-<p><?= Html::a(\Yii::t('app', 'Create Ticket'), ['create'], ['class' => 'btn btn-success']) ?>
-</p>
+    <p><?= Html::a(\Yii::t('app', 'Create Ticket'), ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
-<?= GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-['class' => 'yii\grid\SerialColumn'],
-
+            ['class' => 'yii\grid\SerialColumn'],
             'id',
             'created_at',
             'updated_at',
@@ -30,6 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
 // 'description:ntext',
 // 'column_id',
 
-['class' => 'yii\grid\ActionColumn'],
-],
-]); ?></div>
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?></div>

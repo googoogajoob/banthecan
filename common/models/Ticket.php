@@ -26,6 +26,7 @@ use common\models\Tags;
  * @property integer $ticket_order
  * @property BoardColumn $column
  * @property string  $tagNames
+ * @property string  $protocol
  *
  */
 class Ticket extends \yii\db\ActiveRecord
@@ -115,7 +116,7 @@ class Ticket extends \yii\db\ActiveRecord
 		return [
 		[['title', 'column_id'], 'required'],
 		[['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order'], 'integer'],
-		[['title', 'description'], 'string'],
+		[['title', 'description', 'protocol'], 'string'],
 		[['id'], 'unique'],
 		[['tagNames'], 'safe'],
 		];
