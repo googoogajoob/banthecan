@@ -20,8 +20,7 @@ class ActionStepController extends Controller
     {
         return [
             'verbs' => [
-                'class' =>
-                    VerbFilter::className(),
+                'class' => VerbFilter::className(),
                 'actions' => ['delete' => ['POST'],],
             ],
         ];
