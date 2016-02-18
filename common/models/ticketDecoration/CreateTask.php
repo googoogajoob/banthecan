@@ -9,9 +9,9 @@ namespace common\models\ticketDecoration;
  * Time: 12:33 AM
  */
 
-class MoveToKanban extends AbstractDecoration {
+class CreateTask extends AbstractDecoration {
 
-	public $linkIcon = 'K';
+	public $linkIcon = 'T';
 
 	/*##################*/
 	/*### VIEW STUFF ###*/
@@ -25,7 +25,7 @@ class MoveToKanban extends AbstractDecoration {
 	 * @return string html for showing the ticketDecoration
 	 */
 	public function show($view = 'default') {
-		return '<a data-toggle="tooltip" title="Move to KanBan Board" href="/ticket/board/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
+		return '<a data-toggle="tooltip" title="Create Task" href="/task/create/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
 	}
 
 }
