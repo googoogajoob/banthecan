@@ -70,7 +70,7 @@ if (Yii::$app->user->isGuest) {
 	['label' => \Yii::t('app', 'Columns'), 'url' => ['/column/index']],
 	['label' => \Yii::t('app', 'Tickets'), 'url' => ['/ticket/index']],
 	['label' => \Yii::t('app', 'Users'), 'url' => ['/user/index']],
-	['label' => \Yii::t('app', 'Action'), 'url' => ['/actionstep/index']],
+	['label' => \Yii::t('app', 'Task'), 'url' => ['/task/index']],
 	['label' => \Yii::t('app', 'Resolution'), 'url' => ['/resolution/index']],
 	['label' => \Yii::t('app', 'News'), 'url' => ['/sitenews/index']],
 	[

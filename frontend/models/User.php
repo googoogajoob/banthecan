@@ -28,6 +28,7 @@ use common\models\Board;
  */
 class User extends \common\models\User implements IdentityInterface
 {
+
 	const ACTIVE_BOARD_COOKIE_NAME = 'activeBoard'; // Cookie Name for the active Board
 	const ACTIVE_BOARD_SESSION_VARIABLE_NAME = 'activeBoard'; // Variable Name for the active Board used in the Session
 

@@ -32,6 +32,8 @@ echo $form->field($model, 'title')->textarea(['rows' => 1]);
 
 echo $form->field($model, 'description')->textarea(['rows' => 6]);
 
+echo $form->field($model, 'protocol')->textarea(['rows' => 6]);
+
 echo $form->field($model, 'tagNames')->widget(SelectizeTextInput::className(), [
 // calls an action that returns a JSON object with matched
 // tags

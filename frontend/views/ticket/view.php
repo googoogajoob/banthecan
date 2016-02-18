@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'title:ntext',
             'description:ntext',
+            'protocol:ntext',
             'tagNames:ntext:Tags',
             'createdByName:ntext:Created By',
             'createdByAvatar:image:',

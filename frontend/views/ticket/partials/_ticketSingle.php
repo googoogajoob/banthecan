@@ -15,7 +15,7 @@ use frontend\controllers\TicketController;
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
 /* @var $divClass string/boolean class name for wrapping DIV or false for no wrapper*/
-/* @var $showTagMax int/boolean maximum number of tags to show, false for no tag display */
+/* @var $showTag boolean tue/false for tag display */
 
 // the url to view the ticket record (from there it can be edited)
 $ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
@@ -49,8 +49,8 @@ echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
 echo $this->render('@frontend/views/ticket/partials/_ticketDecorations', ['ticket' => $model]);
 echo Html::endTag('div');
 
-if ($showTagMax) {
-	echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model, 'showTagMax' => $showTagMax]);
+if ($showTags) {
+	echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model]);
 }
 
 // Wrap Contents in a div only when $divClass is set

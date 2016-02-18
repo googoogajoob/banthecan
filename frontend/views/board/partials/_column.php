@@ -31,7 +31,7 @@ $columnItems = [];
 foreach($column->getTickets() as $ticket) {
 	$content = $this->render('@frontend/views/ticket/partials/_ticketSingle',[
                 'model' => $ticket,
-                'showTagMax' => false,
+                'showTags' => true,
 	]);
 	$options = [
                 'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,

@@ -14,7 +14,11 @@ use yii\widgets\ActiveForm;
 
 <?= $form->field($model, 'created_by')->textInput() ?> <?= $form->field($model, 'updated_by')->textInput() ?>
 
-<?= $form->field($model, 'title')->textarea(['rows' => 6]) ?> <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+<?= $form->field($model, 'title')->textarea(['rows' => 6]) ?>
+
+<?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+
+<?= $form->field($model, 'protocol')->textarea(['rows' => 6]) ?>
 
 <?= $form->field($model, 'column_id')->textInput() ?>
 

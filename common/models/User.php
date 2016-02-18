@@ -6,6 +6,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Query;
+use yii\imagine\Image;
 use yii\web\IdentityInterface;
 
 /**
@@ -32,14 +33,30 @@ class User extends ActiveRecord implements IdentityInterface
 	const DEMO_USER_PASSWORD = 'demo';
 
 	/**
+	 * @var UploadedFile
+	 */
+	public $imageFile;
+
+	/**
+	 * @var string configurable Directory Path for Avatar Original Uploads
+     * @ToDo Can we get rid of the 'web' path part so that all is the same scope (either web or server)
+	 */
+	public static $avatarPathOriginal = '/web/images/content/original/'; // Server File System based
+
+	/**
 	 * @var string configurable Directory Path for Color Avatars
 	 */
-	public static $avatarPathColor = '/images/content/30x40/';
+	public static $avatarPathColor = '/images/content/30x40/'; // Web File System based
+
+	/**
+	 * @var string configurable Directory Path for Color Avatars
+	 */
+	public static $avatarPathLarge = '/images/content/90x120/'; // Web File System based
 
 	/**
 	 * @var string configurable Directory Path for Grayscale Avatars
 	 */
-	public static $avatarPathGray = '/images/content/30x40-gray/';
+	public static $avatarPathGray = '/images/content/30x40-gray/'; // Web File System based
 
 	/**
 	 * @var string configurable Root File Name for all Avatars
@@ -70,7 +87,7 @@ class User extends ActiveRecord implements IdentityInterface
 	public function behaviors()
 	{
 		return [
-		TimestampBehavior::className(),
+		    TimestampBehavior::className(),
 		];
 	}
 
@@ -80,9 +97,23 @@ class User extends ActiveRecord implements IdentityInterface
 	public function rules()
 	{
 		return [
-		['status', 'default', 'value' => self::STATUS_ACTIVE],
-		['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+			['status', 'default', 'value' => self::STATUS_ACTIVE],
+			['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+			[['username'], 'required'],
+            ['email', 'email', 'skipOnEmpty' => true],
+			[['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+			['password', 'safe'],
 		];
+	}
+
+	public function beforeSave($insert) {
+
+        if ($this->isAttributeChanged('password')) {
+            $this->setPassword($this->password);
+            $this->password = '';
+        }
+
+		return parent::beforeSave($insert);
 	}
 
 	/**
@@ -322,4 +353,76 @@ class User extends ActiveRecord implements IdentityInterface
 
 		return $rv;
 	}
+
+	public function upload()
+	{
+		if ($this->validate()) {
+
+            $saveFilename = Yii::$app->basePath
+                . self::$avatarPathOriginal
+                . self::$avatarFilenameRoot
+                . Yii::$app->getUser()->id
+                . '.'
+                . $this->imageFile->extension;
+
+			if ($this->imageFile->saveAs($saveFilename)) {
+
+                return $this->createAvatarImages($saveFilename);
+
+            } else {
+
+                return false;
+
+            }
+
+		} else {
+
+			return false;
+
+		}
+	}
+
+	/**
+	 * Based on a file name the other avatar images are created
+	 *
+	 * @param $sourceImageFile
+     * @return boolean
+	 */
+    protected function createAvatarImages($sourceImageFile)
+    {
+        $avatarFilename = Yii::$app->basePath
+            . '/web'
+            . self::$avatarPathLarge
+            . self::$avatarFilenameRoot
+            . Yii::$app->getUser()->id
+            . '.'
+            . $this->imageFile->extension;
+
+        Image::thumbnail($sourceImageFile, 90, 120)
+            ->save($avatarFilename, ['quality' => 70]);
+
+        $avatarFilename = Yii::$app->basePath
+            . '/web'
+            . self::$avatarPathColor
+            . self::$avatarFilenameRoot
+            . Yii::$app->getUser()->id
+            . '.'
+            . $this->imageFile->extension;
+
+        Image::thumbnail($sourceImageFile, 30, 40)
+            ->save($avatarFilename, ['quality' => 50]);
+
+        $avatarFilename = Yii::$app->basePath
+            . '/web'
+            . self::$avatarPathGray
+            . self::$avatarFilenameRoot
+            . Yii::$app->getUser()->id
+            . '.'
+            . $this->imageFile->extension;
+
+        Image::thumbnail($sourceImageFile, 30, 40)->mask()
+            ->save($avatarFilename, ['quality' => 50]);
+
+        return true;
+    }
 }
