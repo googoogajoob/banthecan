@@ -9,7 +9,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\db\Query;
 use common\models\Ticket;
-use common\models\ActionStep;
+use common\models\Task;
 use common\models\Resolution;
 use common\models\SiteNews;
 use common\models\Board;
@@ -88,8 +88,8 @@ class SiteController extends Controller {
 			$activity['Tickets'] = $query
 			->from(Ticket::tableName())
 			->where(['>', 'updated_at', $sevenDaysAgo])->count();
-			$activity['Action']  = $query
-			->from(ActionStep::tableName())
+			$activity['Task']  = $query
+			->from(Task::tableName())
 			->where(['>', 'updated_at', $sevenDaysAgo])->count();
 			$activity['Resolution'] = $query
 			->from(Resolution::tableName())

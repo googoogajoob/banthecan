@@ -59,15 +59,17 @@ class TaskController extends Controller
     /**
      * Creates a new Task model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id Ticket linked to this Task
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Task();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $model->ticket_id = $id;
             return $this->render('create', [
                 'model' => $model,
             ]);
