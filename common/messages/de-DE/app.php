@@ -60,7 +60,7 @@ return [
     'Reset' => 'Zur&uuml;cksetzen',
     'reset it' => 'es zur&uuml;cksetzen',
     'Resolution' => 'Beschluss',
-    'Resolutions' => 'Beschl&uuml;sse',
+    'Resolutions' => 'Beschluesse',
     'Search' => 'Suche',
     'Select Board' => 'Tafel selektieren',
     'Signup' => 'Anmelden',
