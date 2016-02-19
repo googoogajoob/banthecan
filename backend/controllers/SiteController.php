@@ -10,7 +10,7 @@ use common\models\User;
 use common\models\Board;
 use common\models\Column;
 use common\models\Ticket;
-use common\models\ActionStep;
+use common\models\Task;
 use common\models\Resolution;
 use common\models\SiteNews;
 use yii\filters\VerbFilter;
@@ -97,8 +97,8 @@ class SiteController extends Controller
 			$activity['Tickets'] = $query
 			->from(Ticket::tableName())
 			->where(['>', 'updated_at', $sevenDaysAgo])->count();
-			$activity['Action']  = $query
-			->from(ActionStep::tableName())
+			$activity['Task']  = $query
+			->from(Task::tableName())
 			->where(['>', 'updated_at', $sevenDaysAgo])->count();
 			$activity['Resolution'] = $query
 			->from(Resolution::tableName())
