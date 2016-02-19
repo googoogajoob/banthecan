@@ -53,6 +53,10 @@ return [
                     'class' => 'common\models\ticketDecoration\CreateTask',
                     'linkIcon' => '<span class="glyphicon glyphicon-wrench"></span>',
                 ],
+                'CreateResolution' => [
+                    'class' => 'common\models\ticketDecoration\CreateResolution',
+                    'linkIcon' => '<span class="glyphicon glyphicon-list-alt"></span>',
+                ],
             ],
         ],
     ],

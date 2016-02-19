@@ -45,7 +45,7 @@ class Resolution extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-		[['created_at', 'updated_at', 'created_by', 'updated_by', 'title', 'description', 'ticket_id'], 'required'],
+		[['title'], 'required'],
 		[['created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id'], 'integer'],
 		[['title', 'description'], 'string'],
 		];
