@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use frontend\assets\BoardAsset;
-use common\models\Ticket;
 
 /* @var $this yii\web\View */
 /* @var $board common\models\Board */
@@ -17,9 +16,6 @@ BoardAsset::register($this);
 
 <h1 class="text-capitalize"><?php echo Html::encode($board->kanban_name) ?>
 </h1>
-
-<p class="bg-warning"><small><em><?= Html::encode($board->description) ?></em></small>
-</p>
 
 <div class="row"><?php
 foreach($board->getColumns() as $column) {

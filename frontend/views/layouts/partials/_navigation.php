@@ -34,7 +34,7 @@ if (Yii::$app->user->isGuest) {
 	$menuItems[] = ['label' => \Yii::t('app', 'Ban The Can'), 'items' => [
 			['label' => \Yii::t('app', 'Tickets'), 'url' => ['/ticket']],
 			['label' => \Yii::t('app', 'Tags'), 'url' => ['/tags']],
-			['label' => \Yii::t('app', 'Tasks'), 'url' => ['/ticket']],
+			['label' => \Yii::t('app', 'Tasks'), 'url' => ['/task']],
 			['label' => \Yii::t('app', 'Resolutions'), 'url' => ['/resolution']],
 			['label' => \Yii::t('app', 'Select Board'), 'url' => ['/board/select']],
 			['label' => \Yii::t('app', 'Logout'), 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
