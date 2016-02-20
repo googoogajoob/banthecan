@@ -19,167 +19,174 @@ use backend\models\SignupForm;
 /**
  * Site controller
  */
-class SiteController extends Controller
-{
-	/**
-	 * @inheritdoc
-	 */
-	public function behaviors()
-	{
-		return [
+class SiteController extends Controller {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+
+        return [
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-		[
+                    [
                         'actions' => ['error', 'index'],
                         'allow' => true,
-		],
-		[
+                    ],
+                    [
                         'actions' => ['initialize'],
                         'allow' => YII_ENV_DEMO,
-		],
-		[
+                    ],
+                    [
                         'actions' => ['login'],
                         'allow' => true,
                         'roles' => ['?'],
-                        'matchCallback' => function($rule, $action) {
-		return \Yii::$app->user->isGuest && User::count() > 0;
+                        'matchCallback' => function ($rule, $action) {
+
+                            return \Yii::$app->user->isGuest && User::count() > 0;
                         }
-                        ],
-                        [
+                    ],
+                    [
                         'actions' => ['create'],
                         'allow' => true,
                         'roles' => ['?'],
-                        'matchCallback' => function($rule, $action) {
-                        return \Yii::$app->user->isGuest && User::count() == 0;
+                        'matchCallback' => function ($rule, $action) {
+
+                            return \Yii::$app->user->isGuest && User::count() == 0;
                         }
-                        ],
-                        [
+                    ],
+                    [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
-                        ],
-                        ],
-                        ],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
-                        ],
-                        ],
-                        ];
-	}
+                ],
+            ],
+        ];
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function actions()
-	{
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function actions() {
+
+        return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-		],
-		];
-	}
+            ],
+        ];
+    }
 
-	public function actionIndex() {
-		if (YII_ENV_DEMO and Yii::$app->user->isGuest) {
-			$session = Yii::$app->session;
-			$session->setFlash('info', 'You can create demo data with <a href="/site/initialize"><strong>Initialize Demo Database</strong></a> or <a href="/site/login"><strong>login</strong></a> as a demo user.');
-		}
+    public function actionIndex() {
 
-		if (YII_ENV_DEMO) {
-			return $this->render('index-demo');
-		} else {
-			$sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
-			$query = new Query;
+        if (YII_ENV_DEMO and Yii::$app->user->isGuest) {
+            $session = Yii::$app->session;
+            $session->setFlash('info',
+                'You can create demo data with <a href="/site/initialize"><strong>Initialize Demo Database</strong></a> or <a href="/site/login"><strong>login</strong></a> as a demo user.');
+        }
 
-			$activity['Tickets'] = $query
-			->from(Ticket::tableName())
-			->where(['>', 'updated_at', $sevenDaysAgo])->count();
-			$activity['Task']  = $query
-			->from(Task::tableName())
-			->where(['>', 'updated_at', $sevenDaysAgo])->count();
-			$activity['Resolution'] = $query
-			->from(Resolution::tableName())
-			->where(['>', 'updated_at', $sevenDaysAgo])->count();
+        if (YII_ENV_DEMO) {
+            return $this->render('index-demo');
+        } else {
+            $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
+            $query = new Query;
 
-			$news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
+            $activity['Tickets'] = $query
+                ->from(Ticket::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+            $activity['Task'] = $query
+                ->from(Task::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+            $activity['Resolution'] = $query
+                ->from(Resolution::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
 
-			return $this->render('index', ['activity' => $activity, 'news' => $news]);
-		}
-	}
+            $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
 
-	public function actionLogin()
-	{
-		$model = new LoginForm();
-		if ($model->load(Yii::$app->request->post()) && $model->login()) {
-			return $this->goHome();
-		} else {
-			if (YII_ENV_DEMO) {
-				$session = Yii::$app->session;
-				$session->setFlash('info', 'Login as a Demo User with <u>username</u>: <strong>demo</strong> and <u>password</u>: <strong>demo</strong>.');
-			}
-			return $this->render('login', ['model' => $model]);
-		}
-	}
+            return $this->render('index', ['activity' => $activity, 'news' => $news]);
+        }
+    }
 
-	public function actionLogout() {
-		Yii::$app->user->logout();
+    public function actionLogin() {
 
-		return $this->goHome();
-	}
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goHome();
+        } else {
+            if (YII_ENV_DEMO) {
+                $session = Yii::$app->session;
+                $session->setFlash('info',
+                    'Login as a Demo User with <u>username</u>: <strong>demo</strong> and <u>password</u>: <strong>demo</strong>.');
+            }
+            return $this->render('login', ['model' => $model]);
+        }
+    }
 
-	public function actionInitialize() {
-		//return $this->render('initialize');
+    public function actionLogout() {
 
-		//Created new Demo User
-		$user = new User();
-		$user->createDemoUser();
+        Yii::$app->user->logout();
 
-		// Board Creation requires a logged in user, therefore login the newly created user
-		$login = new LoginForm();
-		$login->username = $user->username;
-		$login->password = $user->password;
-		$login->login();
+        return $this->goHome();
+    }
 
-		//Create Demo Board
-		$board = new Board();
-		$board->createDemoBoard();
+    public function actionInitialize() {
 
-		$user->board_id = $board->id;
-		$user->update();
+        //return $this->render('initialize');
 
-		//Create Demo Columns
-		$column = new Column();
-		$column->createDemoColumns($board->id);
+        //Created new Demo User
+        $user = new User();
+        $user->createDemoUser();
 
-		//Create Demo Tickets
-		$column = new Ticket();
-		$column->createDemoTickets($board->id);
+        // Board Creation requires a logged in user, therefore login the newly created user
+        $login = new LoginForm();
+        $login->username = $user->username;
+        $login->password = $user->username; //username and password are identical for the demo user
+        $login->login();
 
-		return $this->goHome();
-	}
+        //Create Demo Board
+        $board = new Board();
+        $board->createDemoBoard();
 
-	/**
-	 * Create initial Admin User
-	 *
-	 * @return \yii\web\Response
-	 */
-	public function actionCreate() {
+        $user->board_id = $board->id;
+        $user->update();
 
-		$model = new SignupForm();
-		if ($model->load(Yii::$app->request->post())) {
-			if ($user = $model->signup()) {
-				if (Yii::$app->getUser()->login($user)) {
-					return $this->goHome();
-				}
-			}
-		}
+        //Create Demo Columns
+        $column = new Column();
+        $column->createDemoColumns($board->id);
 
-		return $this->render('signup', [
+        //Create Demo Tickets
+        $column = new Ticket();
+        $column->createDemoTickets($board->id);
+
+        return $this->goHome();
+    }
+
+    /**
+     * Create initial Admin User
+     *
+     * @return \yii\web\Response
+     */
+    public function actionCreate() {
+
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
             'model' => $model,
-		]);
-	}
+        ]);
+    }
 
 }
