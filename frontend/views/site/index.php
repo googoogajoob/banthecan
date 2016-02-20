@@ -1,4 +1,7 @@
 <?php
+
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 /* @var $activity array */
 /* @var $news ActiveRecord */
@@ -7,10 +10,12 @@
 <div class="site-index">
 
 <div class="jumbotron">
-<h1>Ban The Can</h1>
-<p class="lead"><?php
-echo $board ? $board->title : '';
-?></p>
+    <h1>
+        <?php echo $board ? Html::encode($board->title) : ''; ?>
+    </h1>
+    <em class="lead">
+        <?php echo $board ? Html::encode($board->description) : ''; ?>
+    </em>
 </div>
 
 <div class="body-content">
