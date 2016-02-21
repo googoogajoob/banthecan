@@ -164,7 +164,7 @@ class BoardController extends \yii\web\Controller {
 
         } elseif ($boardCount == 1) {
             // The only available board is selected automatically
-            $this->actionActivate($userBoards);
+            $this->actionActivate($userBoards[0]);
 
         } else {
             // User must select which board to activate

@@ -110,6 +110,8 @@ class User extends \common\models\User implements IdentityInterface
 	 */
 	public function getSessionActiveBoardId()
 	{
+		$junk = Yii::$app->getSession();
+        $rjunk = $junk->get(self::ACTIVE_BOARD_SESSION_VARIABLE_NAME);
 		return Yii::$app->getSession()->get(self::ACTIVE_BOARD_SESSION_VARIABLE_NAME);
 	}
 
