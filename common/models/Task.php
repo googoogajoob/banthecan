@@ -67,7 +67,7 @@ class Task extends \yii\db\ActiveRecord
             'title' => Yii::t('app', 'Title'),
             'description' => Yii::t('app', 'Description'),
             'ticket_id' => Yii::t('app', 'Ticket ID'),
-            'user_id' => Yii::t('app', 'User ID'),
+            'user_id' => Yii::t('app', 'Responsible'),
         ];
     }
 }

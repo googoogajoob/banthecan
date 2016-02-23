@@ -22,14 +22,14 @@ $checkBoxSetup = [];
 foreach ($users as $user) {
     // Include color and grayscale avatar, color when selected, gray when not selected
     // visibility toggled via jQuery/javascript
-    $colorId = 'user_search-avatar-color-' . $user->id;
-    $grayId = 'user_search-avatar-gray-' . $user->id;
+    $colorId = 'user_id-avatar-color-' . $user->id;
+    $grayId = 'user_id-avatar-gray-' . $user->id;
     $checkBoxSetup[$user->id] =
         html::img($user->avatarUrlColor, [
             'alt' => $user->username,
             'title' => $user->username,
             'id' => $colorId,
-            'class' => 'ticket-avatar-hide',
+            'class' => 'user-avatar-hide',
         ])
         . html::img($user->avatarUrlGray, [
             'alt' => $user->username,
@@ -42,13 +42,13 @@ echo $form->field($model, 'user_id', ['options' => ['class' => 'clearfix']])
     ->radioList($checkBoxSetup, [
             'item' =>
                 function ($index, $label, $name, $checked, $value) {
-                    $inlineJS = '$("#user_search-avatar-color-' . $value . '").toggle();';
-                    $inlineJS .= '$("#user_search-avatar-gray-' . $value . '").toggle();';
-                    return '<div class="checkbox">'
+                    $inlineJS = '$("#user_id-avatar-color-' . $value . '").toggle();';
+                    $inlineJS .= '$("#user_id-avatar-gray-' . $value . '").toggle();';
+                    return '<div class="radio">'
                     . Html::radio($name, $checked, [
                         'label' => $label,
                         'value' => $value,
-                        'onclick' => $inlineJS,
+                        'onchange' => $inlineJS,
                     ]) . '</div>';
                 }
         ]

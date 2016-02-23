@@ -15,9 +15,9 @@ use yii\web\AssetBundle;
  */
 class TaskAsset extends AssetBundle
 {
-	public $sourcePath = '@frontend/views/';
+	public $sourcePath = '@frontend/views/task/css/';
 	public $css = [
-        'ticket/css/ticket.css',
+        'task.css',
 	];
 	public $js = [
         ];

@@ -1,0 +1,11 @@
+.user-avatar-hide {
+	display: none;
+}
+
+#task-user_id .radio {
+	float: left;
+	margin-top: 10px;
+	/* !!! TODO: This is a KLUDGE, LESS os causing the first to be different */
+	margin-right: 20px;
+	height: 40px;
+}
