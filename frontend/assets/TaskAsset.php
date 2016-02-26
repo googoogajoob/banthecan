@@ -13,19 +13,15 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since  2.0
  */
-class BacklogAsset extends AssetBundle {
+class TaskAsset extends AssetBundle {
 
-    public $sourcePath = '@frontend/views/';
+    public $sourcePath = '@frontend/views/task/';
     public $css = [
-        'ticket/css/ticket.css',
+        'css/task.css',
     ];
     public $js = [
-        'board/js/boardEffects.js',
-        'ticket/js/ticketTooltip.js',
-        'ticket/js/ticketDetailView.js',
-        'board/js/ticketSearch.js'
+        'js/task.js',
     ];
     public $depends = [
-        'frontend\assets\AppAsset'
     ];
 }
