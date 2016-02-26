@@ -36,7 +36,8 @@ if (isset($divClass)) {
 
 <?php echo Yii::$app->formatter->asDate($model->created_at, 'long'); ?>
 
-<div class="clear-both"></div>
+<!-- div class="clear-both"></div -->
+<br/>
 
 <strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $model->title ?></a></strong>
 <br />
