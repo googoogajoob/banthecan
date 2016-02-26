@@ -14,6 +14,7 @@ use yii\widgets\ActiveForm;
         $form = ActiveForm::begin();
         echo $form->field($model, 'title')->textarea(['rows' => 1]);
         echo $form->field($model, 'description')->textarea(['rows' => 6]);
+        echo $form->field($model, 'ticket_id')->hiddenInput();
         echo $this->render('@frontend/views/user/partials/_selectUser', [
             'model' => $model,
             'form' => $form,

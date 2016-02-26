@@ -29,12 +29,13 @@ foreach ($users as $user) {
             'alt' => $user->username,
             'title' => $user->username,
             'id' => $colorId,
-            'class' => 'user-avatar-hide',
+            'class' => $user->id != $model->user_id ? 'user-avatar-hide' : '',
         ])
         . html::img($user->avatarUrlGray, [
             'alt' => $user->username,
             'title' => $user->username,
             'id' => $grayId,
+            'class' => $user->id == $model->user_id ? 'user-avatar-hide' : '',
         ]);
 }
 
