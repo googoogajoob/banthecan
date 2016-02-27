@@ -34,14 +34,12 @@ if (isset($divClass)) {
 <div class="ticket-avatar"><?php echo $this->render('@frontend/views/site/partials/_userIcon', ['userId' => $model->created_by]);?>
 </div>
 
-<?php echo Yii::$app->formatter->asDate($model->created_at, 'long'); ?>
-
-<!-- div class="clear-both"></div -->
-<br/>
+<div class="ticket-single-date">
+	<?php echo Yii::$app->formatter->asDate($model->created_at, 'long'); ?>
+</div>
 
 <strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $model->title ?></a></strong>
 <br />
-
 <br />
 <br />
 
