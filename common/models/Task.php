@@ -19,6 +19,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $description
  * @property integer $ticket_id
  * @property integer $user_id
+ * @property integer $completed
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -37,7 +38,7 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id'], 'integer'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed'], 'integer'],
             [['title', 'description'], 'string'],
         ];
     }
@@ -66,8 +67,9 @@ class Task extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('app', 'Updated By'),
             'title' => Yii::t('app', 'Title'),
             'description' => Yii::t('app', 'Description'),
-            'ticket_id' => Yii::t('app', 'Ticket ID'),
+            'ticket_id' => Yii::t('app', 'Ticket'),
             'user_id' => Yii::t('app', 'Responsible'),
+            'completed' => Yii::t('app', 'Completed'),
         ];
     }
 }

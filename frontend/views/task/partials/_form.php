@@ -15,6 +15,10 @@ use yii\widgets\ActiveForm;
         echo $form->field($model, 'title')->textarea(['rows' => 1]);
         echo $form->field($model, 'description')->textarea(['rows' => 6]);
         echo $form->field($model, 'ticket_id')->hiddenInput();
+        echo $form->field($model, 'completed')->checkbox([
+            '0' => Yii::t('app', 'No'),
+            '1' => Yii::t('app', 'Yes'),
+        ]);
         echo $this->render('@frontend/views/user/partials/_selectUser', [
             'model' => $model,
             'form' => $form,
