@@ -128,17 +128,18 @@ class Ticket extends \yii\db\ActiveRecord
 	public function attributeLabels()
 	{
 		return [
-            'id' => 'ID',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'title' => 'Title',
-            'description' => 'Description',
-            'column_id' => 'Column ID',
-            'board_id' => 'Board ID',
-            'ticket_order' => 'Ticket Order',
-            'tagNames' => 'Tags',
+            'id' => \Yii::t('app', 'ID'),
+            'created_at' => \Yii::t('app', 'Created At'),
+            'updated_at' => \Yii::t('app', 'Updated At'),
+            'created_by' => \Yii::t('app', 'Created By'),
+            'updated_by' => \Yii::t('app', 'Updated By'),
+            'title' => \Yii::t('app', 'Title'),
+            'description' => \Yii::t('app', 'Description'),
+            'column_id' => \Yii::t('app', 'Column ID'),
+            'board_id' => \Yii::t('app', 'Board ID'),
+            'ticket_order' => \Yii::t('app', 'Ticket Order'),
+            'tagNames' => \Yii::t('app', 'Tags'),
+			'protocol' => \Yii::t('app', 'Protocol'),
 		];
 	}
 
