@@ -17,45 +17,55 @@ use frontend\controllers\TicketController;
 /* @var $divClass string/boolean class name for wrapping DIV or false for no wrapper*/
 /* @var $showTag boolean tue/false for tag display */
 
-// the url to view the ticket record (from there it can be edited)
-$ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
+$dependency = [
+	'class' => 'yii\caching\DbDependency',
+	'sql' => 'SELECT MAX(updated_at) FROM ticket',
+];
+
+if ($this->beginCache($model->id, ['dependency' => $dependency])) :
+
+	// the url to view the ticket record (from there it can be edited)
+	$ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
 ?>
 
-<?php
-// Wrap Contents in a div only when $divClass is set, otherwise contents are returned unwrapped
-if (isset($divClass)) {
-	echo Html::beginTag('div', [
-            'class' => $divClass,
-            'id' => TicketController::TICKET_HTML_PREFIX . $model->id,
-	]);
-}
-?>
+	<?php
+	// Wrap Contents in a div only when $divClass is set, otherwise contents are returned unwrapped
+	if (isset($divClass)) {
+		echo Html::beginTag('div', [
+				'class' => $divClass,
+				'id' => TicketController::TICKET_HTML_PREFIX . $model->id,
+		]);
+	}
+	?>
 
-<div class="ticket-avatar"><?php echo $this->render('@frontend/views/site/partials/_userIcon', ['userId' => $model->created_by]);?>
-</div>
+	<div class="ticket-avatar"><?php echo $this->render('@frontend/views/site/partials/_userIcon', ['userId' => $model->created_by]);?>
+	</div>
 
-<div class="ticket-single-date">
-	<?php echo Yii::$app->formatter->asDate($model->created_at, 'long'); ?>
-</div>
+	<div class="ticket-single-date">
+		<?php echo Yii::$app->formatter->asDate($model->created_at, 'long'); ?>
+	</div>
 
-<strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $model->title ?></a></strong>
-<br />
-<br />
-<br />
+	<strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $model->title ?></a></strong>
+	<br />
+	<br />
+	<br />
 
-<?php
-echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
-echo $this->render('@frontend/views/ticket/partials/_ticketDecorations', ['ticket' => $model]);
-echo Html::endTag('div');
-
-if ($showTags) {
-	echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model]);
-}
-
-// Wrap Contents in a div only when $divClass is set
-if (isset($divClass)) {
+	<?php
+	echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
+	echo $this->render('@frontend/views/ticket/partials/_ticketDecorations', ['ticket' => $model]);
 	echo Html::endTag('div');
-}
+
+	if ($showTags) {
+		echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model]);
+	}
+
+	// Wrap Contents in a div only when $divClass is set
+	if (isset($divClass)) {
+		echo Html::endTag('div');
+	}
+
+	$this->endCache();
+endif;
 ?>
 
 
