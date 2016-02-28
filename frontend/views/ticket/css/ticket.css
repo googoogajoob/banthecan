@@ -111,8 +111,7 @@ ul.ticket-view-ajax {
 	margin: 0;
 }
 
-#ticketSearchClear-text,#ticketSearchClear-fromdate,#ticketSearchClear-todate,#ticketSearchClear-tag
-	{
+#ticketSearchClear-text,#ticketSearchClear-fromdate,#ticketSearchClear-todate,#ticketSearchClear-tag {
 	position: relative;
 	left: 150px;
 	top: -25px;
@@ -122,4 +121,8 @@ ul.ticket-view-ajax {
 	font-size: 14px;
 	cursor: pointer;
 	color: #ccc;
+}
+
+.ticket-single-date {
+	.margin-bottom: 5px;
 }

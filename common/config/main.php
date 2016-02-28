@@ -57,6 +57,10 @@ return [
                     'class' => 'common\models\ticketDecoration\CreateResolution',
                     'linkIcon' => '<span class="glyphicon glyphicon-list-alt"></span>',
                 ],
+                'CopyTicket' => [
+                    'class' => 'common\models\ticketDecoration\CopyTicket',
+                    'linkIcon' => '<span class="glyphicon glyphicon-duplicate"></span>',
+                ],
             ],
         ],
     ],
