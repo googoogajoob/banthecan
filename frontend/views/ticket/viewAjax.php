@@ -17,18 +17,49 @@ echo DetailView::widget([
         'options' => [
             'tag' => 'ul',
             'class' => 'ticket-view-ajax clearfix',
-],
+        ],
         'template' => '<li><span class="label">{label}</span><span class="data">{value}</span></li>',
         'attributes' => [
-            'createdByAvatar:image:',
-            'description:ntext',
-            'protocol:ntext',
-            'tagNames:ntext',
-            //'createdByName:ntext',
-            'created_at:RelativeTime',
-],
-])
-?></div>
+            [
+                'attribute' => 'title',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Title'),
+            ],
+            [
+                'attribute' => 'description',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Description'),
+            ],
+            [
+                'attribute' => 'protocol',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Protocol'),
+            ],
+            [
+                'attribute' => 'tagNames',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Tags'),
+            ],
+            [
+                'attribute' => 'createdByAvatar',
+                'format' => 'image',
+                'label' => \Yii::t('app', 'Created By'),
+            ],
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'short'],
+                'label' => \Yii::t('app', 'Created At'),
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => ['date', 'short'],
+                'label' => \Yii::t('app', 'Updated At'),
+            ],
+        ],
+    ]
+);
+?>
+</div>
 
 <img
 	id="ajax-loader" src="/images/ajax-loader.gif" class="hidden" />

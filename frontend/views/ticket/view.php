@@ -8,31 +8,65 @@ use yii\widgets\DetailView;
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ticket-view">
 
 <h1><?= Html::encode($this->title) ?></h1>
 
-<p><?= Html::a(\Yii::t('app', 'Update'), ['/ticket/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-<?= Html::a(\Yii::t('app', 'Delete'), ['/ticket/delete', 'id' => $model->id], [
+<p>
+    <?php
+        echo Html::a(\Yii::t('app', 'Edit'), ['/ticket/update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+        echo Html::a(\Yii::t('app', 'Delete'), ['/ticket/delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => \Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
-],
-]) ?></p>
+            ],
+        ]);
+    ?>
+</p>
 
-<?= DetailView::widget([
+<?php
+    echo DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'title:ntext',
-            'description:ntext',
-            'protocol:ntext',
-            'tagNames:ntext:Tags',
-            'createdByName:ntext:Created By',
-            'createdByAvatar:image:',
-            'created_at:datetime:Created',
-            'updated_at:datetime:Updated',
-],
-]) ?></div>
+            [
+                'attribute' => 'title',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Title'),
+            ],
+            [
+                'attribute' => 'description',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Description'),
+            ],
+            [
+                'attribute' => 'protocol',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Protocol'),
+            ],
+            [
+                'attribute' => 'tagNames',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Tags'),
+            ],
+            [
+                'attribute' => 'createdByAvatar',
+                'format' => 'image',
+                'label' => \Yii::t('app', 'Created By'),
+            ],
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'short'],
+                'label' => \Yii::t('app', 'Created At'),
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => ['date', 'short'],
+                'label' => \Yii::t('app', 'Updated At'),
+            ],
+        ],
+    ])
+?>
+</div>
