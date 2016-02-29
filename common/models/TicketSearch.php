@@ -98,4 +98,18 @@ class TicketSearch extends Ticket {
 
         return $dataProvider;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'text_search' => \Yii::t('app', 'Text Search'),
+            'from_date' => \Yii::t('app', 'From Date'),
+            'to_date' => \Yii::t('app', 'To Date'),
+            'user_search' => \Yii::t('app', 'User Search'),
+            'tag_search' => \Yii::t('app', 'Tag Search'),
+        ];
+    }
 }

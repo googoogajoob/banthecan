@@ -42,7 +42,7 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
 	</div>
 
 	<div class="ticket-single-date">
-		<?php echo Yii::$app->formatter->asDate($model->created_at, 'long'); ?>
+		<?php echo Yii::$app->formatter->asDate($model->created_at, 'short'); ?>
 	</div>
 
 	<strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $model->title ?></a></strong>

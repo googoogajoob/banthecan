@@ -23,9 +23,9 @@
 }
 
 .ticket-avatar {
-	text-align: right;
-	float: left;
-	margin: 0 4px 0 0;
+	/*text-align: right;*/
+	float: right;
+	margin: 0 0 0 4px;
 }
 
 .ticket-single-decorations-glyph {
@@ -124,5 +124,6 @@ ul.ticket-view-ajax {
 }
 
 .ticket-single-date {
-	.margin-bottom: 5px;
+	margin-bottom: 5px;
+	text-align: left;
 }

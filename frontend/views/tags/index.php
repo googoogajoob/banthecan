@@ -7,27 +7,33 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\TagsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tags';
-//$this->params['breadcrumbs'][] = $this->title;
+$this->title = \Yii::t('app', 'Tags');
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tags'), 'url' => ['index']];
 ?>
 <div class="tags-index">
 
-<h1><?= Html::encode($this->title) ?></h1>
-<?php // echo $this->render('partials/_search', ['model' => $searchModel]); ?>
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('partials/_search', ['model' => $searchModel]); ?>
 
-<p><?= Html::a(\Yii::t('app', 'Create Tags'), ['create'], ['class' => 'btn btn-success']) ?>
-</p>
+    <p><?= Html::a(\Yii::t('app', 'Create Tag'), ['create'], ['class' => 'btn btn-success']) ?></p>
 
-<?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'frequency',
-            'name:ntext',
-
-['class' => 'yii\grid\ActionColumn'],
-],
-]); ?></div>
+    <?php
+        echo GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                [
+                    'attribute' => 'name',
+                    'format' => 'ntext',
+                    'label' => \Yii::t('app', 'Name'),
+                ],
+                [
+                    'attribute' => 'frequency',
+                    'label' => \Yii::t('app', 'Frequency'),
+                ],
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]
+    );
+?>
+</div>
