@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\TicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tickets';
+$this->title = \Yii::t('app', 'Tickets');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ticket-index">
@@ -20,19 +20,47 @@ $this->title = 'Tickets';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'pager' => [
             'firstPageLabel' => \Yii::t('app', 'Begin'),
             'lastPageLabel' => \Yii::t('app', 'End'),
         ],
         'columns' => [
-            'title:ntext',
-            'description:ntext',
-            'protocol:ntext',
-            'tagNames:ntext:Tags',
-            'createdByAvatar:image:',
-            'created_at:datetime',
-            'updated_at:datetime',
+            [
+                'attribute' => 'title',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Title'),
+            ],
+            [
+                'attribute' => 'description',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Description'),
+            ],
+            [
+                'attribute' => 'protocol',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Protocol'),
+            ],
+            [
+                'attribute' => 'tagNames',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Tags'),
+            ],
+            [
+                'attribute' => 'createdByAvatar',
+                'format' => 'image',
+                'label' => \Yii::t('app', 'Created By'),
+            ],
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'short'],
+                'label' => \Yii::t('app', 'Created At'),
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => ['date', 'short'],
+                'label' => \Yii::t('app', 'Updated At'),
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?></div>

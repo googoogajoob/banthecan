@@ -112,6 +112,4 @@ class TicketSearch extends Ticket {
             'tag_search' => \Yii::t('app', 'Tag Search'),
         ];
     }
-
-
 }
