@@ -172,6 +172,27 @@ class Ticket extends \yii\db\ActiveRecord
 	}
 
 	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getUpdatedBy() {
+		return $this->hasOne(User::className(), ['id' => 'updated_by']);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUpdatedByName() {
+		return $this->getUpdatedBy()->one()->username;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUpdatedByAvatar() {
+		return $this->getUpdatedBy()->one()->avatarUrlColor;
+	}
+
+	/**
 	 * Returns the status of a ticket, whether ot not it is currently active
 	 * on the KanBanBoard
 	 * @return Boolean true = backlog, false = not backlog

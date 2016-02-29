@@ -51,6 +51,11 @@ echo DetailView::widget([
                 'label' => \Yii::t('app', 'Created At'),
             ],
             [
+                'attribute' => 'updatedByAvatar',
+                'format' => 'image',
+                'label' => \Yii::t('app', 'Updated By'),
+            ],
+            [
                 'attribute' => 'updated_at',
                 'format' => ['date', 'short'],
                 'label' => \Yii::t('app', 'Updated At'),

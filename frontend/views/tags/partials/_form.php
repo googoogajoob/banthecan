@@ -8,11 +8,20 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="tags-form"><?php $form = ActiveForm::begin(); ?> <?= $form->field($model, 'id')->textInput() ?>
+<div class="tags-form">
+    <?php
+        $form = ActiveForm::begin();
+        echo $form->field($model, 'name')->textarea(['rows' => 1]);
+    ?>
 
-<?= $form->field($model, 'frequency')->textInput() ?> <?= $form->field($model, 'name')->textarea(['rows' => 6]) ?>
+    <div class="form-group">
+        <?php
+            echo Html::submitButton($model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app',
+                'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+        ?>
+    </div>
 
-<div class="form-group"><?= Html::submitButton($model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?php
+        ActiveForm::end();
+    ?>
 </div>
-
-<?php ActiveForm::end(); ?></div>
