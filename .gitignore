@@ -36,3 +36,5 @@ phpunit.phar
 #LibreOffice Backup Files
 *.ods#$
 
+#GoDaddy Server
+error_log

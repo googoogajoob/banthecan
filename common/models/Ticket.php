@@ -7,9 +7,7 @@ use Faker\Factory;
 use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveQuery;
-use common\models\Tags;
-
+use frontend\models\blameTrait;
 
 /**
  * This is the model class for table "ticket".
@@ -31,6 +29,8 @@ use common\models\Tags;
  */
 class Ticket extends \yii\db\ActiveRecord
 {
+	use blameTrait;
+
 	const TICKET_TAG_MM_TABLE = 'ticket_tag_mm';
 	const DEMO_BACKLOG_TICKETS = 100;
 	const DEMO_BOARD_TICKETS = 5;
@@ -148,48 +148,6 @@ class Ticket extends \yii\db\ActiveRecord
 	 */
 	public function getColumn() {
 		return $this->hasOne(BoardColumn::className(), ['id' => 'column_id']);
-	}
-
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getCreatedBy() {
-		return $this->hasOne(User::className(), ['id' => 'created_by']);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getCreatedByName() {
-		return $this->getCreatedBy()->one()->username;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getCreatedByAvatar() {
-		return $this->getCreatedBy()->one()->avatarUrlColor;
-	}
-
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getUpdatedBy() {
-		return $this->hasOne(User::className(), ['id' => 'updated_by']);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getUpdatedByName() {
-		return $this->getUpdatedBy()->one()->username;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getUpdatedByAvatar() {
-		return $this->getUpdatedBy()->one()->avatarUrlColor;
 	}
 
 	/**
