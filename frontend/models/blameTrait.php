@@ -8,7 +8,6 @@
 
 namespace frontend\models;
 
-
 trait blameTrait
 {
     /**

@@ -5,6 +5,8 @@ namespace common\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use frontend\models\User;
+use frontend\models\blameTrait;
 
 
 /**
@@ -18,11 +20,13 @@ use yii\behaviors\TimestampBehavior;
  * @property string $title
  * @property string $description
  * @property integer $ticket_id
- * @property integer $user_id
+ * @property integer $user_id User Responsible for seeing the task is completed
  * @property integer $completed
  */
 class Task extends \yii\db\ActiveRecord
 {
+    use blameTrait;
+
     /**
      * @inheritdoc
      */
@@ -72,4 +76,26 @@ class Task extends \yii\db\ActiveRecord
             'completed' => Yii::t('app', 'Completed'),
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResponsible() {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getResponsibleName() {
+        return $this->getUpdatedBy()->one()->username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResponsibleAvatar() {
+        return $this->getUpdatedBy()->one()->avatarUrlColor;
+    }
+
 }

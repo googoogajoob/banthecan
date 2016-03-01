@@ -23,15 +23,47 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'updated_at',
-            'created_by',
-            'created_at',
-            'updated_by',
-            'title:ntext',
-            'description:ntext',
+            [
+                'attribute' => 'title',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Title'),
+            ],
+            [
+                'attribute' => 'description',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Description'),
+            ],
+            [
+                'attribute' => 'responsibleAvatar',
+                'format' => 'image',
+                'label' => \Yii::t('app', 'Responsible'),
+            ],
+            [
+                'attribute' => 'completed',
+                'format' => 'boolean',
+                'label' => \Yii::t('app', 'Completed'),
+            ],
             'ticket_id',
-            'user_id',
-            'completed',
+            [
+                'attribute' => 'createdByAvatar',
+                'format' => 'image',
+                'label' => \Yii::t('app', 'Created By'),
+            ],
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'short'],
+                'label' => \Yii::t('app', 'Created At'),
+            ],
+            [
+                'attribute' => 'updatedByAvatar',
+                'format' => 'image',
+                'label' => \Yii::t('app', 'Updated By'),
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => ['date', 'short'],
+                'label' => \Yii::t('app', 'Updated At'),
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
