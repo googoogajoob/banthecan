@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\User;
+use common\models\Ticket;
 use frontend\models\blameTrait;
 
 
@@ -96,6 +97,13 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getResponsibleAvatar() {
         return $this->getUpdatedBy()->one()->avatarUrlColor;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTicket() {
+        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
     }
 
 }

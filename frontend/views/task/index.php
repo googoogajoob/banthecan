@@ -43,7 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'boolean',
                 'label' => \Yii::t('app', 'Completed'),
             ],
-            'ticket_id',
+            [
+                'attribute' => 'ticket.title',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Ticket Title'),
+            ],
             [
                 'attribute' => 'createdByAvatar',
                 'format' => 'image',
