@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -28,16 +28,55 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
-            'title:ntext',
-            'description:ntext',
-            'ticket_id',
-            'user_id',
-            'completed',
+            [
+                'attribute' => 'completed',
+                'format' => 'boolean',
+                'label' => \Yii::t('app', 'Completed'),
+            ],
+            [
+                'attribute' => 'title',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Title'),
+            ],
+            [
+                'attribute' => 'description',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Description'),
+            ],
+            [
+                'format' => 'raw',
+                'label' => \Yii::t('app', 'Responsible'),
+                'value' => $this->render('@frontend/views/user/partials/_blame', [
+                        'name' => $model->getResponsibleName(),
+                        'avatar' => $model->getResponsibleAvatar(),
+                    ]
+                )
+            ],
+            [
+                'attribute' => 'ticket.title',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Ticket'),
+            ],
+            [
+                'format' => 'raw',
+                'label' => \Yii::t('app', 'Created By'),
+                'value' => $this->render('@frontend/views/user/partials/_blame', [
+                        'name' => $model->getCreatedByName(),
+                        'avatar' => $model->getCreatedByAvatar(),
+                        'timestamp' => $model->created_at,
+                    ]
+                )
+            ],
+            [
+                'format' => 'raw',
+                'label' => \Yii::t('app', 'Updated By'),
+                'value' => $this->render('@frontend/views/user/partials/_blame', [
+                        'name' => $model->getUpdatedByName(),
+                        'avatar' => $model->getUpdatedByAvatar(),
+                        'timestamp' => $model->updated_at,
+                    ]
+                )
+            ],
         ],
     ]) ?>
 
