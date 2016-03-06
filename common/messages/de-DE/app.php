@@ -83,6 +83,7 @@ return [
     'Table' => 'Tabelle',
     'Tags' => 'Stichwoerter',
     'Tag Search' => 'Stichwoertsuche',
+    'Tasks' => 'Aufgaben',
     'Text Search' => 'Textsuche',
     'The above error occurred while the Web server was processing your request.' => 'Waehrend der Verarbeitung beim Server ist dieser Fehler aufgetreten.',
     'Ticket Backlog Configuration' => 'Ticket-Rueckstand Konfiguration',
