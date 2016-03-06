@@ -41,14 +41,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => \Yii::t('app', 'Description'),
             ],
             [
-                'attribute' => 'responsibleAvatar',
-                'format' => 'image',
+                'format' => 'raw',
                 'label' => \Yii::t('app', 'Responsible'),
+                'content' => function ($model, $key, $index, $column) {
+                    return $this->render('@frontend/views/user/partials/_blame', [
+                            'name' => $model->getResponsibleName(),
+                            'avatar' => $model->getResponsibleAvatar(),
+                        ]
+                    );
+                },
             ],
             [
                 'attribute' => 'ticket.title',
                 'format' => 'ntext',
-                'label' => \Yii::t('app', 'Ticket Title'),
+                'label' => \Yii::t('app', 'Ticket'),
             ],
             [
                 'format' => 'raw',
