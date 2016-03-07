@@ -13,22 +13,50 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="resolution-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Resolution'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
-            'title:ntext',
-            'description:ntext',
-            'ticket_id',
+            [
+                'attribute' => 'title',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Title'),
+            ],
+            [
+                'attribute' => 'description',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Description'),
+            ],
+            [
+                'attribute' => 'ticket.title',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Ticket'),
+            ],
+            [
+                'format' => 'raw',
+                'label' => \Yii::t('app', 'Created By'),
+                'content' => function ($model, $key, $index, $column) {
+                    return $this->render('@frontend/views/user/partials/_blame', [
+                            'name' => $model->getCreatedByName(),
+                            'avatar' => $model->getCreatedByAvatar(),
+                            'timestamp' => $model->created_at,
+                        ]
+                    );
+                },
+            ],
+            [
+                'format' => 'raw',
+                'label' => \Yii::t('app', 'Updated By'),
+                'content' => function ($model, $key, $index, $column) {
+                    return $this->render('@frontend/views/user/partials/_blame', [
+                            'name' => $model->getUpdatedByName(),
+                            'avatar' => $model->getUpdatedByAvatar(),
+                            'timestamp' => $model->updated_at,
+                        ]
+                    );
+                },
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

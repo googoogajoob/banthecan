@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use frontend\models\blameTrait;
 
 /**
  * This is the model class for table "resolution".
@@ -20,6 +21,8 @@ use yii\behaviors\BlameableBehavior;
  */
 class Resolution extends \yii\db\ActiveRecord
 {
+    use blameTrait;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -67,4 +70,12 @@ class Resolution extends \yii\db\ActiveRecord
             'ticket_id' => 'Ticket ID',
 		];
 	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getTicket() {
+		return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
+	}
+
 }

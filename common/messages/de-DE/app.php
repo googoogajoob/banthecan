@@ -93,6 +93,7 @@ return [
     'Title' => 'Titel',
     'To Date' => 'Datum bis',
     'Update' => 'Aktualisieren',
+    'Update Resolution' => 'Beschluss aktualisieren',
     'Update Tag' => 'Stichwort aktualisieren',
     'Update Ticket' => 'Ticket aktualisieren',
     'Updated At' => 'Aktualisiert am',
