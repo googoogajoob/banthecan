@@ -6,7 +6,6 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\User;
-use common\models\Ticket;
 use frontend\models\blameTrait;
 
 

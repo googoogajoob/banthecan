@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php
         $form = ActiveForm::begin();
         echo $form->field($model, 'title')->textarea(['rows' => 1]);
-        echo $form->field($model, 'description')->textarea(['rows' => 6]);
+        echo $form->field($model, 'description')->textarea(['rows' => 4]);
         echo Html::activeHiddenInput($model, 'ticket_id');
     ?>
 

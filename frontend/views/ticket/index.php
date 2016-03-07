@@ -47,24 +47,28 @@ $this->title = \Yii::t('app', 'Tickets');
                 'label' => \Yii::t('app', 'Tags'),
             ],
             [
-                'attribute' => 'createdByAvatar',
-                'format' => 'image',
+                'format' => 'raw',
                 'label' => \Yii::t('app', 'Created By'),
+                'content' => function ($model, $key, $index, $column) {
+                    return $this->render('@frontend/views/user/partials/_blame', [
+                            'name' => $model->getCreatedByName(),
+                            'avatar' => $model->getCreatedByAvatar(),
+                            'timestamp' => $model->created_at,
+                        ]
+                    );
+                },
             ],
             [
-                'attribute' => 'created_at',
-                'format' => ['date', 'short'],
-                'label' => \Yii::t('app', 'Created At'),
-            ],
-            [
-                'attribute' => 'updatedByAvatar',
-                'format' => 'image',
+                'format' => 'raw',
                 'label' => \Yii::t('app', 'Updated By'),
-            ],
-            [
-                'attribute' => 'updated_at',
-                'format' => ['date', 'short'],
-                'label' => \Yii::t('app', 'Updated At'),
+                'content' => function ($model, $key, $index, $column) {
+                    return $this->render('@frontend/views/user/partials/_blame', [
+                            'name' => $model->getUpdatedByName(),
+                            'avatar' => $model->getUpdatedByAvatar(),
+                            'timestamp' => $model->updated_at,
+                        ]
+                    );
+                },
             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
