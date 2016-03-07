@@ -13,9 +13,6 @@ $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tags'), 'url' => ['
 <div class="tags-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('partials/_search', ['model' => $searchModel]); ?>
-
-    <p><?= Html::a(\Yii::t('app', 'Create Tag'), ['create'], ['class' => 'btn btn-success']) ?></p>
 
     <?php
         echo GridView::widget([
