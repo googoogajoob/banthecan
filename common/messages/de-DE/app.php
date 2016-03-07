@@ -27,7 +27,7 @@ return [
     'An active board must be <a href="/board/select">selected</a> in order to proceed.'
     => 'Um weiter zu machen, muss ein Tafel <a href="/board/select">aktiviert werden</a>.',
     'Are you sure you want to delete this item?' => 'Willst du diesen Eintrag tatsaechlich loeschen?',
-    'Backlog' => 'R&uuml;ckstand',
+    'Backlog' => 'Themen',
     'Ban The Can Administration' => 'Ban The Can Verwaltung',
     'Begin' => 'Anfang',
     'Board Columns' => 'Tafel Spalten',
