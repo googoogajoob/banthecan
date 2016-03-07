@@ -20,7 +20,7 @@ use yii\bootstrap\ActiveForm;
 
 	<div class="form-group">
 		<?php
-			echo Html::submitButton('Upload Image', ['class' => 'btn btn-primary']);
+			echo Html::submitButton(Yii::t('app', 'Upload Image'), ['class' => 'btn btn-primary']);
 		?>
 	</div>
 

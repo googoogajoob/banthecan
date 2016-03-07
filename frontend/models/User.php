@@ -192,4 +192,16 @@ class User extends \common\models\User implements IdentityInterface
 		return Board::findOne($boardId);
 	}
 
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'username' => \Yii::t('app', 'Username'),
+			'password' => \Yii::t('app', 'Password'),
+		];
+	}
+
+
 }
