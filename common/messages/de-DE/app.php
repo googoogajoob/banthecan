@@ -75,7 +75,7 @@ return [
     'reset it' => 'es zur&uuml;cksetzen',
     'Resolution' => 'Beschluss',
     'Resolutions' => 'Beschluesse',
-    'Responsible' => 'Verantwortliche',
+    'Responsible' => 'Verantwortlich',
     'Search' => 'Suche',
     'Select Board' => 'Tafel selektieren',
     'Signup' => 'Anmelden',
