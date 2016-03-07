@@ -89,14 +89,14 @@ class Task extends \yii\db\ActiveRecord
      * @return string
      */
     public function getResponsibleName() {
-        return $this->getUpdatedBy()->one()->username;
+        return $this->getResponsible()->one()->username;
     }
 
     /**
      * @return string
      */
     public function getResponsibleAvatar() {
-        return $this->getUpdatedBy()->one()->avatarUrlColor;
+        return $this->getResponsible()->one()->avatarUrlColor;
     }
 
     /**
