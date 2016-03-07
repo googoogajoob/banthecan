@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $this->title = \Yii::t('app', 'Create Ticket');
 $this->params['breadcrumbs'][] = ['label' => 'Tickets', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="ticket-create">
 
