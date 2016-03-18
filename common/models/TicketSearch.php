@@ -12,6 +12,9 @@ use yii\data\ActiveDataProvider;
  * TicketSearch represents the model behind the search form about `common\models\Ticket`.
  */
 class TicketSearch extends Ticket {
+    const TICKET_SEARCH = 'TicketSearch';
+
+    private $_sessionKey;
 
     /* Combined search value for searching in description and title */
     public $text_search;
@@ -68,7 +71,12 @@ class TicketSearch extends Ticket {
             'query' => $query,
         ]);
 
-        $this->load($params);
+        if (array_key_exists(self::TICKET_SEARCH, $params)) {
+            $this->load($params);
+            $this->saveToSession();
+        } else {
+            $this->getFromSession();
+        }
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to any records when validation fails
@@ -111,5 +119,34 @@ class TicketSearch extends Ticket {
             'user_search' => \Yii::t('app', 'User Search'),
             'tag_search' => \Yii::t('app', 'Tag Search'),
         ];
+    }
+
+    public function setSessionKey($key)
+    {
+        $this->_sessionKey = $key;
+    }
+
+    public function saveToSession()
+    {
+        $value = serialize([
+            'text_search' => $this->text_search,
+            'from_date' => $this->from_date,
+            'to_date' => $this->to_date,
+            'user_search' => $this->user_search,
+            'tag_search' => $this->tag_search,
+        ]);
+
+        Yii::$app->getSession()->set(self::TICKET_SEARCH . '_' . $this->_sessionKey, $value);
+    }
+
+    public function getFromSession()
+    {
+        $value = unserialize(Yii::$app->getSession()->get(self::TICKET_SEARCH . '_' . $this->_sessionKey));
+
+        $this->text_search = $value['text_search'];
+        $this->from_date = $value['from_date'];
+        $this->to_date = $value['to_date'];
+        $this->user_search = $value['user_search'];
+        $this->tag_search = $value['tag_search'];
     }
 }

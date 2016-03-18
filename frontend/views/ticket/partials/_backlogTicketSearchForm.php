@@ -16,7 +16,7 @@ use dosamigos\selectize\SelectizeTextInput;
 <?php
 $form = ActiveForm::begin([
     'action' => ['board/' . $action],
-    'method' => 'get',
+    'method' => 'post',
 ]);
 
 echo Html::hiddenInput('per-page', $currentPageSize, [
@@ -98,9 +98,17 @@ echo $form->field($searchModel, 'tag_search')->widget(SelectizeTextInput::classN
 
 ?>
 
-<div class="form-group"><?php echo Html::submitButton(\Yii::t('app', 'Search'), [
-        'class' => 'btn btn-primary',
-        'id' => 'backlog-search-submit',
-    ]); ?></div>
+<div class="form-group">
+    <?php
+        echo Html::submitButton(\Yii::t('app', 'Search'), [
+            'class' => 'btn btn-primary',
+            'id' => 'backlog-search-submit',
+        ]);
+        /*echo Html::resetButton(\Yii::t('app', 'Reset'), [
+            'class' => 'btn btn-primary',
+            'id' => 'backlog-search-clear',
+        ]);*/
+    ?>
+</div>
 
 <?php ActiveForm::end(); ?>
