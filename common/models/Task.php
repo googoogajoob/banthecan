@@ -80,28 +80,36 @@ class Task extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResponsible() {
+    public function getResponsible()
+    {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
      * @return string
      */
-    public function getResponsibleName() {
-        return $this->getResponsible()->one()->username;
+    public function getResponsibleName()
+    {
+        $user = $this->getResponsible()->one();
+
+        return $user ? $user->username : null;
     }
 
     /**
      * @return string
      */
-    public function getResponsibleAvatar() {
-        return $this->getResponsible()->one()->avatarUrlColor;
+    public function getResponsibleAvatar()
+    {
+        $user = $this->getResponsible()->one();
+
+        return $user ? $user->avatarUrlColor : null;
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicket() {
+    public function getTicket()
+    {
         return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
     }
 

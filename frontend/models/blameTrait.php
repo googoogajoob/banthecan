@@ -13,43 +13,57 @@ trait blameTrait
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCreatedBy() {
+    public function getCreatedBy()
+    {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
     /**
      * @return string
      */
-    public function getCreatedByName() {
-        return $this->getCreatedBy()->one()->username;
+    public function getCreatedByName()
+    {
+        $user = $this->getCreatedBy()->one();
+
+        return $user ? $user->username : null;
     }
 
     /**
      * @return string
      */
-    public function getCreatedByAvatar() {
-        return $this->getCreatedBy()->one()->avatarUrlColor;
+    public function getCreatedByAvatar()
+    {
+        $user = $this->getCreatedBy()->one();
+
+        return $user ? $user->avatarUrlColor : null;
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUpdatedBy() {
+    public function getUpdatedBy()
+    {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
     /**
      * @return string
      */
-    public function getUpdatedByName() {
-        return $this->getUpdatedBy()->one()->username;
+    public function getUpdatedByName()
+    {
+        $user = $this->getUpdatedBy()->one();
+
+        return $user ? $user->username : null;
     }
 
     /**
      * @return string
      */
-    public function getUpdatedByAvatar() {
-        return $this->getUpdatedBy()->one()->avatarUrlColor;
+    public function getUpdatedByAvatar()
+    {
+        $user = $this->getUpdatedBy()->one();
+
+        return $user ? $user->avatarUrlColor : null;
     }
 
 }

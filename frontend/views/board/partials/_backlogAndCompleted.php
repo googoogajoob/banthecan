@@ -30,7 +30,7 @@ echo ListView::widget([
             'showTags' => true,
         ],
         'itemOptions' => [
-            'class' => 'col-xs-62 col-sm-4 col-md-3 col-lg-2',
+            'class' => 'col-xs-2 col-sm-4 col-md-3 col-lg-2',
         ],
         'options' => ['class' => 'row'],
         'layout' => '{pager}{summary}{sorter}{items}{pager}',
