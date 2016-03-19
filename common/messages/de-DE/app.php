@@ -114,6 +114,7 @@ return [
     'View Detail' => 'Detailansicht',
     'Vote Minus' => 'Gegen stimmen',
     'Vote Plus' => 'Zustimmen',
+    'Voted' => 'Abgestimmt',
     'You are a member of more than one board.<br/> Select which board you want to use.'
     => 'Du geh&ouml;rst mehreren Tafeln.<br/>Eins muss selektiert werden.',
 ];

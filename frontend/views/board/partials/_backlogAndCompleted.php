@@ -10,7 +10,6 @@ use yii\widgets\ListView;
 /* @var $currentPageSize integer */
 /* @var $showPriority boolean */
 
-
 BacklogAsset::register($this);
 
 $this->beginBlock('left-sidebar');
@@ -19,6 +18,7 @@ echo $this->render('@frontend/views/ticket/partials/_backlogTicketSearchForm',[
         'searchModel' => $searchModel,
         'currentPageSize' => $currentPageSize,
         'action' => $action,
+        'showPriority' => $showPriority,
 ]);
 
 $this->endBlock();

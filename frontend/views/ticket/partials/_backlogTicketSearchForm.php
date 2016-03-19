@@ -10,12 +10,13 @@ use dosamigos\selectize\SelectizeTextInput;
 /* @var $searchModel common\models\TicketSearch */
 /* @var $action string */
 /* @var $currentPageSize integer */
+/* @var $showPriority boolean */
 
 ?>
 
 <?php
 $form = ActiveForm::begin([
-    'action' => ['board/' . $action],
+    'action' => [$action],
     'method' => 'post',
 ]);
 
@@ -27,6 +28,13 @@ $clearIcon = '<span id="ticketSearchClear-text" class="glyphicon glyphicon-remov
 echo $form->field($searchModel, 'text_search', [
     'template' => "{label}\n{input}$clearIcon\n{hint}\n{error}"
 ]);
+
+if ($showPriority) {
+    echo $form->field($searchModel, 'vote_priority_filter')->checkbox([
+        'All' => 0,
+        'Voted' => 1,
+    ], false);
+}
 
 $clearIcon = '<span id="ticketSearchClear-fromdate" class="glyphicon glyphicon-remove-circle"></span>';
 echo $form->field($searchModel, 'from_date', [
