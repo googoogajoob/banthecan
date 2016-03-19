@@ -196,7 +196,11 @@ class Ticket extends \yii\db\ActiveRecord
 	 * @return $this common\models\ticket
 	 */
 	public function incrementVotePriority() {
-		$this->vote_priority++;
+		if ($this->vote_priority === null) {
+			$this->vote_priority = 1;
+		} else {
+			$this->vote_priority++;
+		}
 
 		return $this;
 	}
@@ -207,7 +211,11 @@ class Ticket extends \yii\db\ActiveRecord
 	 * @return $this common\models\ticket
 	 */
 	public function decrementVotePriority() {
-		$this->vote_priority--;
+		if ($this->vote_priority === null) {
+			$this->vote_priority = -1;
+		} else {
+			$this->vote_priority--;
+		}
 
 		return $this;
 	}

@@ -132,13 +132,19 @@ ul.ticket-view-ajax {
     font-size: 150%;
     font-weight: bold;
     padding-right: 10px;
-    line-height: 90%;
+    line-height: 95%;
+    /*border-radius: 50%;*/
+    /*height: 28px;*/
+    /*width: 28px;*/
+    text-align: center;
 }
 
 .ticket-vote-plus {
     color: #a32d00;
+    /*background-color: #e78f08;*/
 }
 
 .ticket-vote-minus {
     color: dimgrey;
+    /*background-color: #72e77a;*/
 }
