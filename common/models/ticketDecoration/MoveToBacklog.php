@@ -25,7 +25,11 @@ class MoveToBacklog extends AbstractDecoration {
 	 * @return string html for showing the ticketDecoration
 	 */
 	public function show($view = 'default') {
-		return '<a data-toggle="tooltip" title="Move to Backlog"  href="/ticket/backlog/' . $this->owner->id . '">' . $this->linkIcon .'</a>';
+		return '<a data-toggle="tooltip"
+					title="' . \Yii::t('app', 'Move to Backlog')
+					. '"href="/task/backlog/' . $this->owner->id . '">'
+					. $this->linkIcon
+				.'</a>';
 	}
 
 }

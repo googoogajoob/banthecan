@@ -27,7 +27,7 @@ return [
     'An active board must be <a href="/board/select">selected</a> in order to proceed.'
     => 'Um weiter zu machen, muss ein Tafel <a href="/board/select">aktiviert werden</a>.',
     'Are you sure you want to delete this item?' => 'Willst du diesen Eintrag tatsächlich löschen?',
-    'Backlog' => 'Themen',
+    'Backlog' => 'Backlog',
     'Ban The Can Administration' => 'Ban The Can Verwaltung',
     'Begin' => 'Anfang',
     'Board Columns' => 'Tafel Spalten',
@@ -38,6 +38,7 @@ return [
     'Column ID' => 'Spalte-ID',
     'Completed' => 'Erledigt',
     'Contact' => 'Kontakt',
+    'Copy Ticket' => 'Ticket kopieren',
     'Create' => 'Speichern',
     'Create Task' => 'Neue Aufgabe',
     'Create Board' => 'Neue Tafel',
@@ -65,6 +66,9 @@ return [
     'Initialize Demo Database' => 'Demo-Datenbank initialisieren',
     'Login' => 'Einloggen',
     'Logout' => 'Ausloggen',
+    'Move to Backlog' => 'Zum Backlog',
+    'Move to Completed' => 'Zu Erledigten',
+    'Move to Kanban' => 'Zum Kanban',
     'Name' => 'Name',
     'News' => 'Nachrichten',
     'No file chosen' => 'Keine Datei ausgewählt',
@@ -105,6 +109,7 @@ return [
     'User Search' => 'Benutzersuche',
     'User Settings' => 'Benutzer Einstellungen',
     'Username' => 'Benutzername',
+    'View Detail' => 'Detailansicht',
     'You are a member of more than one board.<br/> Select which board you want to use.'
     => 'Du geh&ouml;rst mehreren Tafeln.<br/>Eins muss selektiert werden.',
 ];
