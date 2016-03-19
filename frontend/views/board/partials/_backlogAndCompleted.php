@@ -8,6 +8,7 @@ use yii\widgets\ListView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $action string */
 /* @var $currentPageSize integer */
+/* @var $showPriority boolean */
 
 
 BacklogAsset::register($this);
@@ -28,6 +29,7 @@ echo ListView::widget([
         'viewParams' => [
             'divClass' => 'ticket-widget-float',
             'showTags' => true,
+            'showPriority' => $showPriority,
         ],
         'itemOptions' => [
             'class' => 'col-xs-2 col-sm-4 col-md-3 col-lg-2',

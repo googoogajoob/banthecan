@@ -16,6 +16,7 @@ use frontend\controllers\TicketController;
 /* @var $model common\models\Ticket */
 /* @var $divClass string/boolean class name for wrapping DIV or false for no wrapper*/
 /* @var $showTag boolean true/false for tag display */
+/* @var $showPriority boolean true/false for priority display */
 
 $dependency = [
 	'class' => 'yii\caching\DbDependency',
@@ -45,14 +46,16 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
     </div>
 
     <?php
-        if ($model->vote_priority > 0) {
-            echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-plus pull-left']);
-            echo '+' . $model->vote_priority;
-            echo Html::endTag('div');
-        } elseif (($model->vote_priority < 0)) {
-            echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-minus pull-left']);
-            echo $model->vote_priority;
-            echo Html::endTag('div');
+        if (isset($showPriority) && $showPriority) {
+            if ($model->vote_priority > 0) {
+                echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-plus pull-left']);
+                echo '+' . $model->vote_priority;
+                echo Html::endTag('div');
+            } elseif (($model->vote_priority < 0)) {
+                echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-minus pull-left']);
+                echo $model->vote_priority;
+                echo Html::endTag('div');
+            }
         }
     ?>
 

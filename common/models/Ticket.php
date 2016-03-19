@@ -116,7 +116,7 @@ class Ticket extends \yii\db\ActiveRecord
 	{
 		return [
 		[['title', 'column_id'], 'required'],
-		[['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order'], 'integer'],
+		[['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order', 'vote_priority'], 'integer'],
 		[['title', 'description', 'protocol'], 'string'],
 		[['id'], 'unique'],
 		[['tagNames'], 'safe'],
