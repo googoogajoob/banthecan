@@ -12,6 +12,7 @@
 	/* This is need to provide a reference for absolute positioning in ticket-function-bar
        see: http://www.w3schools.com/css/css_positioning.asp*/
 	position: relative;
+    border-radius: 4px;
 }
 
 .ticket-detail-selected {
