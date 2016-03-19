@@ -74,7 +74,7 @@ class BoardController extends \yii\web\Controller {
     public function actionIndex() {
 
         $this->layout = 'right';
-        Yii::$app->getUser()->setReturnUrl('/board/index');
+        Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
 
         return $this->render('index', [
             'board' => $this->currentBoard,
@@ -105,7 +105,7 @@ class BoardController extends \yii\web\Controller {
         $dataProvider->pagination->pageSize = $currentPageSize;
         $dataProvider->sort = $this->createSortObject();
 
-        Yii::$app->getUser()->setReturnUrl('/board/backlog');
+        Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
 
         return $this->render('backlog', [
             'searchModel' => $searchModel,
@@ -139,7 +139,7 @@ class BoardController extends \yii\web\Controller {
         $dataProvider->pagination->pageSize = $currentPageSize;
         $dataProvider->sort = $this->createSortObject();
 
-        Yii::$app->getUser()->setReturnUrl('/board/completed');
+        Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
 
         return $this->render('completed', [
             'searchModel' => $searchModel,

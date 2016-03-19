@@ -191,6 +191,28 @@ class Ticket extends \yii\db\ActiveRecord
 	}
 
 	/**
+	 * Increment the vote_priority
+	 *
+	 * @return $this common\models\ticket
+	 */
+	public function incrementVotePriority() {
+		$this->vote_priority++;
+
+		return $this;
+	}
+
+	/**
+	 * Decrement the vote_priority
+	 *
+	 * @return $this common\models\ticket
+	 */
+	public function decrementVotePriority() {
+		$this->vote_priority--;
+
+		return $this;
+	}
+
+	/**
 	 * Sets the Status of the Ticket to be in the Backlog
 	 *
 	 * @return $this common\models\ticket
