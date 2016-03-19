@@ -25,6 +25,7 @@ use frontend\models\blameTrait;
  * @property BoardColumn $column
  * @property string  $tagNames
  * @property string  $protocol
+ * @property integer $vote_priority
  *
  */
 class Ticket extends \yii\db\ActiveRecord
@@ -140,6 +141,7 @@ class Ticket extends \yii\db\ActiveRecord
             'ticket_order' => \Yii::t('app', 'Ticket Order'),
             'tagNames' => \Yii::t('app', 'Tags'),
 			'protocol' => \Yii::t('app', 'Protocol'),
+			'vote_priority' => \Yii::t('app', 'Priority'),
 		];
 	}
 

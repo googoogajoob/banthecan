@@ -15,7 +15,7 @@ use frontend\controllers\TicketController;
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
 /* @var $divClass string/boolean class name for wrapping DIV or false for no wrapper*/
-/* @var $showTag boolean tue/false for tag display */
+/* @var $showTag boolean true/false for tag display */
 
 $dependency = [
 	'class' => 'yii\caching\DbDependency',
@@ -29,43 +29,64 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
 ?>
 
 	<?php
-	// Wrap Contents in a div only when $divClass is set, otherwise contents are returned unwrapped
-	if (isset($divClass)) {
-		echo Html::beginTag('div', [
-				'class' => $divClass,
+		// Wrap Contents in a div only when $divClass is set, otherwise contents are returned unwrapped
+		if (isset($divClass)) {
+			echo Html::beginTag('div', [
+                'class' => $divClass,
 				'id' => TicketController::TICKET_HTML_PREFIX . $model->id,
-		]);
-	}
+			]);
+		}
 	?>
 
-	<div class="ticket-avatar"><?php echo $this->render('@frontend/views/site/partials/_userIcon', ['userId' => $model->created_by]);?>
-	</div>
+    <div class="ticket-avatar">
+        <?php
+            echo $this->render('@frontend/views/site/partials/_userIcon', ['userId' => $model->created_by]);
+        ?>
+    </div>
+
+    <?php
+        if ($model->vote_priority > 0) {
+            echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-plus pull-left']);
+            echo '+' . $model->vote_priority;
+            echo Html::endTag('div');
+        } elseif (($model->vote_priority < 0)) {
+            echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-minus pull-left']);
+            echo $model->vote_priority;
+            echo Html::endTag('div');
+        }
+    ?>
 
 	<div class="ticket-single-date">
-		<?php echo Yii::$app->formatter->asDate($model->created_at, 'short'); ?>
+		<?php
+			echo Yii::$app->formatter->asDate($model->created_at, 'short');
+		?>
 	</div>
 
-	<strong><a href="<?php echo $ticketViewUrl; ?>"><?php echo $model->title ?></a></strong>
-	<br />
-	<br />
-	<br />
+    <strong>
+		<a href="<?php echo $ticketViewUrl; ?>">
+			<?php echo $model->title ?>
+		</a>
+	</strong>
 
 	<?php
-	echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
-	echo $this->render('@frontend/views/ticket/partials/_ticketDecorations', ['ticket' => $model]);
-	echo Html::endTag('div');
-
-	if ($showTags) {
-		echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model]);
-	}
-
-	// Wrap Contents in a div only when $divClass is set
-	if (isset($divClass)) {
+		echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
+		echo $this->render('@frontend/views/ticket/partials/_ticketDecorations', ['ticket' => $model]);
 		echo Html::endTag('div');
-	}
 
-	$this->endCache();
-endif;
+		if ($showTags) {
+			echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model]);
+		}
+
+		// Wrap Contents in a div only when $divClass is set
+		if (isset($divClass)) {
+			echo Html::endTag('div');
+		}
+
+		$this->endCache();
+	?>
+
+<?php
+	endif; //End of Cache If-Block
 ?>
 
 

@@ -29,13 +29,10 @@ class VoteMinus extends AbstractDecoration
 	 */
 	public function show($view = 'default')
 	{
-		return Html::tag(
-            'div',
-		$this->linkIcon, [
-                'onClick' => 'ticketDetailView(' . $this->owner->id . ');',
-                'data-toggle' => 'tooltip',
-                'title' => 'Vote Minus',
-		]
-		);
+		return '<a data-toggle="tooltip"
+					title="' . \Yii::t('app', 'Vote Minus')
+					. '"href="/ticket/minus/' . $this->owner->id . '">'
+					. $this->linkIcon
+				.'</a>';
 	}
 }

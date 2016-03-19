@@ -127,3 +127,18 @@ ul.ticket-view-ajax {
 	margin-bottom: 5px;
 	text-align: left;
 }
+
+.ticket-vote {
+    font-size: 150%;
+    font-weight: bold;
+    padding-right: 10px;
+    line-height: 90%;
+}
+
+.ticket-vote-plus {
+    color: #a32d00;
+}
+
+.ticket-vote-minus {
+    color: dimgrey;
+}

@@ -49,6 +49,7 @@ return [
     'Create Ticket' => 'Neues Ticket',
     'Create User' => 'Neuer Benutzer',
     'Create a fresh demo database including a demo user' => 'Erzeuge eine frische Demo-Datenbank und neuen demo-Benutzer',
+    'Created' => 'Eingetragen',
     'Created At' => 'Eingetragen am',
     'Created By' => 'Eingetragen von',
     'Date' => 'Datum',
@@ -76,6 +77,7 @@ return [
     'Password' => 'Passwort',
     'Please fill out the following fields to login as an Admin User:' => 'Folgende Felder bitte ausf&uuml;llen, um als Admin einzuloggen',
     'Please fill out the following fields to signup:' => 'Folgende Felder bitte ausfüllen, um neu anzumelden',
+    'Priority' => 'Priorität',
     'Protocol' => 'Protokoll',
     'Reset' => 'Zur&uuml;cksetzen',
     'reset it' => 'es zur&uuml;cksetzen',
@@ -110,6 +112,8 @@ return [
     'User Settings' => 'Benutzer Einstellungen',
     'Username' => 'Benutzername',
     'View Detail' => 'Detailansicht',
+    'Vote Minus' => 'Gegen stimmen',
+    'Vote Plus' => 'Zustimmen',
     'You are a member of more than one board.<br/> Select which board you want to use.'
     => 'Du geh&ouml;rst mehreren Tafeln.<br/>Eins muss selektiert werden.',
 ];

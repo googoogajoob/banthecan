@@ -196,9 +196,14 @@ class BoardController extends \yii\web\Controller {
 
         $sort = new Sort([
             'attributes' => [
-                'title',
+                'title' => [
+                'label' => \Yii::t('app', 'Title')
+                ],
                 'created_at' => [
-                    'label' => 'Created'
+                    'label' => \Yii::t('app', 'Created')
+                ],
+                'vote_priority' => [
+                    'label' => \Yii::t('app', 'Priority')
                 ],
                 /*'updated_at' => [
                  'label' => 'Updated'
