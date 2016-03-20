@@ -217,7 +217,14 @@ class TicketController extends Controller {
      */
     public function actionPlus($id)
     {
-        $this->findModel($id)->incrementVotePriority()->save();
+        $model = $this->findModel($id);
+        $model->incrementVotePriority()->save();
+
+        if ($model->hasErrors('vote_priority')) {
+            Yii::$app->getSession()->setFlash('error',
+                $model->getErrors('vote_priority')
+            );
+        }
 
         return $this->goBack();
     }
@@ -230,7 +237,14 @@ class TicketController extends Controller {
      */
     public function actionMinus($id)
     {
-        $this->findModel($id)->decrementVotePriority()->save();
+        $model = $this->findModel($id);
+        $model->decrementVotePriority()->save();
+
+        if ($model->hasErrors('vote_priority')) {
+            Yii::$app->getSession()->setFlash('error',
+                $model->getErrors('vote_priority')
+            );
+        }
 
         return $this->goBack();
     }

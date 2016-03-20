@@ -73,6 +73,7 @@ return [
     'Name' => 'Name',
     'News' => 'Nachrichten',
     'No file chosen' => 'Keine Datei ausgewählt',
+    'Only one vote allowed per user' => 'Jeder Benutzer darf nur eine Stimme abgeben',
     'Page Size:' => 'Tickets per Seite:',
     'Password' => 'Passwort',
     'Please fill out the following fields to login as an Admin User:' => 'Folgende Felder bitte ausf&uuml;llen, um als Admin einzuloggen',

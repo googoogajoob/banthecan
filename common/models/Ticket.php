@@ -120,6 +120,7 @@ class Ticket extends \yii\db\ActiveRecord
 		[['title', 'description', 'protocol'], 'string'],
 		[['id'], 'unique'],
 		[['tagNames'], 'safe'],
+		[['vote_priority'], 'validateVote'],
 		];
 	}
 
@@ -144,6 +145,11 @@ class Ticket extends \yii\db\ActiveRecord
 			'vote_priority' => \Yii::t('app', 'Priority'),
 		];
 	}
+
+	public function validateVote($attribute, $params)
+    {
+        $this->addError($attribute, \Yii::t('app', 'Only one vote allowed per user'));
+    }
 
 	/**
 	 * @return \yii\db\ActiveQuery
