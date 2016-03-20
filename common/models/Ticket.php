@@ -26,6 +26,7 @@ use frontend\models\blameTrait;
  * @property string  $tagNames
  * @property string  $protocol
  * @property integer $vote_priority
+ * @property string  $decoration_data
  *
  */
 class Ticket extends \yii\db\ActiveRecord

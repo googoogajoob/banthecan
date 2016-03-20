@@ -14,6 +14,7 @@ use yii\base\Behavior;
 abstract class AbstractDecoration extends Behavior implements TicketDecorationInterface {
 
 	public $linkIcon = '?'; // Default Icon for the Abstract Class, others should override this
+    public $decorationData = null;
 
 	/**
 	 * Show a view of the Behavior
