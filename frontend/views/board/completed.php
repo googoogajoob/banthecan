@@ -40,4 +40,5 @@ echo $this->render('@frontend/views/board/partials/_backlogAndCompleted', [
     'dataProvider' => $dataProvider,
     'currentPageSize' => $currentPageSize,
     'action' => $action,
+    'showPriority' => false,
 ]);

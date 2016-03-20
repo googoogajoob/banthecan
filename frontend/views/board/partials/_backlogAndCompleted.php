@@ -8,7 +8,7 @@ use yii\widgets\ListView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $action string */
 /* @var $currentPageSize integer */
-
+/* @var $showPriority boolean */
 
 BacklogAsset::register($this);
 
@@ -18,6 +18,7 @@ echo $this->render('@frontend/views/ticket/partials/_backlogTicketSearchForm',[
         'searchModel' => $searchModel,
         'currentPageSize' => $currentPageSize,
         'action' => $action,
+        'showPriority' => $showPriority,
 ]);
 
 $this->endBlock();
@@ -28,6 +29,7 @@ echo ListView::widget([
         'viewParams' => [
             'divClass' => 'ticket-widget-float',
             'showTags' => true,
+            'showPriority' => $showPriority,
         ],
         'itemOptions' => [
             'class' => 'col-xs-2 col-sm-4 col-md-3 col-lg-2',

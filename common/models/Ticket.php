@@ -25,6 +25,7 @@ use frontend\models\blameTrait;
  * @property BoardColumn $column
  * @property string  $tagNames
  * @property string  $protocol
+ * @property integer $vote_priority
  *
  */
 class Ticket extends \yii\db\ActiveRecord
@@ -115,7 +116,7 @@ class Ticket extends \yii\db\ActiveRecord
 	{
 		return [
 		[['title', 'column_id'], 'required'],
-		[['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order'], 'integer'],
+		[['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order', 'vote_priority'], 'integer'],
 		[['title', 'description', 'protocol'], 'string'],
 		[['id'], 'unique'],
 		[['tagNames'], 'safe'],
@@ -140,6 +141,7 @@ class Ticket extends \yii\db\ActiveRecord
             'ticket_order' => \Yii::t('app', 'Ticket Order'),
             'tagNames' => \Yii::t('app', 'Tags'),
 			'protocol' => \Yii::t('app', 'Protocol'),
+			'vote_priority' => \Yii::t('app', 'Priority'),
 		];
 	}
 
@@ -186,6 +188,36 @@ class Ticket extends \yii\db\ActiveRecord
 	public function getTags()
 	{
 		return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable(self::TICKET_TAG_MM_TABLE, ['ticket_id' => 'id']);
+	}
+
+	/**
+	 * Increment the vote_priority
+	 *
+	 * @return $this common\models\ticket
+	 */
+	public function incrementVotePriority() {
+		if ($this->vote_priority === null) {
+			$this->vote_priority = 1;
+		} else {
+			$this->vote_priority++;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Decrement the vote_priority
+	 *
+	 * @return $this common\models\ticket
+	 */
+	public function decrementVotePriority() {
+		if ($this->vote_priority === null) {
+			$this->vote_priority = -1;
+		} else {
+			$this->vote_priority--;
+		}
+
+		return $this;
 	}
 
 	/**

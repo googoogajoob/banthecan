@@ -29,13 +29,12 @@ class ViewDetail extends AbstractDecoration
 	 */
 	public function show($view = 'default')
 	{
-		return Html::tag(
-            'div',
-		$this->linkIcon, [
-                'onClick' => 'ticketDetailView(' . $this->owner->id . ');',
-                'data-toggle' => 'tooltip',
-                'title' => 'View Detail',
-		]
+		return Html::tag('div',
+				$this->linkIcon, [
+                	'onClick' => 'ticketDetailView(' . $this->owner->id . ');',
+                	'data-toggle' => 'tooltip',
+                	'title' => \Yii::t('app', 'View Detail'),
+				]
 		);
 	}
 

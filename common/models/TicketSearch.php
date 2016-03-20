@@ -22,6 +22,7 @@ class TicketSearch extends Ticket {
     public $to_date;
     public $user_search = [];
     public $tag_search;
+    public $vote_priority_filter;
 
     /**
      * @inheritdoc
@@ -32,7 +33,7 @@ class TicketSearch extends Ticket {
             [['from_date', 'to_date'], 'default', 'value' => null],
             [['from_date'], 'date', 'timestampAttribute' => 'from_date'],
             [['to_date'], 'date', 'timestampAttribute' => 'to_date'],
-            [['text_search', 'user_search', 'tag_search'], 'safe'],
+            [['text_search', 'user_search', 'tag_search', 'vote_priority_filter'], 'safe'],
         ];
     }
 
@@ -104,6 +105,15 @@ class TicketSearch extends Ticket {
             $query->andFilterWhere(['id' => Tags::getTicketId($this->tag_search)]);
         }
 
+        if ($this->vote_priority_filter) {
+            $query->andFilterWhere([
+                    'or',
+                    ['>', 'vote_priority', 0],
+                    ['<', 'vote_priority', 0],
+                ]
+            );
+        }
+
         return $dataProvider;
     }
 
@@ -118,6 +128,7 @@ class TicketSearch extends Ticket {
             'to_date' => \Yii::t('app', 'To Date'),
             'user_search' => \Yii::t('app', 'User Search'),
             'tag_search' => \Yii::t('app', 'Tag Search'),
+            'vote_priority_filter' => \Yii::t('app', 'Voted'),
         ];
     }
 
@@ -134,6 +145,7 @@ class TicketSearch extends Ticket {
             'to_date' => $this->to_date,
             'user_search' => $this->user_search,
             'tag_search' => $this->tag_search,
+            'vote_priority_filter' => $this->vote_priority_filter,
         ]);
 
         Yii::$app->getSession()->set(self::TICKET_SEARCH . '_' . $this->_sessionKey, $value);
@@ -143,10 +155,11 @@ class TicketSearch extends Ticket {
     {
         $value = unserialize(Yii::$app->getSession()->get(self::TICKET_SEARCH . '_' . $this->_sessionKey));
 
-        $this->text_search = $value['text_search'];
-        $this->from_date = $value['from_date'];
-        $this->to_date = $value['to_date'];
-        $this->user_search = $value['user_search'];
-        $this->tag_search = $value['tag_search'];
+        $this->text_search = isset($value['text_search']) ? $value['text_search'] : '';
+        $this->from_date = isset($value['from_date']) ? $value['from_date'] : '';
+        $this->to_date = isset($value['to_date']) ? $value['to_date'] : '';
+        $this->user_search = isset($value['user_search']) ? $value['user_search'] : '';
+        $this->tag_search = isset($value['tag_search']) ? $value['tag_search'] : '';
+        $this->vote_priority_filter = isset($value['vote_priority_filter']) ? $value['vote_priority_filter'] : 0;
     }
 }

@@ -191,7 +191,7 @@ class TicketController extends Controller {
 
     /**
      * Updates an existing Ticket model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * The browser will be redirected to the 'backlog' page.
      * @param integer $id
      * @return mixed
      */
@@ -207,6 +207,32 @@ class TicketController extends Controller {
                 //                'returnUrl' => Yii::$app->request->getReferrer(),
             ]);
         }
+    }
+
+    /**
+     * Increases the vote_priority of an existing Ticket model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionPlus($id)
+    {
+        $this->findModel($id)->incrementVotePriority()->save();
+
+        return $this->goBack();
+    }
+
+    /**
+     * Increases the vote_priority of an existing Ticket model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionMinus($id)
+    {
+        $this->findModel($id)->decrementVotePriority()->save();
+
+        return $this->goBack();
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace common\models\ticketDecoration;
 
+use yii\helpers\Html;
+
 /**
  * Created by PhpStorm.
  * User: and
@@ -9,9 +11,10 @@ namespace common\models\ticketDecoration;
  * Time: 12:33 AM
  */
 
-class MoveToKanban extends AbstractDecoration {
+class VoteMinus extends AbstractDecoration
+{
 
-	public $linkIcon = 'K';
+	public $linkIcon = '-';
 
 	/*##################*/
 	/*### VIEW STUFF ###*/
@@ -24,12 +27,12 @@ class MoveToKanban extends AbstractDecoration {
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	public function show($view = 'default') {
+	public function show($view = 'default')
+	{
 		return '<a data-toggle="tooltip"
-					title="' . \Yii::t('app', 'Move to Kanban')
-					. '"href="/ticket/board/' . $this->owner->id . '">'
+					title="' . \Yii::t('app', 'Vote Minus')
+					. '"href="/ticket/minus/' . $this->owner->id . '">'
 					. $this->linkIcon
 				.'</a>';
 	}
-
 }

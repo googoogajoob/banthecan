@@ -12,6 +12,7 @@
 	/* This is need to provide a reference for absolute positioning in ticket-function-bar
        see: http://www.w3schools.com/css/css_positioning.asp*/
 	position: relative;
+    border-radius: 4px;
 }
 
 .ticket-detail-selected {
@@ -126,4 +127,25 @@ ul.ticket-view-ajax {
 .ticket-single-date {
 	margin-bottom: 5px;
 	text-align: left;
+}
+
+.ticket-vote {
+    font-size: 150%;
+    font-weight: bold;
+    padding-right: 10px;
+    line-height: 95%;
+    /*border-radius: 50%;*/
+    /*height: 28px;*/
+    /*width: 28px;*/
+    text-align: center;
+}
+
+.ticket-vote-plus {
+    color: #a32d00;
+    /*background-color: #e78f08;*/
+}
+
+.ticket-vote-minus {
+    color: dimgrey;
+    /*background-color: #72e77a;*/
 }

@@ -74,7 +74,7 @@ class BoardController extends \yii\web\Controller {
     public function actionIndex() {
 
         $this->layout = 'right';
-        Yii::$app->getUser()->setReturnUrl('/board/index');
+        Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
 
         return $this->render('index', [
             'board' => $this->currentBoard,
@@ -105,13 +105,13 @@ class BoardController extends \yii\web\Controller {
         $dataProvider->pagination->pageSize = $currentPageSize;
         $dataProvider->sort = $this->createSortObject();
 
-        Yii::$app->getUser()->setReturnUrl('/board/backlog');
+        Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
 
         return $this->render('backlog', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'pageTitle' => $this->currentBoard->backlog_name,
-            'action' => $this->action->id,
+            'action' => Yii::$app->request->getUrl(),
             'currentPageSize' => $currentPageSize,
         ]);
     }
@@ -139,13 +139,13 @@ class BoardController extends \yii\web\Controller {
         $dataProvider->pagination->pageSize = $currentPageSize;
         $dataProvider->sort = $this->createSortObject();
 
-        Yii::$app->getUser()->setReturnUrl('/board/completed');
+        Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
 
         return $this->render('completed', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'pageTitle' => $this->currentBoard->completed_name,
-            'action' => $this->action->id,
+            'action' => Yii::$app->request->getUrl(),
             'currentPageSize' => $currentPageSize,
         ]);
     }
@@ -196,16 +196,21 @@ class BoardController extends \yii\web\Controller {
 
         $sort = new Sort([
             'attributes' => [
-                'title',
+                'vote_priority' => [
+                    'label' => \Yii::t('app', 'Priority')
+                ],
+                'title' => [
+                    'label' => \Yii::t('app', 'Title')
+                ],
                 'created_at' => [
-                    'label' => 'Created'
+                    'label' => \Yii::t('app', 'Created')
                 ],
                 /*'updated_at' => [
                  'label' => 'Updated'
                  ],*/
             ],
             'defaultOrder' => [
-                'created_at' => SORT_DESC,
+                'vote_priority' => SORT_DESC,
                 'title' => SORT_ASC,
             ]
         ]);

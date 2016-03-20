@@ -31,15 +31,14 @@ class ViewTags extends AbstractDecoration
 	{
 		if ($taglist = $this->owner->tagNames) {
 			return Html::tag('span',
-                '',
-			[
-                    'class' => 'ticket-glyph-tags glyphicon glyphicon-tags',
-                    'title' => 'Tags',
-                    'data-toggle' => 'popover',
-                    'data-trigger' => 'hover',
-                    'data-content' => Html::encode($taglist),
-			]
-			);
+                	'',	[
+                    	'class' => 'ticket-glyph-tags glyphicon glyphicon-tags',
+                    	'title' => \Yii::t('app', 'Tags'),
+                    	'data-toggle' => 'popover',
+                    	'data-trigger' => 'hover',
+                    	'data-content' => Html::encode($taglist),
+					]
+				);
 		} else {
 			return '';
 		}

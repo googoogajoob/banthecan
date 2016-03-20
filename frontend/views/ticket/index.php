@@ -37,6 +37,11 @@ $this->title = \Yii::t('app', 'Tickets');
                 'label' => \Yii::t('app', 'Description'),
             ],
             [
+                'attribute' => 'vote_priority',
+                'format' => 'integer',
+                'label' => \Yii::t('app', 'Priority'),
+            ],
+            [
                 'attribute' => 'protocol',
                 'format' => 'ntext',
                 'label' => \Yii::t('app', 'Protocol'),
