@@ -148,7 +148,7 @@ class Ticket extends \yii\db\ActiveRecord
 
 	public function validateVote($attribute, $params)
     {
-        $this->addError($attribute, \Yii::t('app', 'Only one vote allowed per user'));
+    //    $this->addError($attribute, \Yii::t('app', 'Only one vote allowed per user'));
     }
 
 	/**

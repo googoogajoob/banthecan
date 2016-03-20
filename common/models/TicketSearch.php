@@ -106,10 +106,11 @@ class TicketSearch extends Ticket {
         }
 
         if ($this->vote_priority_filter) {
-            $query->andFilterWhere([
+            $query->andFilterWhere([ // In Prinzip ist ist dies != null, @todo refactor
                     'or',
                     ['>', 'vote_priority', 0],
                     ['<', 'vote_priority', 0],
+                    ['=', 'vote_priority', 0],
                 ]
             );
         }

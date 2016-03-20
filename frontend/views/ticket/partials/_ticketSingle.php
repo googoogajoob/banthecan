@@ -55,6 +55,10 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
                 echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-minus pull-left']);
                 echo $model->vote_priority;
                 echo Html::endTag('div');
+            } elseif ($model->vote_priority !== null) {
+                echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-minus pull-left']);
+                echo '&plusmn';
+                echo Html::endTag('div');
             }
         }
     ?>
