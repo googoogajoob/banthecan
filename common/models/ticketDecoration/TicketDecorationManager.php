@@ -33,16 +33,15 @@ class TicketDecorationManager extends Object {
 	 * @return array Keys, i.e. class names of available decorations
 	 */
 	public function getAvailableTicketDecorations() {
-		$junk = array_keys($this->_availableTicketDecorations);
-		return $junk;
+		return array_keys($this->_availableTicketDecorations);
 	}
 
 	/**
 	 * Returns the configuration arrays for the current set of active ticket decorations
-	 *
+	 * @param $column integer
 	 * @return array
 	 */
-	public function getActiveTicketDecorations() {
+	public function getActiveTicketDecorations($column) {
 		return $this->_activeTicketDecorations;
 	}
 

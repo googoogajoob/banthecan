@@ -3,6 +3,8 @@
 namespace common\models\ticketDecoration;
 
 use yii\helpers\Html;
+use yii\db\ActiveRecord;
+use yii\base\Model;
 
 /**
  * Created by PhpStorm.
@@ -35,4 +37,24 @@ class VotePlus extends AbstractDecoration
 					. $this->linkIcon
 				.'</a>';
 	}
+
+    /**
+     * @inheritdoc
+     */
+    public function events()
+    {
+        $junk = 'dude';
+
+        return [
+            Model::EVENT_BEFORE_VALIDATE => 'validateVote',
+        ];
+    }
+
+    /**
+     * @param Event $event
+     */
+    public function validateVote($event)
+    {
+        $junk = 'dude';
+    }
 }

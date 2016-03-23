@@ -8,6 +8,7 @@ use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\blameTrait;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "ticket".
@@ -29,7 +30,7 @@ use frontend\models\blameTrait;
  * @property string  $decoration_data
  *
  */
-class Ticket extends \yii\db\ActiveRecord
+class Ticket extends ActiveRecord
 {
 	use blameTrait;
 
@@ -85,8 +86,7 @@ class Ticket extends \yii\db\ActiveRecord
 	 * Override Init so that each ticket can obtain its decorations
 	 */
 	public function init() {
-		$this->attachBehaviors(Yii::$app->ticketDecorationManager->getActiveTicketDecorations());
-
+        $this->on(ActiveRecord::EVENT_AFTER_FIND, [$this, 'attachDecorations']);
 		parent::init();
 	}
 
@@ -98,15 +98,19 @@ class Ticket extends \yii\db\ActiveRecord
 		return 'ticket';
 	}
 
+    public function attachDecorations($event) {
+        $this->attachBehaviors(Yii::$app->ticketDecorationManager->getActiveTicketDecorations($this->column_id));
+    }
+
 	/**
 	 * @inheritdoc
 	 */
 	public function behaviors()
 	{
 		return [
-		TimestampBehavior::className(),
-		BlameableBehavior::className(),
-		Taggable::className(),
+    		TimestampBehavior::className(),
+	    	BlameableBehavior::className(),
+		    Taggable::className(),
 		];
 	}
 
@@ -121,7 +125,7 @@ class Ticket extends \yii\db\ActiveRecord
 		[['title', 'description', 'protocol'], 'string'],
 		[['id'], 'unique'],
 		[['tagNames'], 'safe'],
-		[['vote_priority'], 'validateVote'],
+		//[['vote_priority'], 'validateVote'],
 		];
 	}
 
@@ -151,6 +155,8 @@ class Ticket extends \yii\db\ActiveRecord
     {
         $who = $userRecord = Yii::$app->user->identity;
         $plusVote = ($this->oldAttributes[$attribute] < $this->attributes[$attribute]);
+
+        $junk = $this->getDecorationData();
 
         if ($plusVote) {
             $this->addError($attribute, \Yii::t('app', 'Plus-Votes for (' . $who->username . ') are forbidden'));
