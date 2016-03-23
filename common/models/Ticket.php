@@ -82,13 +82,7 @@ class Ticket extends ActiveRecord
 	 */
 	const NO_BOARD_QUERY_RESTRICTION = 0;
 
-	/**
-	 * Override Init so that each ticket can obtain its decorations
-	 */
-	public function init() {
-        $this->on(ActiveRecord::EVENT_AFTER_FIND, [$this, 'attachDecorations']);
-		parent::init();
-	}
+    private $_decorationCount = 0;
 
 	/**
 	 * @inheritdoc
@@ -97,10 +91,6 @@ class Ticket extends ActiveRecord
 	{
 		return 'ticket';
 	}
-
-    public function attachDecorations($event) {
-        $this->attachBehaviors(Yii::$app->ticketDecorationManager->getActiveTicketDecorations($this->column_id));
-    }
 
 	/**
 	 * @inheritdoc
@@ -335,7 +325,15 @@ class Ticket extends ActiveRecord
 		parent::afterFind();
 		// Force attribute to be an integer
 		$this->column_id = intval($this->column_id);
-	}
+        $decorations = Yii::$app->ticketDecorationManager->getActiveTicketDecorations($this->column_id);
+        $this->_decorationCount = count($decorations);
+        $this->attachBehaviors($decorations);
+    }
+
+    public function hasDecorations()
+    {
+        return (bool) $this->_decorationCount > 0;
+    }
 
 	/**
 	 * Retrieves the Current Active Board Id for this session and sets the

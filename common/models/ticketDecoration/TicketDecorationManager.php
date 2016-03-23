@@ -47,7 +47,14 @@ class TicketDecorationManager extends Object {
             $this->_activeTicketDecorations[$column] = $this->getConfiguredDecorations($column);
         }
 
-		return $this->_activeTicketDecorations[$column];
+        $returnDecorations = [];
+        foreach ($this->_activeTicketDecorations as $decoration) {
+            if ($decoration != null) {
+                $returnDecorations[] = $decoration;
+            }
+        }
+
+        return $returnDecorations;
 	}
 
     protected function getConfiguredDecorations($column)
