@@ -118,19 +118,9 @@ class Column extends ActiveRecord
 	 */
 	public function getTickets()
 	{
-		$this->activateTicketDecorations();
-
 		return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
-		->orderBy('ticket_order')
-		->all();
-	}
-
-	/**
-	 * activates the ticket decorations applicable to this column
-	 */
-	public function activateTicketDecorations() {
-		Yii::$app->ticketDecorationManager
-		->registerDecorations($this->ticket_column_configuration);
+    		->orderBy('ticket_order')
+	    	->all();
 	}
 
 	/**

@@ -41,27 +41,19 @@ class TicketDecorationManager extends Object {
 	 * @param $column integer
 	 * @return array
 	 */
-	public function getActiveTicketDecorations($column) {
-		return $this->_activeTicketDecorations;
+	public function getActiveTicketDecorations($column)
+    {
+        if (!isset($this->_activeTicketDecorations[$column])) {
+            $this->_activeTicketDecorations[$column] = $this->getConfiguredDecorations($column);
+        }
+
+		return $this->_activeTicketDecorations[$column];
 	}
 
-	/**
-	 * Is $className an available ticket decoration
-	 *
-	 * @return boolean
-	 */
-	public function isAvailable($className) {
-		return array_key_exists($className, $this->_availableTicketDecorations);
-	}
-
-	/**
-	 * Is $className an active ticket decoration
-	 *
-	 * @return boolean
-	 */
-	public function isActive($className) {
-		return array_key_exists($className, $this->_activeTicketDecorations);
-	}
+    protected function getConfiguredDecorations($column)
+    {
+        return null;
+    }
 
 	/**
 	 * Extract the specified ticket decorations from the list of available configurations

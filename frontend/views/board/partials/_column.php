@@ -58,28 +58,28 @@ if (trim($column->receiver) <> '') {
 }
 
 echo Sortable::widget([
-            'items' => $columnItems,
-            'options' => ['id' => COLUMN_ID_PREFIX . $column->id, 'tag' => 'div', 'class' => 'board-column'],
-            'clientOptions' => [
-                'cursor' => 'move',
-                'connectWith' => $connectedColumns,
-],
-            'clientEvents' => [
-                'activate' => 'function (event, ui) {
-                    showColumnReceiver(event, ui, this);
-                }',
-                'deactivate' => 'function (event, ui) {
-                    hideColumnReceiver(event, ui, this);
-                }',
-                'receive' => 'function (event, ui) {
-                    columnTicketOrder(event, ui, this);
-                }',
-                'update' => 'function (event, ui) {
-                    if (!ui.sender && this === ui.item.parent()[0]) {
-                       columnTicketOrder(event, ui, this);
-                    }
-                }',
-],
+    'items' => $columnItems,
+    'options' => ['id' => COLUMN_ID_PREFIX . $column->id, 'tag' => 'div', 'class' => 'board-column'],
+    'clientOptions' => [
+        'cursor' => 'move',
+        'connectWith' => $connectedColumns,
+    ],
+    'clientEvents' => [
+        'activate' => 'function (event, ui) {
+            showColumnReceiver(event, ui, this);
+        }',
+        'deactivate' => 'function (event, ui) {
+            hideColumnReceiver(event, ui, this);
+        }',
+        'receive' => 'function (event, ui) {
+            columnTicketOrder(event, ui, this);
+        }',
+        'update' => 'function (event, ui) {
+            if (!ui.sender && this === ui.item.parent()[0]) {
+               columnTicketOrder(event, ui, this);
+            }
+        }',
+    ],
 ]);
 ?></div>
 
