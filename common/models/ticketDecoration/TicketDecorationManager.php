@@ -9,6 +9,8 @@
 namespace common\models\ticketDecoration;
 
 use common\models\Ticket;
+use common\models\Board;
+use common\models\Column;
 use yii;
 use yii\base\Object;
 
@@ -44,21 +46,36 @@ class TicketDecorationManager extends Object {
 	public function getActiveTicketDecorations($column)
     {
         if (!isset($this->_activeTicketDecorations[$column])) {
-            $this->_activeTicketDecorations[$column] = $this->getConfiguredDecorations($column);
-        }
-
-        $returnDecorations = [];
-        foreach ($this->_activeTicketDecorations as $decoration) {
-            if ($decoration != null) {
-                $returnDecorations[] = $decoration;
+            $configuredDecorations = $this->getConfiguredDecorations($column);
+            foreach ($configuredDecorations as $decoration) {
+                if ($decoration != null && isset($this->_availableTicketDecorations[$decoration])) {
+                    $this->_activeTicketDecorations[$column][] = $this->_availableTicketDecorations[$decoration];
+                }
             }
         }
 
-        return $returnDecorations;
+        return $this->_activeTicketDecorations[$column];
 	}
 
     protected function getConfiguredDecorations($column)
     {
+        if ($column == Ticket::DEFAULT_BACKLOG_STATUS
+         || $column == Ticket::DEFAULT_COMPLETED_STATUS) {
+
+            if ($board = Board::getActiveBoard()) {
+                $decorations = $column == Ticket::DEFAULT_BACKLOG_STATUS
+                                ? $board->ticket_backlog_configuration
+                                : $board->ticket_completed_configuration;
+                return $decorations;
+            }
+
+        } else {
+
+            if ($column = Column::findOne($column)) {
+                return $column->ticket_column_configuration;
+            }
+        }
+
         return null;
     }
 

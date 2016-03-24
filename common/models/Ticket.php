@@ -110,12 +110,11 @@ class Ticket extends ActiveRecord
 	public function rules()
 	{
 		return [
-		[['title', 'column_id'], 'required'],
-		[['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order', 'vote_priority'], 'integer'],
-		[['title', 'description', 'protocol'], 'string'],
-		[['id'], 'unique'],
-		[['tagNames'], 'safe'],
-		//[['vote_priority'], 'validateVote'],
+            [['title', 'column_id'], 'required'],
+            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order', 'vote_priority'], 'integer'],
+            [['title', 'description', 'protocol'], 'string'],
+            [['id'], 'unique'],
+            [['tagNames'], 'safe'],
 		];
 	}
 
@@ -140,22 +139,6 @@ class Ticket extends ActiveRecord
 			'vote_priority' => \Yii::t('app', 'Priority'),
 		];
 	}
-
-	public function validateVote($attribute, $params)
-    {
-        $who = $userRecord = Yii::$app->user->identity;
-        $plusVote = ($this->oldAttributes[$attribute] < $this->attributes[$attribute]);
-
-        $junk = $this->getDecorationData();
-
-        if ($plusVote) {
-            $this->addError($attribute, \Yii::t('app', 'Plus-Votes for (' . $who->username . ') are forbidden'));
-            //$this->addError($attribute, \Yii::t('app', 'Only one vote allowed per user'));
-        } else {
-            $dude = 1;
-        }
-
-    }
 
 	/**
 	 * @return \yii\db\ActiveQuery
@@ -190,7 +173,8 @@ class Ticket extends ActiveRecord
 	 * on the KanBanBoard
 	 * @return Boolean true = active, false = not active
 	 */
-	public function isCompleted() {
+	public function isCompleted()
+    {
 		return (bool)($this->getColumnId() <= self::DEFAULT_COMPLETED_STATUS);
 	}
 
@@ -222,7 +206,8 @@ class Ticket extends ActiveRecord
 	 *
 	 * @return $this common\models\ticket
 	 */
-	public function decrementVotePriority() {
+	public function decrementVotePriority()
+    {
 		if ($this->vote_priority === null) {
 			$this->vote_priority = -1;
 		} else {
@@ -237,7 +222,8 @@ class Ticket extends ActiveRecord
 	 *
 	 * @return $this common\models\ticket
 	 */
-	public function moveToBacklog() {
+	public function moveToBacklog()
+    {
 		$this->column_id = self::DEFAULT_BACKLOG_STATUS;
 
 		return $this;
@@ -252,7 +238,8 @@ class Ticket extends ActiveRecord
 	 *                then the default completed status is used)
 	 * @return $this common\models\ticket
 	 */
-	public function moveToCompleted($newTicketStatus = self::DEFAULT_COMPLETED_STATUS) {
+	public function moveToCompleted($newTicketStatus = self::DEFAULT_COMPLETED_STATUS)
+    {
 		if ($newTicketStatus <= self::DEFAULT_COMPLETED_STATUS){
 			$this->column_id = $newTicketStatus;
 		} else {
@@ -268,7 +255,8 @@ class Ticket extends ActiveRecord
 	 *
 	 * @return $this common\models\ticket
 	 */
-	public function moveToKanBanBoard() {
+	public function moveToKanBanBoard()
+    {
 		$this->column_id = Board::getActiveBoard()->entry_column;
 
 		return $this;
@@ -279,7 +267,8 @@ class Ticket extends ActiveRecord
 	 *
 	 * @return $this common\models\ticket
 	 */
-	public function moveToColumn($newTicketStatus) {
+	public function moveToColumn($newTicketStatus)
+    {
 		$this->column_id = $newTicketStatus;
 
 		return $this;
@@ -291,7 +280,8 @@ class Ticket extends ActiveRecord
 
 	 * @return yii\db\QueryInterface
 	 */
-	public static function findBacklog() {
+	public static function findBacklog()
+    {
 		return Ticket::find(parent::find()->where(['column_id' => 0])->orWhere(['column_id' => null]));
 	}
 
@@ -300,7 +290,8 @@ class Ticket extends ActiveRecord
 	 *
 	 * @return yii\db\QueryInterface
 	 */
-	public static function findCompleted() {
+	public static function findCompleted()
+    {
 		return Ticket::find(parent::find()->where(['<', 'column_id', 0]));
 	}
 
@@ -310,7 +301,8 @@ class Ticket extends ActiveRecord
 	 *
 	 * @inheritdoc
 	 */
-	public static function find($query = null) {
+	public static function find($query = null)
+    {
 		if (!$query) {
 			$query = parent::find();
 		}
@@ -321,7 +313,8 @@ class Ticket extends ActiveRecord
 		}
 	}
 
-	public function afterFind() {
+	public function afterFind()
+    {
 		parent::afterFind();
 		// Force attribute to be an integer
 		$this->column_id = intval($this->column_id);
@@ -341,7 +334,8 @@ class Ticket extends ActiveRecord
 	 * This causes all ticket queries to be restricted to the current BoardId
 	 * @param $currentBoardId Integer, Id to which all ticket queries will be restricted to
 	 */
-	public static function restrictQueryToBoard($currentBoardId) {
+	public static function restrictQueryToBoard($currentBoardId)
+    {
 		Yii::trace("Restrict Query To Board ($currentBoardId)",'APC');
 		self::$restrictQueryToBoardId = $currentBoardId;
 	}
@@ -351,7 +345,8 @@ class Ticket extends ActiveRecord
 	 * Ticket Class Variable self::$restrictQueryToBoardId to its value.
 	 * This causes all ticket queries to be restricted to the current BoardId
 	 */
-	public static function clearBoardQueryRestriction() {
+	public static function clearBoardQueryRestriction()
+    {
 		self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
 	}
 
@@ -360,7 +355,8 @@ class Ticket extends ActiveRecord
 	 *
 	 * @return boolean
 	 */
-	public function createDemoTickets($boardId) {
+	public function createDemoTickets($boardId)
+    {
 		if (YII_ENV_DEMO) {
 
 			$this->deleteAll();
@@ -442,7 +438,8 @@ class Ticket extends ActiveRecord
 		return true;
 	}
 
-	private function getRandomDemoTags($tagPool) {
+	private function getRandomDemoTags($tagPool)
+    {
 		$tagPoolCount = count($tagPool);
 
 		$tagPercentage = rand(1, 100);

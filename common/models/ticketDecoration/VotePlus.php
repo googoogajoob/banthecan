@@ -56,5 +56,18 @@ class VotePlus extends AbstractDecoration
     public function validateVote($event)
     {
         $junk = 'dude';
+/*
+        $who = $userRecord = Yii::$app->user->identity;
+        $plusVote = ($this->oldAttributes[$attribute] < $this->attributes[$attribute]);
+
+        $junk = $this->getDecorationData();
+
+        if ($plusVote) {
+            $this->addError($attribute, \Yii::t('app', 'Plus-Votes for (' . $who->username . ') are forbidden'));
+            //$this->addError($attribute, \Yii::t('app', 'Only one vote allowed per user'));
+        } else {
+            $dude = 1;
+        }
+*/
     }
 }
