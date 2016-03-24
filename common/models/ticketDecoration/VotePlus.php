@@ -57,19 +57,29 @@ class VotePlus extends AbstractDecoration
     {
         $who = \Yii::$app->user->identity;
         $plusVote = ($event->sender->oldAttributes['vote_priority'] < $event->sender->attributes['vote_priority']);
-
+        $decorationData = unserialize($event->sender->decoration_data);
+        $lastVote = $decorationData['votePlus'];
         if ($plusVote) {
-            $event->sender->addError('vote_priority', \Yii::t('app', 'Plus-Votes for (' . $who->username . ') are forbidden'));
-            //$this->addError($attribute, \Yii::t('app', 'Only one vote allowed per user'));
+            if ($lastVote > 0) {
+                $event->sender->addError('vote_priority', \Yii::t('app', 'Only one vote allowed per user'));
+            }
         } else {
-            $dude = 1;
+            if ($lastVote < 0) {
+                $event->sender->addError('vote_priority', \Yii::t('app', 'Only one vote allowed per user'));
+            }
         }
     }
 
     /**
      * @param Event $event
      */
-    public function saveVote($event) {
-        $event->sender->decoration_data = 'Here I am';
+    public function saveVote($event)
+    {
+        if ($event->sender->isAttributeChanged('vote_priority', false)) {
+            $lastVote = $event->sender->oldAttributes['vote_priority'] < $event->sender->attributes['vote_priority'] ? 1 : -1;
+            $decorationData = unserialize($event->sender->decoration_data);
+            $decorationData['votePlus'] = $lastVote;
+            $event->sender->decoration_data = serialize($decorationData);
+        }
     }
 }
