@@ -4,6 +4,7 @@ namespace common\models\ticketDecoration;
 
 use yii\helpers\Html;
 use yii\db\ActiveRecord;
+use yii\db\BaseActiveRecord;
 use yii\base\Model;
 
 /**
@@ -43,10 +44,9 @@ class VotePlus extends AbstractDecoration
      */
     public function events()
     {
-        $junk = 'dude';
-
         return [
             Model::EVENT_BEFORE_VALIDATE => 'validateVote',
+            BaseActiveRecord::EVENT_BEFORE_UPDATE => 'saveVote',
         ];
     }
 
@@ -55,19 +55,21 @@ class VotePlus extends AbstractDecoration
      */
     public function validateVote($event)
     {
-        $junk = 'dude';
-/*
-        $who = $userRecord = Yii::$app->user->identity;
-        $plusVote = ($this->oldAttributes[$attribute] < $this->attributes[$attribute]);
-
-        $junk = $this->getDecorationData();
+        $who = \Yii::$app->user->identity;
+        $plusVote = ($event->sender->oldAttributes['vote_priority'] < $event->sender->attributes['vote_priority']);
 
         if ($plusVote) {
-            $this->addError($attribute, \Yii::t('app', 'Plus-Votes for (' . $who->username . ') are forbidden'));
+            $event->sender->addError('vote_priority', \Yii::t('app', 'Plus-Votes for (' . $who->username . ') are forbidden'));
             //$this->addError($attribute, \Yii::t('app', 'Only one vote allowed per user'));
         } else {
             $dude = 1;
         }
-*/
+    }
+
+    /**
+     * @param Event $event
+     */
+    public function saveVote($event) {
+        $event->sender->decoration_data = 'Here I am';
     }
 }
