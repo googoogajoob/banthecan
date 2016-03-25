@@ -114,7 +114,7 @@ class Ticket extends ActiveRecord
             [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order', 'vote_priority'], 'integer'],
             [['title', 'description', 'protocol'], 'string'],
             [['id'], 'unique'],
-            [['tagNames'], 'safe'],
+            [['tagNames', 'decoration_data'], 'safe'],
 		];
 	}
 
@@ -318,14 +318,41 @@ class Ticket extends ActiveRecord
 		parent::afterFind();
 		// Force attribute to be an integer
 		$this->column_id = intval($this->column_id);
+        $this->decoration_data = unserialize($this->decoration_data);
+        if (!is_array($this->decoration_data)) {
+            $this->decoration_data = [];
+        }
         $decorations = Yii::$app->ticketDecorationManager->getActiveTicketDecorations($this->column_id);
         $this->_decorationCount = count($decorations);
         $this->attachBehaviors($decorations);
     }
 
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert) {
+
+        if (parent::beforeSave($insert)) {
+            $this->decoration_data = serialize($this->decoration_data);
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function hasDecorations()
     {
         return (bool) $this->_decorationCount > 0;
+    }
+
+    public function setDecorationData($newDecorationData) {
+        $this->decoration_data = $newDecorationData;
+    }
+
+    public function getDecorationData() {
+        return $this->decoration_data;
     }
 
 	/**
