@@ -65,6 +65,8 @@ return [
                     'class' => 'common\models\ticketDecoration\Vote',
                     'plusLinkIcon' => '<span class="glyphicon glyphicon-plus"></span>',
                     'minusLinkIcon' => '<span class="glyphicon glyphicon-minus"></span>',
+                    'decorationKey' => 'backlogPriority',
+                    'voteAttribute' => 'vote_priority',
                 ],
             ],
         ],

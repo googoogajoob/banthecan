@@ -14,6 +14,7 @@ use yii\base\Behavior;
 abstract class AbstractDecoration extends Behavior implements TicketDecorationInterface {
 
 	public $linkIcon = '?'; // Default Icon for the Abstract Class, others should override this
+    public $decorationKey = 'default';
 
 	/**
 	 * Show a view of the Behavior
@@ -24,8 +25,42 @@ abstract class AbstractDecoration extends Behavior implements TicketDecorationIn
 	 */
 	abstract public function show($view = 'default');
 
+    /**
+     * Gets the decoration Data from the ticket and returns the portion for this Behaviors DecorationKey
+     */
     public function getDecorationData()
     {
-        return $this->_decorationData;
+        $ownerDecorationData = $this->owner->getDecorationData();
+        $classNameKey = $this->get_my_classname();
+        if (isset($ownerDecorationData[$classNameKey])
+            && isset($ownerDecorationData[$classNameKey][$this->decorationKey])) {
+
+            return $ownerDecorationData[$classNameKey][$this->decorationKey];
+
+        } else {
+
+            return [];
+        }
     }
+
+    /**
+     * Updates the decoration data for this decorationKey,
+     * merges it with the complete decoration data stored in the corresponding ticket
+     * and then updates the ticket's decoration data record
+     */
+    public function setDecorationData($newData)
+    {
+        $ownerDecorationData = $this->owner->getDecorationData();
+        $classNameKey = $this->get_my_classname();
+        $ownerDecorationData[$classNameKey][$this->decorationKey] = $newData;
+        $this->owner->setDecorationData($ownerDecorationData);
+
+        return $this;
+    }
+
+    protected function get_my_classname()
+    {
+        return str_replace('\\', '_', get_class($this));
+    }
+
 }
