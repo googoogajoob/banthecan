@@ -19,54 +19,56 @@ class Vote extends AbstractDecoration
 
 	public $plusLinkIcon = '+';
     public $minusLinkIcon = '-';
-
-
-    /*##################*/
-	/*### VIEW STUFF ###*/
-	/*##################*/
+    public $voteAttribute = 'vote_priority';
 
 	/**
 	 * Show a view of the Behavior
 	 * The default is the Icon Click element
-	 * A Decoration can have multiple views
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
 	public function show($view = 'default')
 	{
-        $className = $this->get_my_classname();
-        $decorationData = $this->owner->getDecorationData();
-        if (isset($decorationData[$className])) {
-            $lastVoteChange = $decorationData[$className];
+        $currentUserId = \Yii::$app->user->identity->id;
+        $decorationData = $this->getDecorationData();
+
+        if (isset($decorationData[$currentUserId])) {
+
+
+            $lastVoteChange = $decorationData[$currentUserId];
         } else {
+
             $lastVoteChange = 0;
         }
 
-        if ($lastVoteChange < 0) {
-            return '<a data-toggle="tooltip"
-					    title="' . \Yii::t('app', 'Vote Plus')
-                    . '"href="/ticket/plus/' . $this->owner->id . '">'
-                    . $this->plusLinkIcon
-                    . '</a>';
-        } elseif ($lastVoteChange > 0) {
-            return '<a data-toggle="tooltip"
-                         title="' . \Yii::t('app', 'Vote Minus')
-                        . '"href="/ticket/minus/' . $this->owner->id . '">'
-                        . $this->minusLinkIcon
-                    .'</a>';
+        if ($lastVoteChange == 0) {
+
+            return $this->linkHtml(1)
+                 . $this->linkHtml(-1);
+
         } else {
-            return '<a data-toggle="tooltip"
-					    title="' . \Yii::t('app', 'Vote Plus')
-                    . '"href="/ticket/plus/' . $this->owner->id . '">'
-                    . $this->plusLinkIcon
-            . '</a>'
-            . '<a data-toggle="tooltip"
-                         title="' . \Yii::t('app', 'Vote Minus')
-                . '"href="/ticket/minus/' . $this->owner->id . '">'
-                . $this->minusLinkIcon
-                .'</a>';
+
+            return $this->linkHtml($lastVoteChange * -1);
         }
 	}
+
+    /**
+     * Creates the html for  a voting link Icon
+     *
+     * @param $plusMinus 1- Plus HTML, -1 - Minus Html
+     * @return string
+     */
+    protected function linkHtml($plusMinus)
+    {
+        $title = $plusMinus > 0 ? 'Vote Plus' : 'Vote Minus';
+        $icon = $plusMinus > 0 ? $this->plusLinkIcon: $this->minusLinkIcon;
+        $action = $plusMinus > 0 ? '/ticket/plus/' : '/ticket/minus/';
+
+        return '<a data-toggle="tooltip" title="' . \Yii::t('app', $title) . '"'
+                    . ' href="' . $action . $this->owner->id . '">' . $icon
+              .'</a>';
+
+    }
 
     /**
      * @inheritdoc
@@ -75,7 +77,7 @@ class Vote extends AbstractDecoration
     {
         return [
             Model::EVENT_BEFORE_VALIDATE => 'validateVote',
-            BaseActiveRecord::EVENT_BEFORE_UPDATE => 'saveVote',
+            BaseActiveRecord::EVENT_BEFORE_UPDATE => 'saveVoteChangeStatus',
         ];
     }
 
@@ -84,12 +86,12 @@ class Vote extends AbstractDecoration
      */
     public function validateVote($event)
     {
-        $voteChange = $this->getVoteChange($event);
-        $className = $this->get_my_classname();
-        $decorationData = $event->sender->getDecorationData();
-        if (isset($decorationData[$className])) {
-            if ($voteChange == $decorationData[$className]) {
-                $event->sender->addError('vote_priority', \Yii::t('app', 'Only one vote allowed per user'));
+        $currentUserId = \Yii::$app->user->identity->id;
+        $decorationData = $this->getDecorationData();
+
+        if (isset($decorationData[$currentUserId])) {
+            if ($decorationData[$currentUserId] == $this->getVoteType($event)) {
+                $event->sender->addError($this->voteAttribute, \Yii::t('app', 'Only one vote allowed per user'));
             }
         }
     }
@@ -97,26 +99,35 @@ class Vote extends AbstractDecoration
     /**
      * @param Event $event
      */
-    public function saveVote($event)
+    public function saveVoteChangeStatus($event)
     {
-        if ($event->sender->isAttributeChanged('vote_priority', false)) {
-            $voteChange = $this->getVoteChange($event);
-            $className = $this->get_my_classname();
-            $decorationData = $event->sender->getDecorationData();
-            $decorationData[$className] = $voteChange;
-            $event->sender->setDecorationData($decorationData);
+        if ($event->sender->isAttributeChanged($this->voteAttribute, false)) {
+
+            $currentUserId = \Yii::$app->user->identity->id;
+            $decorationData = $this->getDecorationData();
+
+            // because of the validatio there are only two possibilities
+            // the user is reversing the previous vote or
+            // they are starting from an unvoted status
+            if (isset($decorationData[$currentUserId])) {
+
+                // previous vote is being reversed, allow both votes
+                unset($decorationData[$currentUserId]);
+
+            } else {
+
+                // previously no vote, add this change
+                $decorationData[$currentUserId] = $this->getVoteType($event);
+            }
+
+            $this->setDecorationData($decorationData);
         }
     }
 
-    protected function getVoteChange($event) {
-        $oldVote = $event->sender->oldAttributes['vote_priority'] ? $event->sender->oldAttributes['vote_priority'] : 0;
-        $newVote = $event->sender->attributes['vote_priority'] ? $event->sender->attributes['vote_priority'] : 0;
+    protected function getVoteType($event) {
+        $oldVote = $event->sender->oldAttributes[$this->voteAttribute] ? $event->sender->oldAttributes[$this->voteAttribute] : 0;
+        $newVote = $event->sender->attributes[$this->voteAttribute] ? $event->sender->attributes[$this->voteAttribute] : 0;
 
         return $oldVote < $newVote ? 1 : -1;
-    }
-
-    protected function get_my_classname()
-    {
-        return str_replace('\\', '_', get_class());
     }
 }
