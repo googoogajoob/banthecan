@@ -46,15 +46,14 @@ class TicketController extends Controller {
         if ($request->isAjax) {
 
             $columnId = $request->post('columnId');
-            Column::findOne($columnId)->activateTicketDecorations();
+            //Column::findOne($columnId)->activateTicketDecorations();
             $ticketOrder = $request->post('ticketOrder');
             foreach ($ticketOrder as $ticketOrderKey => $ticketId) {
                 $ticket = Ticket::findOne($ticketId);
                 $ticket->ticket_order = $ticketOrderKey;
                 $ticket->column_id = intval($columnId);
 
-                $junk = $ticket->getDirtyAttributes();
-                if (array_key_exists('column_id', $junk)) {
+                if (array_key_exists('column_id', $ticket->getDirtyAttributes())) {
                     $changedColumnTicketId = $ticketId;
                 }
 
@@ -64,6 +63,7 @@ class TicketController extends Controller {
             }
 
             if ($changedColumnTicketId > 0) {
+                $ticket = Ticket::findOne($ticketId); // KLUDGE !!!!
                 $ticketHtmlId = '#' . static::TICKET_HTML_PREFIX . $changedColumnTicketId;
                 $ticketDecorationHtml = $this->renderFile('@frontend/views/ticket/partials/_ticketDecorations.php',
                     ['ticket' => $ticket]);

@@ -20,7 +20,8 @@ function columnTicketOrder(event, ui, rthis) {
             },
         success: function(returnData){
             if (!$.isNumeric(returnData.id)) {
-                $(returnData.ticketId + ' .ticket-single-decorations').html(returnData.decorationHtml);
+                //$(returnData.ticketId + ' .ticket-single-decorations').html(returnData.decorationHtml);
+                $(returnData.ticketId + ' .ticket-single-decorations').prop('outerHTML', returnData.decorationHtml);
                 //alert("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
             } else {
                 //alert("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
