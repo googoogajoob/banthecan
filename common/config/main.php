@@ -61,13 +61,10 @@ return [
                     'class' => 'common\models\ticketDecoration\CopyTicket',
                     'linkIcon' => '<span class="glyphicon glyphicon-duplicate"></span>',
                 ],
-                'VotePlus' => [
-                    'class' => 'common\models\ticketDecoration\VotePlus',
-                    'linkIcon' => '<span class="glyphicon glyphicon-plus"></span>',
-                ],
-                'VoteMinus' => [
-                    'class' => 'common\models\ticketDecoration\VoteMinus',
-                    'linkIcon' => '<span class="glyphicon glyphicon-minus"></span>',
+                'Vote' => [
+                    'class' => 'common\models\ticketDecoration\Vote',
+                    'plusLinkIcon' => '<span class="glyphicon glyphicon-plus"></span>',
+                    'minusLinkIcon' => '<span class="glyphicon glyphicon-minus"></span>',
                 ],
             ],
         ],

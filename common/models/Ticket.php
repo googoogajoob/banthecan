@@ -8,6 +8,7 @@ use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\blameTrait;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "ticket".
@@ -26,9 +27,10 @@ use frontend\models\blameTrait;
  * @property string  $tagNames
  * @property string  $protocol
  * @property integer $vote_priority
+ * @property string  $decoration_data
  *
  */
-class Ticket extends \yii\db\ActiveRecord
+class Ticket extends ActiveRecord
 {
 	use blameTrait;
 
@@ -80,14 +82,7 @@ class Ticket extends \yii\db\ActiveRecord
 	 */
 	const NO_BOARD_QUERY_RESTRICTION = 0;
 
-	/**
-	 * Override Init so that each ticket can obtain its decorations
-	 */
-	public function init() {
-		$this->attachBehaviors(Yii::$app->ticketDecorationManager->getActiveTicketDecorations());
-
-		parent::init();
-	}
+    private $_decorationCount = 0;
 
 	/**
 	 * @inheritdoc
@@ -103,9 +98,9 @@ class Ticket extends \yii\db\ActiveRecord
 	public function behaviors()
 	{
 		return [
-		TimestampBehavior::className(),
-		BlameableBehavior::className(),
-		Taggable::className(),
+    		TimestampBehavior::className(),
+	    	BlameableBehavior::className(),
+		    Taggable::className(),
 		];
 	}
 
@@ -115,11 +110,11 @@ class Ticket extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-		[['title', 'column_id'], 'required'],
-		[['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order', 'vote_priority'], 'integer'],
-		[['title', 'description', 'protocol'], 'string'],
-		[['id'], 'unique'],
-		[['tagNames'], 'safe'],
+            [['title', 'column_id'], 'required'],
+            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order', 'vote_priority'], 'integer'],
+            [['title', 'description', 'protocol'], 'string'],
+            [['id'], 'unique'],
+            [['tagNames', 'decoration_data'], 'safe'],
 		];
 	}
 
@@ -178,7 +173,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 * on the KanBanBoard
 	 * @return Boolean true = active, false = not active
 	 */
-	public function isCompleted() {
+	public function isCompleted()
+    {
 		return (bool)($this->getColumnId() <= self::DEFAULT_COMPLETED_STATUS);
 	}
 
@@ -210,7 +206,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 *
 	 * @return $this common\models\ticket
 	 */
-	public function decrementVotePriority() {
+	public function decrementVotePriority()
+    {
 		if ($this->vote_priority === null) {
 			$this->vote_priority = -1;
 		} else {
@@ -225,7 +222,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 *
 	 * @return $this common\models\ticket
 	 */
-	public function moveToBacklog() {
+	public function moveToBacklog()
+    {
 		$this->column_id = self::DEFAULT_BACKLOG_STATUS;
 
 		return $this;
@@ -240,7 +238,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 *                then the default completed status is used)
 	 * @return $this common\models\ticket
 	 */
-	public function moveToCompleted($newTicketStatus = self::DEFAULT_COMPLETED_STATUS) {
+	public function moveToCompleted($newTicketStatus = self::DEFAULT_COMPLETED_STATUS)
+    {
 		if ($newTicketStatus <= self::DEFAULT_COMPLETED_STATUS){
 			$this->column_id = $newTicketStatus;
 		} else {
@@ -256,7 +255,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 *
 	 * @return $this common\models\ticket
 	 */
-	public function moveToKanBanBoard() {
+	public function moveToKanBanBoard()
+    {
 		$this->column_id = Board::getActiveBoard()->entry_column;
 
 		return $this;
@@ -267,7 +267,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 *
 	 * @return $this common\models\ticket
 	 */
-	public function moveToColumn($newTicketStatus) {
+	public function moveToColumn($newTicketStatus)
+    {
 		$this->column_id = $newTicketStatus;
 
 		return $this;
@@ -279,7 +280,8 @@ class Ticket extends \yii\db\ActiveRecord
 
 	 * @return yii\db\QueryInterface
 	 */
-	public static function findBacklog() {
+	public static function findBacklog()
+    {
 		return Ticket::find(parent::find()->where(['column_id' => 0])->orWhere(['column_id' => null]));
 	}
 
@@ -288,7 +290,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 *
 	 * @return yii\db\QueryInterface
 	 */
-	public static function findCompleted() {
+	public static function findCompleted()
+    {
 		return Ticket::find(parent::find()->where(['<', 'column_id', 0]));
 	}
 
@@ -298,7 +301,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 *
 	 * @inheritdoc
 	 */
-	public static function find($query = null) {
+	public static function find($query = null)
+    {
 		if (!$query) {
 			$query = parent::find();
 		}
@@ -309,11 +313,47 @@ class Ticket extends \yii\db\ActiveRecord
 		}
 	}
 
-	public function afterFind() {
+	public function afterFind()
+    {
 		parent::afterFind();
 		// Force attribute to be an integer
 		$this->column_id = intval($this->column_id);
-	}
+        $this->decoration_data = unserialize($this->decoration_data);
+        if (!is_array($this->decoration_data)) {
+            $this->decoration_data = [];
+        }
+        $decorations = Yii::$app->ticketDecorationManager->getActiveTicketDecorations($this->column_id);
+        $this->_decorationCount = count($decorations);
+        $this->attachBehaviors($decorations);
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert) {
+
+        if (parent::beforeSave($insert)) {
+            $this->decoration_data = serialize($this->decoration_data);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function hasDecorations()
+    {
+        return (bool) $this->_decorationCount > 0;
+    }
+
+    public function setDecorationData($newDecorationData) {
+        $this->decoration_data = $newDecorationData;
+    }
+
+    public function getDecorationData() {
+        return $this->decoration_data;
+    }
 
 	/**
 	 * Retrieves the Current Active Board Id for this session and sets the
@@ -321,7 +361,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 * This causes all ticket queries to be restricted to the current BoardId
 	 * @param $currentBoardId Integer, Id to which all ticket queries will be restricted to
 	 */
-	public static function restrictQueryToBoard($currentBoardId) {
+	public static function restrictQueryToBoard($currentBoardId)
+    {
 		Yii::trace("Restrict Query To Board ($currentBoardId)",'APC');
 		self::$restrictQueryToBoardId = $currentBoardId;
 	}
@@ -331,7 +372,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 * Ticket Class Variable self::$restrictQueryToBoardId to its value.
 	 * This causes all ticket queries to be restricted to the current BoardId
 	 */
-	public static function clearBoardQueryRestriction() {
+	public static function clearBoardQueryRestriction()
+    {
 		self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
 	}
 
@@ -340,7 +382,8 @@ class Ticket extends \yii\db\ActiveRecord
 	 *
 	 * @return boolean
 	 */
-	public function createDemoTickets($boardId) {
+	public function createDemoTickets($boardId)
+    {
 		if (YII_ENV_DEMO) {
 
 			$this->deleteAll();
@@ -422,7 +465,8 @@ class Ticket extends \yii\db\ActiveRecord
 		return true;
 	}
 
-	private function getRandomDemoTags($tagPool) {
+	private function getRandomDemoTags($tagPool)
+    {
 		$tagPoolCount = count($tagPool);
 
 		$tagPercentage = rand(1, 100);

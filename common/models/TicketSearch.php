@@ -5,8 +5,7 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-
-//use common\models\Ticket;
+use common\models\Ticket;
 
 /**
  * TicketSearch represents the model behind the search form about `common\models\Ticket`.
@@ -58,13 +57,13 @@ class TicketSearch extends Ticket {
 
         switch ($searchPool) {
             case -1:
-                $query = self::findCompleted();
+                $query = Ticket::findCompleted();
                 break;
             case 0:
-                $query = self::findBacklog();
+                $query = Ticket::findBacklog();
                 break;
             default:
-                $query = self::find();
+                $query = Ticket::find();
                 break;
         }
 
@@ -106,10 +105,11 @@ class TicketSearch extends Ticket {
         }
 
         if ($this->vote_priority_filter) {
-            $query->andFilterWhere([
+            $query->andFilterWhere([ // In Prinzip ist ist dies != null, @todo refactor
                     'or',
                     ['>', 'vote_priority', 0],
                     ['<', 'vote_priority', 0],
+                    ['=', 'vote_priority', 0],
                 ]
             );
         }

@@ -92,12 +92,8 @@ class BoardController extends \yii\web\Controller {
         );
 
         $this->layout = 'left-right';
-
         $searchModel = Yii::createObject('common\models\TicketSearch');
         $searchModel->setSessionKey('B');
-
-        Yii::$app->ticketDecorationManager
-            ->registerDecorations($this->currentBoard->ticket_backlog_configuration);
 
         $dataProvider = $searchModel->search(Yii::$app->request->post(), 0);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;
@@ -129,9 +125,6 @@ class BoardController extends \yii\web\Controller {
         $this->layout = 'left-right';
         $searchModel = Yii::createObject('common\models\TicketSearch');
         $searchModel->setSessionKey('C');
-
-        Yii::$app->ticketDecorationManager
-            ->registerDecorations($this->currentBoard->ticket_completed_configuration);
 
         $dataProvider = $searchModel->search(Yii::$app->request->post(), -1);
         $dataProvider->pagination->defaultPageSize = self::DEFAULT_PAGE_SIZE;

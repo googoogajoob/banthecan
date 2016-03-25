@@ -23,4 +23,9 @@ abstract class AbstractDecoration extends Behavior implements TicketDecorationIn
 	 * @return string html for showing the ticketDecoration
 	 */
 	abstract public function show($view = 'default');
+
+    public function getDecorationData()
+    {
+        return $this->_decorationData;
+    }
 }

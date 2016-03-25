@@ -55,6 +55,10 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
                 echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-minus pull-left']);
                 echo $model->vote_priority;
                 echo Html::endTag('div');
+            } elseif ($model->vote_priority !== null) {
+                echo Html::beginTag('div', ['class' => 'ticket-vote ticket-vote-minus pull-left']);
+                echo '&plusmn';
+                echo Html::endTag('div');
             }
         }
     ?>
@@ -72,9 +76,9 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
 	</strong>
 
 	<?php
-		echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
-		echo $this->render('@frontend/views/ticket/partials/_ticketDecorations', ['ticket' => $model]);
-		echo Html::endTag('div');
+        if ($model->hasDecorations()) {
+            echo $this->render('@frontend/views/ticket/partials/_ticketDecorations', ['ticket' => $model]);
+        }
 
 		if ($showTags) {
 			echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model]);

@@ -9,6 +9,8 @@
 namespace common\models\ticketDecoration;
 
 use common\models\Ticket;
+use common\models\Board;
+use common\models\Column;
 use yii;
 use yii\base\Object;
 
@@ -33,36 +35,49 @@ class TicketDecorationManager extends Object {
 	 * @return array Keys, i.e. class names of available decorations
 	 */
 	public function getAvailableTicketDecorations() {
-		$junk = array_keys($this->_availableTicketDecorations);
-		return $junk;
+		return array_keys($this->_availableTicketDecorations);
 	}
 
 	/**
 	 * Returns the configuration arrays for the current set of active ticket decorations
-	 *
+	 * @param $column integer
 	 * @return array
 	 */
-	public function getActiveTicketDecorations() {
-		return $this->_activeTicketDecorations;
+	public function getActiveTicketDecorations($column)
+    {
+        if (!isset($this->_activeTicketDecorations[$column])) {
+            $configuredDecorations = $this->getConfiguredDecorations($column);
+            foreach ($configuredDecorations as $decoration) {
+                if ($decoration != null && isset($this->_availableTicketDecorations[$decoration])) {
+                    $this->_activeTicketDecorations[$column][] = $this->_availableTicketDecorations[$decoration];
+                }
+            }
+        }
+
+        return $this->_activeTicketDecorations[$column];
 	}
 
-	/**
-	 * Is $className an available ticket decoration
-	 *
-	 * @return boolean
-	 */
-	public function isAvailable($className) {
-		return array_key_exists($className, $this->_availableTicketDecorations);
-	}
+    protected function getConfiguredDecorations($column)
+    {
+        if ($column == Ticket::DEFAULT_BACKLOG_STATUS
+         || $column == Ticket::DEFAULT_COMPLETED_STATUS) {
 
-	/**
-	 * Is $className an active ticket decoration
-	 *
-	 * @return boolean
-	 */
-	public function isActive($className) {
-		return array_key_exists($className, $this->_activeTicketDecorations);
-	}
+            if ($board = Board::getActiveBoard()) {
+                $decorations = $column == Ticket::DEFAULT_BACKLOG_STATUS
+                                ? $board->ticket_backlog_configuration
+                                : $board->ticket_completed_configuration;
+                return $decorations;
+            }
+
+        } else {
+
+            if ($column = Column::findOne($column)) {
+                return $column->ticket_column_configuration;
+            }
+        }
+
+        return null;
+    }
 
 	/**
 	 * Extract the specified ticket decorations from the list of available configurations
