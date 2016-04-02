@@ -387,7 +387,7 @@ class Ticket extends ActiveRecord
 		if (YII_ENV_DEMO) {
 
 			$this->deleteAll();
-			Tags::deleteAll();
+			Tags::deleteAllDemoTags();
 
 			$faker = Factory::create();
 

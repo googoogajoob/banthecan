@@ -48,7 +48,7 @@ class Tags extends \yii\db\ActiveRecord
 		$this->getDb()
 		->createCommand()
 		->delete(Ticket::TICKET_TAG_MM_TABLE, ['tag_id' => $this->id])
-		->execute();
+        ->execute();
 
 		parent::afterDelete();
 	}
@@ -93,8 +93,8 @@ class Tags extends \yii\db\ActiveRecord
 	 * Needed for creating Records in the DEMO DB.
 	 * When Tags are deleted the ticket_tag_mm table should be cleared also
 	 */
-	public static function deleteAll($condition = null) {
-		parent::deleteAll($condition);
+	public static function deleteAllDemoTags($condition = null) {
+		//parent::deleteAll($condition);
 
 		$command = static::getDb()->createCommand();
 		$command->delete(Ticket::TICKET_TAG_MM_TABLE);
