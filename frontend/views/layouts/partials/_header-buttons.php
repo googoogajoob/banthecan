@@ -20,7 +20,7 @@ echo Html::a(
 );
 
 echo Html::a(
-    \Yii::t('app', 'Kenny Kanban'),
+    $boardObject ? $boardObject->kanban_name : \Yii::t('app', 'Kanban'),
     '/board', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-kanban-button',
@@ -28,7 +28,7 @@ echo Html::a(
 );
 
 echo Html::a(
-    \Yii::t('app', 'Billy Backlog'),
+    $boardObject ? $boardObject->backlog_name : \Yii::t('app', 'Backlog'),
     '/board/backlog', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-backlog-button',
