@@ -32,7 +32,10 @@ if ($boardObject = Board::getActiveBoard()) {
 <body>
 <?php $this->beginBody() ?>
 <div class="wrap"><?php
-    echo $this->renderFile('@frontend/views/layouts/partials/_navigation.php', ['boardObject' => $boardObject]);
+    echo $this->renderFile('@frontend/views/layouts/partials/_navigation.php', [
+            'boardObject' => $boardObject
+        ]
+    );
     echo $this->renderFile('@frontend/views/layouts/partials/_right-sidebar.php');
     ?>
 

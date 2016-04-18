@@ -9,39 +9,41 @@
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
 
+/* @var $boardObject yii\db\ActiveRecord */
+
 echo Html::a(
     \Yii::t('app', 'Completed'),
     '/board/completed', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-completed-button',
-]
+    ]
 );
 
 echo Html::a(
-    \Yii::t('app','Kanban'),
+    \Yii::t('app', 'Kenny Kanban'),
     '/board', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-kanban-button',
-]
+    ]
 );
 
 echo Html::a(
-    \Yii::t('app','Backlog'),
+    \Yii::t('app', 'Billy Backlog'),
     '/board/backlog', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-backlog-button',
-]
+    ]
 );
 
 echo Html::button(
-    \Yii::t('app','Create Ticket'), [
-        'value' => '/ticket/new',
-        'class' => 'btn btn-success apc-header-button pull-right',
-        'id' => 'header-create-button',
-    ]);
+    \Yii::t('app', 'Create Ticket'), [
+    'value' => '/ticket/new',
+    'class' => 'btn btn-success apc-header-button pull-right',
+    'id' => 'header-create-button',
+]);
 
 Modal::begin([
-    'header' => '<h2>' . \Yii::t('app','Create Ticket') . '</h2>',
+    'header' => '<h2>' . \Yii::t('app', 'Create Ticket') . '</h2>',
     'id' => 'create-ticket-modal',
     'size' => 'modal-lg',
 ]);
