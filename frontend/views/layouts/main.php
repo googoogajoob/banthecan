@@ -12,43 +12,43 @@ use common\models\Board;
 
 AppAsset::register($this);
 if ($boardObject = Board::getActiveBoard()) {
-	$this->title = $boardObject->title;
+    $this->title = $boardObject->title;
 } else {
-	$this->title = '';
+    $this->title = '';
 }
 ?>
 <?php $this->beginPage() ?>
-<!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+    <!DOCTYPE html>
+    <html lang="<?= Yii::$app->language ?>">
 
-<head>
-<meta charset="<?= Yii::$app->charset ?>" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<?php echo Html::csrfMetaTags() ?>
-<title>Ban the Can(<?= (YII_ENV_DEMO ? 'DEMO' : '') ?>): <?= Html::encode($this->title) ?></title>
-<?php $this->head() ?>
-</head>
+    <head>
+        <meta charset="<?= Yii::$app->charset ?>"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php echo Html::csrfMetaTags() ?>
+        <title>Ban the Can(<?= (YII_ENV_DEMO ? 'DEMO' : '') ?>): <?= Html::encode($this->title) ?></title>
+        <?php $this->head() ?>
+    </head>
 
-<body>
+    <body>
 
-<?php $this->beginBody() ?>
-<div class="wrap"><?php
-echo $this->renderFile(
-                '@frontend/views/layouts/partials/_navigation.php', [
-                    'boardObject' => $boardObject,
-]
-);
-?>
+    <?php $this->beginBody() ?>
+    <div class="wrap"><?php
+        echo $this->renderFile(
+            '@frontend/views/layouts/partials/_navigation.php', [
+                'boardObject' => $boardObject,
+            ]
+        );
+        ?>
 
-<div class="container"><?php echo Breadcrumbs::widget([
+        <div class="container"><?php echo Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-]) ?> <?php echo Alert::widget(); ?> <?php echo $content ?></div>
-</div>
+            ]) ?><?php echo Alert::widget(); ?><?php echo $content ?></div>
+    </div>
 
-<?php echo $this->renderFile('@frontend/views/layouts/partials/_footer.php'); ?>
+    <?php echo $this->renderFile('@frontend/views/layouts/partials/_footer.php'); ?>
 
-<?php $this->endBody() ?>
+    <?php $this->endBody() ?>
 
-</body>
-</html>
+    </body>
+    </html>
 <?php $this->endPage() ?>

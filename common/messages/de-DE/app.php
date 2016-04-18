@@ -65,6 +65,7 @@ return [
     'If you forgot your password you can' => 'Beim vergessenen Passwort kannst du',
     'INITIALIZE USER DB' => 'Benutzer-Datenbank initialisieren',
     'Initialize Demo Database' => 'Demo-Datenbank initialisieren',
+    'Kanban' => 'Kanban',
     'Login' => 'Einloggen',
     'Logout' => 'Ausloggen',
     'Move to Backlog' => 'Zum Backlog',

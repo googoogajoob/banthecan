@@ -9,6 +9,9 @@
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
+use yii\db\ActiveRecord;
+
+/* @var $boardObject yii\db\ActiveRecord */
 
 NavBar::begin([
     'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
@@ -55,6 +58,8 @@ echo Nav::widget([
 	'items' => $menuItems,
 ]);
 
-echo $this->renderFile('@frontend/views/layouts/partials/_header-buttons.php');
+echo $this->renderFile('@frontend/views/layouts/partials/_header-buttons.php', [
+        'boardObject' => $boardObject,
+    ]);
 
 NavBar::end();
