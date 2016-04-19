@@ -11,6 +11,17 @@ use yii\bootstrap\Modal;
 
 /* @var $boardObject yii\db\ActiveRecord */
 
+$kanbanName = \Yii::t('app', 'Kanban');
+$backlogName = \Yii::t('app', 'Backlog');
+if ($boardObject) {
+    if (trim($boardObject->kanban_name) != '') {
+        $kanbanName = $boardObject->kanban_name;
+    }
+    if (trim($boardObject->backlog_name) != '') {
+        $backlogName = $boardObject->backlog_name;
+    }
+}
+
 echo Html::a(
     \Yii::t('app', 'Completed'),
     '/board/completed', [
@@ -20,7 +31,7 @@ echo Html::a(
 );
 
 echo Html::a(
-    $boardObject ? $boardObject->kanban_name : \Yii::t('app', 'Kanban'),
+    $kanbanName,
     '/board', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-kanban-button',
@@ -28,7 +39,7 @@ echo Html::a(
 );
 
 echo Html::a(
-    $boardObject ? $boardObject->backlog_name : \Yii::t('app', 'Backlog'),
+    $backlogName,
     '/board/backlog', [
         'class' => 'btn btn-primary apc-header-button pull-right',
         'id' => 'header-backlog-button',
