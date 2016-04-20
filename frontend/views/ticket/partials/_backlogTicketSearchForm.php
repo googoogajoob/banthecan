@@ -1,7 +1,7 @@
 <?php
 
-use yii\bootstrap\Html;
-use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
 use frontend\models\User;
 use dosamigos\selectize\SelectizeTextInput;

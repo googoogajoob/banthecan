@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\Carousel;
 
 /* @var $this yii\web\View */
 /* @var $ticket common\models\Ticket */
@@ -23,11 +22,11 @@ if ($taglist = $ticket->tagNames) {
 		$i++;
 	}
 
-	echo Carousel::widget([
+	/*echo Carousel::widget([
         'items' => $carouselItems,
         'controls' => false,
         'showIndicators' => false,
-	]);
+	]);*/
 
 	echo Html::endTag('div');
 

@@ -1,7 +1,7 @@
 <?php
 
-use yii\bootstrap\Html;
-use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use dosamigos\selectize\SelectizeTextInput;
 
 /* @var $this yii\web\View */
