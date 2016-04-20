@@ -17,8 +17,8 @@ class BoardAsset extends AssetBundle
 {
 	public $sourcePath = '@frontend/views/';
 	public $css = [
-        'board/css/board.css',
-        'ticket/css/ticket.css',
+//        'board/css/board.css',
+//        'ticket/css/ticket.css',
 	];
 	public $js = [
         'board/js/boardEffects.js',

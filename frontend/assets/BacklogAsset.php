@@ -17,7 +17,7 @@ class BacklogAsset extends AssetBundle {
 
     public $sourcePath = '@frontend/views/';
     public $css = [
-        'ticket/css/ticket.css',
+//        'ticket/css/ticket.css',
     ];
     public $js = [
         'board/js/boardEffects.js',

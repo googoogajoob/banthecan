@@ -17,7 +17,7 @@ class TaskAsset extends AssetBundle {
 
     public $sourcePath = '@frontend/views/task/';
     public $css = [
-        'css/task.css',
+//        'css/task.css',
     ];
     public $js = [
         'js/task.js',
