@@ -7,7 +7,6 @@
  */
 
 use yii\helpers\Html;
-use yii\bootstrap\Modal;
 
 echo Html::a(
 \Yii::t('app', 'Completed'),
@@ -40,10 +39,10 @@ echo Html::button(
         'id' => 'header-create-button',
     ]);
 
-Modal::begin([
+/*Modal::begin([
     'header' => '<h2>' . \Yii::t('app','Create Ticket') . '</h2>',
     'id' => 'create-ticket-modal',
     'size' => 'modal-lg',
 ]);
 echo '<div id="create-ticket-modal-content"></div>';
-Modal::end();
+Modal::end();*/

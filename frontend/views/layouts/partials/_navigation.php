@@ -6,11 +6,9 @@
  * Time: 7:01 PM
  */
 
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 
-NavBar::begin([
+/*NavBar::begin([
     'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
@@ -20,7 +18,7 @@ NavBar::begin([
         'class' => 'container-fluid'
         ]
     ]
-);
+);*/
 
 if (Yii::$app->user->isGuest) {
 
@@ -50,11 +48,11 @@ if (Yii::$app->user->isGuest) {
 
 }
 
-echo Nav::widget([
+/*echo Nav::widget([
 	'options' => ['class' => 'navbar-nav navbar-right'],
 	'items' => $menuItems,
-]);
+]);*/
 
 echo $this->renderFile('@frontend/views/layouts/partials/_header-buttons.php');
 
-NavBar::end();
+//NavBar::end();
