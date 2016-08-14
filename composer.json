@@ -17,7 +17,12 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.6",
         "yiisoft/yii2-bootstrap": "*",
-        "yiisoft/yii2-swiftmailer": "*"
+        "yiisoft/yii2-imagine": "*",
+        "yiisoft/yii2-jui": "*",
+        "yiisoft/yii2-swiftmailer": "*",
+        "2amigos/yii2-taggable-behavior": "*",
+        "2amigos/yii2-selectize-widget": "*",
+        "nterms/yii2-pagesize-widget": "*"
     },
     "require-dev": {
         "codeception/base": "^2.2.3",
