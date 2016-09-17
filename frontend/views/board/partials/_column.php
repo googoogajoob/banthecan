@@ -23,7 +23,7 @@ $ticketCount = count($column->getTickets());
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
 
-    <button type="button" class="btn btn-default btn-primary btn-block apc-margin" data-toggle="collapse" data-target="#collapse-<?php echo $column->title; ?>">
+    <button type="button" class="btn btn-default btn-primary btn-block apc-margin apc-col-btn" data-toggle="collapse" data-target="#collapse-<?php echo $column->title; ?>">
         <?php echo $column->title; ?>
         <?php echo $ticketCount > 0 ? '(' . $ticketCount . ')' : ''; ?>
     </button>
