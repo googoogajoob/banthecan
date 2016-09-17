@@ -21,7 +21,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
 
 ?>
 
-<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
 
 <h4 class="board-column-title"><?php echo $column->title; ?></h4>
 
