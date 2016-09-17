@@ -16,8 +16,12 @@ use common\models\Board;
 AppAsset::register($this);
 if ($boardObject = Board::getActiveBoard()) {
     $this->title = $boardObject->title;
+    $kanbanName = trim($boardObject->kanban_name) == '' ? \Yii::t('app', 'Kanban') : $boardObject->kanban_name;
+    $backlogName = trim($boardObject->backlog_name) == '' ? \Yii::t('app', 'Backlog'): $boardObject->backlog_name;
 } else {
     $this->title = '';
+    $kanbanName = \Yii::t('app', 'Kanban');
+    $backlogName = \Yii::t('app', 'Backlog');
 }
 ?>
 <?php $this->beginPage() ?>
@@ -37,6 +41,8 @@ if ($boardObject = Board::getActiveBoard()) {
     echo $this->renderFile(
         '@frontend/views/layouts/partials/_navigation.php', [
             'boardObject' => $boardObject,
+            'kanbanName' => $kanbanName,
+            'backlogName' => $backlogName
         ]
     );
     echo $this->renderFile('@frontend/views/layouts/partials/_left-sidebar.php');
