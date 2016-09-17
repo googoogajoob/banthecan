@@ -9,9 +9,10 @@
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
-use yii\db\ActiveRecord;
 
 /* @var $boardObject yii\db\ActiveRecord */
+/* @var $kanbanName String */
+/* @var $backlogName String */
 
 NavBar::begin([
     'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
@@ -34,7 +35,12 @@ if (Yii::$app->user->isGuest) {
 
 } else {
 
-	$menuItems[] = ['label' => \Yii::t('app', 'Ban The Can'), 'items' => [
+	$menuItems[] = ['label' => \Yii::t('app', 'Ban The Can'),
+        'items' => [
+            ['label' => \Yii::t('app', 'Create Ticket'), 'url' => '/ticket/new'],
+            ['label' => $backlogName, 'url' => '/board/backlog'],
+            ['label' => $kanbanName, 'url' => '/board'],
+            ['label' => \Yii::t('app', 'Completed'), 'url' => '/board/completed'],
 			['label' => \Yii::t('app', 'Tickets'), 'url' => ['/ticket']],
 			['label' => \Yii::t('app', 'Tags'), 'url' => ['/tags']],
 			['label' => \Yii::t('app', 'Tasks'), 'url' => ['/task']],
@@ -48,8 +54,9 @@ if (Yii::$app->user->isGuest) {
 	];
 
 	$menuItems[] = html::tag('li',
-		$this->render('@frontend/views/site/partials/_userIcon',['userId' => Yii::$app->getUser()->id]),
-		['class' => 'menu-avatar-li']);
+		$this->render('@frontend/views/site/partials/_userIcon',
+			['userId' => Yii::$app->getUser()->id]),
+		  	['class' => 'menu-avatar-li hidden-xs']);
 
 }
 
@@ -59,7 +66,9 @@ echo Nav::widget([
 ]);
 
 echo $this->renderFile('@frontend/views/layouts/partials/_header-buttons.php', [
-        'boardObject' => $boardObject,
-    ]);
+    'boardObject' => $boardObject,
+    'kanbanName' => $kanbanName,
+    'backlogName' => $backlogName
+]);
 
 NavBar::end();
