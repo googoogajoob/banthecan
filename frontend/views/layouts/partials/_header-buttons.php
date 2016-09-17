@@ -10,22 +10,13 @@ use yii\helpers\Html;
 use yii\bootstrap\Modal;
 
 /* @var $boardObject yii\db\ActiveRecord */
-
-$kanbanName = \Yii::t('app', 'Kanban');
-$backlogName = \Yii::t('app', 'Backlog');
-if ($boardObject) {
-    if (trim($boardObject->kanban_name) != '') {
-        $kanbanName = $boardObject->kanban_name;
-    }
-    if (trim($boardObject->backlog_name) != '') {
-        $backlogName = $boardObject->backlog_name;
-    }
-}
+/* @var $kanbanName String */
+/* @var $backlogName String */
 
 echo Html::a(
     \Yii::t('app', 'Completed'),
     '/board/completed', [
-        'class' => 'btn btn-primary apc-header-button pull-right',
+        'class' => 'btn btn-primary apc-header-button pull-right hidden-xs',
         'id' => 'header-completed-button',
     ]
 );
@@ -33,7 +24,7 @@ echo Html::a(
 echo Html::a(
     $kanbanName,
     '/board', [
-        'class' => 'btn btn-primary apc-header-button pull-right',
+        'class' => 'btn btn-primary apc-header-button pull-right hidden-xs',
         'id' => 'header-kanban-button',
     ]
 );
@@ -41,7 +32,7 @@ echo Html::a(
 echo Html::a(
     $backlogName,
     '/board/backlog', [
-        'class' => 'btn btn-primary apc-header-button pull-right',
+        'class' => 'btn btn-primary apc-header-button pull-right hidden-xs',
         'id' => 'header-backlog-button',
     ]
 );
@@ -49,7 +40,7 @@ echo Html::a(
 echo Html::button(
     \Yii::t('app', 'Create Ticket'), [
     'value' => '/ticket/new',
-    'class' => 'btn btn-success apc-header-button pull-right',
+    'class' => 'btn btn-success apc-header-button pull-right hidden-xs',
     'id' => 'header-create-button',
 ]);
 
