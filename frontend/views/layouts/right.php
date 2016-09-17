@@ -48,7 +48,7 @@ if ($boardObject = Board::getActiveBoard()) {
     <div id="layout-main" class="right-layout-main"><?php
         echo Html::icon('circle-arrow-left', [
             'id' => 'toggle-right-sidebar',
-            'class' => 'pull-right apc-layout-toggle-button',
+            'class' => 'pull-right apc-layout-toggle-button visible-lg-block',
         ]);
         ?>
 

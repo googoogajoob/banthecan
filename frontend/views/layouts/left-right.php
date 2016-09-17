@@ -57,7 +57,7 @@ if ($boardObject = Board::getActiveBoard()) {
         ]);
         echo Html::icon('circle-arrow-left', [
             'id' => 'toggle-right-sidebar',
-            'class' => 'pull-right apc-layout-toggle-button',
+            'class' => 'pull-right apc-layout-toggle-button visible-lg-block',
         ]);
         ?>
 
