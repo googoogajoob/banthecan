@@ -38,3 +38,7 @@
 .btn.collapsed:after {
 	content: "\e080";
 }
+
+.apc-margin {
+    margin-bottom: 4px;
+}

@@ -18,15 +18,17 @@ use frontend\controllers\TicketController;
  */
 
 defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
+$ticketCount = count($column->getTickets());
 ?>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
 
-    <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#collapse-<?php echo $column->title; ?>">
+    <button type="button" class="btn btn-default btn-primary btn-block apc-margin" data-toggle="collapse" data-target="#collapse-<?php echo $column->title; ?>">
         <?php echo $column->title; ?>
+        <?php echo $ticketCount > 0 ? '(' . $ticketCount . ')' : ''; ?>
     </button>
 
-    <div id="collapse-<?php echo $column->title; ?>" class="panel-collapse collapse">
+    <div id="collapse-<?php echo $column->title; ?>" class="panel-collapse collapse in"  aria-expanded="true">
         <?php
         // Get the HTML of all ticket content for this column concatenated into one string
         $columnItems = [];
