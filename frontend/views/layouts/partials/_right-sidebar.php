@@ -8,11 +8,13 @@
 ?>
 
 <div id="right-layout-sidebar">
-<div class="container-fluid"><?php
-if ($this->blocks && array_key_exists('right-sidebar', $this->blocks)) {
-	echo $this->blocks['right-sidebar'];
-}
-?></div>
+	<div class="container-fluid">
+		<?php
+		if ($this->blocks && array_key_exists('right-sidebar', $this->blocks)) {
+			echo $this->blocks['right-sidebar'];
+		}
+		?>
+	</div>
 </div>
 
 
