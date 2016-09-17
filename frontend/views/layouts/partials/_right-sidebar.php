@@ -7,6 +7,7 @@
  */
 ?>
 
+
 <div id="right-layout-sidebar">
 	<div class="container-fluid">
 		<?php
@@ -16,5 +17,3 @@
 		?>
 	</div>
 </div>
-
-
