@@ -32,7 +32,7 @@ echo ListView::widget([
         'showPriority' => $showPriority,
     ],
     'itemOptions' => [
-        'class' => 'col-xs-2 col-sm-4 col-md-3 col-lg-2',
+        'class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-2',
     ],
     'options' => ['class' => 'row'],
     'layout' => '{pager}{summary}{sorter}{items}{pager}',
