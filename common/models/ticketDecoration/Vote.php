@@ -86,6 +86,8 @@ class Vote extends AbstractDecoration
      */
     public function validateVote($event)
     {
+        return true; // Vote validation temporarily deactivated
+        
         $currentUserId = \Yii::$app->user->identity->id;
         $decorationData = $this->getDecorationData();
 
