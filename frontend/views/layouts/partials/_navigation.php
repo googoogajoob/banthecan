@@ -57,7 +57,6 @@ if (Yii::$app->user->isGuest) {
 		$this->render('@frontend/views/site/partials/_userIcon',
 			['userId' => Yii::$app->getUser()->id]),
 		  	['class' => 'menu-avatar-li hidden-xs']);
-
 }
 
 echo Nav::widget([
