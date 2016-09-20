@@ -6,6 +6,7 @@
  * Time: 7:01 PM
  */
 
+use yii\bootstrap\Modal;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
@@ -35,12 +36,15 @@ if (Yii::$app->user->isGuest) {
 
 } else {
 
-	$menuItems[] = ['label' => \Yii::t('app', 'Ban The Can'),
+    $menuItems[] = html::tag('li',
+        $this->render('@frontend/views/site/partials/_userIcon',
+        ['userId' => Yii::$app->getUser()->id]),
+        ['class' => 'menu-avatar-li pull-right hidden-xs']);
+
+	$menuItems[] = [
+        'label' => \Yii::t('app', 'Ban The Can'),
+        'options' => ['class' => 'pull-right hidden-xs'],
         'items' => [
-            ['label' => \Yii::t('app', 'Create Ticket'), 'url' => '/ticket/new'],
-            ['label' => $backlogName, 'url' => '/board/backlog'],
-            ['label' => $kanbanName, 'url' => '/board'],
-            ['label' => \Yii::t('app', 'Completed'), 'url' => '/board/completed'],
 			['label' => \Yii::t('app', 'Tickets'), 'url' => ['/ticket']],
 			['label' => \Yii::t('app', 'Tags'), 'url' => ['/tags']],
 			['label' => \Yii::t('app', 'Tasks'), 'url' => ['/task']],
@@ -53,10 +57,33 @@ if (Yii::$app->user->isGuest) {
 		],
 	];
 
-	$menuItems[] = html::tag('li',
-		$this->render('@frontend/views/site/partials/_userIcon',
-			['userId' => Yii::$app->getUser()->id]),
-		  	['class' => 'menu-avatar-li hidden-xs']);
+    $menuItems[] = Html::a(
+        \Yii::t('app', 'Create Ticket'),
+        '/ticket/new', [
+        'class' => 'btn btn-success apc-header-button',
+        'id' => 'header-create-button',
+    ]);
+
+    $menuItems[] = Html::a(
+        $backlogName,
+        '/board/backlog', [
+        'class' => 'btn btn-primary apc-header-button',
+        'id' => 'header-backlog-button',
+    ]);
+
+    $menuItems[] = Html::a(
+        $kanbanName,
+        '/board', [
+        'class' => 'btn btn-primary apc-header-button',
+        'id' => 'header-kanban-button',
+    ]);
+
+    $menuItems[] = Html::a(
+        \Yii::t('app', 'Completed'),
+        '/board/completed', [
+        'class' => 'btn btn-primary apc-header-button',
+        'id' => 'header-completed-button',
+    ]);
 }
 
 echo Nav::widget([

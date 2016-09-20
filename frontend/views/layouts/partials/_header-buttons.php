@@ -13,7 +13,7 @@ use yii\bootstrap\Modal;
 /* @var $kanbanName String */
 /* @var $backlogName String */
 
-echo Html::a(
+/*echo Html::a(
     \Yii::t('app', 'Completed'),
     '/board/completed', [
         'class' => 'btn btn-primary apc-header-button pull-right hidden-xs',
@@ -42,7 +42,7 @@ echo Html::button(
     'value' => '/ticket/new',
     'class' => 'btn btn-success apc-header-button pull-right hidden-xs',
     'id' => 'header-create-button',
-]);
+]);*/
 
 Modal::begin([
     'header' => '<h2>' . \Yii::t('app', 'Create Ticket') . '</h2>',
