@@ -19,7 +19,7 @@ function columnTicketOrder(event, ui, rthis) {
                 'ticketOrder': ticketOrder
             },
         success: function(returnData){
-            if (!$.isNumeric(returnData.id)) {
+            if (!$.isNumeric(returnData.ticketId)) {
                 $(returnData.ticketId + ' .ticket-single-decorations').html(returnData.decorationHtml);
                 //alert("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
             } else {

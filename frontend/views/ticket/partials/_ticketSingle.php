@@ -77,7 +77,8 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
 
 	<?php
         if ($model->hasDecorations()) {
-            echo $this->render('@frontend/views/ticket/partials/_ticketDecorations', ['ticket' => $model]);
+            echo $this->render('@frontend/views/ticket/partials/_ticketDecorations',
+				['ticket' => $model, 'showDiv' => true]);
         }
 
 		if ($showTags) {
