@@ -6,7 +6,6 @@
  * Time: 7:01 PM
  */
 
-use yii\bootstrap\Modal;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
@@ -59,9 +58,11 @@ if (Yii::$app->user->isGuest) {
 
     $menuItems[] = Html::a(
         \Yii::t('app', 'Create Ticket'),
-        '/ticket/new', [
+        '/ticket/create', [
         'class' => 'btn btn-success apc-header-button',
         'id' => 'header-create-button',
+        //'data-toggle' => 'modal',
+        //'data-target' => '#create-ticket-modal-content'
     ]);
 
     $menuItems[] = Html::a(
@@ -89,12 +90,6 @@ if (Yii::$app->user->isGuest) {
 echo Nav::widget([
 	'options' => ['class' => 'navbar-nav navbar-right'],
 	'items' => $menuItems,
-]);
-
-echo $this->renderFile('@frontend/views/layouts/partials/_header-buttons.php', [
-    'boardObject' => $boardObject,
-    'kanbanName' => $kanbanName,
-    'backlogName' => $backlogName
 ]);
 
 NavBar::end();
