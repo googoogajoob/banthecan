@@ -61,8 +61,8 @@ if (Yii::$app->user->isGuest) {
         '/ticket/create', [
         'class' => 'btn btn-success apc-header-button',
         'id' => 'header-create-button',
-        //'data-toggle' => 'modal',
-        //'data-target' => '#create-ticket-modal-content'
+        'data-toggle' => 'modal',
+        'data-target' => '#global-modal-container'
     ]);
 
     $menuItems[] = Html::a(

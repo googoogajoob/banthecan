@@ -1,9 +1,20 @@
 $(document).ready(function() {
- /*   $('#header-create-button').click(function() {
-        $('#create-ticket-modal').modal('show');
+    $('#global-modal-container').on('show.bs.modal', function (event) {
+        sourceUrl = $(event.relatedTarget).attr('href');
+        getGlobalModalHtml(sourceUrl);
     });
-    $('#create-ticket-modal').on('show.bs.modal', function (e) {
-        //junk = relatedTarget;
-    });
-//        $('#create-ticket-modal-content').load($(this).attr('value')); */
 });
+
+function getGlobalModalHtml(url) {
+    $.ajax({
+        url: url,
+        type: "post",
+        success: function(returnData) {
+            $('#global-modal-container .modal-body').html(returnData);
+            //alert('success');
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Error loading Global Modal Container: ' + textStatus + ':' + errorThrown);
+        }
+    });
+}

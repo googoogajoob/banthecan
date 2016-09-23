@@ -6,7 +6,6 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use common\models\Board;
-use yii\bootstrap\Modal;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -36,17 +35,7 @@ if ($boardObject = Board::getActiveBoard()) {
 
     <body>
 
-    <?php
-        Modal::begin([
-        'header' => '<h2>' . \Yii::t('app', 'Create Ticket') . '</h2>',
-        'id' => 'create-ticket-modal',
-        'closeButton' => [],
-        //'toggleButton' => ['label' => 'click me'],
-        'size' => 'modal-lg',
-        ]);
-        echo '<div id="create-ticket-modal-content"></div>';
-        Modal::end();
-    ?>
+    <?php echo $this->renderFile('@frontend/views/layouts/partials/_modalContainer.php'); ?>
 
     <?php $this->beginBody() ?>
     <div class="wrap"><?php
