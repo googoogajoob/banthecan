@@ -35,6 +35,43 @@ if (Yii::$app->user->isGuest) {
 
 } else {
 
+    $btcMenuItems = [
+        ['label' => \Yii::t('app', 'Tickets'),
+            'url' => ['/ticket'],
+        ],
+		['label' => \Yii::t('app', 'Tags'),
+            'url' => ['/tags'],
+        ],
+		['label' => \Yii::t('app', 'Tasks'),
+            'url' => ['/task'],
+        ],
+		['label' => \Yii::t('app', 'Resolutions'),
+            'url' => ['/resolution'],
+        ],
+		['label' => \Yii::t('app', 'Select Board'),
+            'url' => ['/board/select'],
+        ],
+		['label' => \Yii::t('app', 'Logout'),
+            'url' => ['/site/logout'],
+            'linkOptions' => ['data-method' => 'post'],
+        ],
+		['label' => \Yii::t('app', 'User Settings'),
+            'url' => ['/user/view'],
+        ],
+		['label' => \Yii::t('app', 'Contact'),
+            'url' => ['/site/contact'],
+        ],
+		['label' => \Yii::t('app', 'About'),
+            'url' => ['/site/about'],
+        ],
+    ];
+
+    $btcMenuItemsXs = [];
+    foreach($btcMenuItems as $key => $value) {
+        $value['options'] = ['class' => 'hidden-sm hidden-md hidden-lg'];
+        $btcMenuItemsXs[] = $value;
+    }
+
     $menuItems[] = html::tag('li',
         $this->render('@frontend/views/site/partials/_userIcon',
         ['userId' => Yii::$app->getUser()->id]),
@@ -43,17 +80,7 @@ if (Yii::$app->user->isGuest) {
 	$menuItems[] = [
         'label' => \Yii::t('app', 'Ban The Can'),
         'options' => ['class' => 'pull-right hidden-xs'],
-        'items' => [
-			['label' => \Yii::t('app', 'Tickets'), 'url' => ['/ticket']],
-			['label' => \Yii::t('app', 'Tags'), 'url' => ['/tags']],
-			['label' => \Yii::t('app', 'Tasks'), 'url' => ['/task']],
-			['label' => \Yii::t('app', 'Resolutions'), 'url' => ['/resolution']],
-			['label' => \Yii::t('app', 'Select Board'), 'url' => ['/board/select']],
-			['label' => \Yii::t('app', 'Logout'), 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
-			['label' => \Yii::t('app', 'User Settings'), 'url' => ['/user/view']],
-			['label' => \Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
-			['label' => \Yii::t('app', 'About'), 'url' => ['/site/about']],
-		],
+        'items' => $btcMenuItems,
 	];
 
     $menuItems[] = Html::a(
@@ -85,6 +112,8 @@ if (Yii::$app->user->isGuest) {
         'class' => 'btn btn-primary apc-header-button',
         'id' => 'header-completed-button',
     ]);
+
+    $menuItems = array_merge($menuItems, $btcMenuItemsXs);
 }
 
 echo Nav::widget([
