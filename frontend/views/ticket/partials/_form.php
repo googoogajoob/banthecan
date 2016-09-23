@@ -7,7 +7,7 @@ use dosamigos\selectize\SelectizeTextInput;
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $returnUrl common\models\Ticket */
+/* @var $showAllFields boolean */
 ?>
 
 <div class="ticket-form"><?php
@@ -25,15 +25,14 @@ use dosamigos\selectize\SelectizeTextInput;
         ],
     ]);
 
-    echo Html::hiddenInput('returnUrl', $returnUrl);
-
     echo $form->field($model, 'title')->textarea(['rows' => 1]);
 
-    echo $form->field($model, 'description')->textarea(['rows' => 6]);
+    echo $form->field($model, 'description')->textarea(['rows' => 2]);
 
-    echo $form->field($model, 'vote_priority')->textarea(['rows' => 1]);
-
-    echo $form->field($model, 'protocol')->textarea(['rows' => 6]);
+    if ($showAllFields) {
+        //echo $form->field($model, 'vote_priority')->textarea(['rows' => 1]);
+        echo $form->field($model, 'protocol')->textarea(['rows' => 2]);
+    }
 
     echo $form->field($model, 'tagNames')->widget(SelectizeTextInput::className(), [
         // calls an action that returns a JSON object with matched tags

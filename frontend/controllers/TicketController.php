@@ -116,31 +116,6 @@ class TicketController extends Controller {
             return $ticketViewHtml;
         }
     }
-
-    /**
-     * Creates a new Ticket model. Intended to be used from a Bootstrap Modal widget.
-     * This is basically a copy of the create action, which has been modified to work with modal/ajax
-     *
-     * @return mixed
-     */
-    public function actionNew() {
-
-        $model = new Ticket();
-        $model->board_id = Board::getActiveBoard()->id; //A new ticket belongs to the current active board
-        $model->moveToBacklog(); //A new ticket always starts in the backlog
-
-        $returnUrl = Yii::$app->request->post('returnUrl');
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect($returnUrl);
-        } else {
-            return $this->renderAjax('create', [
-                'model' => $model,
-                'returnUrl' => Yii::$app->request->getReferrer(),
-            ]);
-        }
-    }
-
     /**
      * Duplicates an existing Ticket model.
      * If duplication is successful, the browser will be redirected to the 'view' page.
@@ -168,7 +143,7 @@ class TicketController extends Controller {
     }
 
     /**
-     * Creates a new Ticket model.
+     * Creates a new Ticket model.Normal and Ajax/Modal requests
      * If creation is successful, the browser will be redirected to the 'view' page.
      *
      * @return mixed
@@ -182,7 +157,12 @@ class TicketController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', ['model' => $model]);
+            $request = Yii::$app->request;
+            if ($request->isAjax) {
+                return $this->renderAjax('create', ['model' => $model]);
+            } else {
+                return $this->render('create', ['model' => $model]);
+            }
         }
     }
 
