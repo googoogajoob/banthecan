@@ -69,6 +69,9 @@ $ticketCount = count($column->getTickets());
                 'connectWith' => $connectedColumns,
             ],
             'clientEvents' => [
+                'create' => 'function (event, ui) {
+                    dynamicSortableDisable(event, ui, this)
+                }',
                 'activate' => 'function (event, ui) {
                     showColumnReceiver(event, ui, this);
                 }',
