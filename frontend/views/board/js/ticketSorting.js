@@ -63,5 +63,6 @@ function dynamicSortableDisable(event, ui, sthis) {
 
     if (environment != 'lg') {
         $(sthis).sortable("disable");
+        $('.ui-sortable-handle').removeClass('ui-sortable-handle');
     }
 }
