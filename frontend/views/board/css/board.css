@@ -31,7 +31,7 @@
 .apc-col-btn:after {
 	font-family: "Glyphicons Halflings";
 	content: "\e114";
-	/*float: right;*/
+	float: right;
 	margin-left: 15px;
 }
 /* Icon when the collapsible content is hidden */
