@@ -16,7 +16,8 @@ $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' =>
 <?php
     echo $this->render('partials/_form', [
         'model' => $model,
-        'showAllFields' => true
+        'showAllFields' => true,
+        'modalFlag' => false,
     ]);
 ?>
 </div>

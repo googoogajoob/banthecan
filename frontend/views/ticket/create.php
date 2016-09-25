@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
+/* @var $modalFlag boolean */
 
 $this->title = \Yii::t('app', 'Create Ticket');
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' => ['index']];
@@ -16,7 +17,8 @@ $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' =>
 <?php
     echo $this->render('partials/_form', [
         'model' => $model,
-        'showAllFields' => false
+        'showAllFields' => false,
+        'modalFlag' => $modalFlag,
     ]);
 ?>
 </div>
