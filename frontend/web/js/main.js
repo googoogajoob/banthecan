@@ -9,6 +9,7 @@ function getGlobalModalHtml(url) {
     $.ajax({
         url: url,
         type: "post",
+
         success: function(returnData) {
 
             $('#global-modal-container .modal-body').html(returnData);
@@ -17,11 +18,12 @@ function getGlobalModalHtml(url) {
             $('#global-modal-container .modal-header .apc-modal-header').remove();
             $('#global-modal-container .modal-header').prepend(headerHtml);
 
-
             //alert('success');
         },
+
         error: function(jqXHR, textStatus, errorThrown){
             alert('Error loading Global Modal Container: ' + textStatus + ':' + errorThrown);
         }
+
     });
 }
