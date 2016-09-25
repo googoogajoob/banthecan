@@ -49,3 +49,9 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 .modal-backdrop {
 	z-index: -1;
 }
+
+.apc-modal-header {
+	margin-top: 0;
+	margin-bottom: 0;
+    float: left;
+}
