@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' =>
 
 <div class="ticket-create">
 
-<h1 class="col-sm-offset-2"><?= Html::encode($this->title) ?></h1>
+<h2 class="col-sm-offset-2 apc-modal-header"><?= Html::encode($this->title) ?></h2>
 
 <?php
     echo $this->render('partials/_form', [

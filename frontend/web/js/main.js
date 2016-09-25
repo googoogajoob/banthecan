@@ -10,7 +10,14 @@ function getGlobalModalHtml(url) {
         url: url,
         type: "post",
         success: function(returnData) {
+
             $('#global-modal-container .modal-body').html(returnData);
+            headerHtml = $('#global-modal-container .modal-body .apc-modal-header')[0].outerHTML;
+            $('#global-modal-container .modal-body .apc-modal-header').remove();
+            $('#global-modal-container .modal-header .apc-modal-header').remove();
+            $('#global-modal-container .modal-header').prepend(headerHtml);
+
+
             //alert('success');
         },
         error: function(jqXHR, textStatus, errorThrown){
