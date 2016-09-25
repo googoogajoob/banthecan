@@ -8,6 +8,7 @@ use dosamigos\selectize\SelectizeTextInput;
 /* @var $model common\models\Ticket */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $showAllFields boolean */
+/* @var $modalFlag boolean */
 ?>
 
 <div class="ticket-form">
@@ -59,6 +60,7 @@ use dosamigos\selectize\SelectizeTextInput;
         ],
     ])->hint(\Yii::t('app', 'Use commas to separate tags'));
 
+    echo Html::hiddenInput('modalFlag', $modalFlag ? 1 : 0);
     ?>
 
     <?php ActiveForm::end(); ?>

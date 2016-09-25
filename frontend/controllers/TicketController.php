@@ -4,13 +4,13 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Board;
-use common\models\Column;
 use common\models\Ticket;
 use common\models\TicketSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\MethodNotAllowedHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * TicketController implements the CRUD actions (and other actions) for the Ticket model.
@@ -153,15 +153,20 @@ class TicketController extends Controller {
         $model = new Ticket();
         $model->board_id = Board::getActiveBoard()->id; //A new ticket belongs to the current active board
         $model->moveToBacklog(); //A new ticket always starts in the backlog
+        $request = Yii::$app->request;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            $request = Yii::$app->request;
-            if ($request->isAjax) {
-                return $this->renderAjax('create', ['model' => $model]);
+            if ($request->getBodyParam('modalFlag')) {
+                return $this->redirect(Url::previous());
             } else {
-                return $this->render('create', ['model' => $model]);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            if ($request->isAjax) {
+                Url::remember($request->getReferrer());
+                return $this->renderAjax('create', ['model' => $model, 'modalFlag' => true]);
+            } else {
+                return $this->render('create', ['model' => $model, 'modalFlag' => false]);
             }
         }
     }
