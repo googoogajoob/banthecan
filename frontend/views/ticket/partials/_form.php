@@ -10,7 +10,8 @@ use dosamigos\selectize\SelectizeTextInput;
 /* @var $showAllFields boolean */
 ?>
 
-<div class="ticket-form"><?php
+<div class="ticket-form">
+    <?php
     $form = ActiveForm::begin([
         'layout' => 'horizontal',
         'fieldConfig' => [
@@ -24,7 +25,18 @@ use dosamigos\selectize\SelectizeTextInput;
             ],
         ],
     ]);
+    ?>
 
+    <div class="col-sm-offset-1">
+        <div class="form-group">
+            <?php
+            echo Html::submitButton($model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', 'Update'),
+                ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+            ?>
+        </div>
+    </div>
+
+    <?php
     echo $form->field($model, 'title')->textarea(['rows' => 1]);
 
     echo $form->field($model, 'description')->textarea(['rows' => 2]);
@@ -48,13 +60,6 @@ use dosamigos\selectize\SelectizeTextInput;
     ])->hint(\Yii::t('app', 'Use commas to separate tags'));
 
     ?>
-
-    <div class="col-sm-offset-2">
-        <div class="form-group"><?php
-            echo Html::submitButton($model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', 'Update'),
-                ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
-            ?></div>
-    </div>
 
     <?php ActiveForm::end(); ?>
 </div>
