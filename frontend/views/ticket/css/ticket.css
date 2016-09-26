@@ -47,7 +47,7 @@
 
 .ticket-single-tags {
 	position: absolute;
-	bottom: 26px;
+	bottom: 35px;
 	padding: 2px 4px 0 0;
 }
 
@@ -148,4 +148,8 @@ ul.ticket-view-ajax {
 .ticket-vote-minus {
     color: dimgrey;
     /*background-color: #72e77a;*/
+}
+
+.glyphicon {
+	font-size: 25px;
 }
