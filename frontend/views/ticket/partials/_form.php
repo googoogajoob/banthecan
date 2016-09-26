@@ -9,6 +9,9 @@ use dosamigos\selectize\SelectizeTextInput;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $showAllFields boolean */
 /* @var $modalFlag boolean */
+
+$buttonClass = $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary';
+$buttonLabel = $model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', 'Update');
 ?>
 
 <div class="ticket-form">
@@ -28,14 +31,19 @@ use dosamigos\selectize\SelectizeTextInput;
     ]);
     ?>
 
+    <?php if ($modalFlag) : ?>
     <div class="col-sm-offset-1">
         <div class="form-group">
             <?php
-            echo Html::submitButton($model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', 'Update'),
-                ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+                $buttonClass .= ' pull-right';
+                echo Html::submitButton(
+                    $buttonLabel,
+                    ['class' => $buttonClass]
+                );
             ?>
         </div>
     </div>
+    <?php endif; ?>
 
     <?php
     echo $form->field($model, 'title')->textarea(['rows' => 1]);
@@ -43,7 +51,6 @@ use dosamigos\selectize\SelectizeTextInput;
     echo $form->field($model, 'description')->textarea(['rows' => 2]);
 
     if ($showAllFields) {
-        //echo $form->field($model, 'vote_priority')->textarea(['rows' => 1]);
         echo $form->field($model, 'protocol')->textarea(['rows' => 2]);
     }
 
@@ -61,7 +68,21 @@ use dosamigos\selectize\SelectizeTextInput;
     ])->hint(\Yii::t('app', 'Use commas to separate tags'));
 
     echo Html::hiddenInput('modalFlag', $modalFlag ? 1 : 0);
+
     ?>
+
+    <?php if (!$modalFlag) : ?>
+    <div class="col-sm-offset-1">
+        <div class="form-group">
+            <?php
+                echo Html::submitButton(
+                    $buttonLabel,
+                    ['class' => $buttonClass]
+                );
+            ?>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <?php ActiveForm::end(); ?>
 </div>

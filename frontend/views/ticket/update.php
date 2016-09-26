@@ -5,19 +5,20 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
 
+$modalFlag = isset($modalFlag);
 $this->title = \Yii::t('app', 'Update Ticket');
-$this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' => ['index']];
+$titleClass = $modalFlag ? 'apc-modal-header' : 'col-sm-offset-2';
 ?>
 
 <div class="ticket-update">
 
-<h1 class="col-sm-offset-2"><?= Html::encode($this->title) ?></h1>
+<h2 class="<?php echo $titleClass; ?>"><?= Html::encode($this->title) ?></h2>
 
 <?php
     echo $this->render('partials/_form', [
         'model' => $model,
         'showAllFields' => true,
-        'modalFlag' => false,
+        'modalFlag' => $modalFlag,
     ]);
 ?>
 </div>
