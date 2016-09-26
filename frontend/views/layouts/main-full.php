@@ -48,14 +48,16 @@ if ($boardObject = Board::getActiveBoard()) {
         );
         ?>
 
-        <div class="container">
-            <?php
-            echo Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]);
-            echo Alert::widget();
-            echo $content
-            ?>
+        <div id="layout-main">
+            <div class="container-fluid">
+                <?php
+                echo Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]);
+                echo Alert::widget();
+                echo $content
+                ?>
+            </div>
         </div>
     </div>
 

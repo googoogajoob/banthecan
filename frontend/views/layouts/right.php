@@ -14,7 +14,7 @@ AppAsset::register($this);
 if ($boardObject = Board::getActiveBoard()) {
     $this->title = $boardObject->title;
     $kanbanName = trim($boardObject->kanban_name) == '' ? \Yii::t('app', 'Kanban') : $boardObject->kanban_name;
-    $backlogName = trim($boardObject->backlog_name) == '' ? \Yii::t('app', 'Backlog'): $boardObject->backlog_name;
+    $backlogName = trim($boardObject->backlog_name) == '' ? \Yii::t('app', 'Backlog') : $boardObject->backlog_name;
 } else {
     $this->title = '';
     $kanbanName = \Yii::t('app', 'Kanban');
