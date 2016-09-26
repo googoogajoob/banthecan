@@ -33,7 +33,11 @@ use yii\helpers\Html;
 	<tbody>
 	<?php
 	foreach($news as $k => $v) {
-		echo '<tr><td>' . Yii::$app->formatter->asDate($v->updated_at, 'long') . '</td><td>' . $v->title . '</td></tr>';
+		echo '<tr><td>'
+			. Yii::$app->formatter->asDate($v->updated_at, 'long')
+			. '</td><td><div title="' . $v->description .'">'
+			. $v->title
+			. '</div></td></tr>';
 	}
 	?>
 	</tbody>

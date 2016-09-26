@@ -33,7 +33,7 @@ class ViewDetail extends AbstractDecoration
 			$this->linkIcon,
 			'/ticket/view/' . $this->owner->id, [
 			//'data-toggle' => 'tooltip',
-			'data-toggle' => 'modal',
+			'data-toggle' => 'tooltip modal',
 			'data-target' => '#global-modal-container',
 			'title' => \Yii::t('app', 'View Detail'),
 			]
