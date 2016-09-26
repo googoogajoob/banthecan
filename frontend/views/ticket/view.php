@@ -6,18 +6,23 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
 
+
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ticket-view">
 
-<h1><?= Html::encode($this->title) ?></h1>
+<h2 class="apc-modal-header"><?= Html::encode($this->title) ?></h2>
 
 <p>
     <?php
-        echo Html::a(\Yii::t('app', 'Edit'), ['/ticket/update', 'id' => $model->id], ['class' => 'btn btn-primary']);
-        echo Html::a(\Yii::t('app', 'Delete'), ['/ticket/delete', 'id' => $model->id], [
+        echo Html::a(\Yii::t('app', 'Edit'),
+            ['/ticket/update', 'id' => $model->id],
+            ['class' => 'btn btn-primary']
+        );
+        echo Html::a(\Yii::t('app', 'Delete'),
+            ['/ticket/delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => \Yii::t('app', 'Are you sure you want to delete this item?'),
@@ -77,6 +82,7 @@ $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' =>
                 'label' => \Yii::t('app', 'Updated At'),
             ],
         ],
-    ])
+    ]);
+
 ?>
 </div>

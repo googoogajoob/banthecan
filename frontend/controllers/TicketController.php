@@ -100,22 +100,16 @@ class TicketController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id) {
-
+    public function actionView($id)
+    {
         $request = Yii::$app->request;
         if ($request->isAjax) {
-            $ticketViewHtml = $this->renderFile('@frontend/views/ticket/viewAjax.php',
-                ['model' => $this->findModel($id)]);
-            Yii::$app->response->format = 'json';
-
-            return ['ticketViewHtml' => $ticketViewHtml];
-
+            return $this->renderAjax('view', ['model' => $this->findModel($id)]);
         } else {
-            $ticketViewHtml = $this->render('view', ['model' => $this->findModel($id)]);
-
-            return $ticketViewHtml;
+            return $this->render('view', ['model' => $this->findModel($id)]);
         }
     }
+
     /**
      * Duplicates an existing Ticket model.
      * If duplication is successful, the browser will be redirected to the 'view' page.

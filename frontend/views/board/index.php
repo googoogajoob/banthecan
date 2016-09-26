@@ -14,12 +14,15 @@ use frontend\assets\BoardAsset;
 BoardAsset::register($this);
 ?>
 
-<h1 class="text-capitalize"><?php echo Html::encode($board->kanban_name) ?>
+<h1 class="text-capitalize">
+    <?php echo Html::encode($board->kanban_name) ?>
 </h1>
 
-<div class="row"><?php
-foreach($board->getColumns() as $column) {
-	echo $this->render('@frontend/views/board/partials/_column', ['column' => $column]);
-}
-?></div>
+<div class="row">
+    <?php
+    foreach($board->getColumns() as $column) {
+	    echo $this->render('@frontend/views/board/partials/_column', ['column' => $column]);
+    }
+    ?>
+</div>
 

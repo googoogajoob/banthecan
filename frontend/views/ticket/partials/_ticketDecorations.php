@@ -9,19 +9,20 @@ use yii\helpers\Html;
 
 //Ticket Decoration Bar displays the Ticket decorations
 
-    if ($showDiv) {
-        echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
-    }
+if ($showDiv) {
+    echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
+}
 
-    foreach ($ticket->getBehaviors() as $ticketBehavior) {
-        if ($ticketBehavior instanceof TicketDecorationInterface) {
-            echo Html::beginTag('div', ['class' => 'ticket-single-decorations-glyph']);
-            echo $ticketBehavior->show();
-            echo Html::endTag('div');
-        }
-    }
-
-    if ($showDiv) {
+foreach ($ticket->getBehaviors() as $ticketBehavior) {
+    if ($ticketBehavior instanceof TicketDecorationInterface) {
+        echo Html::beginTag('div', ['class' => 'ticket-single-decorations-glyph']);
+        echo $ticketBehavior->show();
         echo Html::endTag('div');
     }
+}
+
+if ($showDiv) {
+    echo Html::endTag('div');
+}
+
 ?>
