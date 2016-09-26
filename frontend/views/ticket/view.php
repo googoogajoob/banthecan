@@ -6,6 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
 
+
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
@@ -77,6 +78,7 @@ $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' =>
                 'label' => \Yii::t('app', 'Updated At'),
             ],
         ],
-    ])
+    ]);
+
 ?>
 </div>

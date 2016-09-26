@@ -73,7 +73,7 @@ class BoardController extends \yii\web\Controller {
      */
     public function actionIndex() {
 
-        $this->layout = 'right';
+        //$this->layout = 'left-right';
         Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
 
         return $this->render('index', [
