@@ -18,17 +18,20 @@ use frontend\controllers\TicketController;
  */
 
 defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
-$ticketCount = count($column->getTickets());
 ?>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
 
-    <button type="button" class="btn btn-default btn-primary btn-block apc-margin apc-col-btn" data-toggle="collapse" data-target="#collapse-<?php echo $column->title; ?>">
+    <button id="button-<?php echo $column->id; ?>"
+            type="button"
+            class="btn btn-default btn-primary btn-block apc-margin apc-col-btn"
+            data-toggle="collapse"
+            data-target="#collapse-<?php echo $column->id; ?>"
+            apc-title="<?php echo $column->title; ?>">
         <?php echo $column->title; ?>
-        <?php echo $ticketCount > 0 ? '(' . $ticketCount . ')' : ''; ?>
     </button>
 
-    <div id="collapse-<?php echo $column->title; ?>" class="panel-collapse collapse in"  aria-expanded="true">
+    <div id="collapse-<?php echo $column->id; ?>" class="panel-collapse collapse in"  aria-expanded="true">
         <?php
         // Get the HTML of all ticket content for this column concatenated into one string
         $columnItems = [];
@@ -63,14 +66,20 @@ $ticketCount = count($column->getTickets());
 
         echo Sortable::widget([
             'items' => $columnItems,
-            'options' => ['id' => COLUMN_ID_PREFIX . $column->id, 'tag' => 'div', 'class' => 'board-column'],
+            'options' => [
+                'id' => COLUMN_ID_PREFIX . $column->id,
+                'tag' => 'div',
+                'class' => 'board-column',
+                'column-reference-id' => $column->id,
+            ],
             'clientOptions' => [
                 'cursor' => 'move',
                 'connectWith' => $connectedColumns,
             ],
             'clientEvents' => [
                 'create' => 'function (event, ui) {
-                    dynamicSortableDisable(event, ui, this)
+                    dynamicSortableDisable(event, ui, this);
+                    columnTicketCount(event, ui, this);
                 }',
                 'activate' => 'function (event, ui) {
                     showColumnReceiver(event, ui, this);
@@ -80,6 +89,10 @@ $ticketCount = count($column->getTickets());
                 }',
                 'receive' => 'function (event, ui) {
                     columnTicketOrder(event, ui, this);
+                    columnTicketCount(event, ui, this);
+                }',
+                'remove' => 'function (event, ui) {
+                    columnTicketCount(event, ui, this);
                 }',
                 'update' => 'function (event, ui) {
                     if (!ui.sender && this === ui.item.parent()[0]) {
