@@ -153,6 +153,10 @@ a.desc:after {
 	/*margin-right: 8px;*/
 }
 
+.apc-button-bottom-margin {
+	margin-bottom: 15px;
+}
+
 .btn {
 	margin-right: 5px;
 }

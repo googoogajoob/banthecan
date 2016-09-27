@@ -5,32 +5,35 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
+/* @var $modalFlag boolean */
 
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' => ['index']];
-//$this->params['breadcrumbs'][] = $this->title;
+
+$modalClassAddition = $modalFlag ? 'pull-right apc-button-bottom-margin' : '';
+
+$editButton = Html::a(\Yii::t('app', 'Edit'),
+    ['/ticket/update', 'id' => $model->id],
+    ['class' => 'btn btn-primary ' . $modalClassAddition]);
+
+$deleteButton = Html::a(\Yii::t('app', 'Delete'),
+    ['/ticket/delete', 'id' => $model->id],
+    ['class' => 'btn btn-danger ' . $modalClassAddition,
+     'data' => [
+         'confirm' => \Yii::t('app', 'Are you sure you want to delete this item?'),
+         'method' => 'post',]]);
 ?>
+
 <div class="ticket-view">
 
 <h2 class="apc-modal-header"><?= Html::encode($this->title) ?></h2>
 
-<p>
-    <?php
-        echo Html::a(\Yii::t('app', 'Edit'),
-            ['/ticket/update', 'id' => $model->id],
-            ['class' => 'btn btn-primary']
-        );
-        echo Html::a(\Yii::t('app', 'Delete'),
-            ['/ticket/delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => \Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]);
-    ?>
-</p>
+<?php if ($modalFlag) : ?>
+
+    <?php echo $deleteButton . $editButton; ?>
+
+<?php endif; ?>
 
 <?php
     echo DetailView::widget([
@@ -83,6 +86,12 @@ $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Tickets'), 'url' =>
             ],
         ],
     ]);
-
 ?>
+
+<?php if (!$modalFlag) : ?>
+    <p>
+        <?php echo $editButton . $deleteButton; ?>
+    </p>
+<?php endif; ?>
+
 </div>

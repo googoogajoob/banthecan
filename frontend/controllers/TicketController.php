@@ -104,9 +104,9 @@ class TicketController extends Controller {
     {
         $request = Yii::$app->request;
         if ($request->isAjax) {
-            return $this->renderAjax('view', ['model' => $this->findModel($id)]);
+            return $this->renderAjax('view', ['model' => $this->findModel($id),'modalFlag' => true]);
         } else {
-            return $this->render('view', ['model' => $this->findModel($id)]);
+            return $this->render('view', ['model' => $this->findModel($id),'modalFlag' => false]);
         }
     }
 
