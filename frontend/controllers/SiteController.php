@@ -86,9 +86,21 @@ class SiteController extends Controller {
             $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
             $query = new Query;
 
-            $activity['Tickets'] = $query
+            $activity['Backlog'] = $query
                 ->from(Ticket::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+                ->where(['>', 'updated_at', $sevenDaysAgo])
+                ->where(['=', 'column_id', 0])
+                ->count();
+            $activity['Kanban'] = $query
+                ->from(Ticket::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])
+                ->where(['>', 'column_id', 0])
+                ->count();
+            $activity['Completed'] = $query
+                ->from(Ticket::tableName())
+                ->where(['>', 'updated_at', $sevenDaysAgo])
+                ->where(['<', 'column_id', 0])
+                ->count();
             $activity['Task'] = $query
                 ->from(Task::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])->count();
