@@ -40,6 +40,18 @@ function hideColumnReceiver(event, ui, rthis) {
     $(rthis).removeClass("board-column-receive");
 }
 
+function columnTicketCount(event, ui, cthis) {
+    columnReferenceId = $(cthis).attr('column-reference-id');
+    ticketCount = $(cthis).children().length;
+    buttonId = '#button-' + columnReferenceId;
+    title = $(buttonId).attr('apc-title');
+
+    if (ticketCount > 0) {
+        title = title + ' (' + ticketCount + ')';
+    }
+
+    $(buttonId).html(title);
+}
 
 function getBootstrapEnvironment() {
     var envs = ['xs', 'sm', 'md', 'lg'];
