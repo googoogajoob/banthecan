@@ -30,8 +30,12 @@
 }
 
 .ticket-single-decorations-glyph {
-	margin: 0 0 0 4px;
+	margin: 0 4px 0 4px;
 	float: left;
+}
+
+.board-column .ticket-single-decorations-glyph {
+	font-size: 20px;
 }
 
 .ticket-single-decorations-glyph span {
@@ -47,8 +51,12 @@
 
 .ticket-single-tags {
 	position: absolute;
-	bottom: 35px;
+	bottom: 26px;
 	padding: 2px 4px 0 0;
+}
+
+.board-column .ticket-single-tags {
+    bottom: 35px;
 }
 
 /* Need to convert this to Bootstrap CSS ans SASS */
@@ -148,8 +156,4 @@ ul.ticket-view-ajax {
 .ticket-vote-minus {
     color: dimgrey;
     /*background-color: #72e77a;*/
-}
-
-.glyphicon {
-	font-size: 25px;
 }
