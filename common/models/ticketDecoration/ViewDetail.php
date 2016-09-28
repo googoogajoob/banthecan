@@ -29,15 +29,15 @@ class ViewDetail extends AbstractDecoration
 	 */
 	public function show($view = 'default')
 	{
-		$returnValue = Html::a(
-			$this->linkIcon,
-			'/ticket/view/' . $this->owner->id, [
-			//'data-toggle' => 'tooltip',
-			'data-toggle' => 'modal',
-			'data-target' => '#global-modal-container',
-			'title' => \Yii::t('app', 'View Detail'),
-			]
-		);
+		$returnValue =
+			'<div data-toggle="tooltip" title="' . \Yii::t('app', 'View Detail') . '">'
+			. Html::a(
+				$this->linkIcon,
+				'/ticket/view/' . $this->owner->id, [
+					'data-toggle' => 'modal',
+					'data-target' => '#global-modal-container',
+				]
+			) . '</div>';
 
 		return $returnValue;
 	}
