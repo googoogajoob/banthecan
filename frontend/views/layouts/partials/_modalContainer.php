@@ -8,7 +8,10 @@ Modal::begin([
     'closeButton' => [
         'class' => 'btn btn-danger pull-right glyphicon glyphicon-remove',
         'label' => '',
-    ]
+    ],
+    'options' => [
+        'data-backdrop' => "false"
+    ],
     //'header' => '<h2>Global Modal Container - Header</h2>',
     //'footer' => '<em>Global Modal Container - Footer</em>'
 ]);
