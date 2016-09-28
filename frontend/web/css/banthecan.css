@@ -46,9 +46,10 @@ ul.ticket-sorter {
 /* Modal Display Problem, everything remains grayed out, backdrop color
 see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under-background
 */
-.modal-backdrop {
-	z-index: -1;
+.modal {
+	background-color: rgba(0, 0, 0, 0.75);
 }
+
 
 .apc-modal-header {
 	margin-top: 0;
