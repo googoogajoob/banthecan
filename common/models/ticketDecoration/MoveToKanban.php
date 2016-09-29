@@ -25,7 +25,7 @@ class MoveToKanban extends AbstractDecoration {
 	 * @return string html for showing the ticketDecoration
 	 */
 	public function show($view = 'default') {
-		return '<a data-toggle="tooltip"
+		return '<a data-toggle="tooltip"  data-placement="bottom"
 					title="' . \Yii::t('app', 'Move to Kanban')
 					. '"href="/ticket/board/' . $this->owner->id . '">'
 					. $this->linkIcon

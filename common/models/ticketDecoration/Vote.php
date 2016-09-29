@@ -64,7 +64,7 @@ class Vote extends AbstractDecoration
         $icon = $plusMinus > 0 ? $this->plusLinkIcon: $this->minusLinkIcon;
         $action = $plusMinus > 0 ? '/ticket/plus/' : '/ticket/minus/';
 
-        return '<a data-toggle="tooltip" title="' . \Yii::t('app', $title) . '"'
+        return '<a data-toggle="tooltip" data-placement="bottom" title="' . \Yii::t('app', $title) . '"'
                     . ' href="' . $action . $this->owner->id . '">' . $icon
               .'</a>';
 
