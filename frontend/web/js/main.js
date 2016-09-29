@@ -2,7 +2,9 @@ $(document).ready(function() {
     $('#global-modal-container').on('show.bs.modal', function (event) {
         sourceUrl = $(event.relatedTarget).attr('href');
         getGlobalModalHtml(sourceUrl);
+        $('.tooltip').hide();
     });
+    disableTooltip();
 });
 
 function getGlobalModalHtml(url) {
@@ -26,4 +28,30 @@ function getGlobalModalHtml(url) {
         }
 
     });
+}
+
+function getBootstrapEnvironment() {
+    var envs = ['xs', 'sm', 'md', 'lg'];
+
+    var $el = $('<div>');
+    $el.appendTo($('body'));
+
+    for (var i = envs.length - 1; i >= 0; i--) {
+        var env = envs[i];
+
+        $el.addClass('hidden-'+env);
+        if ($el.is(':hidden')) {
+            $el.remove();
+            return env;
+        }
+    }
+}
+
+function disableTooltip() {
+    environment = getBootstrapEnvironment();
+
+    if (environment != 'lg') {
+        $('[data-toggle="tooltip"]').tooltip('disable');
+    }
+
 }
