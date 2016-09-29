@@ -2,6 +2,7 @@ $(document).ready(function() {
     $('#global-modal-container').on('show.bs.modal', function (event) {
         sourceUrl = $(event.relatedTarget).attr('href');
         getGlobalModalHtml(sourceUrl);
+        $('.tooltip').hide();
     });
 });
 
