@@ -25,7 +25,7 @@ class CopyTicket extends AbstractDecoration {
 	 * @return string html for showing the ticketDecoration
 	 */
 	public function show($view = 'default') {
-		return '<a data-toggle="tooltip"
+		return '<a data-toggle="tooltip"  data-placement="bottom"
 					title="' . \Yii::t('app', 'Copy Ticket')
 					. '"href="/ticket/copy/' . $this->owner->id . '">'
 					. $this->linkIcon

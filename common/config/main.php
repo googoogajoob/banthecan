@@ -45,10 +45,10 @@ return [
                     'class' => 'common\models\ticketDecoration\ViewDetail',
                     'linkIcon' => '<span class="glyphicon glyphicon-eye-open"></span>',
                 ],
-                'ViewTags' => [
+/*                'ViewTags' => [
                     'class' => 'common\models\ticketDecoration\ViewTags',
                     'linkIcon' => '<span class="glyphicon glyphicon-tags"></span>',
-                ],
+                ],*/
                 'CreateTask' => [
                     'class' => 'common\models\ticketDecoration\CreateTask',
                     'linkIcon' => '<span class="glyphicon glyphicon-wrench"></span>',
