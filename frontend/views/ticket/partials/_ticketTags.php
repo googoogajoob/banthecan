@@ -3,14 +3,21 @@
 use yii\helpers\Html;
 use yii\bootstrap\Carousel;
 
+//Ticket Decoration Bar displays the Ticket decorations
 /* @var $this yii\web\View */
 /* @var $ticket common\models\Ticket */
 /* @var $showTags boolean switch for tags display*/
 
-//Ticket Decoration Bar displays the Ticket decorations
 if ($taglist = $ticket->tagNames) {
 
-	echo Html::beginTag('div', ['class' => 'ticket-single-tags']);
+	echo Html::beginTag('div',
+		[
+			'class' => 'ticket-single-tags',
+			'data-toggle' => 'tooltip',
+            'data-placement' => 'top',
+            'title' => str_replace(',', ', ', $taglist),
+		]
+	);
 
 	$tagArray = explode(',', $taglist);
 	$tagCount = count($tagArray);
