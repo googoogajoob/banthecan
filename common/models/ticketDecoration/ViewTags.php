@@ -29,7 +29,7 @@ class ViewTags extends AbstractDecoration
 	 */
 	public function show($view = 'default')
 	{
-		if ($taglist = $this->owner->tagNames) {
+		/*if ($taglist = $this->owner->tagNames) {
 			return Html::tag('span',
                 	'',	[
                     	'class' => 'ticket-glyph-tags glyphicon glyphicon-tags',
@@ -39,9 +39,9 @@ class ViewTags extends AbstractDecoration
                     	'data-content' => Html::encode($taglist),
 					]
 				);
-		} else {
+		} else {*/
 			return '';
-		}
+		/*}*/
 
 	}
 
