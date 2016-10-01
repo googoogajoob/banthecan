@@ -24,7 +24,6 @@ class BoardAsset extends AssetBundle
         'board/js/boardEffects.js',
         'board/js/ticketSorting.js',
         'ticket/js/ticketTooltip.js',
-        'ticket/js/ticketDetailView.js'
     ];
     public $depends = [
         'frontend\assets\AppAsset'
