@@ -76,7 +76,5 @@ $(document).ready(function () {
         this.form.submit();
     });
 
-    junk = $('[data-toggle="tooltip"]');
-    $('.navbar-brand').html('Tooltip-Icons: ' + (junk.length - 1));
-    junk.tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
 });
