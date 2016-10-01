@@ -34,8 +34,7 @@ class ViewDetail extends AbstractDecoration
 			. Html::a(
 				$this->linkIcon,
 				'/ticket/view/' . $this->owner->id, [
-					'data-toggle' => 'tooltip',
-					'title' => 'Test',
+					'data-toggle' => 'modal',
 					'data-target' => '#global-modal-container',
 				]
 			)
