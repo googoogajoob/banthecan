@@ -31,7 +31,7 @@ class ViewDetail extends AbstractDecoration
 	{
 		$returnValue =
 			//'<div data-toggle="tooltip" data-placement="bottom" title="' . \Yii::t('app', 'View Detail') . '">'
-			.
+			//.
 			Html::a(
 				$this->linkIcon,
 				'/ticket/view/' . $this->owner->id, [
