@@ -64,10 +64,6 @@ function toggleLeftSidebar() {
 
 $(document).ready(function () {
 
-    $('#toggle-right-sidebar').click(function() {
-        return toggleRightSidebar();
-    });
-
     $('#toggle-left-sidebar').click(function() {
         return toggleLeftSidebar();
     });
@@ -80,6 +76,7 @@ $(document).ready(function () {
         this.form.submit();
     });
 
-    $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="popover"]').popover();
+    junk = $('[data-toggle="tooltip"]');
+    $('.navbar-brand').html('Tooltip-Icons: ' + (junk.length - 1));
+    junk.tooltip();
 });
