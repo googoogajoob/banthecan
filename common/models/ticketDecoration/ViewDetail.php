@@ -37,7 +37,8 @@ class ViewDetail extends AbstractDecoration
 					'data-toggle' => 'modal',
 					'data-target' => '#global-modal-container',
 				]
-			) . '</div>';
+			)
+			. '</div>';
 
 		return $returnValue;
 	}

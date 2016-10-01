@@ -64,10 +64,6 @@ function toggleLeftSidebar() {
 
 $(document).ready(function () {
 
-    $('#toggle-right-sidebar').click(function() {
-        return toggleRightSidebar();
-    });
-
     $('#toggle-left-sidebar').click(function() {
         return toggleLeftSidebar();
     });
@@ -81,5 +77,4 @@ $(document).ready(function () {
     });
 
     $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="popover"]').popover();
 });
