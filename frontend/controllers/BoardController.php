@@ -72,14 +72,25 @@ class BoardController extends \yii\web\Controller {
     /**
      * Default Action, shows active tickets in a KanBan Board
      */
-    public function actionIndex() {
-
+    public function actionIndex()
+    {
         $this->layout = 'main-full';
         Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
 
         return $this->render('index', [
             'board' => $this->currentBoard,
+            'columnHtml' => $this->getColumnHtml(),
         ]);
+    }
+
+    protected function getColumnHtml()
+    {
+        $columnHtml = '';
+        foreach($this->currentBoard->getColumns() as $column) {
+            $columnHtml .= $this->renderPartial('@frontend/views/board/partials/_column', ['column' => $column]);
+        }
+
+        return $columnHtml;
     }
 
     /**
