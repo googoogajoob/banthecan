@@ -4,6 +4,7 @@ namespace frontend\controllers; //namespace must be the first statement
 
 use yii;
 use common\models\Board;
+use common\models\Ticket;
 use yii\data\Sort;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
@@ -181,6 +182,29 @@ class BoardController extends \yii\web\Controller {
         $this->goHome();
     }
 
+    public function actionPolling() {
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            $boardTimestamp = $request->post('boardTimestamp');
+
+            $sendUpdate = false;
+            $counter = 0;
+            $counterLimit = 1;
+            while (!$sendUpdate && ($counter < $counterLimit)) {
+                sleep(3);
+                $counter ++;
+                $updateTest = Ticket::findNewTicket($boardTimestamp);
+            }
+
+            Yii::$app->response->format = 'json';
+            return [
+                'html' => 'Hi Dude!',
+                'boardTimestamp' => $boardTimestamp,
+                'newTimestamp' => time()
+            ];
+        }
+    }
+
     /**
      * Creates the sort Object Needed for Backlog and Completed Listings
      * @return yii\data\Sort
@@ -198,9 +222,6 @@ class BoardController extends \yii\web\Controller {
                 'created_at' => [
                     'label' => \Yii::t('app', 'Created')
                 ],
-                /*'updated_at' => [
-                 'label' => 'Updated'
-                 ],*/
             ],
             'defaultOrder' => [
                 'vote_priority' => SORT_DESC,

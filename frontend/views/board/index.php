@@ -18,6 +18,10 @@ BoardAsset::register($this);
     <?php echo Html::encode($board->kanban_name) ?>
 </h1>
 
+<?php
+    echo Html::hiddenInput('boardTimestamp', time(), ['id' => 'boardTimestamp']);
+?>
+
 <div class="row">
     <?php
     foreach($board->getColumns() as $column) {
