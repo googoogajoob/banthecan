@@ -298,14 +298,19 @@ class Ticket extends ActiveRecord
 	/**
 	 * Query to find one new ticket, which is in the KanBan and newer than the timestamp parameter
 	 *
-	 * @return yii\db\QueryInterface
-	 */
-	public static function findNewTicket($timestamp)
+     * @return boolean
+     */
+	public static function hasNewTicket($timestamp)
 	{
-		return Ticket::find(parent::find()
+		$query = Ticket::find(parent::find()
 			->where(['>', 'column_id', 0])
-			->andWhere('>', 'updated_at', $timestamp)
+			->andWhere(['>', 'updated_at', $timestamp])
+            ->limit(1)
 		);
+
+        $count = $query->count();
+
+        return (bool)$count;
 	}
 
 	/**

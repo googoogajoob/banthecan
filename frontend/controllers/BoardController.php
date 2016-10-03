@@ -189,21 +189,45 @@ class BoardController extends \yii\web\Controller {
 
             $sendUpdate = false;
             $counter = 0;
-            $counterLimit = 1;
+            $counterLimit = 10;
             while (!$sendUpdate && ($counter < $counterLimit)) {
-                sleep(3);
+                sleep(2);
                 $counter ++;
-                $updateTest = Ticket::findNewTicket($boardTimestamp);
+                $sendUpdate = Ticket::hasNewTicket($boardTimestamp);
             }
 
-            Yii::$app->response->format = 'json';
-            return [
-                'html' => 'Hi Dude!',
-                'boardTimestamp' => $boardTimestamp,
-                'newTimestamp' => time()
-            ];
+            if ($sendUpdate) {
+                Yii::$app->response->format = 'json';
+
+                $successHtml = 'Success: ' . $boardTimestamp . ' (' . $counter .')';
+                $failureHtml = 'Nothing New: ' . $boardTimestamp . ' (' . $counter .')';
+
+                return [
+                    'html' => $sendUpdate  ? $successHtml : $failureHtml,
+                    'boardTimestamp' => $boardTimestamp,
+                    'newTimestamp' => time(),
+                    'count' => $counter
+                ];
+            }
         }
     }
+
+    /*public function actionTest() {
+        $startTime = time();
+        $debugText = '';
+        $found = false;
+        $counter = 100;
+        while ($counter > 0 && ! $found) {
+            $found = Ticket::hasNewTicket($startTime);
+            $debugText .= $found ? 'FOUND: ' : 'Not found: ';
+            $debugText .= $startTime . '<br/>';
+
+            $counter--;
+            $startTime--;
+        }
+
+        return $debugText;
+    }*/
 
     /**
      * Creates the sort Object Needed for Backlog and Completed Listings

@@ -22,7 +22,7 @@ BoardAsset::register($this);
     echo Html::hiddenInput('boardTimestamp', time(), ['id' => 'boardTimestamp']);
 ?>
 
-<div class="row">
+<div id="kanban-row" class="row">
     <?php
     foreach($board->getColumns() as $column) {
 	    echo $this->render('@frontend/views/board/partials/_column', ['column' => $column]);

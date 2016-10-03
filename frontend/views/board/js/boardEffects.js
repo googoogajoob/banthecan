@@ -45,7 +45,7 @@ $(document).ready(function () {
 
 function checkForKanbanUpdate()
 {
-    var boardTimestamp = parseInt($('#boardTimestamp').val(), 10);
+    boardTimestamp = parseInt($('#boardTimestamp').val(), 10);
 
     if (boardTimestamp > 0) {
         $.ajax({
@@ -56,11 +56,14 @@ function checkForKanbanUpdate()
                 'boardTimestamp': boardTimestamp,
             },
         }).done(function (returnData) {
-            $('.navbar-brand').html("Long Polling Success: " + returnData.boardTimestamp);
-            $('#boardTimestamp').val(returnData.newTimestamp)
+            newTimestamp = parseInt(returnData.newTimestamp);
+            if (newTimestamp > 0) {
+                $('#kanban-row').html(returnData.html);
+                $('#boardTimestamp').val(returnData.newTimestamp);
+            }
             checkForKanbanUpdate();
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            alert("Long Polling Error");
+            console.log("Long Polling Error");
             checkForKanbanUpdate();
         });
     }
