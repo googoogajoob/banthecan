@@ -200,7 +200,8 @@ class BoardController extends \yii\web\Controller {
 
             $sendUpdate = false;
             $counter = 0;
-            $counterLimit = 10;
+            $counterLimit = 300;
+            session_write_close(); // !!! Important, otherwise there is blocking among server sessions
             while (!$sendUpdate && ($counter < $counterLimit)) {
                 sleep(2);
                 $counter ++;
@@ -208,13 +209,14 @@ class BoardController extends \yii\web\Controller {
             }
 
             if ($sendUpdate) {
+
+                $debugHtml = '<div class="alert alert-info"> Success: ' . $boardTimestamp . ' (' . $counter .')</div>';
+                $this->currentBoard = Board::getActiveBoard();
+                $successHtml = $this->getColumnHtml();
+
                 Yii::$app->response->format = 'json';
-
-                $successHtml = 'Success: ' . $boardTimestamp . ' (' . $counter .')';
-                $failureHtml = 'Nothing New: ' . $boardTimestamp . ' (' . $counter .')';
-
                 return [
-                    'html' => $sendUpdate  ? $successHtml : $failureHtml,
+                    'html' => $debugHtml . $successHtml,
                     'boardTimestamp' => $boardTimestamp,
                     'newTimestamp' => time(),
                     'count' => $counter
