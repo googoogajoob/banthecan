@@ -57,9 +57,23 @@ function checkForKanbanUpdate()
             },
         }).done(function (returnData) {
             newTimestamp = parseInt(returnData.newTimestamp);
-            if (newTimestamp > 0) {
+            returnBoardTimestamp = parseInt(returnData.boardTimestamp, 10);
+
+            // NewTimestamp checks if the searver has returned an actual update
+            // boardTimestamp comparison checks if this is a return from this client (???)
+            if ((newTimestamp > 0) && (boardTimestamp == returnBoardTimestamp)) {
+
+                console.log('Disable Sortable');
+                $('.board-column' ).sortable('disable');
+
                 $('#kanban-row').html(returnData.html);
+
+                console.log('Enable Sortable');
+                $('.board-column' ).sortable();
+                $('.board-column' ).sortable('refresh');
+
                 $('#boardTimestamp').val(returnData.newTimestamp);
+
             }
             checkForKanbanUpdate();
         }).fail(function (jqXHR, textStatus, errorThrown) {
