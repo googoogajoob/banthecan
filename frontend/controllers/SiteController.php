@@ -133,6 +133,7 @@ class SiteController extends Controller {
             $newTickets = Ticket::find()
                 ->where(['>', 'updated_at', $sevenDaysAgo])
                 ->andWhere(['>=', 'column_id', 0])
+                ->andWhere(['=', 'board_id', $activeBoard->id])
                 ->orderBy(['updated_at' => SORT_DESC])
                 ->limit(5)
                 ->all();
