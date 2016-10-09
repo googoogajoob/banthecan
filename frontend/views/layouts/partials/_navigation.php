@@ -84,7 +84,7 @@ if (Yii::$app->user->isGuest) {
 	];
 
     $menuItems[] = Html::a(
-        \Yii::t('app', 'Create Ticket'),
+        \Yii::t('app', 'New Ticket'),
         '/ticket/create', [
         'class' => 'btn btn-success apc-header-button',
         'id' => 'header-create-button',
