@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $activity array */
 /* @var $news ActiveRecord */
 /* @var $board ActiveRecord */
+/* @var $newTickets ActiveRecord */
 ?>
 <div class="site-index">
 
@@ -24,21 +25,34 @@ use yii\helpers\Html;
 
             <div class="col-lg-6">
                 <h2><?php echo \Yii::t('app', 'Recent Activity'); ?></h2>
+
+                <h3><?php echo \Yii::t('app', 'Tickets'); ?></h3>
                 <table class="table table-condensed table-striped">
-                    <thead>
-                    <tr>
-                        <th><?php echo \Yii::t('app', 'Table'); ?></th>
-                        <th><?php echo \Yii::t('app', 'Updates'); ?></th>
-                    </tr>
-                    </thead>
                     <tbody>
                     <?php
-                    foreach ($activity as $k => $v) {
-                        echo '<tr><td>' . \Yii::t('app', $k) . '</td><td>' . $v . '</td></tr>';
+                    foreach ($newTickets as $k => $v) {
+                        echo '<tr><td>'
+                            . $v->title
+                            . '</td><td>'
+                            . $v->getUpdateUser()->username
+                            . '</div></td></tr>';
                     }
                     ?>
                     </tbody>
                 </table>
+
+                <h3><?php echo \Yii::t('app', 'Boards'); ?></h3>
+                <table class="table table-condensed table-striped">
+                    <thead>
+                    <tbody>
+                    <?php
+                    foreach ($activity as $k => $v) {
+                        echo '<tr><td>' . \Yii::t('app', $k) . '</td><td>' . $v . ' ' . \Yii::t('app', 'Updates') . '</td></tr>';
+                    }
+                    ?>
+                    </tbody>
+                </table>
+
             </div>
 
             <div class="col-lg-6">

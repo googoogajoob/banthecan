@@ -83,6 +83,7 @@ class SiteController extends Controller {
         if (YII_ENV_DEMO) {
             return $this->render('index-demo');
         } else {
+            $activeBoard = Board::getActiveBoard();
             $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
             $query = new Query;
 
@@ -90,30 +91,42 @@ class SiteController extends Controller {
                 ->from(Ticket::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])
                 ->where(['=', 'column_id', 0])
+                ->where(['=', 'board_id', $activeBoard->id])
                 ->count();
             $activity['Kanban'] = $query
                 ->from(Ticket::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])
                 ->where(['>', 'column_id', 0])
+                ->where(['=', 'board_id', $activeBoard->id])
                 ->count();
             $activity['Completed'] = $query
                 ->from(Ticket::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])
                 ->where(['<', 'column_id', 0])
+                ->where(['=', 'board_id', $activeBoard->id])
                 ->count();
-            $activity['Task'] = $query
+/*            $activity['Task'] = $query
                 ->from(Task::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])->count();
             $activity['Resolution'] = $query
                 ->from(Resolution::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+*/
+
+            $newTickets = Ticket::find()
+                ->where(['>', 'updated_at', $sevenDaysAgo])
+                ->where(['>=', 'column_id', 0])
+                ->orderBy(['updated_at' => SORT_DESC])
+                ->limit(5)
+                ->all();
 
             $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
 
             return $this->render('index', [
                 'activity' => $activity,
                 'news' => $news,
-                'board' => Board::getActiveBoard()
+                'board' => $activeBoard,
+                'newTickets' => $newTickets
             ]);
         }
     }
