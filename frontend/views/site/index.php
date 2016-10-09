@@ -23,7 +23,7 @@ use yii\helpers\Html;
         <div class="row">
 
             <div class="col-lg-6">
-                <h2><?php echo \Yii::t('app', 'Activity - In the previous 7 days'); ?></h2>
+                <h2><?php echo \Yii::t('app', 'Recent Activity'); ?></h2>
                 <table class="table table-condensed table-striped">
                     <thead>
                     <tr>

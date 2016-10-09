@@ -23,7 +23,6 @@ return [
     'About' => 'Info',
     'Action' => 'Aktion',
     'Action Steps' => 'Aktionsschritte',
-    'Activity - In the previous 7 days' => 'Aktivität - aus den vergangenen 7 Tagen',
     'An active board must be <a href="/board/select">selected</a> in order to proceed.'
     => 'Um weiter zu machen, muss ein Tafel <a href="/board/select">aktiviert werden</a>.',
     'Are you sure you want to delete this item?' => 'Willst du diesen Eintrag tatsächlich löschen?',
@@ -81,6 +80,7 @@ return [
     'Please fill out the following fields to signup:' => 'Folgende Felder bitte ausfüllen, um neu anzumelden',
     'Priority' => 'Priorität',
     'Protocol' => 'Protokoll',
+    'Recent Activity' => 'Kürzlich geändert',
     'Reset' => 'Zur&uuml;cksetzen',
     'reset it' => 'es zur&uuml;cksetzen',
     'Resolution' => 'Beschluss',
