@@ -14,7 +14,7 @@ use yii\helpers\Html;
         <h1>
             <?php echo $board ? Html::encode($board->title) : ''; ?>
         </h1>
-        <em class="lead">
+        <em class="small">
             <?php echo $board ? Html::encode($board->description) : ''; ?>
         </em>
     </div>
