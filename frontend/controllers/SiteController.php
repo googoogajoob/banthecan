@@ -87,35 +87,52 @@ class SiteController extends Controller {
             $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
             $query = new Query;
 
-            $activity['Backlog'] = $query
+            $backlogActive = $query
                 ->from(Ticket::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])
+                ->andWhere(['=', 'column_id', 0])
+                ->andWhere(['=', 'board_id', $activeBoard->id])
+                ->count();
+
+            $backlogSize = $query
+                ->from(Ticket::tableName())
                 ->where(['=', 'column_id', 0])
-                ->where(['=', 'board_id', $activeBoard->id])
+                ->andWhere(['=', 'board_id', $activeBoard->id])
                 ->count();
-            $activity['Kanban'] = $query
+
+            $kanbanActive = $query
                 ->from(Ticket::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])
+                ->andWhere(['>', 'column_id', 0])
+                ->andWhere(['=', 'board_id', $activeBoard->id])
+                ->count();
+
+            $kanbanSize = $query
+                ->from(Ticket::tableName())
                 ->where(['>', 'column_id', 0])
-                ->where(['=', 'board_id', $activeBoard->id])
+                ->andWhere(['=', 'board_id', $activeBoard->id])
                 ->count();
-            $activity['Completed'] = $query
+
+            $completedActive = $query
                 ->from(Ticket::tableName())
                 ->where(['>', 'updated_at', $sevenDaysAgo])
-                ->where(['<', 'column_id', 0])
-                ->where(['=', 'board_id', $activeBoard->id])
+                ->andWhere(['<', 'column_id', 0])
+                ->andWhere(['=', 'board_id', $activeBoard->id])
                 ->count();
-/*            $activity['Task'] = $query
-                ->from(Task::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
-            $activity['Resolution'] = $query
-                ->from(Resolution::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
-*/
+
+            $completedSize = $query
+                ->from(Ticket::tableName())
+                ->where(['<', 'column_id', 0])
+                ->andWhere(['=', 'board_id', $activeBoard->id])
+                ->count();
+
+            $activity['Backlog'] = ['updates' => $backlogActive, 'size' => $backlogSize];
+            $activity['Kanban'] = ['updates' => $kanbanActive, 'size' => $kanbanSize];
+            $activity['Completed'] = ['updates' => $completedActive, 'size' => $completedSize];
 
             $newTickets = Ticket::find()
                 ->where(['>', 'updated_at', $sevenDaysAgo])
-                ->where(['>=', 'column_id', 0])
+                ->andWhere(['>=', 'column_id', 0])
                 ->orderBy(['updated_at' => SORT_DESC])
                 ->limit(5)
                 ->all();
@@ -124,9 +141,9 @@ class SiteController extends Controller {
 
             return $this->render('index', [
                 'activity' => $activity,
+                'newTickets' => $newTickets,
                 'news' => $news,
                 'board' => $activeBoard,
-                'newTickets' => $newTickets
             ]);
         }
     }

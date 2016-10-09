@@ -155,6 +155,13 @@ class Ticket extends ActiveRecord
 	}
 
 	/**
+	 * @return \yii\db\ActiveRecord
+	 */
+	public function getCreateUser() {
+		return User::findOne($this->created_by);
+	}
+
+	/**
 	 * Returns the status of a ticket, whether ot not it is currently active
 	 * on the KanBanBoard
 	 * @return Boolean true = backlog, false = not backlog
