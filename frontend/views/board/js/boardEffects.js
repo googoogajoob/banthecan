@@ -51,7 +51,7 @@ function checkForKanbanUpdate()
         $.ajax({
             url: "/board/polling",
             type: "post",
-            timeout: 300000,
+            timeout: longPollingTimeout,
             data: {
                 'boardTimestamp': boardTimestamp,
             },
@@ -59,25 +59,20 @@ function checkForKanbanUpdate()
             newTimestamp = parseInt(returnData.newTimestamp);
             returnBoardTimestamp = parseInt(returnData.boardTimestamp, 10);
 
-            // NewTimestamp checks if the searver has returned an actual update
+            // NewTimestamp checks if the server has returned an actual update
             // boardTimestamp comparison checks if this is a return from this client (???)
             if ((newTimestamp > 0) && (boardTimestamp == returnBoardTimestamp)) {
-
-                console.log('Disable Sortable');
-                $('.board-column' ).sortable('disable');
-
+                $('.board-column' ).sortable('destroy');
                 $('#kanban-row').html(returnData.html);
-
-                console.log('Enable Sortable');
-                $('.board-column' ).sortable();
-                $('.board-column' ).sortable('refresh');
-
                 $('#boardTimestamp').val(returnData.newTimestamp);
-
+                initializeBoard();
+                //console.log("Long Polling: Change");
+            } else {
+                console.log("Long Polling: Timeout");
             }
             checkForKanbanUpdate();
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log("Long Polling Error");
+            console.log("Long Polling: Error");
             checkForKanbanUpdate();
         });
     }
