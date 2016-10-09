@@ -38,7 +38,16 @@ use yii\helpers\Html;
                         foreach ($newTickets as $k => $v) {
                             echo Html::beginTag('tr')
                                 . Html::tag('td', $v->getCreateUser()->username)
-                                . Html::tag('td', $v->title)
+                                . Html::tag('td',
+                                    Html::a(
+                                        $v->title,
+                                        '/ticket/view/' . $v->id,
+                                        [
+                                            'data-toggle' => 'modal',
+                                            'data-target' => '#global-modal-container',
+                                        ]
+                                    )
+                                )
                                 . Html::tag('td', $v->getUpdateUser()->username)
                                 . Html::endTag('tr');
                         }
