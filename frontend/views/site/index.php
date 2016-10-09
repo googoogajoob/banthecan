@@ -24,6 +24,8 @@ use yii\helpers\Html;
             <div class="col-lg-6">
                 <h2><?php echo \Yii::t('app', 'Recent Activity'); ?></h2>
 
+                <?php if (count($newTickets)) : ?>
+
                 <h3><?php echo \Yii::t('app', 'Tickets'); ?></h3>
                 <table class="table table-condensed table-striped">
                     <thead>
@@ -54,6 +56,8 @@ use yii\helpers\Html;
                     ?>
                     </tbody>
                 </table>
+
+                <?php endif; ?>
 
                 <h3><?php echo \Yii::t('app', 'Boards'); ?></h3>
                 <table class="table table-condensed table-striped">
