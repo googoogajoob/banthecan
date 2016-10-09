@@ -56,8 +56,7 @@ use yii\helpers\Html;
                     <tbody>
                     <?php
                     foreach ($activity as $k => $v) {
-                        $junk = \Yii::t('app', $k);
-                        echo '<tr><td>' . $junk . '</td><td>' . $v . '</td></tr>';
+                        echo '<tr><td>' . \Yii::t('app', $k) . '</td><td>' . $v . '</td></tr>';
                     }
                     ?>
                     </tbody>

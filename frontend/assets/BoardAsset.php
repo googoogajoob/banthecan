@@ -26,6 +26,6 @@ class BoardAsset extends AssetBundle
         'board/js/ticketSorting.js',
     ];
     public $depends = [
-        'frontend\assets\AppAsset'
+        'frontend\assets\AppAsset',
     ];
 }

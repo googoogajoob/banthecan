@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use frontend\assets\BoardAsset;
 
 /* @var $this yii\web\View */
-/* @var $board common\models\Board */
+/* @var $columnHtml string */
 
 // $this->params['breadcrumbs'][] = 'KanBanBoard';
 
@@ -18,11 +18,11 @@ BoardAsset::register($this);
     <?php echo Html::encode($board->kanban_name) ?>
 </h1>
 
-<div class="row">
-    <?php
-    foreach($board->getColumns() as $column) {
-	    echo $this->render('@frontend/views/board/partials/_column', ['column' => $column]);
-    }
-    ?>
+<?php
+    echo Html::hiddenInput('boardTimestamp', time(), ['id' => 'boardTimestamp']);
+?>
+
+<div id="kanban-row" class="row">
+    <?php echo $columnHtml; ?>
 </div>
 

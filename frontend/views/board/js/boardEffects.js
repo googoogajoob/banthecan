@@ -1,41 +1,3 @@
-/**
- * Created by and on 20/11/15.
- */
-
-function toggleRightSidebar() {
-    currentStateVisible = $('#right-layout-sidebar').is(':visible');
-
-    if (currentStateVisible) {
-        hideRightSidebar();
-    } else {
-        showRightSidebar();
-    }
-
-    return true;
-}
-
-function showRightSidebar() {
-    $('#layout-main').animate({
-            'margin-right': '200'
-        },
-        "fast",
-        function () {
-            $('#right-layout-sidebar').show();
-        }
-    );
-    $('#toggle-right-sidebar').removeClass('glyphicon-circle-arrow-left').addClass('glyphicon-circle-arrow-right');
-}
-
-function hideRightSidebar() {
-    $('#right-layout-sidebar').hide();
-    $('#layout-main').animate({
-            'margin-right': '0'
-        },
-        "fast"
-    );
-    $('#toggle-right-sidebar').removeClass('glyphicon-circle-arrow-right').addClass('glyphicon-circle-arrow-left');
-}
-
 function toggleLeftSidebar() {
     currentStateVisible = $('#left-layout-sidebar').is(':visible');
 
@@ -77,4 +39,41 @@ $(document).ready(function () {
     });
 
     $('[data-toggle="tooltip"]').tooltip();
+
+    checkForKanbanUpdate();
 });
+
+function checkForKanbanUpdate()
+{
+    boardTimestamp = parseInt($('#boardTimestamp').val(), 10);
+
+    if (boardTimestamp > 0) {
+        $.ajax({
+            url: "/board/polling",
+            type: "post",
+            timeout: longPollingTimeout,
+            data: {
+                'boardTimestamp': boardTimestamp,
+            },
+        }).done(function (returnData) {
+            newTimestamp = parseInt(returnData.newTimestamp);
+            returnBoardTimestamp = parseInt(returnData.boardTimestamp, 10);
+
+            // NewTimestamp checks if the server has returned an actual update
+            // boardTimestamp comparison checks if this is a return from this client (???)
+            if ((newTimestamp > 0) && (boardTimestamp == returnBoardTimestamp)) {
+                $('.board-column' ).sortable('destroy');
+                $('#kanban-row').html(returnData.html);
+                $('#boardTimestamp').val(returnData.newTimestamp);
+                initializeBoard();
+                //console.log("Long Polling: Change");
+            } else {
+                console.log("Long Polling: Timeout");
+            }
+            checkForKanbanUpdate();
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("Long Polling: Error");
+            checkForKanbanUpdate();
+        });
+    }
+}
