@@ -20,23 +20,28 @@ use yii\helpers\Html;
     </div>
 
     <div class="body-content">
-
         <div class="row">
-
             <div class="col-lg-6">
                 <h2><?php echo \Yii::t('app', 'Recent Activity'); ?></h2>
 
                 <h3><?php echo \Yii::t('app', 'Tickets'); ?></h3>
                 <table class="table table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th><?php echo \Yii::t('app', 'Created By'); ?></th>
+                            <th><?php echo \Yii::t('app', 'Ticket'); ?></th>
+                            <th><?php echo \Yii::t('app', 'Updated By'); ?></th>
+                        </tr>
+                    </thead>
                     <tbody>
                     <?php
-                    foreach ($newTickets as $k => $v) {
-                        echo '<tr><td>'
-                            . $v->title
-                            . '</td><td>'
-                            . $v->getUpdateUser()->username
-                            . '</div></td></tr>';
-                    }
+                        foreach ($newTickets as $k => $v) {
+                            echo Html::beginTag('tr')
+                                . Html::tag('td', $v->getCreateUser()->username)
+                                . Html::tag('td', $v->title)
+                                . Html::tag('td', $v->getUpdateUser()->username)
+                                . Html::endTag('tr');
+                        }
                     ?>
                     </tbody>
                 </table>
@@ -44,15 +49,24 @@ use yii\helpers\Html;
                 <h3><?php echo \Yii::t('app', 'Boards'); ?></h3>
                 <table class="table table-condensed table-striped">
                     <thead>
+                        <tr>
+                            <th><?php echo \Yii::t('app', 'Board'); ?></th>
+                            <th><?php echo \Yii::t('app', 'Updates'); ?></th>
+                            <th><?php echo \Yii::t('app', 'Size'); ?></th>
+                        </tr>
+                    </thead>
                     <tbody>
                     <?php
-                    foreach ($activity as $k => $v) {
-                        echo '<tr><td>' . \Yii::t('app', $k) . '</td><td>' . $v . ' ' . \Yii::t('app', 'Updates') . '</td></tr>';
-                    }
+                        foreach ($activity as $k => $v) {
+                            echo Html::beginTag('tr')
+                                . Html::tag('td', \Yii::t('app', $k))
+                                . Html::tag('td', $v['updates'])
+                                . Html::tag('td', $v['size'])
+                                . Html::endTag('tr');
+                        }
                     ?>
                     </tbody>
                 </table>
-
             </div>
 
             <div class="col-lg-6">
