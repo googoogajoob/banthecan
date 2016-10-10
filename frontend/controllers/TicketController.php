@@ -44,6 +44,7 @@ class TicketController extends Controller {
 
         $request = Yii::$app->request;
         if ($request->isAjax) {
+            session_write_close(); // !!! Important, otherwise there is blocking among server sessions
             $columnId = $request->post('columnId');
             $ticketOrder = $request->post('ticketOrder');
             foreach ($ticketOrder as $ticketOrderKey => $ticketId) {
