@@ -4,6 +4,11 @@ $(document).ready(function() {
         getGlobalModalHtml(sourceUrl);
         $('.tooltip').hide();
     });
+
+    buttonHtml = $('#modal-close-button')[0].outerHTML;
+    $('#modal-close-button').remove();
+    $('#modal-header-row').prepend(buttonHtml);
+
     disableTooltip();
 });
 
@@ -18,7 +23,8 @@ function getGlobalModalHtml(url) {
             headerHtml = $('#global-modal-container .modal-body .apc-modal-header')[0].outerHTML;
             $('#global-modal-container .modal-body .apc-modal-header').remove();
             $('#global-modal-container .modal-header .apc-modal-header').remove();
-            $('#global-modal-container .modal-header').prepend(headerHtml);
+            $('#modal-header-row').prepend(headerHtml);
+            $('#modal-header-row .apc-modal-header').addClass('col-xs-10');
 
             //alert('success');
         },
