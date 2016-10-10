@@ -211,6 +211,7 @@ class BoardController extends \yii\web\Controller {
 
     public function actionPolling()
     {
+        session_write_close(); // !!! Important, otherwise there is blocking among server sessions
         $request = Yii::$app->request;
         if ($request->isAjax) {
 
@@ -219,7 +220,6 @@ class BoardController extends \yii\web\Controller {
             $counter = 0;
             //compute counter limit to be the same the the javascript timeout
             $counterLimit = self::LONG_POLLING_TIMEOUT / 1000 /self::LONG_POLLING_SLEEP;
-            session_write_close(); // !!! Important, otherwise there is blocking among server sessions
 
             while (!$sendUpdate && ($counter < $counterLimit)) {
                 sleep(self::LONG_POLLING_SLEEP);
