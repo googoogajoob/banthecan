@@ -122,7 +122,7 @@ class BoardController extends \yii\web\Controller {
             Yii::$app->request->get('per-page', self::DEFAULT_PAGE_SIZE)
         );
 
-        $this->layout = 'left-right';
+        $this->layout = 'left';
         $searchModel = Yii::createObject('common\models\TicketSearch');
         $searchModel->setSessionKey('B');
 
@@ -153,7 +153,7 @@ class BoardController extends \yii\web\Controller {
             Yii::$app->request->get('per-page', self::DEFAULT_PAGE_SIZE)
         );
 
-        $this->layout = 'left-right';
+        $this->layout = 'left';
         $searchModel = Yii::createObject('common\models\TicketSearch');
         $searchModel->setSessionKey('C');
 

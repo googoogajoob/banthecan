@@ -51,22 +51,28 @@ if ($boardObject = Board::getActiveBoard()) {
     ?>
 
 
-    <div id="layout-main" class="left-right-layout-main"><?php
-        echo Html::icon('circle-arrow-left', [
-            'id' => 'toggle-left-sidebar',
-            'class' => 'pull-left apc-layout-toggle-button'
-        ]);
-        echo Html::icon('circle-arrow-left', [
-            'id' => 'toggle-right-sidebar',
-            'class' => 'pull-right apc-layout-toggle-button visible-lg-block',
-        ]);
+    <div id="layout-main" class="left-right-layout-main">
+        <?php
+            echo Html::icon('circle-arrow-right', [
+                'id' => 'toggle-left-sidebar',
+                'class' => 'pull-left apc-layout-toggle-button'
+            ]);
+
+            echo Html::icon('circle-arrow-left', [
+                'id' => 'toggle-right-sidebar',
+                'class' => 'pull-right apc-layout-toggle-button visible-lg-block',
+            ]);
         ?>
 
-        <div class="container-fluid"><?php
-            echo Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]);
-            ?><?php echo Alert::widget(); ?><?php echo $content ?></div>
+        <div class="container-fluid">
+            <?php
+                echo Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]);
+                echo Alert::widget();
+                echo $content
+            ?>
+        </div>
 
     </div>
 </div>
