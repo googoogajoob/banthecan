@@ -99,6 +99,7 @@ a.desc:after {
 	margin-top: 54px;
 	margin-left: -200px;
 	margin-bottom: -60px;
+	display: none;
 }
 
 #right-layout-sidebar {
@@ -121,7 +122,7 @@ a.desc:after {
 }
 
 .left-layout-main {
-	margin-left: 200px;
+	margin-left: 0px;
 }
 
 .right-layout-main {
@@ -129,7 +130,7 @@ a.desc:after {
 }
 
 .left-right-layout-main {
-	margin-left: 200px;
+	margin-left: 0px;
 	margin-right: 0px;
 }
 

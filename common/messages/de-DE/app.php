@@ -87,7 +87,7 @@ return [
     'Resolution' => 'Beschluss',
     'Resolutions' => 'Beschlüsse',
     'Responsible' => 'Verantwortlich',
-    'Search' => 'Suche',
+    'Search' => 'Suchen',
     'Select Board' => 'Tafel selektieren',
     'Signup' => 'Anmelden',
     'Site News' => 'Site-Nachrichten',

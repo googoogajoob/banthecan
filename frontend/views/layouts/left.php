@@ -50,7 +50,7 @@ if ($boardObject = Board::getActiveBoard()) {
 
     <div id="layout-main" class="left-layout-main">
         <?php
-            echo Html::icon('circle-arrow-left', [
+            echo Html::icon('circle-arrow-right', [
                 'id' => 'toggle-left-sidebar',
                 'class' => 'pull-left apc-layout-toggle-button'
             ]);
