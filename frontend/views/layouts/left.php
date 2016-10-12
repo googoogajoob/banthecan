@@ -36,28 +36,34 @@ if ($boardObject = Board::getActiveBoard()) {
 <?php echo $this->renderFile('@frontend/views/layouts/partials/_modalContainer.php'); ?>
 
 <?php $this->beginBody() ?>
-<div class="wrap"><?php
-    echo $this->renderFile(
-        '@frontend/views/layouts/partials/_navigation.php', [
-            'boardObject' => $boardObject,
-            'kanbanName' => $kanbanName,
-            'backlogName' => $backlogName
-        ]
-    );
-    echo $this->renderFile('@frontend/views/layouts/partials/_left-sidebar.php');
+<div class="wrap">
+    <?php
+        echo $this->renderFile(
+            '@frontend/views/layouts/partials/_navigation.php', [
+                'boardObject' => $boardObject,
+                'kanbanName' => $kanbanName,
+                'backlogName' => $backlogName
+            ]
+        );
+        echo $this->renderFile('@frontend/views/layouts/partials/_left-sidebar.php');
     ?>
 
-    <div id="layout-main" class="left-layout-main"><?php
-        echo Html::icon('circle-arrow-left', [
-            'id' => 'toggle-left-sidebar',
-            'class' => 'pull-left apc-layout-toggle-button'
-        ]);
-        ?>
-        <div class="container-fluid"><?php
-            echo Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    <div id="layout-main" class="left-layout-main">
+        <?php
+            echo Html::icon('circle-arrow-left', [
+                'id' => 'toggle-left-sidebar',
+                'class' => 'pull-left apc-layout-toggle-button'
             ]);
-            ?><?php echo Alert::widget(); ?><?php echo $content ?></div>
+        ?>
+        <div class="container-fluid">
+            <?php
+                echo Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]);
+                echo Alert::widget();
+                echo $content
+            ?>
+        </div>
     </div>
 </div>
 
