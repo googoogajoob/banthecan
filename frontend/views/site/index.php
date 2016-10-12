@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $activity array */
-/* @var $news ActiveRecord */
+/* @var $boardActivity array */
+/* @var $newTickets array */
+/* @var $news array */
 /* @var $board ActiveRecord */
-/* @var $newTickets ActiveRecord */
 ?>
 <div class="site-index">
 
@@ -21,89 +21,104 @@ use yii\helpers\Html;
 
     <div class="body-content">
         <div class="row">
-            <div class="col-lg-6">
-                <h2><?php echo \Yii::t('app', 'Recent Activity'); ?></h2>
+            <h1 class="text-center bg-info"><?php echo \Yii::t('app', 'Recent Activity'); ?></h1>
 
-                <?php if (count($newTickets)) : ?>
+            <?php if (count($newTickets)) : ?>
+                <div class="col-lg-6">
+                    <h2><?php echo \Yii::t('app', 'Tickets'); ?></h2>
+                    <table class="table table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th><?php echo \Yii::t('app', 'Created By'); ?></th>
+                                <th><?php echo \Yii::t('app', 'Ticket'); ?></th>
+                                <th><?php echo \Yii::t('app', 'Board'); ?></th>
+                                <th><?php echo \Yii::t('app', 'Updated By'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            foreach ($newTickets as $k => $v) {
 
-                <h3><?php echo \Yii::t('app', 'Tickets'); ?></h3>
-                <table class="table table-condensed table-striped">
-                    <thead>
-                        <tr>
-                            <th><?php echo \Yii::t('app', 'Created By'); ?></th>
-                            <th><?php echo \Yii::t('app', 'Ticket'); ?></th>
-                            <th><?php echo \Yii::t('app', 'Updated By'); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        foreach ($newTickets as $k => $v) {
-                            echo Html::beginTag('tr')
-                                . Html::tag('td', $v->getCreateUser()->username)
-                                . Html::tag('td',
-                                    Html::a(
-                                        $v->title,
-                                        '/ticket/view/' . $v->id,
-                                        [
-                                            'data-toggle' => 'modal',
-                                            'data-target' => '#global-modal-container',
-                                        ]
+                                if ($v['column_id'] < 0) {
+                                    $boardLink = Html::a(\Yii::t('app', 'Completed'), '/board/completed');
+                                } elseif ($v['column_id'] > 0) {
+                                    $boardLink = Html::a(\Yii::t('app', 'Board'), '/board');
+                                } else {
+                                    $boardLink = Html::a(\Yii::t('app', 'Backlog'), '/board/backlog');
+                                }
+
+                                echo Html::beginTag('tr')
+                                    . Html::tag('td', $v->getCreateUser()->username)
+                                    . Html::tag('td',
+                                        Html::a(
+                                            $v->title,
+                                            '/ticket/view/' . $v->id,
+                                            [
+                                                'data-toggle' => 'modal',
+                                                'data-target' => '#global-modal-container',
+                                            ]
+                                        )
                                     )
-                                )
-                                . Html::tag('td', $v->getUpdateUser()->username)
-                                . Html::endTag('tr');
-                        }
-                    ?>
-                    </tbody>
-                </table>
+                                    . Html::tag('td', $boardLink)
+                                    . Html::tag('td', $v->getUpdateUser()->username)
+                                    . Html::endTag('tr');
+                            }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
 
-                <?php endif; ?>
-
-                <h3><?php echo \Yii::t('app', 'Boards'); ?></h3>
-                <table class="table table-condensed table-striped">
-                    <thead>
+            <?php if (count($boardActivity)) : ?>
+                <div class="col-lg-6">
+                    <h2><?php echo \Yii::t('app', 'Boards'); ?></h2>
+                    <table class="table table-condensed table-striped">
+                        <thead>
                         <tr>
                             <th><?php echo \Yii::t('app', 'Board'); ?></th>
                             <th><?php echo \Yii::t('app', 'Updates'); ?></th>
                             <th><?php echo \Yii::t('app', 'Size'); ?></th>
                         </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        foreach ($activity as $k => $v) {
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($boardActivity as $k => $v) {
                             echo Html::beginTag('tr')
-                                . Html::tag('td', \Yii::t('app', $k))
+                                . Html::tag('td', Html::a(\Yii::t('app', $k), $v['url']))
                                 . Html::tag('td', $v['updates'])
                                 . Html::tag('td', $v['size'])
                                 . Html::endTag('tr');
                         }
-                    ?>
-                    </tbody>
-                </table>
-            </div>
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
 
-            <div class="col-lg-6">
-                <h2><?php echo \Yii::t('app', 'Site News'); ?></h2>
-                <table class="table table-condensed table-striped">
-                    <thead>
-                    <tr>
-                        <th><?php echo \Yii::t('app', 'Date'); ?></th>
-                        <th><?php echo \Yii::t('app', 'Event'); ?></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    foreach ($news as $k => $v) {
-                        echo '<tr><td>'
-                            . Yii::$app->formatter->asDate($v->updated_at, 'long')
-                            . '</td><td><div title="' . $v->description . '">'
-                            . $v->title
-                            . '</div></td></tr>';
-                    }
-                    ?>
-                    </tbody>
-                </table>
-            </div>
+            <?php if (count($news)) :?>
+                <div class="col-lg-6">
+                    <h2><?php echo \Yii::t('app', 'Website'); ?></h2>
+                    <table class="table table-condensed table-striped">
+                        <thead>
+                        <tr>
+                            <th><?php echo \Yii::t('app', 'Date'); ?></th>
+                            <th><?php echo \Yii::t('app', 'Event'); ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($news as $k => $v) {
+                            echo '<tr><td>'
+                                . Yii::$app->formatter->asDate($v->updated_at, 'long')
+                                . '</td><td><div title="' . $v->description . '">'
+                                . $v->title
+                                . '</div></td></tr>';
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
 
         </div>
 

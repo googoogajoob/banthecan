@@ -126,22 +126,35 @@ class SiteController extends Controller {
                 ->andWhere(['=', 'board_id', $activeBoard->id])
                 ->count();
 
-            $activity['Backlog'] = ['updates' => $backlogActive, 'size' => $backlogSize];
-            $activity['Kanban'] = ['updates' => $kanbanActive, 'size' => $kanbanSize];
-            $activity['Completed'] = ['updates' => $completedActive, 'size' => $completedSize];
+            $boardActivity['Backlog'] = [
+                'updates' => $backlogActive,
+                'size' => $backlogSize,
+                'url' => '/board/backlog'
+            ];
+
+            $boardActivity['Kanban'] = [
+                'updates' => $kanbanActive,
+                'size' => $kanbanSize,
+                'url' => '/board'
+            ];
+
+            $boardActivity['Completed'] = [
+                'updates' => $completedActive,
+                'size' => $completedSize,
+                'url' => '/board/completed'
+            ];
 
             $newTickets = Ticket::find()
                 ->where(['>', 'updated_at', $sevenDaysAgo])
-                ->andWhere(['>=', 'column_id', 0])
                 ->andWhere(['=', 'board_id', $activeBoard->id])
                 ->orderBy(['updated_at' => SORT_DESC])
-                ->limit(5)
+                ->limit(10)
                 ->all();
 
             $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
 
             return $this->render('index', [
-                'activity' => $activity,
+                'boardActivity' => $boardActivity,
                 'newTickets' => $newTickets,
                 'news' => $news,
                 'board' => $activeBoard,
