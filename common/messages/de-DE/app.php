@@ -98,6 +98,7 @@ return [
     'Tasks' => 'Aufgaben',
     'Text Search' => 'Textsuche',
     'The above error occurred while the Web server was processing your request.' => 'Während der Verarbeitung beim Server ist dieser Fehler aufgetreten.',
+    'Ticket Activity' => 'Ticket Änderungen',
     'Ticket Backlog Configuration' => 'Ticket-Backlog Konfiguration',
     'Ticket Column Configuration' => 'Ticket-Spalten Konfiguration',
     'Ticket Completed Configuration' => 'Ticket-Erledigt Konfiguration',
