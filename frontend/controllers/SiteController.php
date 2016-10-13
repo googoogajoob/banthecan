@@ -144,11 +144,12 @@ class SiteController extends Controller {
                 'url' => '/board/completed'
             ];
 
+            $newTicketCount = isset(Yii::$app->params['newTicketCount']) ? Yii::$app->params['newTicketCount'] : 5;
             $newTickets = Ticket::find()
                 ->where(['>', 'updated_at', $sevenDaysAgo])
                 ->andWhere(['=', 'board_id', $activeBoard->id])
                 ->orderBy(['updated_at' => SORT_DESC])
-                ->limit(10)
+                ->limit($newTicketCount)
                 ->all();
 
             $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
