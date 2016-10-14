@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use frontend\assets\BoardAsset;
+use common\models\Board;
 
 /* @var $this yii\web\View */
 /* @var $columnHtml string */
@@ -15,7 +16,7 @@ BoardAsset::register($this);
 ?>
 
 <h1 class="text-capitalize">
-    <?php echo Html::encode($board->kanban_name) ?>
+    <?php echo Board::getKanbanName(); ?>
 </h1>
 
 <?php

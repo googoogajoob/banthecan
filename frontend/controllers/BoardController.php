@@ -137,7 +137,6 @@ class BoardController extends \yii\web\Controller {
         return $this->render('backlog', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'pageTitle' => $this->currentBoard->backlog_name,
             'action' => Yii::$app->request->getUrl(),
             'currentPageSize' => $currentPageSize,
         ]);
@@ -168,7 +167,6 @@ class BoardController extends \yii\web\Controller {
         return $this->render('completed', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'pageTitle' => $this->currentBoard->completed_name,
             'action' => Yii::$app->request->getUrl(),
             'currentPageSize' => $currentPageSize,
         ]);

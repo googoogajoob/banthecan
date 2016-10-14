@@ -1,16 +1,16 @@
 <?php
 
 use yii\helpers\Html;
+use common\models\Board;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $action string */
-/* @var $pageTitle string */
 /* @var $currentPageSize integer */
 ?>
 
-    <h1 class="text-capitalize"><?php echo Html::encode($pageTitle) ?></h1>
+    <h1 class="text-capitalize"><?php echo Board::getCompletedName(); ?></h1>
 
     <span class="pull-left"><?php echo \Yii::t('app', 'Page Size:'); ?>&nbsp;</span>
 
