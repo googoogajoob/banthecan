@@ -32,6 +32,7 @@ class Board extends \yii\db\ActiveRecord {
 	const NO_ACTIVE_BOARD_MESSAGE = 'An active board must be <a href="/board/select">selected</a> in order to proceed.';
 	const DEMO_TITLE = 'Ban-The-Can Demonstration Board';
 	const DEMO_MAX_LANES = 1;
+	public static $boardName = [];
 
 	/**
 	 * @inheritdoc
@@ -109,9 +110,62 @@ class Board extends \yii\db\ActiveRecord {
 
 	public function afterFind() {
 		parent::afterFind();
-		$this->ticket_backlog_configuration = unserialize($this->ticket_backlog_configuration);
-		$this->ticket_completed_configuration = unserialize($this->ticket_completed_configuration);
+
+        if ($this) {
+            $this->ticket_backlog_configuration = unserialize($this->ticket_backlog_configuration);
+            $this->ticket_completed_configuration = unserialize($this->ticket_completed_configuration);
+            if (trim($this->kanban_name) != '') {
+                self::$boardName['kanban'] = $this->kanban_name;
+            }
+            if (trim($this->backlog_name) != '') {
+                self::$boardName['backlog'] = $this->backlog_name;
+            }
+        }
 	}
+
+    public static function getBacklogName() {
+        if (isset(self::$boardName['backlog'])) {
+            return self::$boardName['backlog'];
+        } else {
+            return Yii::t('app', 'Backlog');
+        }
+    }
+
+    public static function getKanbanName() {
+        if (isset(self::$boardName['kanban'])) {
+            return self::$boardName['kanban'];
+        } else {
+            return Yii::t('app', 'Kanban');
+        }
+    }
+
+    public static function getCompletedName() {
+        if (isset(self::$boardName['completed'])) {
+            return self::$boardName['completed'];
+        } else {
+            return Yii::t('app', 'Completed');
+        }
+    }
+
+    public static function getBoardName($boardView) {
+        switch ($boardView)
+        {
+            case 'backlog':
+                $boardName = self::getBacklogName();
+                break;
+            case 'kanban':
+                $boardName = self::getKanbanName();
+                break;
+            case 'completed':
+                $boardName = self::getCompletedName();
+                break;
+            default:
+                $boardName = 'Board';
+                break;
+        }
+
+        return $boardName;
+    }
 
 	/**
 	 * Returns the Kanban Columns associated with this board
