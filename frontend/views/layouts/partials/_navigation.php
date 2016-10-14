@@ -75,7 +75,7 @@ if (Yii::$app->user->isGuest) {
         ['class' => 'menu-avatar-li pull-right hidden-xs']);
 
 	$menuItems[] = [
-        'label' => \Yii::t('app', 'Ban The Can'),
+        'label' => \Yii::t('app', 'Menu'),
         'options' => ['class' => 'pull-right hidden-xs'],
         'items' => $btcMenuItems,
 	];

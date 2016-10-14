@@ -67,6 +67,7 @@ return [
     'Kanban' => 'Kanban',
     'Login' => 'Einloggen',
     'Logout' => 'Ausloggen',
+    'Menu' => 'Menü',
     'Move to Backlog' => 'Zum Backlog',
     'Move to Completed' => 'Zu Erledigten',
     'Move to Kanban' => 'Zum Kanban',
