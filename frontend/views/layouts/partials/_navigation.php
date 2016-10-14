@@ -9,10 +9,7 @@
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
-
-/* @var $boardObject yii\db\ActiveRecord */
-/* @var $kanbanName String */
-/* @var $backlogName String */
+use common\models\Board;
 
 NavBar::begin([
     'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
@@ -93,21 +90,21 @@ if (Yii::$app->user->isGuest) {
     ]);
 
     $menuItems[] = Html::a(
-        $backlogName,
+        Board::getBacklogName(),
         '/board/backlog', [
         'class' => 'btn btn-primary apc-header-button',
         'id' => 'header-backlog-button',
     ]);
 
     $menuItems[] = Html::a(
-        $kanbanName,
+        Board::getKanbanName(),
         '/board', [
         'class' => 'btn btn-primary apc-header-button',
         'id' => 'header-kanban-button',
     ]);
 
     $menuItems[] = Html::a(
-        \Yii::t('app', 'Completed'),
+        Board::getCompletedName(),
         '/board/completed', [
         'class' => 'btn btn-primary apc-header-button',
         'id' => 'header-completed-button',
