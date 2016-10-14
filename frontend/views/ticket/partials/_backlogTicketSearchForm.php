@@ -21,15 +21,6 @@ use dosamigos\selectize\SelectizeTextInput;
     ]);
 ?>
 
-<div class="form-group">
-    <?php
-        echo Html::submitButton(\Yii::t('app', 'Search'), [
-            'class' => 'btn btn-primary',
-            'id' => 'backlog-search-submit',
-        ]);
-    ?>
-</div>
-
 <?php
     echo Html::hiddenInput('per-page', $currentPageSize, [
         'id' => 'backlog-search-per-page'

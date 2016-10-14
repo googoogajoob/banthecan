@@ -64,9 +64,7 @@ if ($boardObject = Board::getActiveBoard()) {
 
                 <div id="left-sidebar" class="collapse width">
                     <div class="col-xs-6 col-sm-4 col-lg-2">
-                        Junk
-                        <?php //echo $this->renderFile('@frontend/views/ticket/partials/_backlogTicketSearchForm.php'); ?>
-
+                        <?php echo $this->renderFile('@frontend/views/layouts/partials/_left-sidebar.php'); ?>
                     </div>
                 </div>
 
