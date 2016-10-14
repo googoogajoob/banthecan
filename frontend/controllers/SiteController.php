@@ -84,75 +84,81 @@ class SiteController extends Controller {
             return $this->render('index-demo');
         } else {
             $activeBoard = Board::getActiveBoard();
-            $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
-            $query = new Query;
+            $boardActivity = [];
+            $newTickets = [];
+            $news = [];
 
-            $backlogActive = $query
-                ->from(Ticket::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])
-                ->andWhere(['=', 'column_id', 0])
-                ->andWhere(['=', 'board_id', $activeBoard->id])
-                ->count();
+            if ($activeBoard) {
+                $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
+                $query = new Query;
 
-            $backlogSize = $query
-                ->from(Ticket::tableName())
-                ->where(['=', 'column_id', 0])
-                ->andWhere(['=', 'board_id', $activeBoard->id])
-                ->count();
+                $backlogActive = $query
+                    ->from(Ticket::tableName())
+                    ->where(['>', 'updated_at', $sevenDaysAgo])
+                    ->andWhere(['=', 'column_id', 0])
+                    ->andWhere(['=', 'board_id', $activeBoard->id])
+                    ->count();
 
-            $kanbanActive = $query
-                ->from(Ticket::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])
-                ->andWhere(['>', 'column_id', 0])
-                ->andWhere(['=', 'board_id', $activeBoard->id])
-                ->count();
+                $backlogSize = $query
+                    ->from(Ticket::tableName())
+                    ->where(['=', 'column_id', 0])
+                    ->andWhere(['=', 'board_id', $activeBoard->id])
+                    ->count();
 
-            $kanbanSize = $query
-                ->from(Ticket::tableName())
-                ->where(['>', 'column_id', 0])
-                ->andWhere(['=', 'board_id', $activeBoard->id])
-                ->count();
+                $kanbanActive = $query
+                    ->from(Ticket::tableName())
+                    ->where(['>', 'updated_at', $sevenDaysAgo])
+                    ->andWhere(['>', 'column_id', 0])
+                    ->andWhere(['=', 'board_id', $activeBoard->id])
+                    ->count();
 
-            $completedActive = $query
-                ->from(Ticket::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])
-                ->andWhere(['<', 'column_id', 0])
-                ->andWhere(['=', 'board_id', $activeBoard->id])
-                ->count();
+                $kanbanSize = $query
+                    ->from(Ticket::tableName())
+                    ->where(['>', 'column_id', 0])
+                    ->andWhere(['=', 'board_id', $activeBoard->id])
+                    ->count();
 
-            $completedSize = $query
-                ->from(Ticket::tableName())
-                ->where(['<', 'column_id', 0])
-                ->andWhere(['=', 'board_id', $activeBoard->id])
-                ->count();
+                $completedActive = $query
+                    ->from(Ticket::tableName())
+                    ->where(['>', 'updated_at', $sevenDaysAgo])
+                    ->andWhere(['<', 'column_id', 0])
+                    ->andWhere(['=', 'board_id', $activeBoard->id])
+                    ->count();
 
-            $boardActivity['Backlog'] = [
-                'updates' => $backlogActive,
-                'size' => $backlogSize,
-                'url' => '/board/backlog'
-            ];
+                $completedSize = $query
+                    ->from(Ticket::tableName())
+                    ->where(['<', 'column_id', 0])
+                    ->andWhere(['=', 'board_id', $activeBoard->id])
+                    ->count();
 
-            $boardActivity['Kanban'] = [
-                'updates' => $kanbanActive,
-                'size' => $kanbanSize,
-                'url' => '/board'
-            ];
+                $boardActivity['Backlog'] = [
+                    'updates' => $backlogActive,
+                    'size' => $backlogSize,
+                    'url' => '/board/backlog'
+                ];
 
-            $boardActivity['Completed'] = [
-                'updates' => $completedActive,
-                'size' => $completedSize,
-                'url' => '/board/completed'
-            ];
+                $boardActivity['Kanban'] = [
+                    'updates' => $kanbanActive,
+                    'size' => $kanbanSize,
+                    'url' => '/board'
+                ];
 
-            $newTicketCount = isset(Yii::$app->params['newTicketCount']) ? Yii::$app->params['newTicketCount'] : 5;
-            $newTickets = Ticket::find()
-                ->where(['>', 'updated_at', $sevenDaysAgo])
-                ->andWhere(['=', 'board_id', $activeBoard->id])
-                ->orderBy(['updated_at' => SORT_DESC])
-                ->limit($newTicketCount)
-                ->all();
+                $boardActivity['Completed'] = [
+                    'updates' => $completedActive,
+                    'size' => $completedSize,
+                    'url' => '/board/completed'
+                ];
 
-            $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
+                $newTicketCount = isset(Yii::$app->params['newTicketCount']) ? Yii::$app->params['newTicketCount'] : 5;
+                $newTickets = Ticket::find()
+                    ->where(['>', 'updated_at', $sevenDaysAgo])
+                    ->andWhere(['=', 'board_id', $activeBoard->id])
+                    ->orderBy(['updated_at' => SORT_DESC])
+                    ->limit($newTicketCount)
+                    ->all();
+
+                $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
+            }
 
             return $this->render('index', [
                 'boardActivity' => $boardActivity,
