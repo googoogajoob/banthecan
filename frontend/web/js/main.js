@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('#global-modal-container').on('show.bs.modal', function (event) {
         sourceUrl = $(event.relatedTarget).attr('href');
         getGlobalModalHtml(sourceUrl);
@@ -9,7 +10,22 @@ $(document).ready(function() {
     $('#modal-close-button').remove();
     $('#modal-header-row').prepend(buttonHtml);
 
+    $('#left-sidebar').on('show.bs.collapse', function () {
+        $('#left-layout-main').removeClass();
+        $('#left-layout-main').addClass('col-xs-6 col-sm-8 col-lg-10');
+        $('#show-search-option-button').addClass('hidden');
+        $('#hide-search-option-button').removeClass('hidden');
+    });
+
+    $('#left-sidebar').on('hide.bs.collapse', function () {
+        $('#left-layout-main').removeClass();
+        $('#left-layout-main').addClass('col-xs-12');
+        $('#show-search-option-button').removeClass('hidden');
+        $('#hide-search-option-button').addClass('hidden');
+    });
+
     disableTooltip();
+
 });
 
 function getGlobalModalHtml(url) {
