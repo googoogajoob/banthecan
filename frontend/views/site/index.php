@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use common\models\Board;
 
 /* @var $this yii\web\View */
 /* @var $boardActivity array */
@@ -42,11 +43,11 @@ use yii\helpers\Html;
                                 foreach ($newTickets as $k => $v) {
 
                                     if ($v['column_id'] < 0) {
-                                        $boardLink = Html::a(\Yii::t('app', 'Completed'), '/board/completed');
+                                        $boardLink = Html::a(Board::getCompletedName(), '/board/completed');
                                     } elseif ($v['column_id'] > 0) {
-                                        $boardLink = Html::a(\Yii::t('app', 'Board'), '/board');
+                                        $boardLink = Html::a(Board::getKanbanName(), '/board');
                                     } else {
-                                        $boardLink = Html::a(\Yii::t('app', 'Backlog'), '/board/backlog');
+                                        $boardLink = Html::a(Board::getBacklogName(), '/board/backlog');
                                     }
 
                                     echo Html::beginTag('tr')
@@ -85,8 +86,9 @@ use yii\helpers\Html;
                             <tbody>
                             <?php
                             foreach ($boardActivity as $k => $v) {
+
                                 echo Html::beginTag('tr')
-                                    . Html::tag('td', Html::a(\Yii::t('app', $k), $v['url']))
+                                    . Html::tag('td', Html::a(Board::getBoardName($k), $v['url']))
                                     . Html::tag('td', $v['updates'])
                                     . Html::tag('td', $v['size'])
                                     . Html::endTag('tr');

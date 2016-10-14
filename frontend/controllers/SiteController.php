@@ -131,19 +131,19 @@ class SiteController extends Controller {
                     ->andWhere(['=', 'board_id', $activeBoard->id])
                     ->count();
 
-                $boardActivity['Backlog'] = [
+                $boardActivity['backlog'] = [
                     'updates' => $backlogActive,
                     'size' => $backlogSize,
                     'url' => '/board/backlog'
                 ];
 
-                $boardActivity['Kanban'] = [
+                $boardActivity['kanban'] = [
                     'updates' => $kanbanActive,
                     'size' => $kanbanSize,
                     'url' => '/board'
                 ];
 
-                $boardActivity['Completed'] = [
+                $boardActivity['completed'] = [
                     'updates' => $completedActive,
                     'size' => $completedSize,
                     'url' => '/board/completed'

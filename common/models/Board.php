@@ -147,6 +147,26 @@ class Board extends \yii\db\ActiveRecord {
         }
     }
 
+    public static function getBoardName($boardView) {
+        switch ($boardView)
+        {
+            case 'backlog':
+                $boardName = self::getBacklogName();
+                break;
+            case 'kanban':
+                $boardName = self::getKanbanName();
+                break;
+            case 'completed':
+                $boardName = self::getCompletedName();
+                break;
+            default:
+                $boardName = 'Board';
+                break;
+        }
+
+        return $boardName;
+    }
+
 	/**
 	 * Returns the Kanban Columns associated with this board
 	 *
