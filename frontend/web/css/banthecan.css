@@ -56,3 +56,12 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 	margin-bottom: 0;
     float: left;
 }
+
+.collapse.width {
+	height: auto;
+	-webkit-transition: width 0.35s ease;
+	-moz-transition: width 0.35s ease;
+	-o-transition: width 0.35s ease;
+	transition: width 0.35s ease;
+}
+

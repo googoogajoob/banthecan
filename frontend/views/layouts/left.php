@@ -29,30 +29,50 @@ if ($boardObject = Board::getActiveBoard()) {
 </head>
 <body>
 
-<?php echo $this->renderFile('@frontend/views/layouts/partials/_modalContainer.php'); ?>
-
 <?php $this->beginBody() ?>
-<div class="wrap">
-    <?php
-        echo $this->renderFile('@frontend/views/layouts/partials/_navigation.php');
-        echo $this->renderFile('@frontend/views/layouts/partials/_left-sidebar.php');
-    ?>
+<?php echo $this->renderFile('@frontend/views/layouts/partials/_modalContainer.php'); ?>
+<?php echo $this->renderFile('@frontend/views/layouts/partials/_navigation.php'); ?>
 
-    <div id="layout-main" class="left-layout-main">
-        <?php
-            echo Html::icon('circle-arrow-right', [
-                'id' => 'toggle-left-sidebar',
-                'class' => 'pull-left apc-layout-toggle-button'
-            ]);
-        ?>
+<div class="wrap">
+    <div id="layout-main">
         <div class="container-fluid">
-            <?php
-                echo Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]);
-                echo Alert::widget();
-                echo $content
-            ?>
+            <?php echo Alert::widget(); ?>
+
+            <button
+                id="show-search-option-button"
+                type="button"
+                class="btn btn-default btn-primary"
+                data-toggle="collapse"
+                data-target="#left-sidebar"
+                aria-controls="left-sidebar"
+                aria-expanded="false">
+                <?php echo \Yii::t('app', 'Show Search Options'); ?>
+            </button>
+
+            <button
+                id="hide-search-option-button"
+                type="button"
+                class="btn btn-default btn-primary hidden"
+                data-toggle="collapse"
+                data-target="#left-sidebar"
+                aria-controls="left-sidebar"
+                aria-expanded="false">
+                <?php echo \Yii::t('app', 'Hide Search Options'); ?>
+            </button>
+
+            <div class="row">
+
+                <div id="left-sidebar" class="collapse width">
+                    <div class="col-xs-6 col-sm-4 col-lg-2">
+                        <?php echo $this->renderFile('@frontend/views/layouts/partials/_left-sidebar.php'); ?>
+                    </div>
+                </div>
+
+                <div id="left-layout-main" class="col-xs-12">
+                    <?php echo $content ?>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
