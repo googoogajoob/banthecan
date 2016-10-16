@@ -66,11 +66,12 @@ if (Yii::$app->user->isGuest) {
     $userBoards = explode(',', Yii::$app->user->getIdentity()->board_id);
 
     if (count($userBoards) > 1) {
-        $boardSwitchItems = [];
+
+        $boardSwitchItems = null;
         foreach ($userBoards as $userBoardId) {
             $boardSwitchItems[] = [
-                ['label' => Board::findOne($userBoardId)->title,
-                    'url' => ['/board/activate/' . $userBoardId]],
+                'label' => Board::findOne($userBoardId)->title,
+                  'url' => ['/board/activate/' . $userBoardId],
             ];
         }
 
