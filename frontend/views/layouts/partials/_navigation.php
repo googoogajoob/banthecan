@@ -63,15 +63,20 @@ if (Yii::$app->user->isGuest) {
         ],
     ];
 
-    $userBoards = explode(',', Yii::$app->user->getIdentity()->board_id);
+    $userBoardIds = explode(',', Yii::$app->user->getIdentity()->board_id);
 
-    if (count($userBoards) > 1) {
+    if (count($userBoardIds) > 1) {
+
+        $userBoards = Board::find($userBoardIds)
+            ->orderBy('title');
+
+        $userBoards = $userBoards->all();
 
         $boardSwitchItems = null;
-        foreach ($userBoards as $userBoardId) {
+        foreach ($userBoards as $userBoard) {
             $boardSwitchItems[] = [
-                'label' => Board::findOne($userBoardId)->title,
-                  'url' => ['/board/activate/' . $userBoardId],
+                'label' => $userBoard->title,
+                  'url' => ['/board/activate/' . $userBoard->id],
             ];
         }
 
