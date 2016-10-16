@@ -32,7 +32,7 @@ if (Yii::$app->user->isGuest) {
 
 } else {
 
-    $btcMenuItems = [
+    $subMenuItems = [
         ['label' => \Yii::t('app', 'Tickets'),
             'url' => ['/ticket'],
         ],
@@ -63,10 +63,22 @@ if (Yii::$app->user->isGuest) {
         ],
     ];
 
-    $btcMenuItemsXs = [];
-    foreach($btcMenuItems as $key => $value) {
-        $value['options'] = ['class' => 'hidden-sm hidden-md hidden-lg'];
-        $btcMenuItemsXs[] = $value;
+    $userBoards = explode(',', Yii::$app->user->getIdentity()->board_id);
+
+    if (count($userBoards) >= 1) {
+        $boardSwitchItems = [];
+        foreach ($userBoards as $userBoardId) {
+            $boardSwitchItems = [
+                ['label' => Board::findOne($userBoardId)->title,
+                    'url' => ['/board/activate/' . $userBoardId]],
+            ];
+        }
+
+        $menuItems[] = [
+            'label' => 'Board',
+            'options' => ['class' => 'pull-left'],
+            'items' => $boardSwitchItems,
+        ];
     }
 
     $menuItems[] = html::tag('li',
@@ -77,7 +89,7 @@ if (Yii::$app->user->isGuest) {
 	$menuItems[] = [
         'label' => \Yii::t('app', 'Menu'),
         'options' => ['class' => 'pull-right hidden-xs'],
-        'items' => $btcMenuItems,
+        'items' => $subMenuItems,
 	];
 
     $menuItems[] = Html::a(
@@ -110,7 +122,15 @@ if (Yii::$app->user->isGuest) {
         'id' => 'header-completed-button',
     ]);
 
-    $menuItems = array_merge($menuItems, $btcMenuItemsXs);
+
+    $subMenuItemsOptions = ['class' => 'hidden-sm hidden-md hidden-lg'];
+    $subMenuItemsXs = [];
+    foreach($subMenuItems as $key => $value) {
+        $value['options'] = $subMenuItemsOptions;
+        $subMenuItemsXs[] = $value;
+    }
+
+    $menuItems = array_merge($menuItems, $subMenuItemsXs);
 }
 
 echo Nav::widget([
