@@ -13,13 +13,12 @@ use common\models\Board;
 
 NavBar::begin([
     'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
-    'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar-inverse navbar-fixed-top',
 	],
     'innerContainerOptions' => [
         'class' => 'container-fluid'
-        ]
+        ],
     ]
 );
 
@@ -63,6 +62,17 @@ if (Yii::$app->user->isGuest) {
         ],
     ];
 
+    $menuItems[] = html::tag('li',
+        $this->render('@frontend/views/site/partials/_userIcon',
+        ['userId' => Yii::$app->getUser()->id]),
+        ['class' => 'menu-avatar-li pull-right hidden-xs']);
+
+	$menuItems[] = [
+        'label' => \Yii::t('app', 'Menu'),
+        'options' => ['class' => 'pull-right hidden-xs'],
+        'items' => $subMenuItems,
+	];
+
     $userBoardIds = explode(',', Yii::$app->user->getIdentity()->board_id);
 
     if (count($userBoardIds) > 1) {
@@ -76,27 +86,16 @@ if (Yii::$app->user->isGuest) {
         foreach ($userBoards as $userBoard) {
             $boardSwitchItems[] = [
                 'label' => $userBoard->title,
-                  'url' => ['/board/activate/' . $userBoard->id],
+                'url' => ['/board/activate/' . $userBoard->id],
             ];
         }
 
         $menuItems[] = [
-            'label' => 'Board',
-            'options' => ['class' => 'pull-left'],
+            'label' => '',
+            'options' => ['class' => 'pull-right'],
             'items' => $boardSwitchItems,
         ];
     }
-
-    $menuItems[] = html::tag('li',
-        $this->render('@frontend/views/site/partials/_userIcon',
-        ['userId' => Yii::$app->getUser()->id]),
-        ['class' => 'menu-avatar-li pull-right hidden-xs']);
-
-	$menuItems[] = [
-        'label' => \Yii::t('app', 'Menu'),
-        'options' => ['class' => 'pull-right hidden-xs'],
-        'items' => $subMenuItems,
-	];
 
     $menuItems[] = Html::a(
         \Yii::t('app', 'New Ticket'),
