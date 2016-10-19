@@ -7,7 +7,7 @@
  */
 
 use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use apc\rewrite\bootstrap\NavBar;
 use yii\helpers\Html;
 use common\models\Board;
 
