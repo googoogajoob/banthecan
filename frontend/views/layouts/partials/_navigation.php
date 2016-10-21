@@ -7,9 +7,25 @@
  */
 
 use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use apc\rewrite\bootstrap\NavBar;
 use yii\helpers\Html;
 use common\models\Board;
+
+$junk = [
+    'content' =>
+        '<a class="dropdown-toggle btn btn-warning" href="#" data-toggle="dropdown" style="font-size: 200%;">
+        <span class="caret" ></span>
+        </a>
+        <ul id="w31" class="dropdown-menu">
+        <li><a href="/board/activate/112" tabindex="-1">Lorem Testum</a></li>
+        <li><a href="/board/activate/114" tabindex="-1">Xenodoofia</a></li>
+        </ul>',
+//    'options' => [
+//        'class' => 'btn btn-warning',
+//    ],
+];
+
+//$junk = null;
 
 NavBar::begin([
     'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
@@ -19,6 +35,9 @@ NavBar::begin([
     'innerContainerOptions' => [
         'class' => 'container-fluid'
         ],
+    'additionalHeaders' => [
+            $junk,
+        ]
     ]
 );
 
