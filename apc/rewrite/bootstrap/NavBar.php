@@ -15,6 +15,12 @@ use yii\helpers\Html;
 
 class NavBar extends BootstrapNavBar
 {
+    /**
+     * @var Array of content and options for additional header options
+     *  Array of arrays with Keys: 'content', 'options'
+     */
+    public $additionalHeaders = [];
+
     public function init()
     {
         $grandfather = get_parent_class(get_parent_class($this));
@@ -54,9 +60,29 @@ class NavBar extends BootstrapNavBar
 
         echo Html::endTag('div');
 
+        $this->_additionalHeaders();
+
         Html::addCssClass($this->containerOptions, ['collapse' => 'collapse', 'widget' => 'navbar-collapse']);
         $options = $this->containerOptions;
         $tag = ArrayHelper::remove($options, 'tag', 'div');
         echo Html::beginTag($tag, $options);
+    }
+
+    protected function _additionalHeaders()
+    {
+        foreach($this->additionalHeaders as $key => $value) {
+
+            if ($value) {
+                if (!isset($value['options'])) {
+                    $value['options'] = null;
+                }
+                Html::addCssClass($value['options'], ['class' => 'navbar-header']);
+
+                echo Html::beginTag('div', $value['options']);
+                echo $value['content'];
+                echo Html::endTag('div');
+            }
+
+        }
     }
 }
