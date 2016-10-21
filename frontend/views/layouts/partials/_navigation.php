@@ -7,18 +7,43 @@
  */
 
 use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\bootstrap\Dropdown;
+use apc\rewrite\bootstrap\NavBar;
 use yii\helpers\Html;
 use common\models\Board;
 
+$brandLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
+$boardSelector = null;
+$userBoardIds = explode(',', Yii::$app->user->getIdentity()->board_id);
+if (count($userBoardIds) > 1) {
+    $brandLabel = 'Start';
+    $selectLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
+    $userBoards = Board::find($userBoardIds)->orderBy('title');
+    $userBoards = $userBoards->all();
+
+    $boardSwitchItems = null;
+    foreach ($userBoards as $userBoard) {
+        $boardSwitchItems[] = [
+            'label' => $userBoard->title,
+            'url' => ['/board/activate/' . $userBoard->id],
+        ];
+    }
+
+    $boardSelector['content'] =
+          '<div class="dropdown">'
+        . '<a href="#" data-toggle="dropdown" class="navbar-brand dropdown-toggle">' . $selectLabel . ' <span class="caret"></span></a>'
+        . Dropdown::widget(['items' => $boardSwitchItems])
+        . '</div>'
+    ;
+} else {
+    $brandLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
+}
+
 NavBar::begin([
-    'brandLabel' => (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title,
-    'options' => [
-        'class' => 'navbar-inverse navbar-fixed-top',
-	],
-    'innerContainerOptions' => [
-        'class' => 'container-fluid'
-        ],
+    'brandLabel'            => $brandLabel,
+    'options'               => ['class' => 'navbar-inverse navbar-fixed-top'],
+    'innerContainerOptions' => ['class' => 'container-fluid'],
+    'additionalHeaders'     => [$boardSelector]
     ]
 );
 
@@ -72,30 +97,6 @@ if (Yii::$app->user->isGuest) {
         'options' => ['class' => 'pull-right hidden-xs'],
         'items' => $subMenuItems,
 	];
-
-    $userBoardIds = explode(',', Yii::$app->user->getIdentity()->board_id);
-
-    if (count($userBoardIds) > 1) {
-
-        $userBoards = Board::find($userBoardIds)
-            ->orderBy('title');
-
-        $userBoards = $userBoards->all();
-
-        $boardSwitchItems = null;
-        foreach ($userBoards as $userBoard) {
-            $boardSwitchItems[] = [
-                'label' => $userBoard->title,
-                'url' => ['/board/activate/' . $userBoard->id],
-            ];
-        }
-
-        $menuItems[] = [
-            'label' => '',
-            'options' => ['class' => 'pull-right'],
-            'items' => $boardSwitchItems,
-        ];
-    }
 
     $menuItems[] = Html::a(
         \Yii::t('app', 'New Ticket'),
