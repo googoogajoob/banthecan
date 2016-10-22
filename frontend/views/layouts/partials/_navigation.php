@@ -12,11 +12,11 @@ use apc\rewrite\bootstrap\NavBar;
 use yii\helpers\Html;
 use common\models\Board;
 
-$brandLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
-$boardSelector = null;
+// Determine $brandLabel and $boardSelector for the options left in the main nav header
 $userBoardIds = explode(',', Yii::$app->user->getIdentity()->board_id);
+
 if (count($userBoardIds) > 1) {
-    $brandLabel = 'Start';
+    $brandLabel = '<span class="glyphicon glyphicon-home"></span>';
     $selectLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
     $userBoards = Board::find($userBoardIds)->orderBy('title');
     $userBoards = $userBoards->all();
@@ -29,24 +29,27 @@ if (count($userBoardIds) > 1) {
         ];
     }
 
-    $boardSelector['content'] =
-          '<div class="dropdown">'
-        . '<a href="#" data-toggle="dropdown" class="navbar-brand dropdown-toggle">' . $selectLabel . ' <span class="caret"></span></a>'
+    $boardSelector[] =
+          Html::beginTag('div', ['id' => "apc-board-selector", 'class' => "dropdown navbar-brand"])
+        . Html::a($selectLabel . ' <span class="caret"></span>', '#',
+              ['data-toggle' => "dropdown", 'class' =>"dropdown-toggle  apc-navbar-brand"])
         . Dropdown::widget(['items' => $boardSwitchItems])
-        . '</div>'
-    ;
+        . Html::endTag('div');
+    
 } else {
     $brandLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
+    $boardSelector = null;
 }
 
 NavBar::begin([
     'brandLabel'            => $brandLabel,
     'options'               => ['class' => 'navbar-inverse navbar-fixed-top'],
     'innerContainerOptions' => ['class' => 'container-fluid'],
-    'additionalHeaders'     => [$boardSelector]
+    'additionalHeaders'     => $boardSelector
     ]
 );
 
+// Create Menu Items
 if (Yii::$app->user->isGuest) {
 
 	//$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
@@ -56,7 +59,7 @@ if (Yii::$app->user->isGuest) {
 
 } else {
 
-    $subMenuItems = [
+    $dropDownMenuItems = [
         ['label' => \Yii::t('app', 'Tickets'),
             'url' => ['/ticket'],
         ],
@@ -95,8 +98,10 @@ if (Yii::$app->user->isGuest) {
 	$menuItems[] = [
         'label' => \Yii::t('app', 'Menu'),
         'options' => ['class' => 'pull-right hidden-xs'],
-        'items' => $subMenuItems,
+        'items' => $dropDownMenuItems,
 	];
+
+    // Buttons for convenience Options
 
     $menuItems[] = Html::a(
         \Yii::t('app', 'New Ticket'),
@@ -128,15 +133,14 @@ if (Yii::$app->user->isGuest) {
         'id' => 'header-completed-button',
     ]);
 
-
-    $subMenuItemsOptions = ['class' => 'hidden-sm hidden-md hidden-lg'];
-    $subMenuItemsXs = [];
-    foreach($subMenuItems as $key => $value) {
-        $value['options'] = $subMenuItemsOptions;
-        $subMenuItemsXs[] = $value;
+    $dropDownMenuItemsOptions = ['class' => 'hidden-sm hidden-md hidden-lg'];
+    $dropDownMenuItemsXs = [];
+    foreach($dropDownMenuItems as $key => $value) {
+        $value['options'] = $dropDownMenuItemsOptions;
+        $dropDownMenuItemsXs[] = $value;
     }
 
-    $menuItems = array_merge($menuItems, $subMenuItemsXs);
+    $menuItems = array_merge($menuItems, $dropDownMenuItemsXs);
 }
 
 echo Nav::widget([
