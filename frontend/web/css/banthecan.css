@@ -16,7 +16,7 @@
 
 /* ### BOOT STRAP OVERRIDES ### */
 	/* makes Bootstrap Menus dropdown on Hover */
-ul.nav li.dropdown:hover>ul.dropdown-menu {
+ul.nav li.dropdown:hover > ul.dropdown-menu {
 	display: block;
 }
 
@@ -65,3 +65,15 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 	transition: width 0.35s ease;
 }
 
+.apc-navbar-brand {
+	color: #9d9d9d;
+}
+.apc-navbar-brand:hover {
+    color: #fff;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+#apc-board-selector:hover > ul.dropdown-menu {
+      display: block;
+}

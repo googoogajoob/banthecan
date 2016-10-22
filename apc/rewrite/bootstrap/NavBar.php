@@ -58,9 +58,9 @@ class NavBar extends BootstrapNavBar
             echo Html::a($this->brandLabel, $this->brandUrl === false ? Yii::$app->homeUrl : $this->brandUrl, $this->brandOptions);
         }
 
-        echo Html::endTag('div');
-
         $this->_additionalHeaders();
+
+        echo Html::endTag('div');
 
         Html::addCssClass($this->containerOptions, ['collapse' => 'collapse', 'widget' => 'navbar-collapse']);
         $options = $this->containerOptions;
@@ -70,19 +70,10 @@ class NavBar extends BootstrapNavBar
 
     protected function _additionalHeaders()
     {
-        foreach($this->additionalHeaders as $key => $value) {
-
-            if ($value) {
-                if (!isset($value['options'])) {
-                    $value['options'] = null;
-                }
-                Html::addCssClass($value['options'], ['class' => 'navbar-header']);
-
-                echo Html::beginTag('div', $value['options']);
-                echo $value['content'];
-                echo Html::endTag('div');
+        if (is_array($this->additionalHeaders)) {
+            foreach ($this->additionalHeaders as $additionalHeaderContent) {
+                echo $additionalHeaderContent;
             }
-
         }
     }
 }
