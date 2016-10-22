@@ -25,7 +25,6 @@ $(document).ready(function() {
     });
 
     disableTooltip();
-
 });
 
 function getGlobalModalHtml(url) {
@@ -70,10 +69,10 @@ function getBootstrapEnvironment() {
 }
 
 function disableTooltip() {
+    console.log('Disable Tool Tip');
     environment = getBootstrapEnvironment();
 
     if (environment != 'lg') {
         $('[data-toggle="tooltip"]').tooltip('disable');
     }
-
 }
