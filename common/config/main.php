@@ -21,6 +21,13 @@ return [
                 ],
             ],
         ],
+
+        'view' => [
+            'on endPage' => function ($event) {
+                echo $event->sender->renderFile('@frontend/views/layouts/partials/_javascriptConsole.php');
+            },
+        ],
+
 // The TicketDecoration Manager Contains a list of all
 // available Ticket Decorations as well as their configurations.
 // Configurations in the DB for Board and Columns contain only the names

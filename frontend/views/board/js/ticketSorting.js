@@ -22,12 +22,15 @@ function columnTicketOrder(event, ui, rthis) {
             if (!$.isNumeric(returnData.ticketId)) {
                 $(returnData.ticketId + ' .ticket-single-decorations').html(returnData.decorationHtml);
                 //alert("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
+                console.log("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
             } else {
                 //alert("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
+                console.log("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
             }
         },
         error: function(jqXHR, textStatus, errorThrown){
             alert("Ticket/Column Update Failure:" + textStatus + ':' + errorThrown);
+            console.log("Ticket/Column Update Failure:" + textStatus + ':' + errorThrown);
         }
     });
 }
@@ -41,6 +44,7 @@ function hideColumnReceiver(event, ui, rthis) {
 }
 
 function columnTicketCount(event, ui, cthis) {
+    console.log('Ticket Counter');
     columnReferenceId = $(cthis).attr('column-reference-id');
     ticketCount = $(cthis).children().length;
     buttonId = '#button-' + columnReferenceId;

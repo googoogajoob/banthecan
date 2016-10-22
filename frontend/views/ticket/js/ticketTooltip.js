@@ -2,7 +2,9 @@
  * Created by and on 4-May-15.
  */
 
-$(function () {
+//$(function () {
+$(document).ready(function () {
+    console.log('ToolTip Function');
     $("[data-toggle-click='tooltip']").tooltip({
         placement: 'auto',
         trigger: 'click'
