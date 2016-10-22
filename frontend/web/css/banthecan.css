@@ -65,10 +65,16 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 	transition: width 0.35s ease;
 }
 
-.apc-navbar-brand {
+.apc-navbar-brand,
+.apc-navbar-brand:link {
 	color: #9d9d9d;
+    text-decoration: none;
 }
-.apc-navbar-brand:hover {
+
+.apc-navbar-brand:hover,
+.apc-navbar-brand:active,
+.apc-navbar-brand:visited
+{
     color: #fff;
     background-color: transparent;
     text-decoration: none;

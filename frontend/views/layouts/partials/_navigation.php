@@ -13,12 +13,10 @@ use yii\helpers\Html;
 use common\models\Board;
 
 // Determine $brandLabel and $boardSelector for the options left in the main nav header
-$brandLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
-$boardSelector = null;
 $userBoardIds = explode(',', Yii::$app->user->getIdentity()->board_id);
 
 if (count($userBoardIds) > 1) {
-    $brandLabel = 'Häuschen';
+    $brandLabel = '<span class="glyphicon glyphicon-home"></span>';
     $selectLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
     $userBoards = Board::find($userBoardIds)->orderBy('title');
     $userBoards = $userBoards->all();
@@ -32,13 +30,15 @@ if (count($userBoardIds) > 1) {
     }
 
     $boardSelector[] =
-          '<div id="apc-board-selector" class="dropdown navbar-brand">'
-        . '<a href="#" data-toggle="dropdown" class="dropdown-toggle  apc-navbar-brand">' . $selectLabel . ' <span class="caret"></span></a>'
+          Html::beginTag('div', ['id' => "apc-board-selector", 'class' => "dropdown navbar-brand"])
+        . Html::a($selectLabel . ' <span class="caret"></span>', '#',
+              ['data-toggle' => "dropdown", 'class' =>"dropdown-toggle  apc-navbar-brand"])
         . Dropdown::widget(['items' => $boardSwitchItems])
-        . '</div>'
-    ;
+        . Html::endTag('div');
+    
 } else {
     $brandLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
+    $boardSelector = null;
 }
 
 NavBar::begin([
@@ -102,13 +102,6 @@ if (Yii::$app->user->isGuest) {
 	];
 
     // Buttons for convenience Options
-
-    $menuItems[] = Html::a(
-        Board::getBacklogName(),
-        '/board/backlog', [
-        'class' => 'btn btn-primary apc-header-button',
-        'id' => 'header-backlog-button',
-    ]);
 
     $menuItems[] = Html::a(
         \Yii::t('app', 'New Ticket'),
