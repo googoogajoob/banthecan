@@ -138,7 +138,7 @@ class User extends \common\models\User implements IdentityInterface
 	{
 		$cookieCollection = Yii::$app->response->getCookies();
 
-		return $cookieCollection-> add(new \yii\web\Cookie([
+		return $cookieCollection->add(new \yii\web\Cookie([
             'name' => self::ACTIVE_BOARD_COOKIE_NAME,
             'value' => $value
 		]));

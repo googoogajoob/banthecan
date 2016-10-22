@@ -1,8 +1,15 @@
 <?php
-    $showConsole = Yii::$app->request->get('jsconsole');
+    $showConsoleVariableName = 'jsconsole';
+    $request = Yii::$app->request;
+    $showConsoleGet = $request->get($showConsoleVariableName);
+    $showConsoleCookie = $request->getCookies()->getValue($showConsoleVariableName);
 ?>
 
-<?php if ($showConsole) : ?>
+<?php
+    if ($showConsoleGet || $showConsoleCookie) :
+        $cookieCollection = Yii::$app->response->getCookies();
+        $cookieCollection->add(new \yii\web\Cookie(['name' => $showConsoleVariableName,'value' => 1]));
+?>
 
 <div id="jsDebugDiv"></div>
 <script type="text/javascript">

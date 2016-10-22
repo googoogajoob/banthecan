@@ -11,6 +11,8 @@ function columnTicketOrder(event, ui, rthis) {
         ticketOrder[i] = ticketOrder[i].split("_")[1];
     }
 
+    console.log('Ticket/Column Update Ajax Start');
+
     $.ajax({
         url: "/ticket/reorder",
         type: "post",
