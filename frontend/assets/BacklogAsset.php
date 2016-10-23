@@ -22,7 +22,8 @@ class BacklogAsset extends AssetBundle {
     public $js = [
         'board/js/boardEffects.js',
         'ticket/js/ticketTooltip.js',
-        'board/js/ticketSearch.js'
+        'board/js/ticketSearch.js',
+        'board/js/js-cookie.js'
     ];
     public $depends = [
         'frontend\assets\AppAsset'
