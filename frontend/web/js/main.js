@@ -20,8 +20,8 @@ $(document).ready(function() {
     $('#left-sidebar').on('hide.bs.collapse', function () {
         $('#left-layout-main').removeClass();
         $('#left-layout-main').addClass('col-xs-12');
-        $('#show-search-option-button').removeClass('hidden');
         $('#hide-search-option-button').addClass('hidden');
+        $('#show-search-option-button').removeClass('hidden');
     });
 
     disableTooltip();
