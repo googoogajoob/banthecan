@@ -36,6 +36,20 @@ $deleteButton = Html::a(\Yii::t('app', 'Delete'),
 <?php endif; ?>
 
 <?php
+    $createdBy = $this->render('@frontend/views/user/partials/_blame', [
+                    'name' => $model->getCreatedByName(),
+                    'avatar' => $model->getCreatedByAvatar(),
+                    'timestamp' => $model->created_at,
+                ]
+    );
+
+    $updatedBy = $this->render('@frontend/views/user/partials/_blame', [
+                    'name' => $model->getUpdatedByName(),
+                    'avatar' => $model->getUpdatedByAvatar(),
+                    'timestamp' => $model->updated_at,
+                ]
+    );
+
     echo DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -65,24 +79,14 @@ $deleteButton = Html::a(\Yii::t('app', 'Delete'),
                 'label' => \Yii::t('app', 'Tags'),
             ],
             [
-                'attribute' => 'createdByAvatar',
-                'format' => 'image',
-                'label' => \Yii::t('app', 'Created By'),
+                'label' => \Yii::t('app', 'Created'),
+                'value' => $createdBy,
+                'format'=> 'raw'
             ],
             [
-                'attribute' => 'created_at',
-                'format' => ['date', 'short'],
-                'label' => \Yii::t('app', 'Created At'),
-            ],
-            [
-                'attribute' => 'updatedByAvatar',
-                'format' => 'image',
-                'label' => \Yii::t('app', 'Updated By'),
-            ],
-            [
-                'attribute' => 'updated_at',
-                'format' => ['date', 'short'],
-                'label' => \Yii::t('app', 'Updated At'),
+                'label' => \Yii::t('app', 'Updated'),
+                'value' => $updatedBy,
+                'format'=> 'raw'
             ],
         ],
     ]);
