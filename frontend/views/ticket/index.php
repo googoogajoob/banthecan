@@ -37,9 +37,9 @@ $this->title = \Yii::t('app', 'Tickets');
                 'label' => \Yii::t('app', 'Description'),
             ],
             [
-                'attribute' => 'vote_priority',
-                'format' => 'integer',
-                'label' => \Yii::t('app', 'Priority'),
+                'attribute' => 'tagNames',
+                'format' => 'ntext',
+                'label' => \Yii::t('app', 'Tags'),
             ],
             [
                 'attribute' => 'protocol',
@@ -47,9 +47,9 @@ $this->title = \Yii::t('app', 'Tickets');
                 'label' => \Yii::t('app', 'Protocol'),
             ],
             [
-                'attribute' => 'tagNames',
-                'format' => 'ntext',
-                'label' => \Yii::t('app', 'Tags'),
+                'attribute' => 'vote_priority',
+                'format' => 'integer',
+                'label' => \Yii::t('app', 'Priority'),
             ],
             [
                 'format' => 'raw',
