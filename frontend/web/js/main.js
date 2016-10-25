@@ -15,13 +15,15 @@ $(document).ready(function() {
         $('#left-layout-main').addClass('col-xs-6 col-sm-8 col-lg-10');
         $('#show-search-option-button').addClass('hidden');
         $('#hide-search-option-button').removeClass('hidden');
+        $.setCookie('search-block', 'open');
     });
 
     $('#left-sidebar').on('hide.bs.collapse', function () {
         $('#left-layout-main').removeClass();
         $('#left-layout-main').addClass('col-xs-12');
-        $('#show-search-option-button').removeClass('hidden');
         $('#hide-search-option-button').addClass('hidden');
+        $('#show-search-option-button').removeClass('hidden');
+        $.setCookie('search-block', 'closed');
     });
 
     disableTooltip();

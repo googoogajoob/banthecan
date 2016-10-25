@@ -13,7 +13,15 @@ use yii\helpers\Html;
 use common\models\Board;
 
 // Determine $brandLabel and $boardSelector for the options left in the main nav header
-$userBoardIds = explode(',', Yii::$app->user->getIdentity()->board_id);
+
+$userBoardIds = array(); // default case, no boards (e.g. user not logged in)
+if ($userIdentity = Yii::$app->user->getIdentity()) {
+    if ($boardId = $userIdentity->board_id) {
+        if (is_array($boardId)) {
+            $userBoardIds = explode(',', $boardId);
+        }
+    }
+}
 
 if (count($userBoardIds) > 1) {
     $brandLabel = '<span class="glyphicon glyphicon-home"></span>';
