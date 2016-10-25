@@ -112,6 +112,7 @@ return [
     'Update Resolution' => 'Beschluss aktualisieren',
     'Update Tag' => 'Stichwort aktualisieren',
     'Update Ticket' => 'Ticket aktualisieren',
+    'Updated' => 'Aktualisiert',
     'Updated At' => 'Aktualisiert am',
     'Updated By' => 'Aktualisiert von',
     'Updates' => 'Aktualisierungen',
