@@ -32,10 +32,10 @@ use common\models\Board;
                         <table class="table table-condensed table-striped">
                             <thead>
                                 <tr>
-                                    <th><?php echo \Yii::t('app', 'Created By'); ?></th>
+                                    <th><?php echo \Yii::t('app', 'Created'); ?></th>
                                     <th><?php echo \Yii::t('app', 'Ticket'); ?></th>
                                     <th><?php echo \Yii::t('app', 'Board'); ?></th>
-                                    <th><?php echo \Yii::t('app', 'Updated By'); ?></th>
+                                    <th><?php echo \Yii::t('app', 'Updated'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
