@@ -17,9 +17,7 @@ use common\models\Board;
 $userBoardIds = array(); // default case, no boards (e.g. user not logged in)
 if ($userIdentity = Yii::$app->user->getIdentity()) {
     if ($boardId = $userIdentity->board_id) {
-        if (is_array($boardId)) {
-            $userBoardIds = explode(',', $boardId);
-        }
+        $userBoardIds = explode(',', $boardId);
     }
 }
 
