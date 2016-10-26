@@ -39,7 +39,10 @@ if ($boardObject = Board::getActiveBoard()) {
             <?php echo Alert::widget(); ?>
 
             <?php
-                $searchPanelOpen = $_COOKIE['search-block'] == '1';
+                $searchPanelOpen = false;
+                if (isset($_COOKIE['searcsh-block'])) {
+                    $searchPanelOpen = $_COOKIE['search-block'] == '1';
+                }
             ?>
 
             <button
