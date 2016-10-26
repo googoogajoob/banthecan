@@ -40,7 +40,7 @@ if ($boardObject = Board::getActiveBoard()) {
 
             <?php
                 $searchPanelOpen = false;
-                if (isset($_COOKIE['searcsh-block'])) {
+                if (isset($_COOKIE['search-block'])) {
                     $searchPanelOpen = $_COOKIE['search-block'] == '1';
                 }
             ?>
