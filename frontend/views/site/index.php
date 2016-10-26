@@ -42,6 +42,20 @@ use common\models\Board;
                             <?php
                                 foreach ($newTickets as $k => $v) {
 
+                                    $createdBy = $this->render('@frontend/views/user/partials/_blame', [
+                                            'name' => $v->getCreatedByName(),
+                                            'avatar' => $v->getCreatedByAvatar(),
+                                            'timestamp' => $v->created_at,
+                                        ]
+                                    );
+
+                                    $updatedBy = $this->render('@frontend/views/user/partials/_blame', [
+                                            'name' => $v->getUpdatedByName(),
+                                            'avatar' => $v->getUpdatedByAvatar(),
+                                            'timestamp' => $v->updated_at,
+                                        ]
+                                    );
+
                                     if ($v['column_id'] < 0) {
                                         $boardLink = Html::a(Board::getCompletedName(), '/board/completed');
                                     } elseif ($v['column_id'] > 0) {
@@ -51,7 +65,7 @@ use common\models\Board;
                                     }
 
                                     echo Html::beginTag('tr')
-                                        . Html::tag('td', $v->getCreateUser()->username)
+                                        . Html::tag('td', $createdBy)
                                         . Html::tag('td',
                                             Html::a(
                                                 $v->title,
@@ -63,7 +77,7 @@ use common\models\Board;
                                             )
                                         )
                                         . Html::tag('td', $boardLink)
-                                        . Html::tag('td', $v->getUpdateUser()->username)
+                                        . Html::tag('td', $updatedBy)
                                         . Html::endTag('tr');
                                 }
                             ?>
