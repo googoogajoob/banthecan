@@ -15,7 +15,7 @@ $(document).ready(function() {
         $('#left-layout-main').addClass('col-xs-6 col-sm-8 col-lg-10');
         $('#show-search-option-button').addClass('hidden');
         $('#hide-search-option-button').removeClass('hidden');
-        $.setCookie('search-block', 'open');
+        setCookie('search-block', 1, 365);
     });
 
     $('#left-sidebar').on('hide.bs.collapse', function () {
@@ -23,7 +23,7 @@ $(document).ready(function() {
         $('#left-layout-main').addClass('col-xs-12');
         $('#hide-search-option-button').addClass('hidden');
         $('#show-search-option-button').removeClass('hidden');
-        $.setCookie('search-block', 'closed');
+        setCookie('search-block', 0, 365);
     });
 
     disableTooltip();
@@ -77,4 +77,26 @@ function disableTooltip() {
     if (environment != 'lg') {
         $('[data-toggle="tooltip"]').tooltip('disable');
     }
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
