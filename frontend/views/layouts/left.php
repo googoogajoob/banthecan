@@ -38,37 +38,41 @@ if ($boardObject = Board::getActiveBoard()) {
         <div class="container-fluid">
             <?php echo Alert::widget(); ?>
 
+            <?php
+                $searchPanelOpen = $_COOKIE['search-block'] == '1';
+            ?>
+
             <button
                 id="show-search-option-button"
                 type="button"
-                class="btn btn-default btn-primary"
+                class="btn btn-default btn-primary <?php echo $searchPanelOpen ? 'hidden' : ''?>"
                 data-toggle="collapse"
                 data-target="#left-sidebar"
                 aria-controls="left-sidebar"
-                aria-expanded="false">
+                aria-expanded="<?php echo $searchPanelOpen ? 'true' : 'false'?>">
                 <?php echo \Yii::t('app', 'Show Search Options'); ?>
             </button>
 
             <button
                 id="hide-search-option-button"
                 type="button"
-                class="btn btn-default btn-primary hidden"
+                class="btn btn-default btn-primary <?php echo $searchPanelOpen ? '' : 'hidden'?>"
                 data-toggle="collapse"
                 data-target="#left-sidebar"
                 aria-controls="left-sidebar"
-                aria-expanded="false">
+                aria-expanded="<?php echo $searchPanelOpen ? 'false' : 'true'?>">
                 <?php echo \Yii::t('app', 'Hide Search Options'); ?>
             </button>
 
             <div class="row">
 
-                <div id="left-sidebar" class="collapse width">
+                <div id="left-sidebar" class="collapse width <?php echo $searchPanelOpen ? 'in' : ''?>">
                     <div class="col-xs-6 col-sm-4 col-lg-2">
                         <?php echo $this->renderFile('@frontend/views/layouts/partials/_left-sidebar.php'); ?>
                     </div>
                 </div>
 
-                <div id="left-layout-main" class="col-xs-12">
+                <div id="left-layout-main" class="<?php echo $searchPanelOpen ? 'col-xs-6 col-sm-8 col-lg-10' : 'col-xs-12'; ?>">
                     <?php echo $content ?>
                 </div>
 

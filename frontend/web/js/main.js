@@ -15,7 +15,7 @@ $(document).ready(function() {
         $('#left-layout-main').addClass('col-xs-6 col-sm-8 col-lg-10');
         $('#show-search-option-button').addClass('hidden');
         $('#hide-search-option-button').removeClass('hidden');
-        setCookie('search-block', true, 365);
+        setCookie('search-block', 1, 365);
     });
 
     $('#left-sidebar').on('hide.bs.collapse', function () {
@@ -23,7 +23,7 @@ $(document).ready(function() {
         $('#left-layout-main').addClass('col-xs-12');
         $('#hide-search-option-button').addClass('hidden');
         $('#show-search-option-button').removeClass('hidden');
-        setCookie('search-block', false, 365);
+        setCookie('search-block', 0, 365);
     });
 
     disableTooltip();
