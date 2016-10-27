@@ -134,6 +134,10 @@ class BoardController extends \yii\web\Controller {
 
         Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
 
+        if ($searchModel->isFilterActive()) {
+            Yii::$app->session->addFlash('warning', \Yii::t('app', 'Search Filter Active'));
+        }
+
         return $this->render('backlog', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -163,6 +167,10 @@ class BoardController extends \yii\web\Controller {
         $dataProvider->sort = $this->createSortObject();
 
         Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getUrl());
+
+        if ($searchModel->isFilterActive()) {
+            Yii::$app->session->addFlash('info', \Yii::t('warning', 'Search Filter Active'));
+        }
 
         return $this->render('completed', [
             'searchModel' => $searchModel,
