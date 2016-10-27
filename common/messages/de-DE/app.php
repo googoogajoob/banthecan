@@ -91,6 +91,7 @@ return [
     'Responsible' => 'Verantwortlich',
     'Search' => 'Suchen',
     'Select Board' => 'Tafel selektieren',
+    'Search Filter Active' => 'Suchfilter Aktiv',
     'Show Search Options' => 'Suchoptionen zeigen',
     'Signup' => 'Anmelden',
     'Site News' => 'Site-Nachrichten',

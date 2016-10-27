@@ -162,4 +162,14 @@ class TicketSearch extends Ticket {
         $this->tag_search = isset($value['tag_search']) ? $value['tag_search'] : '';
         $this->vote_priority_filter = isset($value['vote_priority_filter']) ? $value['vote_priority_filter'] : 0;
     }
+
+    public function isFilterActive() {
+        return
+            $this->text_search != ''
+            or $this->from_date
+            or $this->to_date
+            or $this->user_search
+            or $this->tag_search
+            or $this->vote_priority_filter;
+    }
 }
