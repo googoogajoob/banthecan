@@ -37,7 +37,7 @@ use common\models\Board;
                                     <th><?php echo \Yii::t('app', 'Created'); ?></th>
                                     <th><?php echo \Yii::t('app', 'Ticket'); ?></th>
                                     <th><?php echo \Yii::t('app', 'Board'); ?></th>
-                                    <th><?php echo \Yii::t('app', 'Updated'); ?></th>
+                                    <th class="text-right"><?php echo \Yii::t('app', 'Updated'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
