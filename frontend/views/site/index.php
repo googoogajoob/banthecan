@@ -48,7 +48,7 @@ use common\models\Board;
                                             'model' => $v,
                                             'textBelow' => true,
                                             'showName' => false,
-                                            'dateFormat' => 'php:d-m'
+                                            'dateFormat' => 'php:d.m'
                                         ]
                                     );
 
@@ -58,7 +58,7 @@ use common\models\Board;
                                             'alignRight' => true,
                                             'textBelow' => true,
                                             'showName' => false,
-                                            'dateFormat' => 'php:d-m'
+                                            'dateFormat' => 'php:d.m'
                                         ]
                                     );
 
