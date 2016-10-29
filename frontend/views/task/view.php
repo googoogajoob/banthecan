@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'format' => 'raw',
                 'label' => \Yii::t('app', 'Responsible'),
-                'value' => 'one job' /*$this->render('@frontend/views/user/partials/_blame', [
+                'value' => 'Responsible Avatar goes here' /*$this->render('@frontend/views/user/partials/_blame', [
                         'name' => $model->getResponsibleName(),
                         'avatar' => $model->getResponsibleAvatar(),
                     ]

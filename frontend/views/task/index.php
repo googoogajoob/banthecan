@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'name' => $model->getResponsibleName(),
                             'avatar' => $model->getResponsibleAvatar(),
                         ]
-                    ); */ return 'Dude you had one job!';
+                    ); */ return 'Responsible Avatar goes here?';
                 },
             ],
             [
