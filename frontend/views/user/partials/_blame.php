@@ -9,11 +9,13 @@ use yii\helpers\Html;
 /* @var $showName boolean */
 /* @var $showDate boolean */
 /* @var $textBelow boolean */
+/* @var $dateFormat string */
 
     $useUpdated = isset($useUpdated) ? $useUpdated : false; // Default use is created
     $alignRight = isset($alignRight) ? $alignRight : false; // Default alignment left
     $showName = isset($showName) ? $showName : true; // Name shown is default, must be explicitly turned off
     $showDate = isset($showDate) ? $showDate : true; // Date shown is default, must be explicitly turned off
+    $dateFormat = isset($dateFormat) ? $dateFormat : 'short'; // Date shown as short is default, format can must be explicitly defined
     $textBelow = isset($textBelow) ? $textBelow : false;
 
     if ($useUpdated) {
@@ -81,7 +83,7 @@ use yii\helpers\Html;
 
     if ($showDate && $timestamp) {
         echo Html::beginTag('small', $textOptions);
-        echo Yii::$app->formatter->asDate($timestamp, 'short');
+        echo Yii::$app->formatter->asDate($timestamp, $dateFormat);
         echo Html::endTag('small');
     }
 

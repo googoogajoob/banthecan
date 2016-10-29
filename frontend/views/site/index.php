@@ -47,7 +47,8 @@ use common\models\Board;
                                     $createdBy = $this->render('@frontend/views/user/partials/_blame', [
                                             'model' => $v,
                                             'textBelow' => true,
-                                            'showName' => false
+                                            'showName' => false,
+                                            'dateFormat' => 'php:d-m'
                                         ]
                                     );
 
@@ -56,7 +57,8 @@ use common\models\Board;
                                             'useUpdated' => true,
                                             'alignRight' => true,
                                             'textBelow' => true,
-                                            'showName' => false
+                                            'showName' => false,
+                                            'dateFormat' => 'php:d-m'
                                         ]
                                     );
 
