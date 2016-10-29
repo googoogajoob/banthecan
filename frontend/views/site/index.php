@@ -43,16 +43,18 @@ use common\models\Board;
                                 foreach ($newTickets as $k => $v) {
 
                                     $createdBy = $this->render('@frontend/views/user/partials/_blame', [
-                                            'name' => $v->getCreatedByName(),
-                                            'avatar' => $v->getCreatedByAvatar(),
-                                            'timestamp' => $v->created_at,
+                                            'model' => $v,
+                                            'textBelow' => true,
+                                            'showName' => false
                                         ]
                                     );
 
                                     $updatedBy = $this->render('@frontend/views/user/partials/_blame', [
-                                            'name' => $v->getUpdatedByName(),
-                                            'avatar' => $v->getUpdatedByAvatar(),
-                                            'timestamp' => $v->updated_at,
+                                            'model' => $v,
+                                            'useUpdated' => true,
+                                            'alignRight' => true,
+                                            'textBelow' => true,
+                                            'showName' => false
                                         ]
                                     );
 

@@ -3,7 +3,7 @@
  */
 
 //$(function () {
-$(document).ready(function () {
+/*$(document).ready(function () {
     console.log('ToolTip Function');
     $("[data-toggle-click='tooltip']").tooltip({
         placement: 'auto',
@@ -14,4 +14,4 @@ $(document).ready(function () {
         trigger: 'hover'
     });
     $('.ticket-glyph-tags').popover();
-});
+});*/

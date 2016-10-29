@@ -46,9 +46,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Resolutions'), 'url'
                 'format' => 'raw',
                 'label' => \Yii::t('app', 'Created By'),
                 'value' => $this->render('@frontend/views/user/partials/_blame', [
-                        'name' => $model->getCreatedByName(),
-                        'avatar' => $model->getCreatedByAvatar(),
-                        'timestamp' => $model->created_at,
+                        'model' => $model,
                     ]
                 )
             ],
@@ -56,9 +54,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Resolutions'), 'url'
                 'format' => 'raw',
                 'label' => \Yii::t('app', 'Updated By'),
                 'value' => $this->render('@frontend/views/user/partials/_blame', [
-                        'name' => $model->getUpdatedByName(),
-                        'avatar' => $model->getUpdatedByAvatar(),
-                        'timestamp' => $model->updated_at,
+                        'model' => $model,
+                        'updated' => true,
                     ]
                 )
             ],
