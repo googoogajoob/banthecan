@@ -93,32 +93,6 @@ a.desc:after {
 	margin: 0 0 15px 0;
 }
 
-#left-layout-sidebar {
-	position: fixed;
-	left: 200px;
-	width: 200px;
-	height: 100%;
-	float: left;
-	background-color: #f0f0f0;
-	margin-top: 54px;
-	margin-left: -200px;
-	margin-bottom: -60px;
-	display: none;
-}
-
-#right-layout-sidebar {
-	display: none;
-	position: fixed;
-	right: 200px;
-	width: 200px;
-	height: 100%;
-	float: right;
-	background-color: #f0f0f0;
-	margin-top: 54px;
-	margin-right: -200px;
-	margin-bottom: -60px;
-}
-
 #layout-main {
 	width: auto;
 	padding-top: 50px;

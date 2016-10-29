@@ -1,34 +1,4 @@
-function toggleLeftSidebar() {
-    currentStateVisible = $('#left-layout-sidebar').is(':visible');
-
-    if (currentStateVisible) {
-        $('#left-layout-sidebar').hide();
-        $('#layout-main').animate({
-                'margin-left': '0'
-            },
-            "fast"
-        );
-        $('#toggle-left-sidebar').removeClass('glyphicon-circle-arrow-left').addClass('glyphicon-circle-arrow-right');
-    } else {
-        $('#layout-main').animate({
-                'margin-left': '200'
-            },
-            "fast",
-            function () {
-                $('#left-layout-sidebar').show();
-            }
-        );
-        $('#toggle-left-sidebar').removeClass('glyphicon-circle-arrow-right').addClass('glyphicon-circle-arrow-left');
-    }
-
-    return true;
-}
-
 $(document).ready(function () {
-
-    $('#toggle-left-sidebar').click(function() {
-        return toggleLeftSidebar();
-    });
 
     $('#backlog-per-page').change(function() {
         this.form.submit();
