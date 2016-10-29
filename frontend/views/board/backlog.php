@@ -10,9 +10,10 @@ use common\models\Board;
 /* @var $currentPageSize integer */
 ?>
 
-    <h1 class="text-capitalize"><?php echo Board::getBacklogName(); ?></h1>
+<?php echo $this->render('@frontend/views/board/partials/_showSearchButton'); ?>
 
-    <span class="pull-left"><?php echo \Yii::t('app', 'Page Size:'); ?>&nbsp;</span>
+<h1 class="text-capitalize"><?php echo Board::getBacklogName(); ?></h1>
+<span class="pull-left"><?php echo \Yii::t('app', 'Page Size:'); ?>&nbsp;</span>
 
 <?php
 
