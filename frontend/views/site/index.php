@@ -23,11 +23,13 @@ use common\models\Board;
         </div>
 
         <div class="body-content">
+
+            <h1 class="text-center bg-info"><?php echo \Yii::t('app', 'Recent Activity'); ?></h1>
+
             <div class="row">
-                <h1 class="text-center bg-info"><?php echo \Yii::t('app', 'Recent Activity'); ?></h1>
 
                 <?php if (count($newTickets)) : ?>
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <h2><?php echo \Yii::t('app', 'Tickets'); ?></h2>
                         <table class="table table-condensed table-striped">
                             <thead>
