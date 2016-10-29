@@ -8,8 +8,6 @@ $(document).ready(function () {
         this.form.submit();
     });
 
-    $('[data-toggle="tooltip"]').tooltip();
-
     checkForKanbanUpdate();
 });
 

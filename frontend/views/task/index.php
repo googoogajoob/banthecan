@@ -38,11 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'label' => \Yii::t('app', 'Responsible'),
                 'content' => function ($model, $key, $index, $column) {
-                    return $this->render('@frontend/views/user/partials/_blame', [
+                    /*return $this->render('@frontend/views/user/partials/_blame', [
                             'name' => $model->getResponsibleName(),
                             'avatar' => $model->getResponsibleAvatar(),
                         ]
-                    );
+                    ); */ return 'Responsible Avatar goes here?';
                 },
             ],
             [
@@ -55,9 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => \Yii::t('app', 'Created By'),
                 'content' => function ($model, $key, $index, $column) {
                     return $this->render('@frontend/views/user/partials/_blame', [
-                            'name' => $model->getCreatedByName(),
-                            'avatar' => $model->getCreatedByAvatar(),
-                            'timestamp' => $model->created_at,
+                            'model' => $model,
                         ]
                     );
                 },
@@ -67,10 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => \Yii::t('app', 'Updated By'),
                 'content' => function ($model, $key, $index, $column) {
                     return $this->render('@frontend/views/user/partials/_blame', [
-                            'name' => $model->getUpdatedByName(),
-                            'avatar' => $model->getUpdatedByAvatar(),
-                            'timestamp' => $model->updated_at,
-                        ]
+                            'model' => $model,
+                            'useUpdated' => true                        ]
                     );
                 },
             ],
