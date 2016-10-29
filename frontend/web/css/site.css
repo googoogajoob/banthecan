@@ -9,8 +9,12 @@ html,body {
 	padding: 0 0 60px;
 }
 
-.wrap>.container {
+.wrap > .container {
 	padding: 70px 15px 20px;
+}
+
+.wrap > .container-fluid {
+	padding-top: 70px;
 }
 
 .footer {

@@ -31,10 +31,10 @@ if ($boardObject = Board::getActiveBoard()) {
 
 <?php $this->beginBody() ?>
 <?php echo $this->renderFile('@frontend/views/layouts/partials/_modalContainer.php'); ?>
-<?php echo $this->renderFile('@frontend/views/layouts/partials/_navigation.php'); ?>
 
 <div class="wrap">
-    <div id="layout-main">
+    <?php echo $this->renderFile('@frontend/views/layouts/partials/_navigation.php'); ?>
+    <!-- div id="layout-main" -->
         <div class="container-fluid">
             <?php echo Alert::widget(); ?>
 
@@ -81,7 +81,7 @@ if ($boardObject = Board::getActiveBoard()) {
 
             </div>
         </div>
-    </div>
+    <!-- /div -->
 </div>
 
 <?php echo $this->renderFile('@frontend/views/layouts/partials/_footer.php'); ?>
