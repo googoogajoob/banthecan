@@ -37,16 +37,13 @@ $deleteButton = Html::a(\Yii::t('app', 'Delete'),
 
 <?php
     $createdBy = $this->render('@frontend/views/user/partials/_blame', [
-                    'name' => $model->getCreatedByName(),
-                    'avatar' => $model->getCreatedByAvatar(),
-                    'timestamp' => $model->created_at,
+                    'model' => $model,
                 ]
     );
 
     $updatedBy = $this->render('@frontend/views/user/partials/_blame', [
-                    'name' => $model->getUpdatedByName(),
-                    'avatar' => $model->getUpdatedByAvatar(),
-                    'timestamp' => $model->updated_at,
+                    'model' => $model,
+                    'useUpdated' => true,
                 ]
     );
 
