@@ -132,7 +132,7 @@ ul.ticket-view-ajax {
 #ticketSearchClear-fromdate {
 	position: absolute;
 	right: 20px;
-	top: 146px;
+	top: 188px;
 	font-size: 14px;
 	cursor: pointer;
 	color: #ccc;
@@ -141,7 +141,7 @@ ul.ticket-view-ajax {
 #ticketSearchClear-todate {
 	position: absolute;
 	right: 20px;
-	top: 220px;
+	top: 262px;
 	font-size: 14px;
 	cursor: pointer;
 	color: #ccc;
