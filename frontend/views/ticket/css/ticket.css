@@ -172,3 +172,7 @@ ul.ticket-view-ajax {
     color: dimgrey;
     /*background-color: #72e77a;*/
 }
+
+#hide-search-option-button {
+	margin-bottom: 15px;
+}

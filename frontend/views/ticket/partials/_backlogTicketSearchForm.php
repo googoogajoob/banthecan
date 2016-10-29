@@ -12,7 +12,22 @@ use dosamigos\selectize\SelectizeTextInput;
 /* @var $currentPageSize integer */
 /* @var $showPriority boolean */
 
+$searchPanelOpen = false;
+if (isset($_COOKIE['search-block'])) {
+    $searchPanelOpen = $_COOKIE['search-block'] == '1';
+}
 ?>
+
+<button
+    id="hide-search-option-button"
+    type="button"
+    class="btn btn-primary btn-xs <?php echo $searchPanelOpen ? '' : 'hidden'?>"
+    data-toggle="collapse"
+    data-target="#left-sidebar"
+    aria-controls="left-sidebar"
+    aria-expanded="<?php echo $searchPanelOpen ? 'false' : 'true'?>">
+    <?php echo \Yii::t('app', 'Hide Search Options'); ?>
+</button>
 
 <?php
     $form = ActiveForm::begin([
