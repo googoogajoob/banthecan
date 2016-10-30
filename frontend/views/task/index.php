@@ -38,11 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'label' => \Yii::t('app', 'Responsible'),
                 'content' => function ($model, $key, $index, $column) {
-                    /*return $this->render('@frontend/views/user/partials/_blame', [
-                            'name' => $model->getResponsibleName(),
-                            'avatar' => $model->getResponsibleAvatar(),
+                    return $this->render('@frontend/views/user/partials/_blame', [
+                            'model' => $model,
                         ]
-                    ); */ return 'Responsible Avatar goes here?';
+                    );
                 },
             ],
             [
@@ -55,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => \Yii::t('app', 'Created By'),
                 'content' => function ($model, $key, $index, $column) {
                     return $this->render('@frontend/views/user/partials/_blame', [
-                            'model' => $model,
+                            'model' => $model->getTicket()->one(),
                         ]
                     );
                 },
@@ -65,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => \Yii::t('app', 'Updated By'),
                 'content' => function ($model, $key, $index, $column) {
                     return $this->render('@frontend/views/user/partials/_blame', [
-                            'model' => $model,
+                            'model' => $model->getTicket()->one(),
                             'useUpdated' => true                        ]
                     );
                 },

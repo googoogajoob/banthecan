@@ -46,11 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'format' => 'raw',
                 'label' => \Yii::t('app', 'Responsible'),
-                'value' => 'Responsible Avatar goes here' /*$this->render('@frontend/views/user/partials/_blame', [
-                        'name' => $model->getResponsibleName(),
-                        'avatar' => $model->getResponsibleAvatar(),
+                'value' => $this->render('@frontend/views/user/partials/_blame', [
+                        'model' => $model,
                     ]
-                )*/
+                )
             ],
             [
                 'attribute' => 'ticket.title',
@@ -61,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'label' => \Yii::t('app', 'Created By'),
                 'value' => $this->render('@frontend/views/user/partials/_blame', [
-                        'model' => $model,
+                        'model' => $model->getTicket()->one(),
                     ]
                 )
             ],
@@ -69,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'label' => \Yii::t('app', 'Updated By'),
                 'value' => $this->render('@frontend/views/user/partials/_blame', [
-                        'model' => $model,
+                        'model' => $model->getTicket()->one(),
                         'useUpdated' => true,
                     ]
                 )
