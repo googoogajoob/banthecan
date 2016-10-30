@@ -1,15 +1,21 @@
 <?php
 
 use yii\helpers\Html;
+use common\models\Ticket;
+use common\models\Task;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Ticket */
+/* @var $model yii\db\ActiveRecord */
 /* @var $useUpdated boolean */
 /* @var $alignRight boolean */
 /* @var $showName boolean */
 /* @var $showDate boolean */
 /* @var $textBelow boolean */
 /* @var $dateFormat string */
+
+// *****************
+// *** Variables ***
+// *****************
 
     $useUpdated = isset($useUpdated) ? $useUpdated : false; // Default use is created
     $alignRight = isset($alignRight) ? $alignRight : false; // Default alignment left
@@ -18,18 +24,30 @@ use yii\helpers\Html;
     $dateFormat = isset($dateFormat) ? $dateFormat : 'short'; // Date shown as short is default, format can must be explicitly defined
     $textBelow = isset($textBelow) ? $textBelow : false;
 
-    if ($useUpdated) {
+    if ($model instanceof Ticket) {
+        if ($useUpdated) {
 
-        $userName = $model->getUpdatedByName();
-        $avatar = $model->getUpdatedByAvatar();
-        $timestamp = $model->updated_at;
+            $userName = $model->getUpdatedByName();
+            $avatar = $model->getUpdatedByAvatar();
+            $timestamp = $model->updated_at;
+
+        } else {
+
+            $userName = $model->getCreatedByName();
+            $avatar = $model->getCreatedByAvatar();
+            $timestamp = $model->created_at;
+
+        }
+    } elseif ($model instanceof Task) {
+
+        $userName = $model->getResponsibleName();
+        $avatar = $model->getResponsibleAvatar();
+        $showDate = false;
 
     } else {
+        echo Html::tag('div', 'Unknown Model');
 
-        $userName = $model->getCreatedByName();
-        $avatar = $model->getCreatedByAvatar();
-        $timestamp = $model->created_at;
-
+        return;
     }
 
     if ($alignRight) {
@@ -58,6 +76,10 @@ use yii\helpers\Html;
     $imageOptions['class'] = 'img-responsive';
     $imageOptions['title'] = $userName;
     $imageOptions['data-toggle'] = 'tooltip';
+
+    // ***************
+    // *** Display ***
+    // ***************
 
     echo Html::beginTag('div', $textOptions);
 
