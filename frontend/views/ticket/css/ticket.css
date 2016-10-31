@@ -2,11 +2,14 @@
 	background-color: #9ec4f2;
 	height: 150px;
 	width: 100%;
-	padding: 2px 3px;
-	margin: 4px 0 4px 0;
+	/*padding: 2px 3px;*/
+	/*margin: 4px 0 4px 0;*/
 	/* These three(?) settings can be accomplished with the Bootstrap Mixin text-overflow*/
 	/*overflow: hidden;*/
 	/* When set this prevents tooltips from showing */
+
+    margin-bottom: 4px;
+
 	text-overflow: ellipsis;
 	/*white-space: nowrap;*/
 	/* This is need to provide a reference for absolute positioning in ticket-function-bar
@@ -21,6 +24,29 @@
 
 .ticket-widget-float {
 	float: left;
+}
+
+.ticket-widget-area-one {
+	height: 90px;
+	background-color: #eeeeee;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
+}
+
+.ticket-widget-area-two {
+	height: 30px;
+	background-color: #cccccc;
+}
+
+.ticket-widget-area-three {
+	height: 30px;
+	background-color: #eeeeee;
+}
+
+.ticket-widget-area-four {
+	height: 30px;
+	background-color: #cccccc;
 }
 
 .ticket-avatar {

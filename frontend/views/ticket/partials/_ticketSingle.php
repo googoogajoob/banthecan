@@ -18,6 +18,46 @@ use frontend\controllers\TicketController;
 /* @var $showTag boolean true/false for tag display */
 /* @var $showPriority boolean true/false for priority display */
 
+// Wrap Contents in a div only when $divClass is set, otherwise contents are returned unwrapped
+if (isset($divClass)) {
+    echo Html::beginTag('div', [
+        'class' => $divClass,
+        'id' => TicketController::TICKET_HTML_PREFIX . $model->id,
+    ]);
+}
+?>
+
+<div class="ticket-widget-area-one">
+    <div class="pull-right">
+        <?php
+            echo $this->render('@frontend/views/user/partials/_blame', [
+                'model' => $model,
+                'useUpdated' => true,
+                'alignRight' => true,
+                'textBelow' => true,
+                'showName' => false,
+                'dateFormat' => 'php:d.m'
+                ]
+            );
+        ?>
+    </div>
+    <?php
+        echo $model->title;
+    ?>
+</div>
+
+<div class="ticket-widget-area-two">Area two</div>
+<div class="ticket-widget-area-three">Area three</div>
+<!-- div class="ticket-widget-area-four">Area four</div -->
+<?php
+// Wrap Contents in a div only when $divClass is set
+if (isset($divClass)) {
+    echo Html::endTag('div');
+}
+
+
+return;
+
 $dependency = [
 	'class' => 'yii\caching\DbDependency',
 	'sql' => 'SELECT MAX(updated_at) FROM ticket',
@@ -41,7 +81,15 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
 
     <div class="ticket-avatar">
         <?php
-            echo $this->render('@frontend/views/site/partials/_userIcon', ['userId' => $model->created_by]);
+            echo $this->render('@frontend/views/user/partials/_blame', [
+					'model' => $model,
+                    'useUpdated' => true,
+                    'alignRight' => true,
+                    'textBelow' => true,
+                    'showName' => false,
+                    'dateFormat' => 'php:d.m'
+				]
+			);
         ?>
     </div>
 
@@ -63,11 +111,11 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
         }
     ?>
 
-	<div class="ticket-single-date">
+	<!--div class="ticket-single-date">
 		<?php
-			echo Yii::$app->formatter->asDate($model->created_at, 'short');
+		//	echo Yii::$app->formatter->asDate($model->created_at, 'short');
 		?>
-	</div>
+	</div -->
 
     <strong>
 		<a href="<?php echo $ticketViewUrl; ?>">
