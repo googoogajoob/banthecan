@@ -55,16 +55,12 @@ class TicketSearch extends Ticket {
      */
     public function search($params, $searchPool = null) {
 
-        switch ($searchPool) {
-            case -1:
-                $query = Ticket::findCompleted();
-                break;
-            case 0:
-                $query = Ticket::findBacklog();
-                break;
-            default:
-                $query = Ticket::find();
-                break;
+        if ($searchPool === -1) {
+            $query = Ticket::findCompleted();
+        } elseif ($searchPool === 0)
+            $query = Ticket::findBacklog();
+        else {
+            $query = Ticket::find();
         }
 
         $dataProvider = new ActiveDataProvider([
