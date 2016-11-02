@@ -2,18 +2,9 @@
 	background-color: #9ec4f2;
 	height: 150px;
 	width: 100%;
-	/*padding: 2px 3px;*/
+	/*padding: 2px 3px; */
 	/*margin: 4px 0 4px 0;*/
-	/* These three(?) settings can be accomplished with the Bootstrap Mixin text-overflow*/
-	/*overflow: hidden;*/
-	/* When set this prevents tooltips from showing */
-
     margin-bottom: 4px;
-
-	text-overflow: ellipsis;
-	/*white-space: nowrap;*/
-	/* This is need to provide a reference for absolute positioning in ticket-function-bar
-       see: http://www.w3schools.com/css/css_positioning.asp*/
 	position: relative;
     border-radius: 4px;
 }
@@ -27,20 +18,19 @@
 }
 
 .ticket-widget-area-one {
-	height: 90px;
+	height: 60px;
 	background-color: #eeeeee;
     overflow: hidden;
-    text-overflow: ellipsis;
-    /*white-space: nowrap;*/
+    font-weight: bold
 }
 
 .ticket-widget-area-two {
-	height: 30px;
+	height: 45px;
 	background-color: #cccccc;
 }
 
 .ticket-widget-area-three {
-	height: 30px;
+	height: 45px;
 	background-color: #eeeeee;
 }
 
@@ -181,7 +171,7 @@ ul.ticket-view-ajax {
 .ticket-vote {
     font-size: 150%;
     font-weight: bold;
-    padding-right: 10px;
+    padding-right: 4px;
     line-height: 95%;
     /*border-radius: 50%;*/
     /*height: 28px;*/
