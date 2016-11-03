@@ -38,7 +38,6 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
         foreach($column->getTickets() as $ticket) {
             $content = $this->render('@frontend/views/ticket/partials/_ticketSingle',[
                         'model' => $ticket,
-                        'showTags' => true,
             ]);
             $options = [
                         'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,

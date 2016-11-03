@@ -26,11 +26,6 @@ $this->endBlock();
 echo ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '@frontend/views/ticket/partials/_ticketSingle',
-    'viewParams' => [
-        'divClass' => 'ticket-widget-float',
-        'showTags' => true,
-        'showPriority' => $showPriority,
-    ],
     'itemOptions' => [
         'class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-2',
     ],

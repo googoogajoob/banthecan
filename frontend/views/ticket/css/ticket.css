@@ -17,26 +17,21 @@
 	float: left;
 }
 
-.ticket-widget-area-one {
+.ticket-widget-section-one {
 	height: 60px;
 	background-color: #eeeeee;
     overflow: hidden;
     font-weight: bold
 }
 
-.ticket-widget-area-two {
+.ticket-widget-section-two {
 	height: 45px;
 	background-color: #cccccc;
 }
 
-.ticket-widget-area-three {
+.ticket-widget-section-three {
 	height: 45px;
 	background-color: #eeeeee;
-}
-
-.ticket-widget-area-four {
-	height: 30px;
-	background-color: #cccccc;
 }
 
 .ticket-avatar {
@@ -59,16 +54,10 @@
 }
 
 .ticket-single-decorations {
-	position: absolute;
-	bottom: 2px;
+	/*position: absolute;
+	bottom: 2px;*/
 	background-color: #a0a0a0;
 	padding: 2px 4px 1px 2px;
-}
-
-.ticket-single-tags {
-	position: absolute;
-	bottom: 26px;
-	padding: 2px 4px 0 0;
 }
 
 .board-column .ticket-single-tags {
