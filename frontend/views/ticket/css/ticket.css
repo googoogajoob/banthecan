@@ -25,12 +25,12 @@
 }
 
 .ticket-widget-section-two {
-	height: 45px;
+	height: 70px;
 	background-color: #cccccc;
 }
 
 .ticket-widget-section-three {
-	height: 45px;
+	height: 20px;
 	background-color: #eeeeee;
 }
 
@@ -45,20 +45,16 @@
 	float: left;
 }
 
-.board-column .ticket-single-decorations-glyph {
-	font-size: 20px;
-}
-
 .ticket-single-decorations-glyph span {
 	color: #202020;
 }
 
-.ticket-single-decorations {
-	/*position: absolute;
-	bottom: 2px;*/
+/*.ticket-single-decorations {
+	/ *position: absolute;
+	bottom: 2px;* /
 	background-color: #a0a0a0;
 	padding: 2px 4px 1px 2px;
-}
+}*/
 
 .board-column .ticket-single-tags {
     bottom: 35px;
@@ -66,10 +62,10 @@
 
 /* Need to convert this to Bootstrap CSS ans SASS */
 .ticket-tag {
-	border-radius: 8px;
+	border-radius: 6px;
 	background-color: #f0ad4e;
-	padding: 3px;
-	margin: 2px 2px 2px 0;
+	padding: 1px 3px;
+	margin: 3px 3px 2px 0;
 }
 
 #ticketsearch-user_search .checkbox {

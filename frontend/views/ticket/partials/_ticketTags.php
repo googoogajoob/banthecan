@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\Carousel;
 
 //Ticket Decoration Bar displays the Ticket decorations
 /* @var $this yii\web\View */
@@ -9,33 +8,10 @@ use yii\bootstrap\Carousel;
 
 if ($taglist = $ticket->tagNames) {
 
-	echo Html::beginTag('div',
-		[
-			'data-toggle' => 'tooltip',
-            'data-placement' => 'top',
-            'title' => str_replace(',', ', ', $taglist),
-		]
-	);
-
-	$tagArray = explode(',', $taglist);
-	$tagCount = count($tagArray);
-	$i = 1;
-	foreach ($tagArray as $tag) {
-		$carouselItems[] = [
-            'content' => '',
-            'caption' => "$tag&nbsp;&ndash;&nbsp;<small>($i/$tagCount)</small>",
-		];
-		$i++;
-	}
-
-	echo Carousel::widget([
-        'items' => $carouselItems,
-        'controls' => false,
-        'showIndicators' => false,
-	]);
-
-	echo Html::endTag('div');
+    $tagArray = explode(',', $taglist);
+    foreach ($tagArray as $tag) {
+        echo Html::tag('div', $tag, ['class' => 'ticket-tag small pull-left']);
+    }
 
 }
-
 ?>
