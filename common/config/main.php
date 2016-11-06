@@ -43,35 +43,40 @@ return [
         'ticketDecorationManager' => [
             'class' => 'common\models\ticketDecoration\TicketDecorationManager',
             'availableTicketDecorations' => [
-                'MoveToBacklog' => [
-                    'class' => 'common\models\ticketDecoration\MoveToBacklog',
-                    'linkIcon' => '<span class="glyphicon glyphicon-th"></span>',
-                ],
-                'MoveToKanban' => [
-                    'class' => 'common\models\ticketDecoration\MoveToKanban',
-                    'linkIcon' => '<span class="glyphicon glyphicon-object-align-top"></span>',
-                ],
-                'MoveToCompleted' => [
-                    'class' => 'common\models\ticketDecoration\MoveToCompleted',
-                    'linkIcon' => '<span class="glyphicon glyphicon-check"></span>',
-                ],
-                'ViewDetail' => [
-                    'class' => 'common\models\ticketDecoration\ViewDetail',
-                    'linkIcon' => '<span class="glyphicon glyphicon-eye-open"></span>',
+                'CreateResolution' => [
+                    'class' => 'common\models\ticketDecoration\CreateResolution',
+                    'linkIcon' => '<span class="glyphicon glyphicon-list-alt"></span>',
+                    'displaySection' => 2,
                 ],
                 'CreateTask' => [
                     'class' => 'common\models\ticketDecoration\CreateTask',
                     'linkIcon' => '<span class="glyphicon glyphicon-wrench"></span>',
                     'displaySection' => 2,
                 ],
-                'CreateResolution' => [
-                    'class' => 'common\models\ticketDecoration\CreateResolution',
-                    'linkIcon' => '<span class="glyphicon glyphicon-list-alt"></span>',
-                    'displaySection' => 2,
-                ],
                 'CopyTicket' => [
                     'class' => 'common\models\ticketDecoration\CopyTicket',
                     'linkIcon' => '<span class="glyphicon glyphicon-duplicate"></span>',
+                ],
+                'MoveToBacklog' => [
+                    'class' => 'common\models\ticketDecoration\MoveToBacklog',
+                    'linkIcon' => '<span class="glyphicon glyphicon-th"></span>',
+                ],
+                'MoveToCompleted' => [
+                    'class' => 'common\models\ticketDecoration\MoveToCompleted',
+                    'linkIcon' => '<span class="glyphicon glyphicon-check"></span>',
+                ],
+                'MoveToKanban' => [
+                    'class' => 'common\models\ticketDecoration\MoveToKanban',
+                    'linkIcon' => '<span class="glyphicon glyphicon-object-align-top"></span>',
+                ],
+                'ProtocolStatus' => [
+                    'class' => 'common\models\ticketDecoration\ProtocolStatus',
+                    'linkIcon' => '<span class="glyphicon glyphicon-pencil"></span>',
+                    'displaySection' => 2,
+                ],
+                'ViewDetail' => [
+                    'class' => 'common\models\ticketDecoration\ViewDetail',
+                    'linkIcon' => '<span class="glyphicon glyphicon-eye-open"></span>',
                 ],
                 'Vote' => [
                     'class' => 'common\models\ticketDecoration\Vote',
