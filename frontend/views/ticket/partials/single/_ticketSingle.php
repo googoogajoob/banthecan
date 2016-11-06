@@ -29,7 +29,7 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
 
 <div class="ticket-widget-section-one">
     <?php
-        echo $this->render('@frontend/views/ticket/partials/_ticketSingleSection1', [
+        echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection1', [
             'model' => $model,
             'showVote' => $isKanBan,
             ]
@@ -39,7 +39,7 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
 
 <div class="ticket-widget-section-two">
     <?php
-        echo $this->render('@frontend/views/ticket/partials/_ticketSingleSection2', [
+        echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection2', [
             'model' => $model,
             'isKanBan' => $isKanBan,
             ]
@@ -50,7 +50,7 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
 <div class="ticket-widget-section-three">
     <?php
         if ($model->hasDecorations()) {
-            echo $this->render('@frontend/views/ticket/partials/_ticketSingleSection3', [
+            echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection3', [
                 'model' => $model,
                 'showDiv' => true
                 ]

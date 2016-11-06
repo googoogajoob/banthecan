@@ -25,7 +25,7 @@ $this->endBlock();
 
 echo ListView::widget([
     'dataProvider' => $dataProvider,
-    'itemView' => '@frontend/views/ticket/partials/_ticketSingle',
+    'itemView' => '@frontend/views/ticket/partials/single/_ticketSingle',
     'itemOptions' => [
         'class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-2',
     ],
