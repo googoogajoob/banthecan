@@ -14,15 +14,16 @@ use yii\helpers\Html;
     }
 
     foreach ($model->getBehaviors() as $ticketBehavior) {
+
         if ($ticketBehavior instanceof TicketDecorationInterface) {
-            echo Html::beginTag('div', ['class' => 'ticket-single-decorations-glyph']);
 
-            echo $ticketBehavior->show();
+            if (!$ticketBehavior->displaySection) {
 
-            $junk = $ticketBehavior->displaySection;
-            echo $junk ? $junk : '?';
-            
-            echo Html::endTag('div');
+                echo Html::tag('div', $ticketBehavior->show(), [
+                    'class' => 'ticket-single-decorations-glyph']
+                );
+
+            }
         }
     }
 
