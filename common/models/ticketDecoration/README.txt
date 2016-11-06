@@ -10,6 +10,6 @@ endpoints of the concept of the namespace (Generic, MoveTo ...). Other classes, 
 throughout the entire namespace, such as (TicketDecorationInterface, AbstractTicketDecoration and
 TicketDecorationManager).
 
-Thus, I have decided upon a two styles for names of the classes. Classes which play a role throughout
+Thus, I have decided upon two styles for names of the classes. Classes which play a role throughout
 the namespace contain "TicketDecoration" as a prefix. Other class, the implementations of the individual
 decorations do not contain the prefix.

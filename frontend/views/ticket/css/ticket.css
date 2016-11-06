@@ -3,14 +3,8 @@
 	height: 150px;
 	width: 100%;
 	padding: 2px 3px;
-	margin: 4px 0 4px 0;
-	/* These three(?) settings can be accomplished with the Bootstrap Mixin text-overflow*/
-	/*overflow: hidden;*/
-	/* When set this prevents tooltips from showing */
-	text-overflow: ellipsis;
-	/*white-space: nowrap;*/
-	/* This is need to provide a reference for absolute positioning in ticket-function-bar
-       see: http://www.w3schools.com/css/css_positioning.asp*/
+	/*margin: 4px 0 4px 0;*/
+    margin-bottom: 4px;
 	position: relative;
     border-radius: 4px;
 }
@@ -21,6 +15,23 @@
 
 .ticket-widget-float {
 	float: left;
+}
+
+.ticket-widget-section-one {
+	height: 60px;
+	/*background-color: #eeeeee;*/
+    overflow: hidden;
+    font-weight: bold
+}
+
+.ticket-widget-section-two {
+	height: 70px;
+	/*background-color: #cccccc;*/
+}
+
+.ticket-widget-section-three {
+	height: 20px;
+	/*background-color: #eeeeee;*/
 }
 
 .ticket-avatar {
@@ -34,26 +45,16 @@
 	float: left;
 }
 
-.board-column .ticket-single-decorations-glyph {
-	font-size: 20px;
-}
-
 .ticket-single-decorations-glyph span {
 	color: #202020;
 }
 
-.ticket-single-decorations {
-	position: absolute;
-	bottom: 2px;
+/*.ticket-single-decorations {
+	/ *position: absolute;
+	bottom: 2px;* /
 	background-color: #a0a0a0;
 	padding: 2px 4px 1px 2px;
-}
-
-.ticket-single-tags {
-	position: absolute;
-	bottom: 26px;
-	padding: 2px 4px 0 0;
-}
+}*/
 
 .board-column .ticket-single-tags {
     bottom: 35px;
@@ -61,10 +62,10 @@
 
 /* Need to convert this to Bootstrap CSS ans SASS */
 .ticket-tag {
-	border-radius: 8px;
+	border-radius: 6px;
 	background-color: #f0ad4e;
-	padding: 3px;
-	margin: 2px 2px 2px 0;
+	padding: 1px 3px;
+	margin: 3px 3px 2px 0;
 }
 
 #ticketsearch-user_search .checkbox {
@@ -155,7 +156,7 @@ ul.ticket-view-ajax {
 .ticket-vote {
     font-size: 150%;
     font-weight: bold;
-    padding-right: 10px;
+    padding-right: 4px;
     line-height: 95%;
     /*border-radius: 50%;*/
     /*height: 28px;*/

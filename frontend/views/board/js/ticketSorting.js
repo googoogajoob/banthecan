@@ -22,7 +22,7 @@ function columnTicketOrder(event, ui, rthis) {
             },
         success: function(returnData){
             if (!$.isNumeric(returnData.ticketId)) {
-                $(returnData.ticketId + ' .ticket-single-decorations').html(returnData.decorationHtml);
+                $('ticketwidget_' + returnData.ticketId).html(returnData.ticketHtml);
                 //alert("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
                 console.log("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
             } else {

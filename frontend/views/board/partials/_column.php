@@ -36,9 +36,8 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
         // Get the HTML of all ticket content for this column concatenated into one string
         $columnItems = [];
         foreach($column->getTickets() as $ticket) {
-            $content = $this->render('@frontend/views/ticket/partials/_ticketSingle',[
+            $content = $this->render('@frontend/views/ticket/partials/single/_ticketSingle',[
                         'model' => $ticket,
-                        'showTags' => true,
             ]);
             $options = [
                         'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,
