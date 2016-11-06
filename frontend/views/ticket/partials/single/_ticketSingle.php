@@ -15,7 +15,7 @@ $dependency = [
 if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of Cache If-Block
 
     $ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
-    $isKanBan = $model->column_id != 0;
+    $isKanBan = $model->column_id > 0;
 
     // Container DIV is different depending on which board one is on
     // KanBan is sortable (created in the parent view), Backlog/Completed float
