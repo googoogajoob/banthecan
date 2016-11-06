@@ -10,8 +10,15 @@ use yii\helpers\Html;
 
 <?php
     if ($isKanBan) {
-        echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleRelated', ['ticket' => $model]);
+        echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleDecorations', [
+            'model' => $model,
+            'section' => 2
+            ]
+        );
     } else {
-        echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleTags', ['ticket' => $model]);
+        echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleTags', [
+            'model' => $model
+            ]
+        );
     }
 ?>

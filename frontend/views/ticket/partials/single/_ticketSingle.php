@@ -52,7 +52,6 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
         if ($model->hasDecorations()) {
             echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection3', [
                 'model' => $model,
-                'showDiv' => true
                 ]
             );
         }

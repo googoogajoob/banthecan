@@ -4,9 +4,9 @@ use yii\helpers\Html;
 
 //Ticket Decoration Bar displays the Ticket decorations
 /* @var $this yii\web\View */
-/* @var $ticket common\models\Ticket */
+/* @var $model common\models\Ticket */
 
-if ($taglist = $ticket->tagNames) {
+if ($taglist = $model->tagNames) {
 
     $tagArray = explode(',', $taglist);
     foreach ($tagArray as $tag) {
