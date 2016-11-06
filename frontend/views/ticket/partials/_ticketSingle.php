@@ -12,11 +12,9 @@ $dependency = [
     'sql' => 'SELECT MAX(updated_at) FROM ticket',
 ];
 
-if ($this->beginCache($model->id, ['dependency' => $dependency])) :
+if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of Cache If-Block
 
-    // the url to view the ticket record (from there it can be edited)
     $ticketViewUrl = Url::to(['ticket/view', 'id' => $model->id]);
-
     $isKanBan = $model->column_id != 0;
 
     if (!$isKanBan) {
@@ -30,61 +28,33 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) :
 ?>
 
 <div class="ticket-widget-section-one">
-
-    <div class="pull-right">
-        <?php
-            echo $this->render('@frontend/views/user/partials/_blame', [
-                'model' => $model,
-                'useUpdated' => true,
-                'alignRight' => true,
-                'textBelow' => true,
-                'showName' => false,
-                'dateFormat' => 'php:d.m'
-                ]
-            );
-        ?>
-    </div>
-
     <?php
-        if (!$isKanBan) {
-            $voteClass = 'ticket-vote pull-left';
-
-            if ($model->vote_priority > 0) {
-                $voteClass .= ' ticket-vote-plus';
-                $voteText = '+' . $model->vote_priority;
-            } elseif ($model->vote_priority < 0) {
-                $voteClass .= ' ticket-vote-minus';
-                $voteText = $model->vote_priority;
-            } elseif ($model->vote_priority !== null) {
-                $voteClass .= ' ticket-vote-minus';
-                $voteText = '&plusmn';
-            }
-
-            if (isset($voteText)) {
-                echo Html::tag('div', $voteText, ['class' => $voteClass]);
-            }
-        }
-
-        echo $model->title;
+        echo $this->render('@frontend/views/ticket/partials/_ticketSingleSection1', [
+            'model' => $model,
+            'showVote' => $isKanBan,
+            ]
+        );
     ?>
-
 </div>
 
 <div class="ticket-widget-section-two">
     <?php
-        if ($isKanBan) {
-            echo "Tasks - Resolutions - Protocol";
-        } else {
-            echo $this->render('@frontend/views/ticket/partials/_ticketTags', ['ticket' => $model]);
-        }
+        echo $this->render('@frontend/views/ticket/partials/_ticketSingleSection2', [
+            'model' => $model,
+            'isKanBan' => $isKanBan,
+            ]
+        );
     ?>
 </div>
 
 <div class="ticket-widget-section-three">
     <?php
         if ($model->hasDecorations()) {
-            echo $this->render('@frontend/views/ticket/partials/_ticketDecorations',
-                ['ticket' => $model, 'showDiv' => true]);
+            echo $this->render('@frontend/views/ticket/partials/_ticketSingleSection3', [
+                'model' => $model,
+                'showDiv' => true
+                ]
+            );
         }
     ?>
 </div>
