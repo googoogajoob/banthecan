@@ -28,11 +28,18 @@ return [
             },
         ],
 
-// The TicketDecoration Manager Contains a list of all
-// available Ticket Decorations as well as their configurations.
-// Configurations in the DB for Board and Columns contain only the names
-// of the decorationClasses Array-Keys listed here
-// The details of the decoration class configurations are specified here
+/* The TicketDecoration Manager Contains a list of all
+ * available Ticket Decorations as well as their configurations.
+ * Configurations for Board and Columns are persistent but they contain
+ * only the names of the decorationClasses and the array-keys listed here
+ * The relation to columns and boards are configured in the Back-End.
+ *
+ * The details of the decoration class configurations are specified here
+ *
+ * In short:
+ *  1) here the decorations show up is configured in the Back End
+ *  2) what the decorations do is configured here
+ */
         'ticketDecorationManager' => [
             'class' => 'common\models\ticketDecoration\TicketDecorationManager',
             'availableTicketDecorations' => [
@@ -52,17 +59,15 @@ return [
                     'class' => 'common\models\ticketDecoration\ViewDetail',
                     'linkIcon' => '<span class="glyphicon glyphicon-eye-open"></span>',
                 ],
-/*                'ViewTags' => [
-                    'class' => 'common\models\ticketDecoration\ViewTags',
-                    'linkIcon' => '<span class="glyphicon glyphicon-tags"></span>',
-                ],*/
                 'CreateTask' => [
                     'class' => 'common\models\ticketDecoration\CreateTask',
                     'linkIcon' => '<span class="glyphicon glyphicon-wrench"></span>',
+                    'displaySection' => 2,
                 ],
                 'CreateResolution' => [
                     'class' => 'common\models\ticketDecoration\CreateResolution',
                     'linkIcon' => '<span class="glyphicon glyphicon-list-alt"></span>',
+                    'displaySection' => 2,
                 ],
                 'CopyTicket' => [
                     'class' => 'common\models\ticketDecoration\CopyTicket',
