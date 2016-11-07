@@ -22,6 +22,20 @@ use yii\helpers\Html;
     ?>
 </div>
 
+<?php if ($model->created_by !== $model->updated_by) : ?>
+    <div class="pull-left">
+        <?php
+            echo $this->render('@frontend/views/user/partials/_blame', [
+                'model' => $model,
+                'textBelow' => true,
+                'showName' => false,
+                'dateFormat' => 'php:d.m'
+                ]
+            );
+        ?>
+    </div>
+<?php endif; ?>
+
 <?php
     if (!$showVote) {
         $voteClass = 'ticket-vote pull-left';
