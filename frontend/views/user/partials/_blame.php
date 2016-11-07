@@ -54,7 +54,7 @@ use common\models\Task;
 
         $avatarOptions = [
             'class' => 'pull-right',
-            'style' => 'margin-left: 4px;',
+            'style' => 'margin-left: 15px;',
             'title' => $userName,
         ];
         $textOptions = [
@@ -65,7 +65,7 @@ use common\models\Task;
 
         $avatarOptions = [
             'class' => 'pull-left',
-            'style' => 'margin-right: 4px;',
+            'style' => 'margin-right: 15px;',
         ];
         $textOptions = [
             'class' => 'text-left'

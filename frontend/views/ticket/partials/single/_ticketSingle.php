@@ -49,12 +49,10 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
 
 <div class="ticket-widget-section-three">
     <?php
-        if ($model->hasDecorations()) {
-            echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection3', [
-                'model' => $model,
-                ]
-            );
-        }
+        echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection3', [
+            'model' => $model,
+            ]
+        );
     ?>
 </div>
 
@@ -65,5 +63,6 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
 
     $this->endCache();
 
-	endif; //End of Cache If-Block
+endif; //End of Cache If-Block
+
 ?>
