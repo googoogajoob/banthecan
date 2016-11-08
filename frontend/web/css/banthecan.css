@@ -27,11 +27,13 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 
 ul.ticket-sorter {
 	padding-left: 15px;
-	margin-bottom: 4px;
+	margin-top: 1px;
+	margin-bottom: 0;
 }
 
 .ticket-sorter li {
 	display: inline-block;
+    margin-bottom: 4px;
 }
 
 .apc-layout-toggle-button {

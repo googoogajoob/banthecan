@@ -46,7 +46,7 @@ echo ListView::widget([
             'class' => 'ticket-sorter'
         ],
         'linkOptions' => [
-            'class' => 'btn btn-success'
+            'class' => 'btn btn-success btn-sm'
         ],
     ],
 ]);
