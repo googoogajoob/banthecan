@@ -27,7 +27,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 
 ul.ticket-sorter {
 	padding-left: 15px;
-	margin-bottom: 0;
+	margin-bottom: 4px;
 }
 
 .ticket-sorter li {
