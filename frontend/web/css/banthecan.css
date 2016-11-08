@@ -85,3 +85,16 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 #apc-board-selector:hover > ul.dropdown-menu {
       display: block;
 }
+
+.blame-left, .blame-right {
+    font-style: italic;
+    color: #606060;
+}
+
+.blame-left {
+    margin-right: 5px;
+}
+
+.blame-right {
+    margin-left: 5px;
+}
