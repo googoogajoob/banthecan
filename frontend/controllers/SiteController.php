@@ -89,12 +89,13 @@ class SiteController extends Controller {
             $news = [];
 
             if ($activeBoard) {
-                $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
+                $frontPageTimespan = time();
+                $frontPageTimespan -= isset(Yii::$app->params['frontPageTimespan']) ? Yii::$app->params['frontPageTimespan'] : 604800; //Default Seconds in 7 days 60*60*24*7 = 604800;
                 $query = new Query;
 
                 $backlogActive = $query
                     ->from(Ticket::tableName())
-                    ->where(['>', 'updated_at', $sevenDaysAgo])
+                    ->where(['>', 'updated_at', $frontPageTimespan])
                     ->andWhere(['=', 'column_id', 0])
                     ->andWhere(['=', 'board_id', $activeBoard->id])
                     ->count();
@@ -107,7 +108,7 @@ class SiteController extends Controller {
 
                 $kanbanActive = $query
                     ->from(Ticket::tableName())
-                    ->where(['>', 'updated_at', $sevenDaysAgo])
+                    ->where(['>', 'updated_at', $frontPageTimespan])
                     ->andWhere(['>', 'column_id', 0])
                     ->andWhere(['=', 'board_id', $activeBoard->id])
                     ->count();
@@ -120,7 +121,7 @@ class SiteController extends Controller {
 
                 $completedActive = $query
                     ->from(Ticket::tableName())
-                    ->where(['>', 'updated_at', $sevenDaysAgo])
+                    ->where(['>', 'updated_at', $frontPageTimespan])
                     ->andWhere(['<', 'column_id', 0])
                     ->andWhere(['=', 'board_id', $activeBoard->id])
                     ->count();
@@ -151,11 +152,10 @@ class SiteController extends Controller {
 
                 $newTicketCount = isset(Yii::$app->params['newTicketCount']) ? Yii::$app->params['newTicketCount'] : 5;
                 $newTickets = Ticket::find()
-                    ->where(['>', 'updated_at', $sevenDaysAgo])
+                    ->where(['>', 'updated_at', $frontPageTimespan])
                     ->andWhere(['=', 'board_id', $activeBoard->id])
                     ->orderBy(['updated_at' => SORT_DESC])
-                    ->limit($newTicketCount)
-                    ->all();
+                    ->limit($newTicketCount)->all();
 
                 $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
             }
