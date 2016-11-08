@@ -8,33 +8,30 @@ use yii\helpers\Html;
 /* @var $showVote boolean */
 ?>
 
-<div class="pull-right">
-    <?php
-        echo $this->render('@frontend/views/user/partials/_blame', [
-            'model' => $model,
-            'useUpdated' => true,
-            'alignRight' => true,
-            'textBelow' => true,
-            'showName' => false,
-            'dateFormat' => 'php:d.m'
-            ]
-        );
-    ?>
-</div>
+<?php
+    echo $this->render('@frontend/views/user/partials/_blame', [
+        'model' => $model,
+        'useUpdated' => true,
+        'alignRight' => true,
+        'textBelow' => true,
+        'showName' => false,
+        'dateFormat' => 'php:d.m'
+        ]
+    );
+?>
 
-<?php if ($model->created_by !== $model->updated_by) : ?>
-    <div class="pull-left">
-        <?php
-            echo $this->render('@frontend/views/user/partials/_blame', [
-                'model' => $model,
-                'textBelow' => true,
-                'showName' => false,
-                'dateFormat' => 'php:d.m'
-                ]
-            );
-        ?>
-    </div>
-<?php endif; ?>
+<?php $showAvatar = ($model->created_by !== $model->updated_by); ?>
+
+<?php
+    echo $this->render('@frontend/views/user/partials/_blame', [
+        'model' => $model,
+        'textBelow' => true,
+        'showName' => false,
+        'showAvatar' => $showAvatar,
+        'dateFormat' => 'php:d.m'
+        ]
+    );
+?>
 
 <?php
     if (!$showVote) {

@@ -19,8 +19,9 @@ use common\models\Task;
 
     $useUpdated = isset($useUpdated) ? $useUpdated : false; // Default use is created
     $alignRight = isset($alignRight) ? $alignRight : false; // Default alignment left
-    $showName = isset($showName) ? $showName : true; // Name shown is default, must be explicitly turned off
-    $showDate = isset($showDate) ? $showDate : true; // Date shown is default, must be explicitly turned off
+    $showName = isset($showName) ? $showName : true; // Name is shown as default, must be explicitly turned off
+    $showDate = isset($showDate) ? $showDate : true; // Date is shown as default, must be explicitly turned off
+    $showAvatar = isset($showAvatar) ? $showAvatar : true; // Avatar is shown as default, must be explicitly turned off
     $dateFormat = isset($dateFormat) ? $dateFormat : 'short'; // Date shown as short is default, format can must be explicitly defined
     $textBelow = isset($textBelow) ? $textBelow : false;
 
@@ -54,23 +55,25 @@ use common\models\Task;
 
         $avatarOptions = [
             'class' => 'pull-right',
-            'style' => 'margin-left: 15px;',
-            'title' => $userName,
         ];
         $textOptions = [
             'class' => 'text-right'
+        ];
+        $wrapperOptions = [
+            'class' => 'pull-right blame-right',
         ];
 
     } else {
 
         $avatarOptions = [
             'class' => 'pull-left',
-            'style' => 'margin-right: 15px;',
         ];
         $textOptions = [
             'class' => 'text-left'
         ];
-
+        $wrapperOptions = [
+            'class' => 'pull-left blame-left',
+        ];
     }
 
     $imageOptions['class'] = 'img-responsive';
@@ -81,9 +84,9 @@ use common\models\Task;
     // *** Display ***
     // ***************
 
-    echo Html::beginTag('div', $textOptions);
+    echo Html::beginTag('div', $wrapperOptions);
 
-    if ($avatar) {
+    if ($avatar && $showAvatar) {
         echo Html::beginTag('div', $avatarOptions);
         echo Html::img($avatar, $imageOptions);
         echo Html::endTag('div');
