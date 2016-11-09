@@ -20,6 +20,7 @@ class TicketController extends Controller {
     /* This is needed in the views and in the controller,
      it is placed here in the controller as a central reference point */
     const TICKET_HTML_PREFIX = 'ticketwidget_';
+    const MOVE_VIEW_ACTION_MESSAGE = 'This is only allowed per Ajax';
 
     public function behaviors() {
 
@@ -97,6 +98,7 @@ class TicketController extends Controller {
 
     /**
      * Displays a single Ticket model.
+     *
      * @param integer $id
      * @return mixed
      */
@@ -107,6 +109,22 @@ class TicketController extends Controller {
             return $this->renderAjax('view', ['model' => $this->findModel($id),'modalFlag' => true]);
         } else {
             return $this->render('view', ['model' => $this->findModel($id),'modalFlag' => false]);
+        }
+    }
+
+    /**
+     * Displays the movement options of a single Ticket.
+     *
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionMove($id)
+    {
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            return $this->renderAjax('move', ['model' => $this->findModel($id),'modalFlag' => true]);
+        } else {
+            return $this->render('move', ['model' => $this->findModel($id),'modalFlag' => false]);
         }
     }
 

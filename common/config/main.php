@@ -60,14 +60,17 @@ return [
                 'MoveToBacklog' => [
                     'class' => 'common\models\ticketDecoration\MoveToBacklog',
                     'linkIcon' => '<span class="glyphicon glyphicon-th"></span>',
+                    'movement' => true,
                 ],
                 'MoveToCompleted' => [
                     'class' => 'common\models\ticketDecoration\MoveToCompleted',
                     'linkIcon' => '<span class="glyphicon glyphicon-check"></span>',
+                    'movement' => true,
                 ],
                 'MoveToKanban' => [
                     'class' => 'common\models\ticketDecoration\MoveToKanban',
                     'linkIcon' => '<span class="glyphicon glyphicon-object-align-top"></span>',
+                    'movement' => true,
                 ],
                 'ProtocolStatus' => [
                     'class' => 'common\models\ticketDecoration\ProtocolStatus',

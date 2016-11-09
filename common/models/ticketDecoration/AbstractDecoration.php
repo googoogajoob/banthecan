@@ -16,6 +16,7 @@ abstract class AbstractDecoration extends Behavior implements TicketDecorationIn
 	public $linkIcon = '?'; // Default Icon for the Abstract Class, others should override this
     public $decorationKey = 'default';
     public $displaySection = null;
+    public $movement = false;
 
 	/**
 	 * Show a view of the Behavior
