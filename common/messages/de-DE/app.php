@@ -72,6 +72,7 @@ return [
     'Move to Backlog' => 'Zum Backlog',
     'Move to Completed' => 'Zu Erledigten',
     'Move to Kanban' => 'Zum Kanban',
+    'Movement Options' => 'Verlegung Optionen',
     'Name' => 'Name',
     'New Ticket' => 'Neues Ticket',
     'News' => 'Nachrichten',

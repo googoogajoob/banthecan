@@ -1,6 +1,6 @@
 <?php
 
-use common\models\ticketDecoration\TicketDecorationInterface;
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -12,4 +12,7 @@ if ($model->hasDecorations()) {
         ]
     );
 }
+
+echo Html::a('Move', '/ticket/move/' . $model->id);
+
 ?>

@@ -144,7 +144,7 @@ class Ticket extends ActiveRecord
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getColumn() {
-		return $this->hasOne(BoardColumn::className(), ['id' => 'column_id']);
+		return $this->hasOne(Column::className(), ['id' => 'column_id'])->one();
 	}
 
 	/**
