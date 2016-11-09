@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $section = isset($section) ? $section : null;
 
-echo Html::beginTag('div', ['class' => 'ticket-single-decorations']);
+echo Html::beginTag('div', ['class' => 'ticket-single-decorations hidden-xs']);
 
 foreach ($model->getBehaviors() as $ticketBehavior) {
 
