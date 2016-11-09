@@ -48,7 +48,7 @@ use yii\helpers\Html;
         $columnName = \common\models\Column::findOne($columnReceiverId)->title;
 
         echo Html::beginForm('/ticket/update/' . $model->id, 'post', ['style' => 'float:left; margin-right: 4px;']);
-        echo Html::hiddenInput('column_id', $columnReceiverId);
+        echo Html::hiddenInput('Ticket[column_id]', $columnReceiverId);
         echo Html::submitButton($columnName);
         echo Html::endForm();
     }
