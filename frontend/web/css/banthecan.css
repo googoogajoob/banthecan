@@ -98,3 +98,9 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 .blame-right {
     margin-left: 5px;
 }
+
+.apc-btn-move {
+	color: #101010;
+	background-color: #878787;
+	border-color: #707070;
+}
