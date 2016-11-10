@@ -215,9 +215,7 @@ class TicketController extends Controller {
         $model->incrementVotePriority()->save();
 
         if ($model->hasErrors('vote_priority')) {
-            Yii::$app->getSession()->setFlash('error',
-                $model->getErrors('vote_priority')
-            );
+            Yii::$app->getSession()->setFlash('error', $model->getErrors('vote_priority'));
         }
 
         return $this->goBack();

@@ -14,7 +14,7 @@ if ($model->hasDecorations()) {
 }
 
 echo Html::a('Move', '/ticket/move/' . $model->id, [
-        'class' => 'btn btn-danger hidden-sm hidden-md- hidden-lg',
+        'class' => 'btn apc-btn-move hidden-sm hidden-md hidden-lg',
         'style' => 'width: 100%;'
     ]);
 
