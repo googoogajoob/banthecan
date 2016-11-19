@@ -15,7 +15,9 @@ if ($model->hasDecorations()) {
 
 echo Html::a('Move', '/ticket/move/' . $model->id, [
         'class' => 'btn apc-btn-move hidden-sm hidden-md hidden-lg',
-        'style' => 'width: 100%;'
+        'style' => 'width: 100%;',
+        'data-toggle' => 'modal',
+        'data-target' => '#global-modal-container',
     ]);
 
 ?>
