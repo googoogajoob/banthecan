@@ -13,11 +13,7 @@ use yii\helpers\Html;
 
 <h2 class="apc-modal-header"><?php echo \Yii::t('app', 'Movement Options') ?></h2>
 
-<?php echo $modalFlag ? '' : '<div style="clear:both" />'; ?>
-
-<hr/>
-
-<h3><?php echo $model->title; ?></h3>
+<p><?php echo $model->title; ?></p>
 
 <h4>Decoration Movement Options</h4>
 
