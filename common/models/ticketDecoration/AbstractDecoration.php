@@ -14,11 +14,12 @@ use yii\base\Behavior;
 abstract class AbstractDecoration extends Behavior implements TicketDecorationInterface {
 
 	public $linkIcon = '?'; // Default Icon for the Abstract Class, others should override this
-    public $dataKey = 'defaultDataKey';
+    public $dataKey = 'defaultDataKey'; //Data storage in the ticket itself
     public $displaySection = null;
     public $movement = false;
     public $sortOrder = 0;
     public $showUrl = '';
+    public $title = ''; //Link Help title
 
 	/**
 	 * Show a view of the Behavior

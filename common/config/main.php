@@ -49,6 +49,7 @@ return [
                     'displaySection' => 2,
                     'sortOrder' => 5,
                     'showUrl' => '/resolution/create/',
+                    'title' => 'Create Resolution',
                 ],
                 'CreateTask' => [
                     'class' => 'common\models\ticketDecoration\CreateTask',
@@ -56,11 +57,13 @@ return [
                     'displaySection' => 2,
                     'sortOrder' => 1,
                     'showUrl' => '/task/create/',
+                    'title' => 'Create Task',
                 ],
                 'CopyTicket' => [
                     'class' => 'common\models\ticketDecoration\CopyTicket',
                     'linkIcon' => '<span class="glyphicon glyphicon-duplicate"></span>',
                     'showUrl' => '/ticket/copy/',
+                    'title' => 'Copy Ticket',
                 ],
                 'MoveToBacklog' => [
                     'class' => 'common\models\ticketDecoration\MoveToBacklog',
@@ -68,29 +71,34 @@ return [
                     'movement' => true,
                     'sortOrder' => 3,
                     'showUrl' => '/ticket/backlog/',
+                    'title' => 'Move to Backlog',
                 ],
                 'MoveToCompleted' => [
                     'class' => 'common\models\ticketDecoration\MoveToCompleted',
                     'linkIcon' => '<span class="glyphicon glyphicon-check"></span>',
                     'movement' => true,
                     'showUrl' => '/ticket/completed/',
+                    'title' => 'Move to Completed',
                 ],
                 'MoveToKanban' => [
                     'class' => 'common\models\ticketDecoration\MoveToKanban',
                     'linkIcon' => '<span class="glyphicon glyphicon-object-align-top"></span>',
                     'movement' => true,
                     'showUrl' => '/ticket/board/',
+                    'title' => 'Move to Kanban',
                 ],
                 'ProtocolStatus' => [
                     'class' => 'common\models\ticketDecoration\ProtocolStatus',
                     'linkIcon' => '<span class="glyphicon glyphicon-pencil"></span>',
                     'displaySection' => 2,
                     'showUrl' => '/ticket/view/',
+                    'title' => 'Protocol Status',
                 ],
                 'ViewDetail' => [
                     'class' => 'common\models\ticketDecoration\ViewDetail',
                     'linkIcon' => '<span class="glyphicon glyphicon-eye-open"></span>',
                     'showUrl' => '/ticket/view/',
+                    'title' => 'View Detail',
                 ],
                 'Vote' => [
                     'class' => 'common\models\ticketDecoration\Vote',

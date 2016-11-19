@@ -20,7 +20,8 @@ class ProtocolStatus extends AbstractDecoration {
 	public function show($view = 'default')
 	{
 		$returnValue =
-			'<div data-toggle="tooltip" data-placement="bottom" title="' . \Yii::t('app', 'Protocol Status') . '">'
+			'<div data-toggle="tooltip" data-placement="bottom" title="' .
+			\Yii::t('app', $this->title) . '">'
 			. Html::a(
 				$this->linkIcon,
 				$this->showUrl . $this->owner->id, [
