@@ -23,7 +23,7 @@ class ProtocolStatus extends AbstractDecoration {
 			'<div data-toggle="tooltip" data-placement="bottom" title="' . \Yii::t('app', 'Protocol Status') . '">'
 			. Html::a(
 				$this->linkIcon,
-				'/ticket/view/' . $this->owner->id, [
+				$this->showUrl . $this->owner->id, [
 					'data-toggle' => 'modal',
 					'data-target' => '#global-modal-container',
 				]

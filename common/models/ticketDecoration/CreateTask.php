@@ -27,7 +27,7 @@ class CreateTask extends AbstractDecoration {
 	public function show($view = 'default') {
 		return '<a data-toggle="tooltip" data-placement="bottom"
 					title="' . \Yii::t('app', 'Create Task')
-					. '"href="/task/create/' . $this->owner->id . '">'
+					. '"href="' . $this->showUrl . $this->owner->id . '">'
 					. $this->linkIcon
 				.'</a>';
 	}

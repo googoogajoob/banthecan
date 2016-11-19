@@ -33,7 +33,7 @@ class ViewDetail extends AbstractDecoration
 			'<div data-toggle="tooltip" data-placement="bottom" title="' . \Yii::t('app', 'View Detail') . '">'
 			. Html::a(
 				$this->linkIcon,
-				'/ticket/view/' . $this->owner->id, [
+				$this->showUrl . $this->owner->id, [
 					'data-toggle' => 'modal',
 					'data-target' => '#global-modal-container',
 				]

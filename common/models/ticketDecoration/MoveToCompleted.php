@@ -27,7 +27,7 @@ class MoveToCompleted extends AbstractDecoration {
 	public function show($view = 'default') {
 		return '<a data-toggle="tooltip" data-placement="bottom"
 					title="' . \Yii::t('app', 'Move to Completed')
-					. '"href="/ticket/completed/' . $this->owner->id . '">'
+					. '"href="' . $this->showUrl . $this->owner->id . '">'
 					. $this->linkIcon
 				.'</a>';
 	}

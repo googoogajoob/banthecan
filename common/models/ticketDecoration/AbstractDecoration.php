@@ -14,9 +14,11 @@ use yii\base\Behavior;
 abstract class AbstractDecoration extends Behavior implements TicketDecorationInterface {
 
 	public $linkIcon = '?'; // Default Icon for the Abstract Class, others should override this
-    public $decorationKey = 'default';
+    public $dataKey = 'defaultDataKey';
     public $displaySection = null;
     public $movement = false;
+    public $sortOrder = 0;
+    public $showUrl = '';
 
 	/**
 	 * Show a view of the Behavior
@@ -35,9 +37,9 @@ abstract class AbstractDecoration extends Behavior implements TicketDecorationIn
         $ownerDecorationData = $this->owner->getDecorationData();
         $classNameKey = $this->get_my_classname();
         if (isset($ownerDecorationData[$classNameKey])
-            && isset($ownerDecorationData[$classNameKey][$this->decorationKey])) {
+            && isset($ownerDecorationData[$classNameKey][$this->dataKey])) {
 
-            return $ownerDecorationData[$classNameKey][$this->decorationKey];
+            return $ownerDecorationData[$classNameKey][$this->dataKey];
 
         } else {
 
@@ -54,7 +56,7 @@ abstract class AbstractDecoration extends Behavior implements TicketDecorationIn
     {
         $ownerDecorationData = $this->owner->getDecorationData();
         $classNameKey = $this->get_my_classname();
-        $ownerDecorationData[$classNameKey][$this->decorationKey] = $newData;
+        $ownerDecorationData[$classNameKey][$this->dataKey] = $newData;
         $this->owner->setDecorationData($ownerDecorationData);
 
         return $this;
