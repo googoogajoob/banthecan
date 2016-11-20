@@ -27,7 +27,7 @@ class Vote extends AbstractDecoration
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	public function show($view = 'default')
+	public function render()
 	{
         $currentUserId = \Yii::$app->user->identity->id;
         $decorationData = $this->getDecorationData();

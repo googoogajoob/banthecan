@@ -1,6 +1,6 @@
 <?php
 
-use common\models\ticketDecoration\TicketDecorationInterface;
+use common\models\ticketDecoration\TicketDecorationLink;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -13,14 +13,13 @@ echo Html::beginTag('div', ['class' => 'ticket-single-decorations hidden-xs']);
 
 foreach ($model->getBehaviors() as $ticketBehavior) {
 
-    if ($ticketBehavior instanceof TicketDecorationInterface) {
+    if ($ticketBehavior instanceof TicketDecorationLink) {
 
         if ($ticketBehavior->displaySection == $section) {
 
-            echo Html::tag('div', $ticketBehavior->show(), [
+            echo Html::tag('div', $ticketBehavior->render(), [
                 'class' => 'ticket-single-decorations-glyph']
             );
-
         }
     }
 }

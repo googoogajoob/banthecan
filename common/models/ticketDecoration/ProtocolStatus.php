@@ -17,13 +17,14 @@ class ProtocolStatus extends AbstractDecoration {
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	public function show($view = 'default')
+	public function render()
 	{
 		$returnValue =
-			'<div data-toggle="tooltip" data-placement="bottom" title="' . \Yii::t('app', 'Protocol Status') . '">'
+			'<div data-toggle="tooltip" data-placement="bottom" title="' .
+			\Yii::t('app', $this->title) . '">'
 			. Html::a(
 				$this->linkIcon,
-				'/ticket/view/' . $this->owner->id, [
+				$this->showUrl . $this->owner->id, [
 					'data-toggle' => 'modal',
 					'data-target' => '#global-modal-container',
 				]

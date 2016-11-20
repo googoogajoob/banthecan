@@ -63,14 +63,12 @@ namespace common\models\ticketDecoration;
  *
  * @author Andrew Potter <apc@andypotter.org>
  */
-interface TicketDecorationInterface {
+interface TicketDecorationLink {
 
 	/**
-	 * Show a view of the Behavior
-	 * The default is the Icon Click element
-	 * A Decoration can have multiple views
+	 * Renders a view of the Ticket Decoration using the configure view file
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	public function show($view = 'default');
+	public function render();
 }

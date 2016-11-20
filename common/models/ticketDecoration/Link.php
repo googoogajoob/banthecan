@@ -2,6 +2,8 @@
 
 namespace common\models\ticketDecoration;
 
+use yii;
+
 /**
  * Created by PhpStorm.
  * User: and
@@ -9,22 +11,24 @@ namespace common\models\ticketDecoration;
  * Time: 12:33 AM
  */
 
-class Generic extends AbstractDecoration {
+class Link extends AbstractDecoration {
 
+	public $linkIcon = 'L';
 
 	/*##################*/
 	/*### VIEW STUFF ###*/
 	/*##################*/
 
 	/**
-	 * Show a view of the Behavior
-	 * The default is the Icon Click element
-	 * A Decoration can have multiple views
+	 * Render the Link Ticket Decoration
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	public function show($view = 'default') {
-		return $this->linkIcon;
-	}
+	public function render() {
+		return Yii::$app->getView()->render($this->renderView, [
+                'decoration' => $this,
+            ]
+        );
+    }
 
 }
