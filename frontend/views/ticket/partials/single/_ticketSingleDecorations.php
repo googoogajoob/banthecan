@@ -17,7 +17,7 @@ foreach ($model->getBehaviors() as $ticketBehavior) {
 
         if ($ticketBehavior->displaySection == $section) {
 
-            echo Html::tag('div', $ticketBehavior->show(), [
+            echo Html::tag('div', $ticketBehavior->render(), [
                 'class' => 'ticket-single-decorations-glyph']
             );
 

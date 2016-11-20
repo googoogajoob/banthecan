@@ -24,7 +24,7 @@ class CreateResolution extends AbstractDecoration {
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	public function show($view = 'default') {
+	public function render() {
 		return '<a data-toggle="tooltip" data-placement="bottom" title="'. $this->title .'"
 				href="' . $this->showUrl . $this->owner->id . '">' . $this->linkIcon .'</a>';
 	}

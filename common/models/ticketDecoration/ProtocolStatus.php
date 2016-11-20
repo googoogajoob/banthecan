@@ -17,7 +17,7 @@ class ProtocolStatus extends AbstractDecoration {
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	public function show($view = 'default')
+	public function render()
 	{
 		$returnValue =
 			'<div data-toggle="tooltip" data-placement="bottom" title="' .

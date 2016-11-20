@@ -27,7 +27,7 @@ class ViewTags extends AbstractDecoration
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	public function show($view = 'default')
+	public function render()
 	{
 		/*if ($taglist = $this->owner->tagNames) {
 			return Html::tag('span',

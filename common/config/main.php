@@ -66,7 +66,7 @@ return [
                     'title' => 'Copy Ticket',
                 ],
                 'MoveToBacklog' => [
-                    'class' => 'common\models\ticketDecoration\MoveToBacklog',
+                    'class' => 'common\models\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-th"></span>',
                     'movement' => true,
                     'sortOrder' => 3,

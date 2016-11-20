@@ -19,16 +19,15 @@ abstract class AbstractDecoration extends Behavior implements TicketDecorationIn
     public $movement = false;
     public $sortOrder = 0;
     public $showUrl = '';
+    public $renderView = '@frontend/views/ticket/partials/decoration/link';
     public $title = ''; //Link Help title
 
 	/**
-	 * Show a view of the Behavior
-	 * The default is the Icon Click element
-	 * A Decoration can have multiple views
+	 * Renders the ticket decoration usinf the configured view file
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	abstract public function show($view = 'default');
+	abstract public function render();
 
     /**
      * Gets the decoration Data from the ticket and returns the portion for this Behaviors DecorationKey
