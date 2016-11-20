@@ -32,11 +32,25 @@ class TicketDecorationManager extends Object {
 	}
 
 	/**
-	 * @return array Keys, i.e. class names of available decorations
+	 * @return array Keys of configured decoration classes
 	 */
-	public function getAvailableTicketDecorations() {
+	public function getAvailableTicketDecorations()
+    {
 		return array_keys($this->_availableTicketDecorations);
 	}
+
+    public function getTicketDecorationTitle($decorationKey)
+    {
+        if (array_key_exists($decorationKey, $this->_availableTicketDecorations)) {
+            if (array_key_exists('title', $this->_availableTicketDecorations[$decorationKey])) {
+                $decorationTitle = $this->_availableTicketDecorations[$decorationKey]['title'];
+            } else {
+                $decorationTitle = 'Ticket Decoration';
+            }
+        }
+
+        return \Yii::t('app', $decorationTitle);
+    }
 
 	/**
 	 * Returns the configuration arrays for the current set of active ticket decorations

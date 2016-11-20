@@ -106,6 +106,7 @@ return [
                     'minusLinkIcon' => '<span class="glyphicon glyphicon-minus"></span>',
                     'dataKey' => 'backlogPriority',
                     'voteAttribute' => 'vote_priority',
+                    'title' => 'Vote',
                 ],
             ],
         ],

@@ -108,6 +108,7 @@ return [
     'Ticket Backlog Configuration' => 'Ticket-Backlog Konfiguration',
     'Ticket Column Configuration' => 'Ticket-Spalten Konfiguration',
     'Ticket Completed Configuration' => 'Ticket-Erledigt Konfiguration',
+    'Ticket Decoration' => 'Ticket Ergänzung',
     'Ticket Order' => 'Ticketfolge',
     'Title' => 'Titel',
     'To Date' => 'Datum bis',
