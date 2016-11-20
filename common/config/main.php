@@ -44,7 +44,7 @@ return [
             'class' => 'common\models\ticketDecoration\TicketDecorationManager',
             'availableTicketDecorations' => [
                 'CreateResolution' => [
-                    'class' => 'common\models\ticketDecoration\CreateResolution',
+                    'class' => 'common\models\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-list-alt"></span>',
                     'displaySection' => 2,
                     'sortOrder' => 5,
@@ -52,7 +52,7 @@ return [
                     'title' => 'Create Resolution',
                 ],
                 'CreateTask' => [
-                    'class' => 'common\models\ticketDecoration\CreateTask',
+                    'class' => 'common\models\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-wrench"></span>',
                     'displaySection' => 2,
                     'sortOrder' => 1,
@@ -60,7 +60,7 @@ return [
                     'title' => 'Create Task',
                 ],
                 'CopyTicket' => [
-                    'class' => 'common\models\ticketDecoration\CopyTicket',
+                    'class' => 'common\models\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-duplicate"></span>',
                     'showUrl' => '/ticket/copy/',
                     'title' => 'Copy Ticket',
@@ -74,14 +74,14 @@ return [
                     'title' => 'Move to Backlog',
                 ],
                 'MoveToCompleted' => [
-                    'class' => 'common\models\ticketDecoration\MoveToCompleted',
+                    'class' => 'common\models\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-check"></span>',
                     'movement' => true,
                     'showUrl' => '/ticket/completed/',
                     'title' => 'Move to Completed',
                 ],
                 'MoveToKanban' => [
-                    'class' => 'common\models\ticketDecoration\MoveToKanban',
+                    'class' => 'common\models\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-object-align-top"></span>',
                     'movement' => true,
                     'showUrl' => '/ticket/board/',
