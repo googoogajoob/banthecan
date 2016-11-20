@@ -39,8 +39,6 @@ class Ticket extends ActiveRecord
 	const DEMO_BOARD_TICKETS = 5;
 	const DEMO_COMPLETED_TICKETS = 50;
 
-	const TICKET_DECORATION_CLASS_ALIAS = 'ticketDecorationInterface';
-
 	/**
 	 * The status (column_id) of tickets in the backlog
 	 */

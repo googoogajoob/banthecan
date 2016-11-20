@@ -11,7 +11,7 @@ use yii\base\Behavior;
  * Time: 2:06 AM
  */
 
-abstract class AbstractDecoration extends Behavior implements TicketDecorationInterface {
+abstract class AbstractDecoration extends Behavior implements TicketDecorationLink {
 
 	public $linkIcon = '?'; // Default Icon for the Abstract Class, others should override this
     public $dataKey = 'defaultDataKey'; //Data storage in the ticket itself

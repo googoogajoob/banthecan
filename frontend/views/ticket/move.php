@@ -1,6 +1,6 @@
 <?php
 
-use common\models\ticketDecoration\TicketDecorationInterface;
+use common\models\ticketDecoration\TicketDecorationLink;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -20,7 +20,7 @@ use yii\helpers\Html;
 <?php
     foreach ($model->getBehaviors() as $ticketBehavior) {
 
-        if ($ticketBehavior instanceof TicketDecorationInterface) {
+        if ($ticketBehavior instanceof TicketDecorationLink) {
 
             if (!$ticketBehavior->displaySection && $ticketBehavior->movement) {
 

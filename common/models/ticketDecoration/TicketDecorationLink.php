@@ -63,7 +63,7 @@ namespace common\models\ticketDecoration;
  *
  * @author Andrew Potter <apc@andypotter.org>
  */
-interface TicketDecorationInterface {
+interface TicketDecorationLink {
 
 	/**
 	 * Renders a view of the Ticket Decoration using the configure view file

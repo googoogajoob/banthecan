@@ -1,6 +1,6 @@
 <?php
 
-use common\models\ticketDecoration\TicketDecorationInterface;
+use common\models\ticketDecoration\TicketDecorationLink;
 
 //Ticket Decoration Bar displays the Ticket decorations
 /* @var $this yii\web\View */
@@ -12,7 +12,7 @@ use common\models\ticketDecoration\TicketDecorationInterface;
 
     // Test if any decorations should be placed in this section
     foreach ($model->getBehaviors() as $ticketBehavior) {
-        if ($ticketBehavior instanceof TicketDecorationInterface) {
+        if ($ticketBehavior instanceof TicketDecorationLink) {
             if ($ticketBehavior->displaySection == $section) {
                 $sectionOccupied = true;
                 break;
