@@ -22,7 +22,7 @@ class BoardAsset extends AssetBundle
 	];
 	public $js = [
         'board/js/boardEffects.js',
-        'ticket/js/ticketTooltip.js',
+        'ticket/js/ticketClick.js',
         'board/js/ticketSorting.js',
     ];
     public $depends = [
