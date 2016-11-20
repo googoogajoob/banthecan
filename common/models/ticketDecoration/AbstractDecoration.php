@@ -23,7 +23,7 @@ abstract class AbstractDecoration extends Behavior implements TicketDecorationIn
     public $title = ''; //Link Help title
 
 	/**
-	 * Renders the ticket decoration usinf the configured view file
+	 * Renders the ticket decoration using the configured view file
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
