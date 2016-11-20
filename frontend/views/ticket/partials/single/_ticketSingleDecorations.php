@@ -20,7 +20,6 @@ foreach ($model->getBehaviors() as $ticketBehavior) {
             echo Html::tag('div', $ticketBehavior->render(), [
                 'class' => 'ticket-single-decorations-glyph']
             );
-
         }
     }
 }
