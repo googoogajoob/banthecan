@@ -88,7 +88,7 @@ return [
                     'title' => 'Move to Kanban',
                 ],
                 'ProtocolStatus' => [
-                    'class' => 'common\models\ticketDecoration\ProtocolStatus',
+                    'class' => 'common\models\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-pencil"></span>',
                     'displaySection' => 2,
                     'showUrl' => '/ticket/view/',
