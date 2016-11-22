@@ -1,6 +1,10 @@
 function ticketClick(ticketId)
 {
-    location.href = "/ticket/view/" + ticketId;
+    $('#global-modal-container').off('show.bs.modal');
+    $('#global-modal-container').modal({
+        keyboard: false
+    });
+    getGlobalModalHtml('/ticket/view/' + ticketId);
 }
 
 function preventBubbling(e) {
