@@ -1,6 +1,6 @@
 function ticketClick(ticketId)
 {
-        location.href = "/ticket/view/" + ticketId;
+    location.href = "/ticket/view/" + ticketId;
 }
 
 function preventBubbling(e) {

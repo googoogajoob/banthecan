@@ -94,12 +94,6 @@ return [
                     'showUrl' => '/ticket/view/',
                     'title' => 'Protocol Status',
                 ],
-                'ViewDetail' => [
-                    'class' => 'common\models\ticketDecoration\ViewDetail',
-                    'linkIcon' => '<span class="glyphicon glyphicon-eye-open"></span>',
-                    'showUrl' => '/ticket/view/',
-                    'title' => 'View Detail',
-                ],
                 'Vote' => [
                     'class' => 'common\models\ticketDecoration\Vote',
                     'plusLinkIcon' => '<span class="glyphicon glyphicon-plus"></span>',
