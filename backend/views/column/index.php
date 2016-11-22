@@ -41,7 +41,12 @@ return ['id' => 'row_' . $key, 'display-order' => $model->display_order];
                 'attribute' => 'ticket_column_configuration',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {
-        return implode(', ', $model->ticket_column_configuration);
+                    if (is_array($model->ticket_column_configuration)) {
+                        return implode(', ', $model->ticket_column_configuration);
+                    } else {
+                        return '';
+                    }
+
                 },
                 ],
 

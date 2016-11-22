@@ -353,8 +353,10 @@ class Ticket extends ActiveRecord
             $this->decoration_data = [];
         }
         $decorations = Yii::$app->ticketDecorationManager->getActiveTicketDecorations($this->column_id);
-        $this->_decorationCount = count($decorations);
-        $this->attachBehaviors($decorations);
+		if ($decorations) {
+			$this->_decorationCount = count($decorations);
+			$this->attachBehaviors($decorations);
+		}
     }
 
     /**
