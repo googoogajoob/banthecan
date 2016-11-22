@@ -61,10 +61,15 @@ class TicketDecorationManager extends Object {
     {
         if (!isset($this->_activeTicketDecorations[$column])) {
             $configuredDecorations = $this->getConfiguredDecorations($column);
-            foreach ($configuredDecorations as $decoration) {
-                if ($decoration != null && isset($this->_availableTicketDecorations[$decoration])) {
-                    $this->_activeTicketDecorations[$column][] = $this->_availableTicketDecorations[$decoration];
+
+            if (is_array($configuredDecorations)) {
+                foreach ($configuredDecorations as $decoration) {
+                    if ($decoration != null && isset($this->_availableTicketDecorations[$decoration])) {
+                        $this->_activeTicketDecorations[$column][] = $this->_availableTicketDecorations[$decoration];
+                    }
                 }
+            } else {
+                return null;
             }
         }
 
