@@ -10,5 +10,6 @@ echo Html::a(
         'data-toggle' => 'tooltip',
         'data-placement' => 'bottom',
         'title' => \Yii::t('app', $decoration->title),
+        'onclick' => 'preventBubbling(event);',
     ]
 );

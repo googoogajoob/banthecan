@@ -16,7 +16,7 @@ function getGlobalModalHtml(url) {
         },
 
         error: function(jqXHR, textStatus, errorThrown){
-            alert('Error loading Global Modal Container: ' + textStatus + ':' + errorThrown);
+            alert('Error loading Global Modal Container: ' + url + ':' + textStatus + ':' + errorThrown);
         }
 
     });

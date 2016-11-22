@@ -88,17 +88,11 @@ return [
                     'title' => 'Move to Kanban',
                 ],
                 'ProtocolStatus' => [
-                    'class' => 'common\models\ticketDecoration\ProtocolStatus',
+                    'class' => 'common\models\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-pencil"></span>',
                     'displaySection' => 2,
                     'showUrl' => '/ticket/view/',
                     'title' => 'Protocol Status',
-                ],
-                'ViewDetail' => [
-                    'class' => 'common\models\ticketDecoration\ViewDetail',
-                    'linkIcon' => '<span class="glyphicon glyphicon-eye-open"></span>',
-                    'showUrl' => '/ticket/view/',
-                    'title' => 'View Detail',
                 ],
                 'Vote' => [
                     'class' => 'common\models\ticketDecoration\Vote',
