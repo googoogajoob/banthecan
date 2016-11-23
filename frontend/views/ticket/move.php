@@ -15,27 +15,7 @@ use yii\helpers\Html;
 
 <p><?php echo $model->title; ?></p>
 
-<h4>Decoration Movement Options</h4>
-
-<?php
-    foreach ($model->getBehaviors() as $ticketBehavior) {
-
-        if ($ticketBehavior instanceof TicketDecorationLink) {
-
-            if (!$ticketBehavior->displaySection && $ticketBehavior->movement) {
-
-                echo Html::tag('div', $ticketBehavior->show(), [
-                'class' => 'ticket-single-decorations-glyph']
-                );
-
-            }
-        }
-    }
-?>
-
 <?php if ($model->getColumn()) : ?>
-
-<h4>Column Movement Options</h4>
 
 <?php
     $targetColumns = explode(',', $model->getColumn()->receiver);
@@ -45,11 +25,28 @@ use yii\helpers\Html;
 
         echo Html::beginForm('/ticket/update/' . $model->id, 'post', ['style' => 'float:left; margin-right: 4px;']);
         echo Html::hiddenInput('Ticket[column_id]', $columnReceiverId);
-        echo Html::submitButton($columnName);
+        echo Html::submitButton($columnName, [
+            'class' => 'btn btn-success btn-lg apc-modal-move-btn',
+        ]);
         echo Html::endForm();
     }
 ?>
 
 <?php endif; ?>
+
+<?php
+    foreach ($model->getBehaviors() as $ticketDecoration) {
+
+        if ($ticketDecoration instanceof TicketDecorationLink) {
+
+            echo Html::a(
+                $ticketDecoration->title,
+                $ticketDecoration->getLinkUrl(), [
+                'class' => 'btn btn-primary btn-lg apc-modal-move-btn apc-modal-move-btn-decoration',
+            ]);
+
+        }
+    }
+?>
 
 </div>

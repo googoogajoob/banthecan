@@ -71,4 +71,5 @@ interface TicketDecorationLink {
 	 * @return string html for showing the ticketDecoration
 	 */
 	public function render();
+	public function getLinkUrl();
 }

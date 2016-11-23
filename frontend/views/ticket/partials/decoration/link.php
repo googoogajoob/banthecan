@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 echo Html::a(
     $decoration->linkIcon,
-    $decoration->showUrl . $decoration->owner->id, [
+    $decoration->getLinkUrl(), [
         'data-toggle' => 'tooltip',
         'data-placement' => 'bottom',
         'title' => \Yii::t('app', $decoration->title),

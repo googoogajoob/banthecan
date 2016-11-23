@@ -18,6 +18,7 @@ echo Html::a('Move', '/ticket/move/' . $model->id, [
         'style' => 'width: 100%;',
         'data-toggle' => 'modal',
         'data-target' => '#global-modal-container',
+        'onclick' => 'preventBubbling(event);',
     ]);
 
 ?>

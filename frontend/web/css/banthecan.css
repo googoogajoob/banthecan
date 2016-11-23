@@ -104,3 +104,10 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 	background-color: #878787;
 	border-color: #707070;
 }
+
+.apc-modal-move-btn {
+	margin-bottom: 8px;
+}
+.apc-modal-move-btn-decoration {
+	margin-right: 9px;
+}
