@@ -13,7 +13,7 @@ Modal::begin([
     'options' => [
         'data-backdrop' => "false"
     ],
-    'header' => '<div id="modal-header-row" class="row"></div>',
+    'header' => '<img id="modal-ajax-loader" src="/images/ajax-loader-bar.gif" /><div id="modal-header-row" class="row"></div>',
     //'footer' => '<em>Global Modal Container - Footer</em>'
 ]);
 Modal::end();

@@ -1,10 +1,13 @@
 function getGlobalModalHtml(url) {
+    clearModalContents();
+    $('#modal-ajax-loader').show();
     $.ajax({
         url: url,
         type: "post",
 
         success: function(returnData) {
 
+            $('#modal-ajax-loader').hide();
             $('#global-modal-container .modal-body').html(returnData);
             headerHtml = $('#global-modal-container .modal-body .apc-modal-header')[0].outerHTML;
             $('#global-modal-container .modal-body .apc-modal-header').remove();
@@ -16,10 +19,30 @@ function getGlobalModalHtml(url) {
         },
 
         error: function(jqXHR, textStatus, errorThrown){
+            $('#modal-ajax-loader').hide();
             alert('Error loading Global Modal Container: ' + url + ':' + textStatus + ':' + errorThrown);
         }
 
     });
+}
+
+function clearModalContents()
+{
+    $('#global-modal-container .modal-body').empty();
+    $('#modal-header-row .apc-modal-header').remove();
+}
+
+function turnOnModalEvents() {
+    $('#global-modal-container').on('show.bs.modal', function (event) {
+        clearModalContents();
+        sourceUrl = $(event.relatedTarget).attr('href');
+        getGlobalModalHtml(sourceUrl);
+        $('.tooltip').hide();
+    });
+}
+
+function turnOffModalEvents() {
+    $('#global-modal-container').off('show.bs.modal');
 }
 
 function getBootstrapEnvironment() {
@@ -74,11 +97,7 @@ function getCookie(cname) {
 
 $(document).ready(function() {
 
-    $('#global-modal-container').on('show.bs.modal', function (event) {
-        sourceUrl = $(event.relatedTarget).attr('href');
-        getGlobalModalHtml(sourceUrl);
-        $('.tooltip').hide();
-    });
+    turnOnModalEvents();
 
     buttonHtml = $('#modal-close-button')[0].outerHTML;
     $('#modal-close-button').remove();
