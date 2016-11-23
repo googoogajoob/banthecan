@@ -29,6 +29,8 @@ abstract class AbstractDecoration extends Behavior implements TicketDecorationLi
 	 */
 	abstract public function render();
 
+    abstract public function getLinkUrl();
+
     /**
      * Gets the decoration Data from the ticket and returns the portion for this Behaviors DecorationKey
      */

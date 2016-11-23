@@ -21,6 +21,11 @@ class Vote extends AbstractDecoration
     public $minusLinkIcon = '-';
     public $voteAttribute = 'vote_priority';
 
+    public function getLinkUrl()
+    {
+        return null; // not yet implemented
+    }
+
 	/**
 	 * Show a view of the Behavior
 	 * The default is the Icon Click element

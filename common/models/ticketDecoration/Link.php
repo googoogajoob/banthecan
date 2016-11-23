@@ -24,11 +24,16 @@ class Link extends AbstractDecoration {
 	 *
 	 * @return string html for showing the ticketDecoration
 	 */
-	public function render() {
+	public function render()
+	{
 		return Yii::$app->getView()->render($this->renderView, [
                 'decoration' => $this,
             ]
         );
     }
 
+	public function getLinkUrl()
+	{
+		return $this->showUrl . $this->owner->id;
+	}
 }
