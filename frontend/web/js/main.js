@@ -65,9 +65,7 @@ function getBootstrapEnvironment() {
 function initializeTooltip() {
     environment = getBootstrapEnvironment();
 
-    if (environment != 'lg') {
-        $('[data-toggle="tooltip"]').tooltip('disable');
-    } else {
+    if (environment == 'lg') {
         $('[data-toggle="tooltip"]').tooltip();
     }
 
