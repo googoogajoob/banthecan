@@ -23,7 +23,7 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
         echo Html::beginTag('div', [
             'class' => 'ticket-widget-float',
             'id' => TicketController::TICKET_HTML_PREFIX . $model->id,
-            'onclick' => 'ticketClick(' . $model->id . ');',
+            'onclick' => 'ticketClick(' . $model->id . '); return false;',
         ]);
     }
 ?>
