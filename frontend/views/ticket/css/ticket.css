@@ -49,12 +49,9 @@
 	color: #202020;
 }
 
-/*.ticket-single-decorations {
-	/ *position: absolute;
-	bottom: 2px;* /
-	background-color: #a0a0a0;
-	padding: 2px 4px 1px 2px;
-}*/
+.ticket-single-decorations-glyph span:hover {
+	color: #f0ad4e;
+}
 
 .board-column .ticket-single-tags {
     bottom: 35px;
