@@ -35,17 +35,12 @@ use yii\helpers\Html;
 <?php endif; ?>
 
 <?php
-    foreach ($model->getBehaviors() as $ticketDecoration) {
-
-        if ($ticketDecoration instanceof TicketDecorationLink) {
-
-            echo Html::a(
-                $ticketDecoration->title,
-                $ticketDecoration->getLinkUrl(), [
-                'class' => 'btn btn-primary btn-lg apc-modal-move-btn apc-modal-move-btn-decoration',
-            ]);
-
-        }
+    foreach ($model->getDecorations() as $ticketDecoration) {
+        echo Html::a(
+            $ticketDecoration->title,
+            $ticketDecoration->getLinkUrl(), [
+            'class' => 'btn btn-primary btn-lg apc-modal-move-btn apc-modal-move-btn-decoration',
+        ]);
     }
 ?>
 
