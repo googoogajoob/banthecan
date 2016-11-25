@@ -1,23 +1,11 @@
-function ticketClick(ticketId)
-{
-    turnOffModalEvents();
-    $('#global-modal-container').modal({
-        keyboard: false
-    });
-    getGlobalModalHtml('/ticket/view/' + ticketId);
-    turnOnModalEvents();
-
-    return false;
-}
-
-function ticketMove(ticketId)
+function ticketMove(ticketMoveUrl)
 {
     preventBubbling(event);
     turnOffModalEvents();
     $('#global-modal-container').modal({
         keyboard: false
     });
-    getGlobalModalHtml('/ticket/move/' + ticketId);
+    getGlobalModalHtml(ticketMoveUrl);
     turnOnModalEvents();
 
     return false;

@@ -20,10 +20,11 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
     // Container DIV is different depending on which board one is on
     // KanBan is sortable (created in the parent view), Backlog/Completed float
     if (!$isKanBan) {
+        $moveParameter = '/ticket/view/' . $model->id;
         echo Html::beginTag('div', [
             'class' => 'ticket-widget-float',
             'id' => TicketController::TICKET_HTML_PREFIX . $model->id,
-            'onclick' => 'return ticketClick(' . $model->id . ');',
+            'onclick' => "return ticketMove('" . $moveParameter . "');",
         ]);
     }
 ?>
