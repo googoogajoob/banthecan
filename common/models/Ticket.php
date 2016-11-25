@@ -389,6 +389,17 @@ class Ticket extends ActiveRecord
             }
         }
 
+        usort($decorations, function($a, $b)
+        {
+            if ($a->sortOrder < $b->sortOrder) {
+                return -1;
+            } elseif ($a->sortOrder > $b->sortOrder) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
         return $decorations;
     }
 
