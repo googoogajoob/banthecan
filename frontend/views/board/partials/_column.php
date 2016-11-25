@@ -36,6 +36,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
         // Get the HTML of all ticket content for this column concatenated into one string
         $columnItems = [];
         foreach($column->getTickets() as $ticket) {
+            $moveParameter = '/ticket/view/' . $ticket->id;
             $content = $this->render('@frontend/views/ticket/partials/single/_ticketSingle',[
                         'model' => $ticket,
             ]);
@@ -43,7 +44,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
                         'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,
                         'tag' => 'div',
                         'class' => 'ticket-widget',
-                        'onclick' => 'return ticketClick(' . $ticket->id . ');',
+                        'onclick' => "return ticketMove('" . $moveParameter . "');",
             ];
             $columnItems[] = [
                         'content' => $content,
