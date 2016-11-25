@@ -6,16 +6,21 @@ function ticketClick(ticketId)
     });
     getGlobalModalHtml('/ticket/view/' + ticketId);
     turnOnModalEvents();
+
+    return false;
 }
 
 function ticketMove(ticketId)
 {
+    preventBubbling(event);
     turnOffModalEvents();
     $('#global-modal-container').modal({
         keyboard: false
     });
     getGlobalModalHtml('/ticket/move/' + ticketId);
     turnOnModalEvents();
+
+    return false;
 }
 
 function preventBubbling(e) {

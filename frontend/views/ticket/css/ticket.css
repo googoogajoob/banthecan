@@ -21,12 +21,16 @@
 	height: 60px;
 	/*background-color: #eeeeee;*/
     overflow: hidden;
-    font-weight: bold
+    font-weight: bold;
+	-ms-hyphens: auto;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
 }
 
 .ticket-widget-section-two {
 	height: 50px;
-	/*background-color: #cccccc;*/
+    /*background-color: #cccccc;*/
 }
 
 .ticket-widget-section-three {

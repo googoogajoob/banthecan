@@ -9,6 +9,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\blameTrait;
 use yii\db\ActiveRecord;
+use common\models\ticketDecoration\TicketDecorationLink;
 
 /**
  * This is the model class for table "ticket".
@@ -377,6 +378,29 @@ class Ticket extends ActiveRecord
     public function hasDecorations()
     {
         return (bool) $this->_decorationCount > 0;
+    }
+
+	public function getDecorations()
+    {
+        $decorations = [];
+        foreach ($this->getBehaviors() as $behavior) {
+            if ($behavior instanceof TicketDecorationLink) {
+                $decorations[] = $behavior;
+            }
+        }
+
+        usort($decorations, function($a, $b)
+        {
+            if ($a->sortOrder < $b->sortOrder) {
+                return -1;
+            } elseif ($a->sortOrder > $b->sortOrder) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
+        return $decorations;
     }
 
     public function setDecorationData($newDecorationData) {

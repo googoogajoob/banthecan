@@ -11,12 +11,10 @@ use common\models\ticketDecoration\TicketDecorationLink;
     $sectionOccupied = false;
 
     // Test if any decorations should be placed in this section
-    foreach ($model->getBehaviors() as $ticketBehavior) {
-        if ($ticketBehavior instanceof TicketDecorationLink) {
-            if ($ticketBehavior->displaySection == $section) {
-                $sectionOccupied = true;
-                break;
-            }
+    foreach ($model->getDecorations() as $ticketDecoration) {
+        if ($ticketDecoration->displaySection == $section) {
+            $sectionOccupied = true;
+            break;
         }
     }
 
