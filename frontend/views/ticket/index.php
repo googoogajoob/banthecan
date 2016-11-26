@@ -53,19 +53,13 @@ $this->title = \Yii::t('app', 'Tickets');
             ],
             [
                 'format' => 'raw',
-                'label' => \Yii::t('app', 'Created By'),
+                'label' => \Yii::t('app', 'Created By') . ' / ' . \Yii::t('app', 'Updated By'),
                 'content' => function ($model, $key, $index, $column) {
-                    return $this->render('@frontend/views/user/partials/_blame', [
+                    return
+                        $this->render('@frontend/views/user/partials/_blame', [
                             'model' => $model,
                         ]
-                    );
-                },
-            ],
-            [
-                'format' => 'raw',
-                'label' => \Yii::t('app', 'Updated By'),
-                'content' => function ($model, $key, $index, $column) {
-                    return $this->render('@frontend/views/user/partials/_blame', [
+                    ) . $this->render('@frontend/views/user/partials/_blame', [
                             'model' => $model,
                             'useUpdated' => true,
                         ]
