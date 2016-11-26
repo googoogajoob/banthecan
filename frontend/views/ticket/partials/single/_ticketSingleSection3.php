@@ -17,9 +17,7 @@ $moveParameter = '/ticket/move/' . $model->id;
 echo Html::a('Move', '/#', [
     'class' => 'btn apc-btn-move hidden-sm hidden-md hidden-lg',
     'style' => 'width: 100%;',
-    //'data-toggle' => 'modal',
-    //'data-target' => '#global-modal-container',
-    'onclick' => 'return ticketMove(' . $moveParameter . ');',
+    'onclick' => "return ticketMove('" . $moveParameter . "');",
 ]);
 
 ?>
