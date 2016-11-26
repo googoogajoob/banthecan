@@ -60,7 +60,7 @@ use common\models\Task;
             'class' => 'small ' . ($textBelow ? 'text-right': 'pull-right blame-text-right-margin')
         ];
         $wrapperOptions = [
-            'class' => 'pull-right blame-right',
+            'class' => 'pull-right blame-right blame-wrapper',
         ];
 
     } else {
@@ -72,7 +72,7 @@ use common\models\Task;
             'class' => 'small ' . ($textBelow ? 'text-left': 'pull-left blame-text-left-margin')
         ];
         $wrapperOptions = [
-            'class' => 'pull-left blame-left',
+            'class' => 'pull-left blame-left blame-wrapper',
         ];
     }
 
