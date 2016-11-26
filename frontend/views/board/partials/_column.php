@@ -76,6 +76,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
             'clientOptions' => [
                 'cursor' => 'move',
                 'connectWith' => $connectedColumns,
+                'distance' => 10,
             ],
             'clientEvents' => [
                 'create' => 'function (event, ui) {
