@@ -99,6 +99,14 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
     margin-left: 5px;
 }
 
+.blame-text-right-margin {
+	margin-right: 4px;
+}
+
+.blame-text-left-margin {
+	margin-left: 4px;
+}
+
 .apc-btn-move {
 	color: #101010;
 	background-color: #878787;
