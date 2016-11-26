@@ -51,22 +51,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'format' => 'raw',
-                'label' => \Yii::t('app', 'Created By'),
+                'label' => \Yii::t('app', 'Created By') . ' / ' . \Yii::t('app', 'Updated By'),
                 'content' => function ($model, $key, $index, $column) {
-                    return $this->render('@frontend/views/user/partials/_blame', [
+                    return
+                        $this->render('@frontend/views/user/partials/_blame', [
                             'model' => $model->getTicket()->one(),
-                        ]
-                    );
-                },
-            ],
-            [
-                'format' => 'raw',
-                'label' => \Yii::t('app', 'Updated By'),
-                'content' => function ($model, $key, $index, $column) {
-                    return $this->render('@frontend/views/user/partials/_blame', [
+                        ])
+                        . $this->render('@frontend/views/user/partials/_blame', [
                             'model' => $model->getTicket()->one(),
                             'useUpdated' => true                        ]
-                    );
+                        );
                 },
             ],
             ['class' => 'yii\grid\ActionColumn'],

@@ -57,7 +57,7 @@ use common\models\Task;
             'class' => 'pull-right',
         ];
         $textOptions = [
-            'class' => 'text-right'
+            'class' => 'small ' . ($textBelow ? 'text-right': 'pull-right blame-text-right-margin')
         ];
         $wrapperOptions = [
             'class' => 'pull-right blame-right',
@@ -69,7 +69,7 @@ use common\models\Task;
             'class' => 'pull-left',
         ];
         $textOptions = [
-            'class' => 'text-left'
+            'class' => 'small ' . ($textBelow ? 'text-left': 'pull-left blame-text-left-margin')
         ];
         $wrapperOptions = [
             'class' => 'pull-left blame-left',
@@ -86,31 +86,35 @@ use common\models\Task;
 
     echo Html::beginTag('div', $wrapperOptions);
 
-    if ($avatar && $showAvatar) {
-        echo Html::beginTag('div', $avatarOptions);
-        echo Html::img($avatar, $imageOptions);
-        echo Html::endTag('div');
-    }
+        if ($avatar && $showAvatar) {
+            echo Html::beginTag('div', $avatarOptions);
+            echo Html::img($avatar, $imageOptions);
+            echo Html::endTag('div');
+        }
 
-    if ($textBelow) {
-        echo Html::tag('div', '', ['class' => 'clearfix']);
-    }
+        if ($textBelow) {
+            echo Html::tag('div', '', ['class' => 'clearfix']);
+        }
 
-    if ($showName && $userName) {
-        echo Html::beginTag('small', $textOptions);
-        echo $userName;
-        echo Html::endTag('small');
-    }
+        if ($showName || $showDate) {
+            echo Html::beginTag('ul', ['class' => 'list-unstyled']);
+        }
 
-    if ($showName && $showDate) {
-        echo Html::tag('br');
-    }
+            if ($showName && $userName) {
+                echo Html::beginTag('li', $textOptions);
+                echo $userName;
+                echo Html::endTag('li');
+            }
 
-    if ($showDate && $timestamp) {
-        echo Html::beginTag('small', $textOptions);
-        echo Yii::$app->formatter->asDate($timestamp, $dateFormat);
-        echo Html::endTag('small');
-    }
+            if ($showDate && $timestamp) {
+                echo Html::beginTag('li', $textOptions);
+                echo Yii::$app->formatter->asDate($timestamp, $dateFormat);
+                echo Html::endTag('li');
+            }
+
+        if ($showName || $showDate) {
+            echo Html::endTag('ul');
+        }
 
     echo Html::endTag('div');
 ?>

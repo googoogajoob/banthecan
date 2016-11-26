@@ -80,13 +80,8 @@ $deleteButton = Html::a(\Yii::t('app', 'Delete'),
                 'visible' => isset($model->tagNames) && $model->tagNames,
             ],
             [
-                'label' => \Yii::t('app', 'Created'),
-                'value' => $createdBy,
-                'format'=> 'raw'
-            ],
-            [
-                'label' => \Yii::t('app', 'Updated'),
-                'value' => $updatedBy,
+                'label' => \Yii::t('app', 'Created') . '/' . \Yii::t('app', 'Updated'),
+                'value' => $createdBy . $updatedBy,
                 'format'=> 'raw'
             ],
         ],
