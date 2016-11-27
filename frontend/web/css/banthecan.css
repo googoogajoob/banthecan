@@ -111,6 +111,10 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
     margin-bottom: 4px;
 }
 
+.blame-wrapper ul {
+	margin-bottom: 0px;
+}
+
 .apc-btn-move {
 	color: #101010;
 	background-color: #878787;
