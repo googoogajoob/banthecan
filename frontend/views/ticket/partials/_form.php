@@ -48,10 +48,10 @@ $buttonLabel = $model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', '
     <?php
     echo $form->field($model, 'title')->textarea(['rows' => 1]);
 
-    echo $form->field($model, 'description')->textarea(['rows' => 2]);
+    echo $form->field($model, 'description')->textarea(['rows' => 5]);
 
     if ($showAllFields) {
-        echo $form->field($model, 'protocol')->textarea(['rows' => 2]);
+        echo $form->field($model, 'protocol')->textarea(['rows' => 5]);
     }
 
     echo $form->field($model, 'tagNames')->widget(SelectizeTextInput::className(), [
