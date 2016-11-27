@@ -41,8 +41,6 @@ class TicketController extends Controller {
      */
     public function actionReorder()
     {
-        session_write_close(); // !!! Important, otherwise there is blocking among server sessions
-
         $changedColumnTicketId = -1; // Starting value indicates no ticket has changed columns
         $request = Yii::$app->request;
         if ($request->isAjax) {
