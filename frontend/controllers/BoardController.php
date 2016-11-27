@@ -217,7 +217,6 @@ class BoardController extends \yii\web\Controller {
 
     public function actionPolling()
     {
-        session_write_close(); // !!! Important, otherwise there is blocking among server sessions
         $request = Yii::$app->request;
         if ($request->isAjax) {
 
