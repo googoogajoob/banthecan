@@ -13,7 +13,7 @@ use yii\web\View;
 class BoardController extends \yii\web\Controller {
 
     const DEFAULT_PAGE_SIZE = 24;
-    const LONG_POLLING_TIMEOUT = 300000; // Milliseconds, used directly in JS,
+    const LONG_POLLING_TIMEOUT = 20000; // Milliseconds, used directly in JS,
     const LONG_POLLING_SLEEP = 1; // Seconds, server sleep interval during long polling
     private $currentBoard = null;
 
@@ -225,7 +225,7 @@ class BoardController extends \yii\web\Controller {
             $sendUpdate = false;
             $counter = 0;
             //compute counter limit to be the same the the javascript timeout
-            $counterLimit = self::LONG_POLLING_TIMEOUT / 1000 /self::LONG_POLLING_SLEEP;
+            $counterLimit = self::LONG_POLLING_TIMEOUT / 1000 / self::LONG_POLLING_SLEEP;
 
             while (!$sendUpdate && ($counter < $counterLimit)) {
                 sleep(self::LONG_POLLING_SLEEP);
