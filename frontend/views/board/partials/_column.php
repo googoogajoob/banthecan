@@ -22,29 +22,29 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
 
+    <?php
+    $collapsibleId = 'collapse-' . $column->id;
+    $expanded = true;
+    if (isset($_COOKIE[$collapsibleId])) {
+        $expanded = $_COOKIE[$collapsibleId] == '1';
+    }
+    if ($expanded) {
+        $expandedText = 'true';
+        $classOptions = 'panel-collapse collapse in';
+    } else {
+        $expandedText = 'false';
+        $classOptions = 'panel-collapse collapse';
+    }
+    ?>
+
     <button id="button-<?php echo $column->id; ?>"
             type="button"
-            class="btn btn-default btn-primary btn-block apc-margin apc-col-btn"
+            class="btn btn-default btn-primary btn-block apc-margin apc-col-btn<?php echo $expanded ? '' : ' collapsed' ?>"
             data-toggle="collapse"
             data-target="#collapse-<?php echo $column->id; ?>"
             apc-title="<?php echo $column->title; ?>">
         <?php echo $column->title; ?>
     </button>
-
-    <?php
-        $collapsibleId = 'collapse-' . $column->id;
-        $expanded = false;
-        if (isset($_COOKIE[$collapsibleId])) {
-            $expanded = $_COOKIE[$collapsibleId] == '1';
-        }
-        if ($expanded) {
-            $expandedText = 'true';
-            $classOptions = 'panel-collapse collapse in';
-        } else {
-            $expandedText = 'false';
-            $classOptions = 'panel-collapse collapse';
-        }
-    ?>
 
     <div id="<?php echo $collapsibleId; ?>" class="<?php echo $classOptions; ?>"  aria-expanded="<?php echo $expandedText?>">
         <?php
