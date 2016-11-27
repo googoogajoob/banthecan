@@ -31,7 +31,22 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
         <?php echo $column->title; ?>
     </button>
 
-    <div id="collapse-<?php echo $column->id; ?>" class="panel-collapse collapse in"  aria-expanded="true">
+    <?php
+        $collapsibleId = 'collapse-' . $column->id;
+        $expanded = false;
+        if (isset($_COOKIE[$collapsibleId])) {
+            $expanded = $_COOKIE[$collapsibleId] == '1';
+        }
+        if ($expanded) {
+            $expandedText = 'true';
+            $classOptions = 'panel-collapse collapse in';
+        } else {
+            $expandedText = 'false';
+            $classOptions = 'panel-collapse collapse';
+        }
+    ?>
+
+    <div id="<?php echo $collapsibleId; ?>" class="<?php echo $classOptions; ?>"  aria-expanded="<?php echo $expandedText?>">
         <?php
         // Get the HTML of all ticket content for this column concatenated into one string
         $columnItems = [];
