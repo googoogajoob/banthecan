@@ -217,6 +217,7 @@ class BoardController extends \yii\web\Controller {
 
     public function actionPolling()
     {
+        Yii::$app->session->close();
         $request = Yii::$app->request;
         if ($request->isAjax) {
 
