@@ -8,6 +8,8 @@ $(document).ready(function () {
         this.form.submit();
     });
 
+    initializeColumnCollapse();
+
     checkForKanbanUpdate();
 });
 
@@ -44,4 +46,19 @@ function checkForKanbanUpdate()
             checkForKanbanUpdate();
         });
     }
+}
+
+function initializeColumnCollapse()
+{
+    $('.apc-col-btn').siblings('.panel-collapse').on('shown.bs.collapse', function() {
+        columnNumber = this.id;
+        //console.log('Column shown ' + columnNumber);
+        setCookie(columnNumber, 1, 365);
+    });
+
+    $('.apc-col-btn').siblings('.panel-collapse').on('hidden.bs.collapse', function() {
+        columnNumber = this.id;
+        //console.log('Column hidden ' + columnNumber);
+        setCookie(columnNumber, 0, 365);
+    });
 }

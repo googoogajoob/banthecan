@@ -24,10 +24,10 @@ function columnTicketOrder(event, ui, rthis) {
             if (!$.isNumeric(returnData.ticketId)) {
                 $('ticketwidget_' + returnData.ticketId).html(returnData.ticketHtml);
                 //alert("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
-                console.log("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
+                //console.log("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
             } else {
                 //alert("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
-                console.log("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
+                //console.log("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
             }
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -46,7 +46,7 @@ function hideColumnReceiver(event, ui, rthis) {
 }
 
 function columnTicketCount(event, ui, cthis) {
-    console.log('Ticket Counter');
+    //console.log('Ticket Counter');
     columnReferenceId = $(cthis).attr('column-reference-id');
     ticketCount = $(cthis).children().length;
     buttonId = '#button-' + columnReferenceId;
