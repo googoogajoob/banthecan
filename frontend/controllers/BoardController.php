@@ -235,19 +235,21 @@ class BoardController extends \yii\web\Controller {
 
             if ($sendUpdate) {
 
-                //$debugHtml = '<div class="alert alert-info"> Success: ' . $boardTimestamp . ' (' . $counter .')</div>';
-
                 $this->currentBoard = Board::getActiveBoard();
                 $successHtml = $this->getColumnHtml();
 
                 Yii::$app->response->format = 'json';
 
                 return [
-                    //'html' => $debugHtml . $successHtml,
                     'html' => $successHtml,
                     'boardTimestamp' => $boardTimestamp,
                     'newTimestamp' => time(),
-                    'count' => $counter
+                    'count' => $counter,
+                    'debugData' => [
+                        'boardTimestamp' => $boardTimestamp,
+                        'counterLimit' => $counterLimit,
+                        'counter' => $counter,
+                    ],
                 ];
             }
         }
