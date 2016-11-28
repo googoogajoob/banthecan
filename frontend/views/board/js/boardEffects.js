@@ -1,4 +1,8 @@
+var pollingRequests;
+
 $(document).ready(function () {
+
+    pollingRequests = 0;
 
     $('#backlog-per-page').change(function() {
         this.form.submit();
@@ -18,6 +22,7 @@ function checkForKanbanUpdate()
     boardTimestamp = parseInt($('#boardTimestamp').val(), 10);
 
     if (boardTimestamp > 0) {
+        pollingRequests++;
         $.ajax({
             url: "/board/polling",
             type: "post",
@@ -26,6 +31,7 @@ function checkForKanbanUpdate()
                 'boardTimestamp': boardTimestamp,
             },
         }).done(function (returnData) {
+            pollingRequests--;
             newTimestamp = parseInt(returnData.newTimestamp);
             returnBoardTimestamp = parseInt(returnData.boardTimestamp, 10);
 
@@ -36,16 +42,43 @@ function checkForKanbanUpdate()
                 $('#kanban-row').html(returnData.html);
                 $('#boardTimestamp').val(returnData.newTimestamp);
                 initializeBoard();
-                //console.log("Long Polling: Change");
+                console.log("Long Polling: Change");
+                pollingDebug(returnData.debugData)
             } else {
-                console.log("Long Polling: Timeout");
+                console.log("Long Polling: Bad Data");
+                pollingDebug(returnData.debugData)
             }
             checkForKanbanUpdate();
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log("Long Polling: Error");
+            pollingRequests--;
+            var time = new Date();
+            formattedTime =
+                ("0" + time.getHours()).slice(-2)   + ":" +
+                ("0" + time.getMinutes()).slice(-2) + ":" +
+                ("0" + time.getSeconds()).slice(-2);
+            console.log("Long Polling: Fail " + formattedTime);
+            console.log('- polling requests: ' + pollingRequests);
             checkForKanbanUpdate();
         });
     }
+}
+
+function pollingDebug(debugData)
+{
+    console.log('- boardTimestamp  : ' + formatUnixTimestamp(debugData.boardTimestamp));
+    console.log('- counterLimit    : ' + debugData.counterLimit);
+    console.log('- counter         : ' + debugData.counter);
+    console.log('- polling requests: ' + pollingRequests);
+}
+
+function formatUnixTimestamp(unixTimestamp)
+{
+    var date = new Date(unixTimestamp*1000);
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+
+    return formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 }
 
 function initializeColumnCollapse()
