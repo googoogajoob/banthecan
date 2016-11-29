@@ -23,12 +23,14 @@ function checkForKanbanUpdate()
 
     if (boardTimestamp > 0) {
         pollingRequests++;
+        ajaxCookie = getColumnCookies();
         $.ajax({
             url: "/board/polling",
             type: "post",
             timeout: longPollingTimeout,
             data: {
                 'boardTimestamp': boardTimestamp,
+                'ajaxCookie': ajaxCookie,
             },
         }).done(function (returnData) {
             pollingRequests--;
@@ -63,6 +65,27 @@ function checkForKanbanUpdate()
     }
 }
 
+function getColumnCookies()
+{
+    var columnCookies = [];
+
+    $('.panel-collapse').each( function(index, element){
+        columnId = $(this).attr('id');
+        //console.log( columnId + ':' + getCookie(columnId));
+        columnCookies['"' + columnId + '"'] = getCookie(columnId);
+    });
+
+    /*columnCookies =
+        '{"collapse-379":"0",' +
+        '"collapse-380":"1",' +
+        '"collapse-381":"1",' +
+        '"collapse-382":"1",' +
+        '"collapse-383":"1"}'
+    ;*/
+
+    return columnCookies;
+}
+
 function pollingDebug(debugData)
 {
     console.log('- boardTimestamp  : ' + formatUnixTimestamp(debugData.boardTimestamp));
@@ -85,13 +108,13 @@ function initializeColumnCollapse()
 {
     $('.apc-col-btn').siblings('.panel-collapse').on('shown.bs.collapse', function() {
         columnNumber = this.id;
-        //console.log('Column shown ' + columnNumber);
+        console.log('Column shown ' + columnNumber);
         setCookie(columnNumber, 1, 365);
     });
 
     $('.apc-col-btn').siblings('.panel-collapse').on('hidden.bs.collapse', function() {
         columnNumber = this.id;
-        //console.log('Column hidden ' + columnNumber);
+        console.log('Column hidden ' + columnNumber);
         setCookie(columnNumber, 0, 365);
     });
 }

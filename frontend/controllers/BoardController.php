@@ -102,11 +102,15 @@ class BoardController extends \yii\web\Controller {
         return true;
     }
 
-    protected function getColumnHtml()
+    protected function getColumnHtml($ajaxCookie = null)
     {
         $columnHtml = '';
         foreach($this->currentBoard->getColumns() as $column) {
-            $columnHtml .= $this->renderPartial('@frontend/views/board/partials/_column', ['column' => $column]);
+            $columnHtml .= $this->renderPartial('@frontend/views/board/partials/_column', [
+                    'column' => $column,
+                    'ajaxCookie' => $ajaxCookie,
+                ]
+            );
         }
 
         return $columnHtml;
@@ -234,9 +238,10 @@ class BoardController extends \yii\web\Controller {
             }
 
             if ($sendUpdate) {
-
                 $this->currentBoard = Board::getActiveBoard();
-                $successHtml = $this->getColumnHtml();
+                $junk = $request->post('ajaxCookie');
+                $ajaxCookie = json_decode($junk, true);
+                $successHtml = $this->getColumnHtml($ajaxCookie);
 
                 Yii::$app->response->format = 'json';
 

@@ -5,6 +5,7 @@ use frontend\controllers\TicketController;
 
 /* @var $this yii\web\View */
 /* @var $column common\models\Column */
+/* @var $ajaxCookie array /*
 
 /**
  * Erkenntnisblitz: I was having difficulty using the Bootstrap grid features to arrange the columns
@@ -23,18 +24,20 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
 
     <?php
-    $collapsibleId = 'collapse-' . $column->id;
-    $expanded = true;
-    if (isset($_COOKIE[$collapsibleId])) {
-        $expanded = $_COOKIE[$collapsibleId] == '1';
-    }
-    if ($expanded) {
-        $expandedText = 'true';
-        $classOptions = 'panel-collapse collapse in';
-    } else {
-        $expandedText = 'false';
-        $classOptions = 'panel-collapse collapse';
-    }
+        $collapsibleId = 'collapse-' . $column->id;
+        $expanded = true;
+        if (isset($ajaxCookie[$collapsibleId])) {
+            $expanded = $ajaxCookie[$collapsibleId] == '1';
+        } elseif (isset($_COOKIE[$collapsibleId])) {
+            $expanded = $_COOKIE[$collapsibleId] == '1';
+        }
+        if ($expanded) {
+            $expandedText = 'true';
+            $classOptions = 'panel-collapse collapse in';
+        } else {
+            $expandedText = 'false';
+            $classOptions = 'panel-collapse collapse';
+        }
     ?>
 
     <button id="button-<?php echo $column->id; ?>"
