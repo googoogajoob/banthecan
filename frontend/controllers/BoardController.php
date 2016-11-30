@@ -239,8 +239,7 @@ class BoardController extends \yii\web\Controller {
 
             if ($sendUpdate) {
                 $this->currentBoard = Board::getActiveBoard();
-                $junk = $request->post('ajaxCookie');
-                $ajaxCookie = json_decode($junk, true);
+                $ajaxCookie = json_decode($request->post('ajaxCookie'), true);
                 $successHtml = $this->getColumnHtml($ajaxCookie);
 
                 Yii::$app->response->format = 'json';

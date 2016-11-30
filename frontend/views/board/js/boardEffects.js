@@ -23,14 +23,13 @@ function checkForKanbanUpdate()
 
     if (boardTimestamp > 0) {
         pollingRequests++;
-        ajaxCookie = getColumnCookies();
         $.ajax({
             url: "/board/polling",
             type: "post",
             timeout: longPollingTimeout,
             data: {
                 'boardTimestamp': boardTimestamp,
-                'ajaxCookie': ajaxCookie,
+                'ajaxCookie': JSON.stringify(getColumnCookies()),
             },
         }).done(function (returnData) {
             pollingRequests--;
@@ -48,7 +47,6 @@ function checkForKanbanUpdate()
                 pollingDebug(returnData.debugData)
             } else {
                 console.log("Long Polling: Bad Data");
-                pollingDebug(returnData.debugData)
             }
             checkForKanbanUpdate();
         }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -67,21 +65,13 @@ function checkForKanbanUpdate()
 
 function getColumnCookies()
 {
-    var columnCookies = [];
+    var columnCookies = {};
 
     $('.panel-collapse').each( function(index, element){
         columnId = $(this).attr('id');
         //console.log( columnId + ':' + getCookie(columnId));
-        columnCookies['"' + columnId + '"'] = getCookie(columnId);
+        columnCookies[columnId] = getCookie(columnId);
     });
-
-    /*columnCookies =
-        '{"collapse-379":"0",' +
-        '"collapse-380":"1",' +
-        '"collapse-381":"1",' +
-        '"collapse-382":"1",' +
-        '"collapse-383":"1"}'
-    ;*/
 
     return columnCookies;
 }
