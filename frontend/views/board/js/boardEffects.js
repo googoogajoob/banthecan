@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     if (!showConsoleDebug)
     {
-        console.warn('Console Debug Messages Disabled')
+        console.warn('Console Debug Messages Disabled');
     } else {
         console.log('Console Debug Messages Enabled');
     }
@@ -129,7 +129,17 @@ function synchronizeCollapseStatusToCookie()
 {
     columnCookies = getColumnCookies();
     for(var k in columnCookies) {
-        console.log(k, columnCookies[k]);
+        if (columnCookies[k] == 1) {
+            $('#' + k).collapse('show');
+            if (showConsoleDebug) {
+                console.log('Show: ' + k);
+            }
+        } else {
+            $('#' + k).collapse('hide');
+            if (showConsoleDebug) {
+                console.log('Close: ' + k);
+            }
+        }
     }
 }
 
