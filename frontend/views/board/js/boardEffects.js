@@ -1,8 +1,16 @@
 var pollingRequests;
+var showConsoleDebug = false;
 
 $(document).ready(function () {
 
     pollingRequests = 0;
+
+    if (!showConsoleDebug)
+    {
+        console.warn('Console Debug Messages Disabled');
+    } else {
+        console.log('Console Debug Messages Enabled');
+    }
 
     $('#backlog-per-page').change(function() {
         this.form.submit();
@@ -23,13 +31,22 @@ function checkForKanbanUpdate()
 
     if (boardTimestamp > 0) {
         pollingRequests++;
+        ajaxCookie = getColumnCookies();
+
+        if (showConsoleDebug) {
+            console.log('%c Long Polling: Start (send ajax request)', 'background: #a0a0a0;');
+            console.log('- boardTimestamp: ' + boardTimestamp);
+            console.log('- polling requests: ' + pollingRequests);
+            console.dir(ajaxCookie);
+        }
+
         $.ajax({
             url: "/board/polling",
             type: "post",
             timeout: longPollingTimeout,
             data: {
                 'boardTimestamp': boardTimestamp,
-                'ajaxCookie': JSON.stringify(getColumnCookies()),
+                'ajaxCookie': JSON.stringify(ajaxCookie),
             },
         }).done(function (returnData) {
             pollingRequests--;
@@ -39,25 +56,55 @@ function checkForKanbanUpdate()
             // NewTimestamp checks if the server has returned an actual update
             // boardTimestamp comparison checks if this is a return from this client (???)
             if ((newTimestamp > 0) && (boardTimestamp == returnBoardTimestamp)) {
+
                 $('.board-column' ).sortable('destroy');
                 $('#kanban-row').html(returnData.html);
                 $('#boardTimestamp').val(returnData.newTimestamp);
                 initializeBoard();
-                console.log("Long Polling: Change");
-                pollingDebug(returnData.debugData)
+                initializeColumnCollapse();
+                synchronizeCollapseStatusToCookie();
+
+                if (showConsoleDebug) {
+                    console.info("Long Polling: Change");
+                    console.log('- newTimestamp: ' + newTimestamp);
+                    console.log('- boardTimestamp: ' + boardTimestamp);
+                    console.log('- returnBoardTimestamp: ' + returnBoardTimestamp);
+                    console.log('- polling requests: ' + pollingRequests);
+                    console.log('- counterLimit    : ' + returnData.counterLimit);
+                    console.log('- counter         : ' + returnData.counter);
+                }
+
             } else {
-                console.log("Long Polling: Bad Data");
+
+                if (showConsoleDebug) {
+                    console.warn("Long Polling: Bad Data");
+                    console.log('- newTimestamp: ' + newTimestamp);
+                    console.log('- boardTimestamp: ' + boardTimestamp);
+                    console.log('- returnBoardTimestamp: ' + returnBoardTimestamp);
+                    console.log('- polling requests: ' + pollingRequests);
+                }
+
             }
+
             checkForKanbanUpdate();
+
         }).fail(function (jqXHR, textStatus, errorThrown) {
             pollingRequests--;
-            var time = new Date();
-            formattedTime =
-                ("0" + time.getHours()).slice(-2)   + ":" +
-                ("0" + time.getMinutes()).slice(-2) + ":" +
-                ("0" + time.getSeconds()).slice(-2);
-            console.log("Long Polling: Fail " + formattedTime);
-            console.log('- polling requests: ' + pollingRequests);
+
+            if (showConsoleDebug) {
+                var time = new Date();
+                formattedTime =
+                    ("0" + time.getHours()).slice(-2) + ":" +
+                    ("0" + time.getMinutes()).slice(-2) + ":" +
+                    ("0" + time.getSeconds()).slice(-2);
+
+                console.warn('Long Polling: Fail');
+                console.log('- time: ' + formattedTime);
+                console.log('- status: ' + textStatus);
+                console.log('- error: ' + errorThrown);
+                console.log('- polling requests: ' + pollingRequests);
+            }
+
             checkForKanbanUpdate();
         });
     }
@@ -69,42 +116,50 @@ function getColumnCookies()
 
     $('.panel-collapse').each( function(index, element){
         columnId = $(this).attr('id');
-        //console.log( columnId + ':' + getCookie(columnId));
-        columnCookies[columnId] = getCookie(columnId);
+        cookieValue = getCookie(columnId);
+        if (cookieValue) {
+            columnCookies[columnId] = cookieValue;
+        }
     });
 
     return columnCookies;
 }
 
-function pollingDebug(debugData)
+function synchronizeCollapseStatusToCookie()
 {
-    console.log('- boardTimestamp  : ' + formatUnixTimestamp(debugData.boardTimestamp));
-    console.log('- counterLimit    : ' + debugData.counterLimit);
-    console.log('- counter         : ' + debugData.counter);
-    console.log('- polling requests: ' + pollingRequests);
-}
-
-function formatUnixTimestamp(unixTimestamp)
-{
-    var date = new Date(unixTimestamp*1000);
-    var hours = date.getHours();
-    var minutes = "0" + date.getMinutes();
-    var seconds = "0" + date.getSeconds();
-
-    return formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    columnCookies = getColumnCookies();
+    for(var k in columnCookies) {
+        if (columnCookies[k] == 1) {
+            $('#' + k).collapse('show');
+            if (showConsoleDebug) {
+                console.log('Show: ' + k);
+            }
+        } else {
+            $('#' + k).collapse('hide');
+            if (showConsoleDebug) {
+                console.log('Close: ' + k);
+            }
+        }
+    }
 }
 
 function initializeColumnCollapse()
 {
     $('.apc-col-btn').siblings('.panel-collapse').on('shown.bs.collapse', function() {
         columnNumber = this.id;
-        console.log('Column shown ' + columnNumber);
         setCookie(columnNumber, 1, 365);
+
+        if (showConsoleDebug) {
+            console.log('Column shown ' + columnNumber);
+        }
     });
 
     $('.apc-col-btn').siblings('.panel-collapse').on('hidden.bs.collapse', function() {
         columnNumber = this.id;
-        console.log('Column hidden ' + columnNumber);
         setCookie(columnNumber, 0, 365);
+
+        if (showConsoleDebug) {
+            console.log('Column hidden ' + columnNumber);
+        }
     });
 }

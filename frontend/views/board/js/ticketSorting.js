@@ -11,7 +11,9 @@ function columnTicketOrder(event, ui, rthis) {
         ticketOrder[i] = ticketOrder[i].split("_")[1];
     }
 
-    console.log('Ticket/Column Update Ajax Start');
+    if (showConsoleDebug) {
+        console.log('Ticket/Column Update Ajax Start');
+    }
 
     $.ajax({
         url: "/ticket/reorder",
@@ -32,7 +34,9 @@ function columnTicketOrder(event, ui, rthis) {
         },
         error: function(jqXHR, textStatus, errorThrown){
             alert("Ticket/Column Update Failure:" + textStatus + ':' + errorThrown);
-            console.log("Ticket/Column Update Failure:" + textStatus + ':' + errorThrown);
+            if (showConsoleDebug) {
+                console.log("Ticket/Column Update Failure:" + textStatus + ':' + errorThrown);
+            }
         }
     });
 }
