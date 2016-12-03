@@ -12,6 +12,7 @@ use yii\web\View;
 
 class BoardController extends \yii\web\Controller {
 
+    const COLUMN_ID_PREFIX = 'collapse-';
     const DEFAULT_PAGE_SIZE = 24;
     const LONG_POLLING_TIMEOUT = 20000; // Milliseconds, used directly in JS,
     const LONG_POLLING_SLEEP = 1; // Seconds, server sleep interval during long polling
@@ -84,14 +85,14 @@ class BoardController extends \yii\web\Controller {
 
         return $this->render('index', [
             'board' => $this->currentBoard,
-            'columnHtml' => $this->getColumnHtml(),
+            'columnHtml' => $this->getAllColumnsHtml($_COOKIE),
         ]);
     }
 
     public function jsAsFunction($event)
     {
-        $event->sender->js[View::POS_HEAD] = ['var initializeBoard;'];
-        $event->sender->js[View::POS_HEAD] = ['var longPollingTimeout = ' . self::LONG_POLLING_TIMEOUT . ';'];
+        $event->sender->js[View::POS_HEAD][] = 'var initializeBoard;';
+        $event->sender->js[View::POS_HEAD][] = 'var longPollingTimeout = ' . self::LONG_POLLING_TIMEOUT * 2 . ';';
         $event->sender->js[View::POS_READY] = array_merge(
             ['initializeBoard = function() {'],
             $event->sender->js[View::POS_READY],
@@ -102,18 +103,21 @@ class BoardController extends \yii\web\Controller {
         return true;
     }
 
-    protected function getColumnHtml($ajaxCookie = null)
+    protected function getAllColumnsHtml($cookies = null)
     {
-        $columnHtml = '';
+        $allColumnsHtml = '';
         foreach($this->currentBoard->getColumns() as $column) {
-            $columnHtml .= $this->renderPartial('@frontend/views/board/partials/_column', [
+            $columnHtmlId = self::COLUMN_ID_PREFIX . $column->id;
+
+            $allColumnsHtml .= $this->renderPartial('@frontend/views/board/partials/_column', [
                     'column' => $column,
-                    'ajaxCookie' => $ajaxCookie,
+                    'columnHtmlId' => $columnHtmlId,
+                    'expanded' => isset($cookies[$columnHtmlId]) ? intval($cookies[$columnHtmlId]) > 0 : true,
                 ]
             );
         }
 
-        return $columnHtml;
+        return $allColumnsHtml;
     }
 
     /**
@@ -240,7 +244,7 @@ class BoardController extends \yii\web\Controller {
             if ($sendUpdate) {
                 $this->currentBoard = Board::getActiveBoard();
                 $ajaxCookie = json_decode($request->post('ajaxCookie'), true);
-                $successHtml = $this->getColumnHtml($ajaxCookie);
+                $successHtml = $this->getAllColumnsHtml($ajaxCookie);
 
                 Yii::$app->response->format = 'json';
 

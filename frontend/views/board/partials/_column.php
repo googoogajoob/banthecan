@@ -5,7 +5,8 @@ use frontend\controllers\TicketController;
 
 /* @var $this yii\web\View */
 /* @var $column common\models\Column */
-/* @var $ajaxCookie array /*
+/* @var $columnHtmlId string */
+/* @var $expanded boolean */
 
 /**
  * Erkenntnisblitz: I was having difficulty using the Bootstrap grid features to arrange the columns
@@ -23,23 +24,6 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
 
-    <?php
-        $collapsibleId = 'collapse-' . $column->id;
-        $expanded = true;
-        if (isset($ajaxCookie[$collapsibleId])) {
-            $expanded = $ajaxCookie[$collapsibleId] == '1';
-        } elseif (isset($_COOKIE[$collapsibleId])) {
-            $expanded = $_COOKIE[$collapsibleId] == '1';
-        }
-        if ($expanded) {
-            $expandedText = 'true';
-            $classOptions = 'panel-collapse collapse in';
-        } else {
-            $expandedText = 'false';
-            $classOptions = 'panel-collapse collapse';
-        }
-    ?>
-
     <button id="button-<?php echo $column->id; ?>"
             type="button"
             class="btn btn-default btn-primary btn-block apc-margin apc-col-btn<?php echo $expanded ? '' : ' collapsed' ?>"
@@ -49,7 +33,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
         <?php echo $column->title; ?>
     </button>
 
-    <div id="<?php echo $collapsibleId; ?>" class="<?php echo $classOptions; ?>"  aria-expanded="<?php echo $expandedText?>">
+    <div id="<?php echo $columnHtmlId; ?>" class="panel-collapse collapse <?php echo $expanded ? 'in' : ''; ?>"  aria-expanded="<?php echo $expanded ? 'true' : 'false'; ?>">
         <?php
         // Get the HTML of all ticket content for this column concatenated into one string
         $columnItems = [];
