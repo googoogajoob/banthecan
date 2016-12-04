@@ -120,6 +120,9 @@ class Board extends \yii\db\ActiveRecord {
             if (trim($this->backlog_name) != '') {
                 self::$boardName['backlog'] = $this->backlog_name;
             }
+            if (trim($this->completed_name) != '') {
+                self::$boardName['completed'] = $this->completed_name;
+            }
         }
 	}
 
