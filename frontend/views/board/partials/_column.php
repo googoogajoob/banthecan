@@ -76,7 +76,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
                 'column-reference-id' => $column->id,
             ],
             'clientOptions' => [
-                'cursor' => 'move',
+                //'cursor' => 'move',
                 'connectWith' => $connectedColumns,
                 'distance' => 10,
             ],
