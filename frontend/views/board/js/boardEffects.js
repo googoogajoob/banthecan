@@ -12,7 +12,7 @@ $(document).ready(function () {
         console.log('Console Debug Messages Enabled');
     }
 
-    $('#backlog-per-page').change(function() {
+    $(document.body).on('change', '#backlog-per-page', function() {
         this.form.submit();
     });
 
