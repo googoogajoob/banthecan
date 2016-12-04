@@ -16,9 +16,10 @@ $(document).ready(function () {
         this.form.submit();
     });
 
-    $('#completed-per-page').change(function() {
-        this.form.submit();
-    });
+    $(document.body).on('change', '#completed-per-page', function() {
+            this.form.submit();
+        });
+    }
 
     initializeColumnCollapse();
 
