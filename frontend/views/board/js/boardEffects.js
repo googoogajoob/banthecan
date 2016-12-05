@@ -17,9 +17,8 @@ $(document).ready(function () {
     });
 
     $(document.body).on('change', '#completed-per-page', function() {
-            this.form.submit();
-        });
-    }
+        this.form.submit();
+    });
 
     initializeColumnCollapse();
 
