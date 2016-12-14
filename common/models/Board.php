@@ -37,8 +37,8 @@ class Board extends \yii\db\ActiveRecord {
 	/**
 	 * @inheritdoc
 	 */
-	public static function tableName() {
-
+	public static function tableName()
+	{
 		return 'board';
 	}
 
@@ -111,9 +111,12 @@ class Board extends \yii\db\ActiveRecord {
 	public function afterFind() {
 		parent::afterFind();
 
+        self::$boardName = [];
+
         if ($this) {
             $this->ticket_backlog_configuration = unserialize($this->ticket_backlog_configuration);
             $this->ticket_completed_configuration = unserialize($this->ticket_completed_configuration);
+
             if (trim($this->kanban_name) != '') {
                 self::$boardName['kanban'] = $this->kanban_name;
             }
