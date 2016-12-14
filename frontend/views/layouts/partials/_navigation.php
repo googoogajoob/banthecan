@@ -13,15 +13,17 @@ use yii\helpers\Html;
 use common\models\Board;
 
 // Determine $brandLabel and $boardSelector for the options left in the main nav header
-
 $userBoardIds = array(); // default case, no boards (e.g. user not logged in)
+
 if ($userIdentity = Yii::$app->user->getIdentity()) {
+
     if ($boardId = $userIdentity->board_id) {
         $userBoardIds = explode(',', $boardId);
     }
 }
 
 if (count($userBoardIds) > 1) {
+
     $brandLabel = '<span class="glyphicon glyphicon-home"></span>';
     $selectLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
     $userBoards = Board::find($userBoardIds)->orderBy('title');
@@ -41,8 +43,11 @@ if (count($userBoardIds) > 1) {
               ['data-toggle' => "dropdown", 'class' =>"dropdown-toggle  apc-navbar-brand"])
         . Dropdown::widget(['items' => $boardSwitchItems])
         . Html::endTag('div');
-    
+
+    Board::getActiveBoard();
+
 } else {
+
     $brandLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
     $boardSelector = null;
 }
@@ -55,10 +60,8 @@ NavBar::begin([
     ]
 );
 
-// Create Menu Items
 if (Yii::$app->user->isGuest) {
 
-	//$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
 	$menuItems[] = ['label' => \Yii::t('app', 'Login'), 'url' => ['/site/login']];
 	$menuItems[] = ['label' => \Yii::t('app', 'Contact'), 'url' => ['/site/contact']];
 	$menuItems[] = ['label' => \Yii::t('app', 'About'), 'url' => ['/site/about']];

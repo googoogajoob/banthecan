@@ -34,19 +34,19 @@ if ($boardObject = Board::getActiveBoard()) {
     <?php echo $this->renderFile('@frontend/views/layouts/partials/_modalContainer.php'); ?>
 
     <?php $this->beginBody() ?>
-    <div class="wrap"><?php
-        echo $this->renderFile('@frontend/views/layouts/partials/_navigation.php');
-        ?>
+    <div class="wrap">
+        <?php echo $this->renderFile('@frontend/views/layouts/partials/_navigation.php'); ?>
 
         <div class="container">
             <?php
-            echo Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]);
-            echo Alert::widget();
-            echo $content
+                echo Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]);
+                echo Alert::widget();
+                echo $content
             ?>
         </div>
+
     </div>
 
     <?php echo $this->renderFile('@frontend/views/layouts/partials/_footer.php'); ?>
