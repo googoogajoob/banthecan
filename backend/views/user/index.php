@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -25,17 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
+            'created_at:datetime',
+            'updated_at:datetime',
             'username:ntext',
-            'password_hash:ntext',
-            'password_reset_token:ntext',
+            //'password_hash:ntext',
+            //'password_reset_token:ntext',
             'email:ntext',
             // 'auth_key:ntext',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
+             'statusText',
             // 'password:ntext',
-            // 'board_id',
+             'board_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
