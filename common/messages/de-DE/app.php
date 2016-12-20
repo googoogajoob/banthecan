@@ -23,6 +23,7 @@ return [
     'About' => 'Info',
     'Action' => 'Aktion',
     'Action Steps' => 'Aktionsschritte',
+    'Active' => 'Aktiv',
     'An active board must be <a href="/board/select">selected</a> in order to proceed.'
     => 'Um weiter zu machen, muss ein Board <a href="/board/select">aktiviert werden</a>.',
     'Are you sure you want to delete this item?' => 'Willst du diesen Eintrag tatsächlich löschen?',
@@ -63,6 +64,7 @@ return [
     'Hide Search Options' => 'Suchoptionen verstecken',
     'ID' => 'ID',
     'If you forgot your password you can' => 'Beim vergessenen Passwort kannst du',
+    'Inactive' => 'Inaktiv',
     'INITIALIZE USER DB' => 'Benutzer-Datenbank initialisieren',
     'Initialize Demo Database' => 'Demo-Datenbank initialisieren',
     'Kanban' => 'Kanban',
