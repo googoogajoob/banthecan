@@ -27,10 +27,20 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-	const STATUS_DELETED = 0;
+	const STATUS_INACTIVE = 0;
 	const STATUS_ACTIVE = 10;
+	const STATUS_PROTOCOL = 20;
+	const STATUS_ADMIN = 30;
 	const DEMO_USER_NAME = 'demo';
 	const DEMO_USER_PASSWORD = 'demo';
+
+
+	public static $statusText = [
+		self::STATUS_INACTIVE => 'Inactive',
+		self::STATUS_ACTIVE => 'Active',
+		self::STATUS_PROTOCOL => 'Protocol',
+		self::STATUS_ADMIN => 'Admin',
+	];
 
 	/**
 	 * @var UploadedFile
@@ -98,7 +108,12 @@ class User extends ActiveRecord implements IdentityInterface
 	{
 		return [
 			['status', 'default', 'value' => self::STATUS_ACTIVE],
-			['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+			['status', 'in', 'range' => [
+				self::STATUS_INACTIVE,
+				self::STATUS_ACTIVE,
+				self::STATUS_PROTOCOL,
+				self::STATUS_ADMIN,
+			]],
 			[['username'], 'required'],
             ['email', 'email', 'skipOnEmpty' => true],
 			[['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
@@ -425,4 +440,21 @@ class User extends ActiveRecord implements IdentityInterface
 
         return true;
     }
+
+    public function getStatusText()
+    {
+        return Yii::t('app', self::$statusText[$this->status]);
+    }
+
+    public function getBoardNames()
+    {
+        $relatedBoardIds = explode(',', $this->board_id);
+        $relatedBoards = Board::find()->where(['id' => $relatedBoardIds])->orderBy('title')->asArray()->all();
+        $titleList = [];
+        foreach ($relatedBoards as $board) {
+            $titleList[] = $board['title'];
+        }
+        return implode(', ', $titleList);
+    }
+
 }
