@@ -21,23 +21,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
             //'id',
+            'username:ntext',
             'created_at:datetime',
             'updated_at:datetime',
-            'username:ntext',
             //'password_hash:ntext',
             //'password_reset_token:ntext',
             'email:ntext',
             // 'auth_key:ntext',
-             'statusText',
+             'statusText:ntext:Status',
             // 'password:ntext',
-             'board_id',
+             'boardNames:ntext:Boards',
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
