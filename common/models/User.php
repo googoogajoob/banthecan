@@ -8,6 +8,7 @@ use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\imagine\Image;
 use yii\web\IdentityInterface;
+use yii\helpers\ArrayHelper;
 
 /**
  * User model
@@ -117,7 +118,7 @@ class User extends ActiveRecord implements IdentityInterface
 			[['username'], 'required'],
             ['email', 'email', 'skipOnEmpty' => true],
 			[['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
-			['password', 'safe'],
+			[['password', 'boardIdArray'], 'safe'],
 		];
 	}
 
@@ -128,7 +129,11 @@ class User extends ActiveRecord implements IdentityInterface
             $this->password = '';
         }
 
-		return parent::beforeSave($insert);
+        $this->password_hash = isset($this->password_hash) ? $this->password_hash : '';
+        $this->password_reset_token = isset($this->password_reset_token) ? $this->password_reset_token : '';
+        $this->auth_key = isset($this->auth_key) ? $this->auth_key : '';
+
+        return parent::beforeSave($insert);
 	}
 
 	/**
@@ -450,11 +455,24 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $relatedBoardIds = explode(',', $this->board_id);
         $relatedBoards = Board::find()->where(['id' => $relatedBoardIds])->orderBy('title')->asArray()->all();
-        $titleList = [];
-        foreach ($relatedBoards as $board) {
-            $titleList[] = $board['title'];
-        }
+        $titleList = ArrayHelper::map($relatedBoards, 'id', 'title');
+
         return implode(', ', $titleList);
     }
 
+	public function getBoardIdArray()
+	{
+        return explode(',', $this->board_id);
+	}
+
+	public function setBoardIdArray($value)
+	{
+        if (is_array($value)) {
+            $this->board_id = implode(',', $value);
+        } else {
+            $this->board_id = '';
+        }
+
+        return $this;
+	}
 }
