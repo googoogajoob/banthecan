@@ -1,7 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use common\models\User;
+use common\models\Board;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -12,16 +15,21 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username')->textarea(['rows' => 6]) ?>
+    <?php echo $form->field($model, 'username')->textinput(); ?>
 
-    <?= $form->field($model, 'email')->textarea(['rows' => 6]) ?>
+    <?php echo $form->field($model, 'email')->textinput(); ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?php echo $form->field($model, 'status')->radioList(User::$statusText); ?>
 
-    <?= $form->field($model, 'password')->textarea(['rows' => 6]) ?>
+    <?php
+        $allBoards = Board::find()->orderBy('title')->all();
+        $allBoardTitles = ArrayHelper::map($allBoards, 'id', 'title');
+    ?>
+
+    <?php echo $form->field($model, 'boardIdArray')->checkboxList($allBoardTitles); ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
     </div>
 
     <?php ActiveForm::end(); ?>
