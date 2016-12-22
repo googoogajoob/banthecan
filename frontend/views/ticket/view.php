@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Markdown;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -56,14 +57,14 @@ $deleteButton = Html::a(\Yii::t('app', 'Delete'),
                 'label' => \Yii::t('app', 'Title'),
             ],
             [
-                'attribute' => 'description',
-                'format' => 'ntext',
+                'value' => Markdown::process($model->description, 'gfm'),
+                'format' => 'raw',
                 'label' => \Yii::t('app', 'Description'),
                 'visible' => $model->description,
             ],
             [
-                'attribute' => 'protocol',
-                'format' => 'ntext',
+                'value' => Markdown::process($model->protocol, 'gfm'),
+                'format' => 'raw',
                 'label' => \Yii::t('app', 'Protocol'),
                 'visible' => isset($model->protocol) && $model->protocol,
             ],
