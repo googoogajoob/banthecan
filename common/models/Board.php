@@ -117,6 +117,14 @@ class Board extends \yii\db\ActiveRecord {
             $this->ticket_backlog_configuration = unserialize($this->ticket_backlog_configuration);
             $this->ticket_completed_configuration = unserialize($this->ticket_completed_configuration);
 
+			if (!is_array($this->ticket_backlog_configuration)) {
+				$this->ticket_backlog_configuration = [];
+			}
+
+			if (!is_array($this->ticket_completed_configuration)) {
+				$this->ticket_completed_configuration = [];
+			}
+
             if (trim($this->kanban_name) != '') {
                 self::$boardName['kanban'] = $this->kanban_name;
             }
