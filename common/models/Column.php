@@ -110,6 +110,11 @@ class Column extends ActiveRecord
 	public function afterFind() {
 		parent::afterFind();
 		$this->ticket_column_configuration = unserialize($this->ticket_column_configuration);
+
+		if (!is_array($this->ticket_column_configuration)) {
+			$this->ticket_column_configuration = [];
+		}
+
 	}
 
 
