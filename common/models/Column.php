@@ -132,6 +132,21 @@ class Column extends ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveRecord
+     */
+    public function getBoard()
+    {
+        return $this->hasOne(Board::className(), ['id' => 'board_id']);
+    }
+
+    public function getBoardTitle()
+    {
+        $board = $this->getBoard()->one();
+
+        return $board->title;
+    }
+
+    /**
      * Creates a set of Demo Columns
      *
      * The relative reference IDs between the columns must be set

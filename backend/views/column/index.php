@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at:datetime',
             'updated_at:datetime',
             'board_id',
+            'boardTitle',
             'title:ntext',
             [
                 'label' => \Yii::t('app', 'Receiver'),
