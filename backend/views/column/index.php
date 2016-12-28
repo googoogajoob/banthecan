@@ -1,9 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
-use yii\jui\JuiAsset;
 use backend\assets\ColumnAsset;
+use common\models\Column;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -15,30 +16,41 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="board-column-index">
 
-<h1><?php echo Html::encode($this->title) ?></h1>
+    <h1><?php echo Html::encode($this->title) ?></h1>
 
-<p><?php echo Html::a(\Yii::t('app', 'Create Board Column'), ['create'], ['class' => 'btn btn-success']) ?>
-</p>
+    <p><?php echo Html::a(\Yii::t('app', 'Create Board Column'), ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
-<?php echo GridView::widget([
+    <?php echo GridView::widget([
         'dataProvider' => $dataProvider,
         'tableOptions' => ['id' => 'sort', 'class' => 'table table-striped table-bordered'],
-        'rowOptions' => function($model, $key, $index, $grid) {
-return ['id' => 'row_' . $key, 'display-order' => $model->display_order];
+        'rowOptions' => function ($model, $key, $index, $grid) {
+            return ['id' => 'row_' . $key, 'display-order' => $model->display_order];
         },
         'columns' => [
-            'id',
+            ['class' => 'yii\grid\ActionColumn'],
             'created_at:datetime',
             'updated_at:datetime',
-            'created_by',
-            'updated_by',
             'board_id',
             'title:ntext',
-            'display_order',
-            'receiver',
-        [
+            [
+                'label' => \Yii::t('app', 'Receiver'),
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $column) {
+                    if (trim($model->receiver) == '') {
+                        return '';
+                    } else {
+                        $receivingColumnIDs = explode(',', $model->receiver);
+
+                        $receivingColumns = Column::find()->where(['id' => $receivingColumnIDs])->orderBy('display_order')->asArray()->all();
+                        $receivingColumnTitles = $titleList = ArrayHelper::map($receivingColumns, 'id', 'title');
+
+                        return implode(', ', $receivingColumnTitles);
+                    }
+                },
+            ],
+            [
                 'label' => \Yii::t('app', 'Ticket Column Configuration'),
-                'attribute' => 'ticket_column_configuration',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {
                     if (is_array($model->ticket_column_configuration)) {
@@ -48,11 +60,9 @@ return ['id' => 'row_' . $key, 'display-order' => $model->display_order];
                     }
 
                 },
-                ],
+            ],
+        ],
+    ]);
 
-
-                ['class' => 'yii\grid\ActionColumn'],
-                ],
-                ]);
-
-                ?></div>
+    ?>
+</div>
