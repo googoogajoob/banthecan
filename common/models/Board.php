@@ -186,11 +186,23 @@ class Board extends \yii\db\ActiveRecord {
 	 *
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getColumns() {
-
+	public function getColumns()
+    {
 		return $this->hasMany(Column::className(), ['board_id' => 'id'])
 		->orderBy('display_order')
 		->all();
+	}
+
+	public function getEntryColumn()
+    {
+		return $this->hasOne(Column::className(), ['id' =>'entry_column']);
+	}
+
+	public function getEntryColumnName()
+    {
+        $entryColumn = $this->getEntryColumn()->one();
+
+		return $entryColumn->title;
 	}
 
 	/**
