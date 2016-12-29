@@ -59,7 +59,7 @@ class Board extends \yii\db\ActiveRecord {
 	public function rules() {
 
 		return [
-		[['title', 'description', 'max_lanes', 'entry_column'], 'required'],
+		[['title', 'description'], 'required'],
 		[['id', 'created_at', 'created_by', 'updated_by', 'updated_at', 'max_lanes', 'entry_column'], 'integer'],
 		[['title', 'description', 'backlog_name', 'kanban_name', 'completed_name'], 'string'],
 		[['ticket_backlog_configuration', 'ticket_completed_configuration'],
@@ -101,6 +101,10 @@ class Board extends \yii\db\ActiveRecord {
 		if (parent::beforeSave($insert)) {
 			$this->ticket_backlog_configuration = serialize($this->ticket_backlog_configuration);
 			$this->ticket_completed_configuration = serialize($this->ticket_completed_configuration);
+
+            if ($this->max_lanes < 1) {
+                $this->max_lanes = 1;
+            }
 
 			return true;
 		}
@@ -202,7 +206,7 @@ class Board extends \yii\db\ActiveRecord {
     {
         $entryColumn = $this->getEntryColumn()->one();
 
-		return $entryColumn->title;
+		return $entryColumn ? $entryColumn->title : '';
 	}
 
 	/**

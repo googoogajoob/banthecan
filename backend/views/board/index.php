@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'backlog_name',
             'kanban_name',
             'completed_name',
+            'entryColumnName',
         ],
     ]);
 ?>
