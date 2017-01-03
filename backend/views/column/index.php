@@ -7,6 +7,7 @@ use backend\assets\ColumnAsset;
 use common\models\Column;
 
 /* @var $this yii\web\View */
+/* @var $searchModel backend\models\ColumnSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ColumnAsset::register($this);
@@ -23,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php echo GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'tableOptions' => ['id' => 'sort', 'class' => 'table table-striped table-bordered'],
         'rowOptions' => function ($model, $key, $index, $grid) {
             return ['id' => 'row_' . $key, 'display-order' => $model->display_order];
