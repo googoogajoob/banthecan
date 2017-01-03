@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Column;
-use yii\data\ActiveDataProvider;
+use backend\models\ColumnSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\MethodNotAllowedHttpException;
@@ -59,13 +59,17 @@ class ColumnController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new ActiveDataProvider([
-            'query' => Column::find()->orderBy('display_order'),
-            'sort' => false,
-		]);
+		$searchModel = new ColumnSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+//		$dataProvider = new ActiveDataProvider([
+//            'query' => Column::find()->orderBy('display_order'),
+//            'sort' => false,
+//		]);
 
 		return $this->render('index', [
-            'dataProvider' => $dataProvider,
+			'searchModel' => $searchModel,
+			'dataProvider' => $dataProvider,
 		]);
 	}
 
