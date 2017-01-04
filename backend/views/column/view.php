@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'boardTitle',
                 'title:ntext',
                 'display_order',
-                'receiver',
                 'receiverList',
                 [
                     'label' => \Yii::t('app', 'Ticket Column Configuration'),
