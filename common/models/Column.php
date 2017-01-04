@@ -3,6 +3,7 @@
 namespace common\models;
 
 use yii;
+use yii\helpers\ArrayHelper;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -144,6 +145,21 @@ class Column extends ActiveRecord
         $board = $this->getBoard()->one();
 
         return $board->title;
+    }
+
+    public function getReceiverList()
+    {
+        if ($this->receiver == '') {
+            return '';
+        } else {
+            $receivingColumnIDs = explode(',', $this->receiver);
+
+            $receivingColumns = Column::find()->where(['id' => $receivingColumnIDs])->orderBy('display_order')->asArray()->all();
+            $receivingColumnTitles = $titleList = ArrayHelper::map($receivingColumns, 'id', 'title');
+
+            return implode(', ', $receivingColumnTitles);
+        }
+
     }
 
     /**

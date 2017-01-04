@@ -36,22 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'board_id',
             'boardTitle',
             'title:ntext',
-            [
-                'label' => \Yii::t('app', 'Receiver'),
-                'format' => 'raw',
-                'value' => function ($model, $key, $index, $column) {
-                    if (trim($model->receiver) == '') {
-                        return '';
-                    } else {
-                        $receivingColumnIDs = explode(',', $model->receiver);
-
-                        $receivingColumns = Column::find()->where(['id' => $receivingColumnIDs])->orderBy('display_order')->asArray()->all();
-                        $receivingColumnTitles = $titleList = ArrayHelper::map($receivingColumns, 'id', 'title');
-
-                        return implode(', ', $receivingColumnTitles);
-                    }
-                },
-            ],
+            'receiverList:ntext:Receiver',
             [
                 'label' => \Yii::t('app', 'Ticket Column Configuration'),
                 'format' => 'raw',
