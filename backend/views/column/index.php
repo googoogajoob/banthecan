@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title:ntext',
             'receiverList:ntext:Receiver',
             [
-                'label' => \Yii::t('app', 'Ticket Column Configuration'),
+                'label' => \Yii::t('app', 'Decorations'),
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {
                     if (is_array($model->ticket_column_configuration)) {

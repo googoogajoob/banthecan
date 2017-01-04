@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'display_order',
                 'receiverList',
                 [
-                    'label' => \Yii::t('app', 'Ticket Column Configuration'),
+                    'label' => \Yii::t('app', 'Decorations'),
                     'value' => implode(', ', $model->ticket_column_configuration),
                 ],
                 'created_at:datetime',
