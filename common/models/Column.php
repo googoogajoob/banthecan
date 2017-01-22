@@ -27,6 +27,9 @@ use yii\behaviors\BlameableBehavior;
  */
 class Column extends ActiveRecord
 {
+
+    public $receiverArray = [];
+
     // The receiver values should refer to the column IDs of the receiving columns
     // However, the IDs of the columns are first known when they are created
     // These values are therefore relative values, which will be used when creating the columns
@@ -67,6 +70,7 @@ class Column extends ActiveRecord
             [['board_id', 'title'], 'required'],
             [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'board_id', 'display_order'], 'integer'],
             [['title', 'receiver'], 'string'],
+            [['receiverArray'], 'safe'],
             [['ticket_column_configuration'],
                 'in',
                 'range' => Yii::$app->ticketDecorationManager->getAvailableTicketDecorations(),
@@ -103,6 +107,7 @@ class Column extends ActiveRecord
 
         if (parent::beforeSave($insert)) {
             $this->ticket_column_configuration = serialize($this->ticket_column_configuration);
+            $this->receiver = implode(',', $this->receiverArray);
 
             return true;
         }
@@ -114,13 +119,13 @@ class Column extends ActiveRecord
     {
         parent::afterFind();
         $this->ticket_column_configuration = unserialize($this->ticket_column_configuration);
+        $this->receiverArray = explode(',', $this->receiver);
 
         if (!is_array($this->ticket_column_configuration)) {
             $this->ticket_column_configuration = [];
         }
 
     }
-
 
     /**
      * @return \yii\db\ActiveRecord
@@ -155,11 +160,10 @@ class Column extends ActiveRecord
             $receivingColumnIDs = explode(',', $this->receiver);
 
             $receivingColumns = Column::find()->where(['id' => $receivingColumnIDs])->orderBy('display_order')->asArray()->all();
-            $receivingColumnTitles = $titleList = ArrayHelper::map($receivingColumns, 'id', 'title');
+            $receivingColumnTitles = ArrayHelper::map($receivingColumns, 'id', 'title');
 
             return implode(', ', $receivingColumnTitles);
         }
-
     }
 
     /**
