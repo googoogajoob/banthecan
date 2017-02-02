@@ -141,7 +141,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public static function findIdentity($id)
 	{
-		return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+		return static::findOne(['id' => $id, ['not', ['status' => self::STATUS_INACTIVE]]]);
 	}
 
 	/**
@@ -160,7 +160,8 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public static function findByUsername($username)
 	{
-		return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+		//return static::findOne(['username' => $username, ['!=', 'status', self::STATUS_INACTIVE]]);
+		return static::findOne(['username' => $username]);
 	}
 
 	/**
@@ -177,7 +178,7 @@ class User extends ActiveRecord implements IdentityInterface
 
 		return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+			['not', ['status' => self::STATUS_INACTIVE]]
 		]);
 	}
 
@@ -197,6 +198,26 @@ class User extends ActiveRecord implements IdentityInterface
 		$timestamp = (int) end($parts);
 		return $timestamp + $expire >= time();
 	}
+
+	public function isInactive()
+    {
+        return $this->status == self::STATUS_INACTIVE;
+    }
+
+	public function isActive()
+    {
+        return $this->status == self::STATUS_ACTIVE;
+    }
+
+    public function isProtocol()
+    {
+        return $this->status == self::STATUS_PROTOCOL;
+    }
+
+    public function isAdmin()
+    {
+        return $this->status == self::STATUS_ADMIN;
+    }
 
 	/**
 	 * @inheritdoc

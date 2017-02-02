@@ -97,6 +97,10 @@ if (Yii::$app->user->isGuest) {
 		['label' => \Yii::t('app', 'About'),
             'url' => ['/site/about'],
         ],
+		['label' => \Yii::t('app', 'Admin'),
+            'url' => ['/admin'],
+            //'visible' => Yii::$app->getUser()->isAdmin(),
+        ],
     ];
 
     $menuItems[] = html::tag('li',
