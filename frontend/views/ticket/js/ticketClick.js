@@ -1,4 +1,4 @@
-function ticketMove(ticketMoveUrl)
+function ticketMove(ticketMoveUrl, event)
 {
     preventBubbling(event);
     turnOffModalEvents();
