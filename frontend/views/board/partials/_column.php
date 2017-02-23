@@ -46,7 +46,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
                         'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,
                         'tag' => 'div',
                         'class' => 'ticket-widget',
-                        'onclick' => "return ticketMove('" . $moveParameter . "');",
+                        'onclick' => "return ticketMove('" . $moveParameter . "', event);",
             ];
             $columnItems[] = [
                         'content' => $content,
