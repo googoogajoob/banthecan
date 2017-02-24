@@ -12,58 +12,65 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?php echo Html::encode($this->title) ?></h1>
 
-<?php Pjax::begin(); ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
-        'columns' => [
-            [
-                'attribute' => 'completed',
-                'format' => 'boolean',
-                'label' => \Yii::t('app', 'Completed'),
-            ],
-            [
-                'attribute' => 'title',
-                'format' => 'ntext',
-                'label' => \Yii::t('app', 'Title'),
-            ],
-            [
-                'attribute' => 'description',
-                'format' => 'ntext',
-                'label' => \Yii::t('app', 'Description'),
-            ],
-            [
-                'format' => 'raw',
-                'label' => \Yii::t('app', 'Responsible'),
-                'content' => function ($model, $key, $index, $column) {
-                    return $this->render('@frontend/views/user/partials/_blame', [
-                            'model' => $model,
-                        ]
-                    );
-                },
-            ],
-            [
-                'attribute' => 'ticket.title',
-                'format' => 'ntext',
-                'label' => \Yii::t('app', 'Ticket'),
-            ],
-            [
-                'format' => 'raw',
-                'label' => \Yii::t('app', 'Created By') . ' / ' . \Yii::t('app', 'Updated By'),
-                'content' => function ($model, $key, $index, $column) {
-                    return
-                        $this->render('@frontend/views/user/partials/_blame', [
-                            'model' => $model->getTicket()->one(),
-                        ])
-                        . $this->render('@frontend/views/user/partials/_blame', [
-                            'model' => $model->getTicket()->one(),
-                            'useUpdated' => true                        ]
+    <p><?php echo Html::a(\Yii::t('app', 'Create Task'), ['task/create/0'], ['class' => 'btn btn-success']) ?></p>
+
+    <?php Pjax::begin(); ?>
+
+        <?php echo GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                [
+                    'attribute' => 'completed',
+                    'format' => 'boolean',
+                    'label' => \Yii::t('app', 'Completed'),
+                ],
+                [
+                    'attribute' => 'title',
+                    'format' => 'ntext',
+                    'label' => \Yii::t('app', 'Title'),
+                ],
+                [
+                    'attribute' => 'description',
+                    'format' => 'ntext',
+                    'label' => \Yii::t('app', 'Description'),
+                ],
+                [
+                    'format' => 'raw',
+                    'label' => \Yii::t('app', 'Responsible'),
+                    'content' => function ($model, $key, $index, $column) {
+                        return $this->render('@frontend/views/user/partials/_blame', [
+                                'model' => $model,
+                            ]
                         );
-                },
+                    },
+                ],
+                [
+                    'attribute' => 'ticket.title',
+                    'format' => 'ntext',
+                    'label' => \Yii::t('app', 'Ticket'),
+                ],
+                [
+                    'format' => 'raw',
+                    'label' => \Yii::t('app', 'Created By') . ' / ' . \Yii::t('app', 'Updated By'),
+                    'content' => function ($model, $key, $index, $column) {
+                        return
+                            $this->render('@frontend/views/user/partials/_blame', [
+                                'model' => $model->getTicket()->one(),
+                            ])
+                            . $this->render('@frontend/views/user/partials/_blame', [
+                                'model' => $model->getTicket()->one(),
+                                'useUpdated' => true                        ]
+                            );
+                    },
+                ],
+                ['class' => 'yii\grid\ActionColumn'],
             ],
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-<?php Pjax::end(); ?></div>
+        ]);
+    ?>
+
+    <?php Pjax::end(); ?>
+
+</div>

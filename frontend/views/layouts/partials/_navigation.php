@@ -146,6 +146,15 @@ if (Yii::$app->user->isGuest) {
         'id' => 'header-completed-button',
     ]);
 
+    $menuItems[] = Html::a(
+        \Yii::t('app', 'New Task'),
+        '/task/create/0', [
+        'class' => 'btn btn-success apc-header-button',
+        'id' => 'header-create-button',
+        //'data-toggle' => 'modal',
+        //'data-target' => '#global-modal-container'
+    ]);
+
     $dropDownMenuItemsOptions = ['class' => 'hidden-sm hidden-md hidden-lg'];
     $dropDownMenuItemsXs = [];
     foreach($dropDownMenuItems as $key => $value) {
