@@ -75,6 +75,7 @@ return [
     'Move to Kanban' => 'Zum Kanban',
     'Movement Options' => 'Verlegung Optionen',
     'Name' => 'Name',
+    'New Task' => 'Neue Aufgabe',
     'New Ticket' => 'Neues Ticket',
     'News' => 'Nachrichten',
     'No file chosen' => 'Keine Datei ausgewählt',
