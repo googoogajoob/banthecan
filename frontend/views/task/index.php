@@ -23,6 +23,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'columns' => [
                 [
+                    'format' => 'raw',
+                    'label' => \Yii::t('app', 'Responsible'),
+                    'content' => function ($model, $key, $index, $column) {
+                        return $this->render('@frontend/views/user/partials/_blame', [
+                                'model' => $model,
+                            ]
+                        );
+                    },
+                ],
+                [
                     'attribute' => 'completed',
                     'format' => 'boolean',
                     'label' => \Yii::t('app', 'Completed'),
@@ -38,16 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => \Yii::t('app', 'Description'),
                 ],
                 [
-                    'format' => 'raw',
-                    'label' => \Yii::t('app', 'Responsible'),
-                    'content' => function ($model, $key, $index, $column) {
-                        return $this->render('@frontend/views/user/partials/_blame', [
-                                'model' => $model,
-                            ]
-                        );
-                    },
-                ],
-                [
                     'attribute' => 'ticket.title',
                     'format' => 'ntext',
                     'label' => \Yii::t('app', 'Ticket'),
@@ -58,12 +58,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content' => function ($model, $key, $index, $column) {
                         return
                             $this->render('@frontend/views/user/partials/_blame', [
-                                'model' => $model->getTicket()->one(),
-                            ])
-                            . $this->render('@frontend/views/user/partials/_blame', [
-                                'model' => $model->getTicket()->one(),
-                                'useUpdated' => true                        ]
-                            );
+                                'model' => $model,
+                            ]
+                        ) . $this->render('@frontend/views/user/partials/_blame', [
+                                'model' => $model,
+                                'useUpdated' => true
+                            ]
+                        );
                     },
                 ],
                 ['class' => 'yii\grid\ActionColumn'],
