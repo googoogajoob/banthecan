@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'ntext',
                     'label' => \Yii::t('app', 'Ticket'),
                 ],
-                [
+                /*[
                     'format' => 'raw',
                     'label' => \Yii::t('app', 'Created By') . ' / ' . \Yii::t('app', 'Updated By'),
                     'content' => function ($model, $key, $index, $column) {
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         );
                     },
-                ],
+                ],*/
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]);
