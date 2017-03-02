@@ -31,11 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         );
                     },
+                    'filter' => 'Dude-1',
                 ],
                 [
                     'attribute' => 'completed',
                     'format' => 'boolean',
                     'label' => \Yii::t('app', 'Completed'),
+                    'filter' => 'Dude-2',
                 ],
                 [
                     'attribute' => 'title',
@@ -51,8 +53,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'ticket.title',
                     'format' => 'ntext',
                     'label' => \Yii::t('app', 'Ticket'),
+                    'filter' => 'Dude-3',
                 ],
-                /*[
+                [
                     'format' => 'raw',
                     'label' => \Yii::t('app', 'Created By') . ' / ' . \Yii::t('app', 'Updated By'),
                     'content' => function ($model, $key, $index, $column) {
@@ -66,7 +69,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         );
                     },
-                ],*/
+                    'filter' => 'Dude-4',
+                ],
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]);

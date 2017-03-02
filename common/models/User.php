@@ -23,7 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
- * @property integer $board_id
+ * @property string $board_id
  *
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -353,6 +353,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 * Returns a list of all users who are associated with the current active board.
 	 */
 	public static function getBoardUsers() {
+
 		return self::find()->where(Board::getActiveBoard()->id . ' in (board_id)')->all();
 	}
 

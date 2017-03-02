@@ -26,11 +26,11 @@ class TaskSearch extends Task
     /**
      * @inheritdoc
      */
-    public function scenarios()
+    /*public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
-    }
+    }*/
 
     /**
      * Creates data provider instance with search query applied
@@ -69,7 +69,11 @@ class TaskSearch extends Task
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+              ->andFilterWhere(['like', 'description', $this->description]);
+
+        $query->orderBy([
+            'updated_at' => SORT_DESC,
+        ]);
 
         return $dataProvider;
     }
