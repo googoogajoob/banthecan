@@ -1,4 +1,4 @@
-function getGlobalModalHtml(url) {
+function getGlobalModalHtml(url, event) {
     clearModalContents();
     $('#modal-ajax-loader').show();
     $.ajax({
@@ -6,7 +6,6 @@ function getGlobalModalHtml(url) {
         type: "post",
 
         success: function(returnData) {
-
             $('#modal-ajax-loader').hide();
             $('#global-modal-container .modal-body').html(returnData);
             headerHtml = $('#global-modal-container .modal-body .apc-modal-header')[0].outerHTML;
@@ -14,8 +13,6 @@ function getGlobalModalHtml(url) {
             $('#global-modal-container .modal-header .apc-modal-header').remove();
             $('#modal-header-row').prepend(headerHtml);
             $('#modal-header-row .apc-modal-header').addClass('col-xs-10');
-
-            //alert('success');
         },
 
         error: function(jqXHR, textStatus, errorThrown){

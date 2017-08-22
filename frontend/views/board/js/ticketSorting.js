@@ -1,7 +1,3 @@
-/**
- * Created by and on 2/22/15.
- */
-
 function columnTicketOrder(event, ui, rthis) {
 
     var columnId = rthis.id.split("_");
@@ -9,10 +5,6 @@ function columnTicketOrder(event, ui, rthis) {
 
     for (i = 0; i < ticketOrder.length; i++) {
         ticketOrder[i] = ticketOrder[i].split("_")[1];
-    }
-
-    if (showConsoleDebug) {
-        console.log('Ticket/Column Update Ajax Start');
     }
 
     $.ajax({
@@ -25,15 +17,16 @@ function columnTicketOrder(event, ui, rthis) {
         success: function(returnData){
             if (!$.isNumeric(returnData.ticketId)) {
                 $('ticketwidget_' + returnData.ticketId).html(returnData.ticketHtml);
-                //alert("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
-                //console.log("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
+                if (showConsoleDebug) {
+                    console.log("Ticket/Column Update SUCCESS (Ticket Column Change: " + returnData + ")");
+                }
             } else {
-                //alert("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
-                //console.log("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
+                if (showConsoleDebug) {
+                    console.log("Ticket/Column Update SUCCESS (NO Ticket Column Change)");
+                }
             }
         },
         error: function(jqXHR, textStatus, errorThrown){
-            alert("Ticket/Column Update Failure:" + textStatus + ':' + errorThrown);
             if (showConsoleDebug) {
                 console.log("Ticket/Column Update Failure:" + textStatus + ':' + errorThrown);
             }
