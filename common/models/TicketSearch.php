@@ -97,7 +97,7 @@ class TicketSearch extends Ticket {
         $query->andFilterWhere(['created_by' => $this->user_search]);
 
         if (trim($this->tag_search) <> '') {
-            $query->andFilterWhere(['id' => Tags::getTicketId($this->tag_search)]);
+            $query->andWhere(['id' => Tags::getTicketId($this->tag_search)]);
         }
 
         if ($this->vote_priority_filter) {
