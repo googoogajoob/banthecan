@@ -63,11 +63,11 @@ use common\models\Board;
                                     );
 
                                     if ($v['column_id'] < 0) {
-                                        $boardLink = Html::a(Board::getCompletedName(), '/board/completed');
+                                        $boardLink = Html::a(Board::getBoardSectionName('completed'), '/board/completed');
                                     } elseif ($v['column_id'] > 0) {
-                                        $boardLink = Html::a(Board::getKanbanName(), '/board');
+                                        $boardLink = Html::a(Board::getBoardSectionName('kanban'), '/board');
                                     } else {
-                                        $boardLink = Html::a(Board::getBacklogName(), '/board/backlog');
+                                        $boardLink = Html::a(Board::getBoardSectionName('backlog'), '/board/backlog');
                                     }
 
                                     echo Html::beginTag('tr')

@@ -126,21 +126,21 @@ if (Yii::$app->user->isGuest) {
     ]);
 
     $menuItems[] = Html::a(
-        Board::getBacklogName(),
+        Board::getBoardSectionName('backlog'),
         '/board/backlog', [
         'class' => 'btn btn-primary apc-header-button',
         'id' => 'header-backlog-button',
     ]);
 
     $menuItems[] = Html::a(
-        Board::getKanbanName(),
+        Board::getBoardSectionName('kanban'),
         '/board', [
         'class' => 'btn btn-primary apc-header-button',
         'id' => 'header-kanban-button',
     ]);
 
     $menuItems[] = Html::a(
-        Board::getCompletedName(),
+        Board::getBoardSectionName('completed'),
         '/board/completed', [
         'class' => 'btn btn-primary apc-header-button',
         'id' => 'header-completed-button',

@@ -32,7 +32,6 @@ class Board extends \yii\db\ActiveRecord {
 	const NO_ACTIVE_BOARD_MESSAGE = 'An active board must be <a href="/board/select">selected</a> in order to proceed.';
 	const DEMO_TITLE = 'Ban-The-Can Demonstration Board';
 	const DEMO_MAX_LANES = 1;
-	public static $boardName = [];
 	protected static $currentActiveBoard = null;
 
 	/**
@@ -116,8 +115,6 @@ class Board extends \yii\db\ActiveRecord {
 	public function afterFind() {
 		parent::afterFind();
 
-        self::$boardName = [];
-
         if ($this) {
             $this->ticket_backlog_configuration = unserialize($this->ticket_backlog_configuration);
             $this->ticket_completed_configuration = unserialize($this->ticket_completed_configuration);
@@ -129,54 +126,36 @@ class Board extends \yii\db\ActiveRecord {
 			if (!is_array($this->ticket_completed_configuration)) {
 				$this->ticket_completed_configuration = [];
 			}
-
-            if (trim($this->kanban_name) != '') {
-                self::$boardName['kanban'] = $this->kanban_name;
-            }
-            if (trim($this->backlog_name) != '') {
-                self::$boardName['backlog'] = $this->backlog_name;
-            }
-            if (trim($this->completed_name) != '') {
-                self::$boardName['completed'] = $this->completed_name;
-            }
         }
 	}
 
-    public static function getBacklogName() {
-        if (isset(self::$boardName['backlog'])) {
-            return self::$boardName['backlog'];
-        } else {
-            return Yii::t('app', 'Backlog');
-        }
+    protected static function getBacklogName()
+    {
+        return empty(self::$currentActiveBoard->backlog_name) ? Yii::t('app', 'Backlog') : self::$currentActiveBoard->backlog_name;
     }
 
-    public static function getKanbanName() {
-        if (isset(self::$boardName['kanban'])) {
-            return self::$boardName['kanban'];
-        } else {
-            return Yii::t('app', 'Kanban');
-        }
+    protected static function getKanbanName()
+    {
+        return empty(self::$currentActiveBoard->kanban_name) ? Yii::t('app', 'Kanban') : self::$currentActiveBoard->kanban_name;
     }
 
-    public static function getCompletedName() {
-        if (isset(self::$boardName['completed'])) {
-            return self::$boardName['completed'];
-        } else {
-            return Yii::t('app', 'Completed');
-        }
+    protected static function getCompletedName()
+    {
+        return empty(self::$currentActiveBoard->completed_name) ? Yii::t('app', 'Completed') : self::$currentActiveBoard->completed_name;
     }
 
-    public static function getBoardSectionName($boardSection) {
+    public static function getBoardSectionName($boardSection)
+    {
         switch ($boardSection)
         {
             case 'backlog':
-                $boardSectionName = self::getBacklogName();
+                $boardSectionName = self::$currentActiveBoard ? self::getBacklogName() : Yii::t('app', 'Backlog');
                 break;
             case 'kanban':
-                $boardSectionName = self::getKanbanName();
+                $boardSectionName = self::$currentActiveBoard ? self::getKanbanName() : Yii::t('app', 'Kanban');
                 break;
             case 'completed':
-                $boardSectionName = self::getCompletedName();
+                $boardSectionName = self::$currentActiveBoard ? self::getCompletedName() : Yii::t('app', 'Completed');
                 break;
             default:
                 $boardSectionName = 'Board';
@@ -227,6 +206,7 @@ class Board extends \yii\db\ActiveRecord {
 		}
 
 		if ($newActiveBoard) {
+            self::$currentActiveBoard = $newActiveBoard;
 			return $newActiveBoard;
 		} else {
 			Yii::$app->session->setFlash('warning', \Yii::t('app', self::NO_ACTIVE_BOARD_MESSAGE));
