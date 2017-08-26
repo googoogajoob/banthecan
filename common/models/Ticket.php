@@ -319,7 +319,11 @@ class Ticket extends ActiveRecord
 			$query = parent::find();
 		}
 
-    	return $query->andWhere(['board_id' => Board::$currentActiveBoard->id]);
+        if (Board::$currentActiveBoard) {
+    	    $query->andWhere(['board_id' => Board::$currentActiveBoard->id]);
+        }
+
+        return $query;
 	}
 
 	public function afterFind()

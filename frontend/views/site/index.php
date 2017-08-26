@@ -94,11 +94,11 @@ use common\models\Board;
 
                 <?php if (count($boardActivity)) : ?>
                     <div class="col-lg-6">
-                        <h2><?php echo \Yii::t('app', 'Boards'); ?></h2>
+                        <h2><?php echo \Yii::t('app', 'Board Details'); ?></h2>
                         <table class="table table-condensed table-striped">
                             <thead>
                             <tr>
-                                <th><?php echo \Yii::t('app', 'Board'); ?></th>
+                                <th><?php echo \Yii::t('app', 'Section'); ?></th>
                                 <th><?php echo \Yii::t('app', 'Updates'); ?></th>
                                 <th><?php echo \Yii::t('app', 'Size'); ?></th>
                             </tr>
