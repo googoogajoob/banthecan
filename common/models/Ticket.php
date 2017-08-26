@@ -268,6 +268,26 @@ class Ticket extends ActiveRecord
 		return $this;
 	}
 
+    /**
+     * If specific conditions are stipulated via the Query Object the standard find() method
+     * is adapted and the additional query conditions are applied.
+     *
+     * @inheritdoc
+     */
+    public static function find($query = null)
+    {
+        if (!$query) {
+            $query = parent::find();
+        }
+
+        $currentActiveBoard = Board::getCurrentActiveBoard();
+        if ($currentActiveBoard) {
+            $query->andWhere(['board_id' => $currentActiveBoard->id]);
+        }
+
+        return $query;
+    }
+
 	/**
 	 * Query to find all Backlog Tickets
 	 *
@@ -276,7 +296,7 @@ class Ticket extends ActiveRecord
 	 */
 	public static function findBacklog()
     {
-		return Ticket::find(parent::find()->where(['column_id' => 0])->orWhere(['column_id' => null]));
+		return Ticket::find(self::find()->where(['column_id' => 0])->orWhere(['column_id' => null]));
 	}
 
 	/**
@@ -286,7 +306,7 @@ class Ticket extends ActiveRecord
 	 */
 	public static function findCompleted()
     {
-		return Ticket::find(parent::find()->where(['<', 'column_id', 0]));
+		return Ticket::find(self::find()->where(['<', 'column_id', 0]));
 	}
 
 	/**
@@ -305,26 +325,6 @@ class Ticket extends ActiveRecord
         $count = $query->count();
 
         return (bool)$count;
-	}
-
-	/**
-	 * If specific conditions are stipulated via the Query Object the standard find() method
-	 * is adapted and the additional query conditions are applied.
-	 *
-	 * @inheritdoc
-	 */
-	public static function find($query = null)
-    {
-		if (!$query) {
-			$query = parent::find();
-		}
-
-        $currentActiveBoard = Board::getCurrentActiveBoard();
-        if ($currentActiveBoard) {
-    	    $query->andWhere(['board_id' => $currentActiveBoard->id]);
-        }
-
-        return $query;
 	}
 
 	public function afterFind()
