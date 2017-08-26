@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'auth_key:ntext',
              'statusText:ntext:Status',
             // 'password:ntext',
-             'boardNames:ntext:Boards',
+             'userBoardNames:ntext:Boards',
 
         ],
     ]); ?>

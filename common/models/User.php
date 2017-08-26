@@ -473,7 +473,7 @@ class User extends ActiveRecord implements IdentityInterface
         return Yii::t('app', self::$statusText[$this->status]);
     }
 
-    public function getBoardNames()
+    public function getUserBoardNames()
     {
         $relatedBoardIds = explode(',', $this->board_id);
         $relatedBoards = Board::find()->where(['id' => $relatedBoardIds])->orderBy('title')->asArray()->all();

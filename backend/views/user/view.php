@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'statusText:ntext:Status',
             'created_at:datetime',
             'updated_at:datetime',
-            'boardNames:ntext:Boards',
+            'userBoardNames:ntext:Boards',
         ],
     ]) ?>
 
