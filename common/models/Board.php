@@ -33,7 +33,7 @@ class Board extends \yii\db\ActiveRecord {
 	const DEMO_TITLE = 'Ban-The-Can Demonstration Board';
 	const DEMO_MAX_LANES = 1;
 	public static $boardName = [];
-	public static $currentActiveBoard = [];
+	protected static $currentActiveBoard = null;
 
 	/**
 	 * @inheritdoc
@@ -233,6 +233,11 @@ class Board extends \yii\db\ActiveRecord {
 			return null;
 		}
 	}
+
+    public static function getCurrentActiveBoard()
+    {
+        return self::$currentActiveBoard;
+    }
 
 	/**
 	 * Creates a Demo Board
