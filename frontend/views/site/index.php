@@ -108,7 +108,7 @@ use common\models\Board;
                             foreach ($boardActivity as $k => $v) {
 
                                 echo Html::beginTag('tr')
-                                    . Html::tag('td', Html::a(Board::getBoardName($k), $v['url']))
+                                    . Html::tag('td', Html::a(Board::getBoardSectionName($k), $v['url']))
                                     . Html::tag('td', $v['updates'])
                                     . Html::tag('td', $v['size'])
                                     . Html::endTag('tr');

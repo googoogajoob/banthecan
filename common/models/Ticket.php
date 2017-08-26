@@ -62,25 +62,6 @@ class Ticket extends ActiveRecord
 	 */
 	const ACTIVE_BOARD_NOT_FOUND = 'Current Active Board Not Found';
 
-	/**
-	 * If this variable is (> 0) all queries obtained through the find() function
-	 * will be restricted to this value, i.e. (board_id = self::$restrictQueryToBoardId)
-	 * Subsequent query modifications must use the and where (and related) methods in order to
-	 * preserve this restriction. Subsequent use of a standard where() query will eliminate
-	 * this restriction.
-	 *
-	 * This variable is set automatically from the board model
-	 *
-	 * @var int
-	 */
-	public static $restrictQueryToBoardId = 0;
-
-	/*
-	 * Used in conditions to test for a restrictedQuery based on board_Id
-	 * The value of this constant should be a value that a board_Id cannot have
-	 */
-	const NO_BOARD_QUERY_RESTRICTION = 0;
-
     private $_decorationCount = 0;
 
 	/**
@@ -337,11 +318,8 @@ class Ticket extends ActiveRecord
 		if (!$query) {
 			$query = parent::find();
 		}
-		if (self::$restrictQueryToBoardId != self::NO_BOARD_QUERY_RESTRICTION) {
-			return $query->andWhere(['board_id' => self::$restrictQueryToBoardId]);
-		} else {
-			return $query;
-		}
+
+    	return $query->andWhere(['board_id' => Board::$currentActiveBoard->id]);
 	}
 
 	public function afterFind()
@@ -410,28 +388,6 @@ class Ticket extends ActiveRecord
     public function getDecorationData() {
         return $this->decoration_data;
     }
-
-	/**
-	 * Retrieves the Current Active Board Id for this session and sets the
-	 * Ticket Class Variable self::$restrictQueryToBoardId to its value.
-	 * This causes all ticket queries to be restricted to the current BoardId
-	 * @param $currentBoardId Integer, Id to which all ticket queries will be restricted to
-	 */
-	public static function restrictQueryToBoard($currentBoardId)
-    {
-		Yii::trace("Restrict Query To Board ($currentBoardId)",'APC');
-		self::$restrictQueryToBoardId = $currentBoardId;
-	}
-
-	/**
-	 * Retrieves the Current Active Board Id for this session and sets the
-	 * Ticket Class Variable self::$restrictQueryToBoardId to its value.
-	 * This causes all ticket queries to be restricted to the current BoardId
-	 */
-	public static function clearBoardQueryRestriction()
-    {
-		self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
-	}
 
 	/**
 	 * Creates a set of Demo Tickets

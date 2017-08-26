@@ -33,6 +33,7 @@ class Board extends \yii\db\ActiveRecord {
 	const DEMO_TITLE = 'Ban-The-Can Demonstration Board';
 	const DEMO_MAX_LANES = 1;
 	public static $boardName = [];
+	public static $currentActiveBoard = [];
 
 	/**
 	 * @inheritdoc
@@ -48,8 +49,8 @@ class Board extends \yii\db\ActiveRecord {
 	public function behaviors() {
 
 		return [
-		TimestampBehavior::className(),
-		BlameableBehavior::className(),
+			TimestampBehavior::className(),
+			BlameableBehavior::className(),
 		];
 	}
 
@@ -165,24 +166,24 @@ class Board extends \yii\db\ActiveRecord {
         }
     }
 
-    public static function getBoardName($boardView) {
-        switch ($boardView)
+    public static function getBoardSectionName($boardSection) {
+        switch ($boardSection)
         {
             case 'backlog':
-                $boardName = self::getBacklogName();
+                $boardSectionName = self::getBacklogName();
                 break;
             case 'kanban':
-                $boardName = self::getKanbanName();
+                $boardSectionName = self::getKanbanName();
                 break;
             case 'completed':
-                $boardName = self::getCompletedName();
+                $boardSectionName = self::getCompletedName();
                 break;
             default:
-                $boardName = 'Board';
+                $boardSectionName = 'Board';
                 break;
         }
 
-        return $boardName;
+        return $boardSectionName;
     }
 
 	/**
@@ -226,15 +227,9 @@ class Board extends \yii\db\ActiveRecord {
 		}
 
 		if ($newActiveBoard) {
-
-			Ticket::restrictQueryToBoard($newActiveBoard->id);
-
 			return $newActiveBoard;
-
 		} else {
-
 			Yii::$app->session->setFlash('warning', \Yii::t('app', self::NO_ACTIVE_BOARD_MESSAGE));
-
 			return null;
 		}
 	}
