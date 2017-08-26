@@ -37,6 +37,7 @@ class User extends \common\models\User implements IdentityInterface
 	 */
 	public function init()
 	{
+		parent::init();
 		yii::$app->user->on(WebUser::EVENT_AFTER_LOGIN, [$this, 'afterLoginHandler']);
 	}
 

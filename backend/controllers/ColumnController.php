@@ -81,7 +81,7 @@ class ColumnController extends Controller
     }
 
     /**
-     * Creates a new BoardColumn model.
+     * Creates a new Column model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
