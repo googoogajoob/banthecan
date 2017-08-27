@@ -132,7 +132,7 @@ class Column extends ActiveRecord
      */
     public function getTickets()
     {
-        return $this->hasMany(Ticket::className(), ['column_id' => 'id', 'board_id' => 'board_id'])
+        return $this->hasMany(Ticket::className(), ['column_id' => 'id'])
             ->orderBy('ticket_order')
             ->all();
     }
