@@ -216,6 +216,10 @@ class Board extends \yii\db\ActiveRecord {
 
     public static function getCurrentActiveBoard()
     {
+        if (!self::$currentActiveBoard) {
+            self::setCurrentActiveBoard();
+        }
+
         return self::$currentActiveBoard;
     }
 

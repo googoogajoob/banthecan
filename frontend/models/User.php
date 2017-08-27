@@ -178,8 +178,8 @@ class User extends \common\models\User implements IdentityInterface
 		if ($this->boardExists($boardId)) {
 			$this->setSessionActiveBoardId($boardId);
 			$this->setCookieActiveBoardId($boardId);
-            Board::setActiveBoard();
-		} else {
+            Board::setCurrentActiveBoard();
+        } else {
 			$this->deactivateAllBoards();
 		}
 	}

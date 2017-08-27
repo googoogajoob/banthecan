@@ -43,7 +43,7 @@ if (count($userBoardIds) > 1) {
               ['data-toggle' => "dropdown", 'class' =>"dropdown-toggle  apc-navbar-brand"])
         . Dropdown::widget(['items' => $boardSwitchItems])
         . Html::endTag('div');
-    
+
 } else {
 
     $brandLabel = (YII_ENV_DEMO ? 'DEMO: ' : '') . $this->title;
