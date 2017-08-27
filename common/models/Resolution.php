@@ -78,4 +78,18 @@ class Resolution extends \yii\db\ActiveRecord
 		return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
 	}
 
+    public static function find($query = null)
+    {
+        if (!$query) {
+            $query = parent::find();
+        }
+
+        $currentActiveBoard = Board::getCurrentActiveBoard();
+        if ($currentActiveBoard) {
+            $query->andWhere(['board_id' => $currentActiveBoard->id]);
+        }
+
+        return $query;
+    }
+
 }

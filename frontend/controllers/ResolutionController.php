@@ -8,6 +8,7 @@ use common\models\ResolutionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Board;
 
 /**
  * ResolutionController implements the CRUD actions for Resolution model.
@@ -65,6 +66,7 @@ class ResolutionController extends Controller
     public function actionCreate($id)
     {
         $model = new Resolution();
+        $model->board_id = Board::getCurrentActiveBoard()->id; //A new ticket belongs to the current active board
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

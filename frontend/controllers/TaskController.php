@@ -8,6 +8,7 @@ use common\models\TaskSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Board;
 
 /**
  * TaskController implements the CRUD actions for Task model.
@@ -65,6 +66,7 @@ class TaskController extends Controller
     public function actionCreate($id)
     {
         $model = new Task();
+        $model->board_id = Board::getCurrentActiveBoard()->id; //A new ticket belongs to the current active board
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
