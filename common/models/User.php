@@ -354,7 +354,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public static function getBoardUsers() {
 
-		return self::find()->where(Board::getActiveBoard()->id . ' in (board_id)')->all();
+		return self::find()->where(Board::getCurrentActiveBoard()->id . ' in (board_id)')->all();
 	}
 
 	/**

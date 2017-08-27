@@ -251,7 +251,7 @@ class Ticket extends ActiveRecord
 	 */
 	public function moveToKanBanBoard()
     {
-		$this->column_id = Board::getActiveBoard()->entry_column;
+		$this->column_id = Board::getCurrentActiveBoard()->entry_column;
 
 		return $this;
 	}
@@ -454,7 +454,6 @@ class Ticket extends ActiveRecord
 				if (!$this->save('false', ['created_at'])) {
 					return false;
 				}
-
 			}
 
 			// Create KanBanBoard Tickets

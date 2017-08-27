@@ -194,7 +194,7 @@ class Board extends \yii\db\ActiveRecord {
 	 *
 	 * @return \yii\db\ActiveRecord | null when board record not found
 	 */
-	public static function getActiveBoard()
+	public static function setCurrentActiveBoard()
 	{
 		$userRecord = Yii::$app->user->identity;
 		$newActiveBoard = false;

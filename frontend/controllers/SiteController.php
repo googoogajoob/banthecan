@@ -83,7 +83,7 @@ class SiteController extends Controller {
         if (YII_ENV_DEMO) {
             return $this->render('index-demo');
         } else {
-            $activeBoard = Board::getActiveBoard();
+            $activeBoard = Board::getCurrentActiveBoard();
             $boardActivity = [];
             $newTickets = [];
             $news = [];

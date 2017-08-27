@@ -81,7 +81,7 @@ class TicketDecorationManager extends Object {
         if ($column == Ticket::DEFAULT_BACKLOG_STATUS
          || $column == Ticket::DEFAULT_COMPLETED_STATUS) {
 
-            if ($board = Board::getActiveBoard()) {
+            if ($board = Board::getCurrentActiveBoard()) {
                 $decorations = $column == Ticket::DEFAULT_BACKLOG_STATUS
                                 ? $board->ticket_backlog_configuration
                                 : $board->ticket_completed_configuration;
