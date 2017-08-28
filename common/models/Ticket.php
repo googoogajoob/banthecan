@@ -7,8 +7,7 @@ use Faker\Factory;
 use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use frontend\models\blameTrait;
-use yii\db\ActiveRecord;
+use frontend\models\BlameTrait;
 use common\models\ticketDecoration\TicketDecorationLink;
 
 /**
@@ -31,9 +30,10 @@ use common\models\ticketDecoration\TicketDecorationLink;
  * @property string  $decoration_data
  *
  */
-class Ticket extends ActiveRecord
+
+class Ticket extends FindFromBoard
 {
-	use blameTrait;
+	use BlameTrait;
 
 	const TICKET_TAG_MM_TABLE = 'ticket_tag_mm';
 	const DEMO_BACKLOG_TICKETS = 100;
@@ -61,25 +61,6 @@ class Ticket extends ActiveRecord
 	 * Error Message when assigning ticket to current active board
 	 */
 	const ACTIVE_BOARD_NOT_FOUND = 'Current Active Board Not Found';
-
-	/**
-	 * If this variable is (> 0) all queries obtained through the find() function
-	 * will be restricted to this value, i.e. (board_id = self::$restrictQueryToBoardId)
-	 * Subsequent query modifications must use the and where (and related) methods in order to
-	 * preserve this restriction. Subsequent use of a standard where() query will eliminate
-	 * this restriction.
-	 *
-	 * This variable is set automatically from the board model
-	 *
-	 * @var int
-	 */
-	public static $restrictQueryToBoardId = 0;
-
-	/*
-	 * Used in conditions to test for a restrictedQuery based on board_Id
-	 * The value of this constant should be a value that a board_Id cannot have
-	 */
-	const NO_BOARD_QUERY_RESTRICTION = 0;
 
     private $_decorationCount = 0;
 
@@ -270,7 +251,7 @@ class Ticket extends ActiveRecord
 	 */
 	public function moveToKanBanBoard()
     {
-		$this->column_id = Board::getActiveBoard()->entry_column;
+		$this->column_id = Board::getCurrentActiveBoard()->entry_column;
 
 		return $this;
 	}
@@ -295,7 +276,7 @@ class Ticket extends ActiveRecord
 	 */
 	public static function findBacklog()
     {
-		return Ticket::find(parent::find()->where(['column_id' => 0])->orWhere(['column_id' => null]));
+		return Ticket::find(self::find()->where(['column_id' => 0])->orWhere(['column_id' => null]));
 	}
 
 	/**
@@ -305,7 +286,7 @@ class Ticket extends ActiveRecord
 	 */
 	public static function findCompleted()
     {
-		return Ticket::find(parent::find()->where(['<', 'column_id', 0]));
+		return Ticket::find(self::find()->where(['<', 'column_id', 0]));
 	}
 
 	/**
@@ -324,24 +305,6 @@ class Ticket extends ActiveRecord
         $count = $query->count();
 
         return (bool)$count;
-	}
-
-	/**
-	 * If specific conditions are stipulated via the Query Object the standard find() method
-	 * is adapted and the additional query conditions are applied.
-	 *
-	 * @inheritdoc
-	 */
-	public static function find($query = null)
-    {
-		if (!$query) {
-			$query = parent::find();
-		}
-		if (self::$restrictQueryToBoardId != self::NO_BOARD_QUERY_RESTRICTION) {
-			return $query->andWhere(['board_id' => self::$restrictQueryToBoardId]);
-		} else {
-			return $query;
-		}
 	}
 
 	public function afterFind()
@@ -412,28 +375,6 @@ class Ticket extends ActiveRecord
     }
 
 	/**
-	 * Retrieves the Current Active Board Id for this session and sets the
-	 * Ticket Class Variable self::$restrictQueryToBoardId to its value.
-	 * This causes all ticket queries to be restricted to the current BoardId
-	 * @param $currentBoardId Integer, Id to which all ticket queries will be restricted to
-	 */
-	public static function restrictQueryToBoard($currentBoardId)
-    {
-		Yii::trace("Restrict Query To Board ($currentBoardId)",'APC');
-		self::$restrictQueryToBoardId = $currentBoardId;
-	}
-
-	/**
-	 * Retrieves the Current Active Board Id for this session and sets the
-	 * Ticket Class Variable self::$restrictQueryToBoardId to its value.
-	 * This causes all ticket queries to be restricted to the current BoardId
-	 */
-	public static function clearBoardQueryRestriction()
-    {
-		self::$restrictQueryToBoardId = self::NO_BOARD_QUERY_RESTRICTION;
-	}
-
-	/**
 	 * Creates a set of Demo Tickets
 	 *
 	 * @return boolean
@@ -493,7 +434,6 @@ class Ticket extends ActiveRecord
 				if (!$this->save('false', ['created_at'])) {
 					return false;
 				}
-
 			}
 
 			// Create KanBanBoard Tickets

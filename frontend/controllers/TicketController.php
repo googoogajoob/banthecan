@@ -161,7 +161,7 @@ class TicketController extends Controller {
     public function actionCreate() {
 
         $model = new Ticket();
-        $model->board_id = Board::getActiveBoard()->id; //A new ticket belongs to the current active board
+        $model->board_id = Board::getCurrentActiveBoard()->id; //A new ticket belongs to the current active board
         $model->moveToBacklog(); //A new ticket always starts in the backlog
         $request = Yii::$app->request;
 

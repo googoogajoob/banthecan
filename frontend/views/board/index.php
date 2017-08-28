@@ -16,7 +16,7 @@ BoardAsset::register($this);
 ?>
 
 <h1 class="text-capitalize">
-    <?php echo Board::getKanbanName(); ?>
+    <?php echo Board::getBoardSectionName('kanban'); ?>
 </h1>
 
 <?php

@@ -12,7 +12,7 @@ use common\models\Board;
 
 <?php echo $this->render('@frontend/views/board/partials/_showSearchButton'); ?>
 
-<h1 class="text-capitalize"><?php echo Board::getCompletedName(); ?></h1>
+<h1 class="text-capitalize"><?php echo Board::getBoardSectionName('completed'); ?></h1>
 <span class="pull-left"><?php echo \Yii::t('app', 'Page Size:'); ?>&nbsp;</span>
 
 <?php

@@ -8,7 +8,7 @@
 
 namespace frontend\models;
 
-trait blameTrait
+trait BlameTrait
 {
     /**
      * @return \yii\db\ActiveQuery

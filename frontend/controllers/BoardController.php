@@ -67,7 +67,7 @@ class BoardController extends \yii\web\Controller {
             $action->id == 'backlog' or
             $action->id == 'index'
         ) {
-            $this->currentBoard = Board::getActiveBoard();
+            $this->currentBoard = Board::getCurrentActiveBoard();
         }
 
         return true; // or false to not run the action
@@ -242,7 +242,7 @@ class BoardController extends \yii\web\Controller {
             }
 
             if ($sendUpdate) {
-                $this->currentBoard = Board::getActiveBoard();
+                $this->currentBoard = Board::getCurrentActiveBoard();
                 $ajaxCookie = json_decode($request->post('ajaxCookie'), true);
                 $successHtml = $this->getAllColumnsHtml($ajaxCookie);
 

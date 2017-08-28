@@ -37,6 +37,7 @@ class User extends \common\models\User implements IdentityInterface
 	 */
 	public function init()
 	{
+		parent::init();
 		yii::$app->user->on(WebUser::EVENT_AFTER_LOGIN, [$this, 'afterLoginHandler']);
 	}
 
@@ -140,7 +141,8 @@ class User extends \common\models\User implements IdentityInterface
 
 		return $cookieCollection->add(new \yii\web\Cookie([
             'name' => self::ACTIVE_BOARD_COOKIE_NAME,
-            'value' => $value
+            'value' => $value,
+			'expire' => time() + 7 * 24 * 60 * 60
 		]));
 	}
 
@@ -176,7 +178,8 @@ class User extends \common\models\User implements IdentityInterface
 		if ($this->boardExists($boardId)) {
 			$this->setSessionActiveBoardId($boardId);
 			$this->setCookieActiveBoardId($boardId);
-		} else {
+            Board::setCurrentActiveBoard();
+        } else {
 			$this->deactivateAllBoards();
 		}
 	}

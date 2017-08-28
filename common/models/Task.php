@@ -6,8 +6,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\User;
-use frontend\models\blameTrait;
-
+use frontend\models\BlameTrait;
 
 /**
  * This is the model class for table "task".
@@ -23,9 +22,10 @@ use frontend\models\blameTrait;
  * @property integer $user_id User Responsible for seeing the task is completed
  * @property integer $completed
  */
-class Task extends \yii\db\ActiveRecord
+
+class Task extends FindFromBoard
 {
-    use blameTrait;
+    use BlameTrait;
 
     /**
      * @inheritdoc

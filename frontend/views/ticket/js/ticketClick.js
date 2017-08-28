@@ -5,7 +5,7 @@ function ticketMove(ticketMoveUrl, event)
     $('#global-modal-container').modal({
         keyboard: false
     });
-    getGlobalModalHtml(ticketMoveUrl);
+    getGlobalModalHtml(ticketMoveUrl, event);
     turnOnModalEvents();
 
     return false;
