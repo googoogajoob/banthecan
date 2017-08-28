@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
-use frontend\models\blameTrait;
+use frontend\models\BlameTrait;
 
 /**
  * This is the model class for table "resolution".
@@ -21,7 +21,7 @@ use frontend\models\blameTrait;
  */
 class Resolution extends \yii\db\ActiveRecord
 {
-    use blameTrait;
+    use BlameTrait;
 
 	/**
 	 * @inheritdoc

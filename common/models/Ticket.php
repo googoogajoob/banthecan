@@ -7,7 +7,7 @@ use Faker\Factory;
 use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use frontend\models\blameTrait;
+use frontend\models\BlameTrait;
 use yii\db\ActiveRecord;
 use common\models\ticketDecoration\TicketDecorationLink;
 
@@ -33,7 +33,7 @@ use common\models\ticketDecoration\TicketDecorationLink;
  */
 class Ticket extends ActiveRecord
 {
-	use blameTrait;
+	use BlameTrait;
 
 	const TICKET_TAG_MM_TABLE = 'ticket_tag_mm';
 	const DEMO_BACKLOG_TICKETS = 100;

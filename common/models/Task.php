@@ -6,7 +6,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\User;
-use frontend\models\blameTrait;
+use frontend\models\BlameTrait;
 
 
 /**
@@ -25,7 +25,7 @@ use frontend\models\blameTrait;
  */
 class Task extends \yii\db\ActiveRecord
 {
-    use blameTrait;
+    use BlameTrait;
 
     /**
      * @inheritdoc
