@@ -90,8 +90,8 @@ class Ticket extends FindFromBoard
 	public function rules()
 	{
 		return [
-            [['title', 'column_id'], 'required'],
-            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order', 'vote_priority'], 'integer'],
+            [['title', 'column_id', 'board_id'], 'required'],
+            [['id', 'board_id','created_at', 'updated_at', 'created_by', 'updated_by', 'column_id', 'ticket_order', 'vote_priority'], 'integer'],
             [['title', 'description', 'protocol'], 'string'],
             [['id'], 'unique'],
             [['tagNames', 'decoration_data'], 'safe'],
@@ -484,4 +484,20 @@ class Ticket extends FindFromBoard
 
 		return $returnList;
 	}
+
+    /**
+     * @return \yii\db\ActiveRecord
+     */
+    public function getBoard()
+    {
+        return $this->hasOne(Board::className(), ['id' => 'board_id']);
+    }
+
+    public function getBoardTitle()
+    {
+        $board = $this->getBoard()->one();
+
+        return $board->title;
+    }
+
 }
