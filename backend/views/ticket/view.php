@@ -27,8 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'created_at',
-            'updated_at',
+            'boardTitle',
+            'created_at:date',
+            'updated_at:date',
             'created_by',
             'updated_by',
             'title:ntext',

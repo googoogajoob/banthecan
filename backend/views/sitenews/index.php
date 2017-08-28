@@ -11,24 +11,26 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-news-index">
 
-<h1><?= Html::encode($this->title) ?></h1>
+<h1><?php echo Html::encode($this->title) ?></h1>
 
-<p><?= Html::a(Yii::t('app', 'Create Site News'), ['create'], ['class' => 'btn btn-success']) ?>
+<p>
+    <?php echo Html::a(Yii::t('app', 'Create Site News'), ['create'], ['class' => 'btn btn-success']) ?>
 </p>
 
-<?= GridView::widget([
+<?php
+    echo GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
+            'boardTitle',
             'title:ntext',
             'description:ntext',
-
-['class' => 'yii\grid\ActionColumn'],
-],
-]); ?></div>
+            'created_at:date',
+            'updated_at:date',
+            'created_by',
+            'updated_by',
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]);
+?>
+</div>

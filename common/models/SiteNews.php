@@ -33,8 +33,8 @@ class SiteNews extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-		[['title'], 'required'],
-		[['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+		[['title', 'board_id'], 'required'],
+		[['board_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
 		[['title', 'description'], 'string'],
 		];
 	}
@@ -45,8 +45,8 @@ class SiteNews extends \yii\db\ActiveRecord
 	public function behaviors() {
 
 		return [
-		TimestampBehavior::className(),
-		BlameableBehavior::className(),
+    		TimestampBehavior::className(),
+    		BlameableBehavior::className(),
 		];
 	}
 
@@ -80,4 +80,18 @@ class SiteNews extends \yii\db\ActiveRecord
         return $query;
     }
 
+    /**
+     * @return \yii\db\ActiveRecord
+     */
+    public function getBoard()
+    {
+        return $this->hasOne(Board::className(), ['id' => 'board_id']);
+    }
+
+    public function getBoardTitle()
+    {
+        $board = $this->getBoard()->one();
+
+        return $board->title;
+    }
 }

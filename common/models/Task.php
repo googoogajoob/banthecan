@@ -41,8 +41,8 @@ class Task extends FindFromBoard
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed'], 'integer'],
+            [['title', 'board_id'], 'required'],
+            [['board_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed'], 'integer'],
             [['title', 'description'], 'string'],
         ];
     }
@@ -111,6 +111,21 @@ class Task extends FindFromBoard
     public function getTicket()
     {
         return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveRecord
+     */
+    public function getBoard()
+    {
+        return $this->hasOne(Board::className(), ['id' => 'board_id']);
+    }
+
+    public function getBoardTitle()
+    {
+        $board = $this->getBoard()->one();
+
+        return $board->title;
     }
 
 }
