@@ -7,6 +7,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\User;
 use frontend\models\BlameTrait;
+use \yii\db\ActiveRecord;
 
 
 /**
@@ -23,7 +24,8 @@ use frontend\models\BlameTrait;
  * @property integer $user_id User Responsible for seeing the task is completed
  * @property integer $completed
  */
-class Task extends \yii\db\ActiveRecord
+
+class Task extends ActiveRecord
 {
     use BlameTrait;
 

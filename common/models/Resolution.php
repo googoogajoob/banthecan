@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use frontend\models\BlameTrait;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "resolution".
@@ -19,7 +20,8 @@ use frontend\models\BlameTrait;
  * @property string $description
  * @property integer $ticket_id
  */
-class Resolution extends \yii\db\ActiveRecord
+
+class Resolution extends ActiveRecord
 {
     use BlameTrait;
 
