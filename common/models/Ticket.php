@@ -8,7 +8,6 @@ use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\BlameTrait;
-use yii\db\ActiveRecord;
 use common\models\ticketDecoration\TicketDecorationLink;
 
 /**
@@ -31,7 +30,8 @@ use common\models\ticketDecoration\TicketDecorationLink;
  * @property string  $decoration_data
  *
  */
-class Ticket extends ActiveRecord
+
+class Ticket extends FindFromBoard
 {
 	use BlameTrait;
 
@@ -267,26 +267,6 @@ class Ticket extends ActiveRecord
 
 		return $this;
 	}
-
-    /**
-     * If specific conditions are stipulated via the Query Object the standard find() method
-     * is adapted and the additional query conditions are applied.
-     *
-     * @inheritdoc
-     */
-    public static function find($query = null)
-    {
-        if (!$query) {
-            $query = parent::find();
-        }
-
-        $currentActiveBoard = Board::getCurrentActiveBoard();
-        if ($currentActiveBoard) {
-            $query->andWhere(['board_id' => $currentActiveBoard->id]);
-        }
-
-        return $query;
-    }
 
 	/**
 	 * Query to find all Backlog Tickets

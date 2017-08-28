@@ -6,7 +6,6 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use frontend\models\BlameTrait;
-use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "resolution".
@@ -21,7 +20,7 @@ use \yii\db\ActiveRecord;
  * @property integer $ticket_id
  */
 
-class Resolution extends ActiveRecord
+class Resolution extends FindFromBoard
 {
     use BlameTrait;
 
@@ -79,19 +78,5 @@ class Resolution extends ActiveRecord
 	public function getTicket() {
 		return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
 	}
-
-    public static function find($query = null)
-    {
-        if (!$query) {
-            $query = parent::find();
-        }
-
-        $currentActiveBoard = Board::getCurrentActiveBoard();
-        if ($currentActiveBoard) {
-            $query->andWhere(['board_id' => $currentActiveBoard->id]);
-        }
-
-        return $query;
-    }
 
 }

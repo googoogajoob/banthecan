@@ -7,8 +7,6 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\User;
 use frontend\models\BlameTrait;
-use \yii\db\ActiveRecord;
-
 
 /**
  * This is the model class for table "task".
@@ -25,7 +23,7 @@ use \yii\db\ActiveRecord;
  * @property integer $completed
  */
 
-class Task extends ActiveRecord
+class Task extends FindFromBoard
 {
     use BlameTrait;
 
@@ -115,17 +113,4 @@ class Task extends ActiveRecord
         return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
     }
 
-    public static function find($query = null)
-    {
-        if (!$query) {
-            $query = parent::find();
-        }
-
-        $currentActiveBoard = Board::getCurrentActiveBoard();
-        if ($currentActiveBoard) {
-            $query->andWhere(['board_id' => $currentActiveBoard->id]);
-        }
-
-        return $query;
-    }
 }
