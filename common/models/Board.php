@@ -197,10 +197,10 @@ class Board extends \yii\db\ActiveRecord {
 	public static function setCurrentActiveBoard()
 	{
 		$userRecord = Yii::$app->user->identity;
-		$newActiveBoard = false;
+		$newActiveBoard = null;
 
 		if ($userRecord) {
-            if ($userCanHaveActiveBoard = method_exists($userRecord, 'getUserActiveBoard')) {
+            if ($userCanHaveActiveBoard = method_exists($userRecord, 'getUserActiveBoardID')) {
                 if ($lookForBoardId = $userRecord->getUserActiveBoardId()) {
                     $newActiveBoard = self::findOne($lookForBoardId);
                 }
