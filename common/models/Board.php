@@ -200,12 +200,14 @@ class Board extends \yii\db\ActiveRecord {
 		$newActiveBoard = false;
 
 		if ($userRecord) {
-			if ($lookForBoardId = $userRecord->getUserActiveBoardId()) {
-				$newActiveBoard = self::findOne($lookForBoardId);
-			}
+            if ($userCanHaveActiveBoard = method_exists($userRecord, 'getUserActiveBoard')) {
+                if ($lookForBoardId = $userRecord->getUserActiveBoardId()) {
+                    $newActiveBoard = self::findOne($lookForBoardId);
+                }
+            }
 		}
 
-		if ($newActiveBoard) {
+		if ($newActiveBoard || !$userCanHaveActiveBoard) {
             self::$currentActiveBoard = $newActiveBoard;
 			return $newActiveBoard;
 		} else {
