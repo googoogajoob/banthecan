@@ -198,6 +198,7 @@ class Board extends \yii\db\ActiveRecord {
 	{
 		$userRecord = Yii::$app->user->identity;
 		$newActiveBoard = null;
+        $userCanHaveActiveBoard = false;
 
 		if ($userRecord) {
             if ($userCanHaveActiveBoard = method_exists($userRecord, 'getUserActiveBoardID')) {
@@ -207,7 +208,7 @@ class Board extends \yii\db\ActiveRecord {
             }
 		}
 
-		if ($newActiveBoard || !$userCanHaveActiveBoard) {
+		if ($newActiveBoard || (!$userCanHaveActiveBoard && !$newActiveBoard)) {
             self::$currentActiveBoard = $newActiveBoard;
 			return $newActiveBoard;
 		} else {
