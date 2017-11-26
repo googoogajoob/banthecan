@@ -20,9 +20,11 @@ use common\models\Board;
 
         echo $form->field($model, 'title')->textInput();
 
-        $boardColumns = $model->getBoard()->one()->getColumns();
-        $boardColumnTitles = ArrayHelper::map($boardColumns, 'id', 'title');
-        echo $form->field($model, 'receiverArray')->checkboxList($boardColumnTitles);
+        /*if ($currentBoard = $model->getBoard()->one()) {
+            $boardColumns = $currentBoard->getColumns();
+            $boardColumnTitles = ArrayHelper::map($boardColumns, 'id', 'title');
+            echo $form->field($model, 'receiverArray')->checkboxList($boardColumnTitles);
+        }*/
 
         $decorationClasses = Yii::$app->ticketDecorationManager->getAvailableTicketDecorations();
         $decorations = array_combine($decorationClasses, $decorationClasses);
