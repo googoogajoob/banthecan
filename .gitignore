@@ -38,3 +38,6 @@ phpunit.phar
 
 #GoDaddy Server
 error_log
+
+#linux dolphin
+.directory
