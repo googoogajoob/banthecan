@@ -19,7 +19,8 @@ use backend\models\SignupForm;
 /**
  * Site controller
  */
-class SiteController extends Controller {
+class SiteController extends Controller
+{
 
     /**
      * @inheritdoc
@@ -84,33 +85,37 @@ class SiteController extends Controller {
         ];
     }
 
-    public function actionIndex() {
-
-        if (YII_ENV_DEMO and Yii::$app->user->isGuest) {
-            $session = Yii::$app->session;
-            $session->setFlash('info',
-                'You can create demo data with <a href="/site/initialize"><strong>Initialize Demo Database</strong></a> or <a href="/site/login"><strong>login</strong></a> as a demo user.');
-        }
-
+    public function actionIndex()
+    {
         if (YII_ENV_DEMO) {
-            return $this->render('index-demo');
+            if (Yii::$app->user->isGuest) {
+                $session = Yii::$app->session;
+                $session->setFlash('info',
+                    'You can create demo data with <a href="/site/initialize"><strong>Initialize Demo Database</strong></a> or <a href="/site/login"><strong>login</strong></a> as a demo user.');
+            } else {
+                return $this->render('index-demo');
+            }
         } else {
-            $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
-            $query = new Query;
+            if (Yii::$app->user->isGuest) {
+                return $this->render('index', ['guest' => true]);
+            } else {
+                $sevenDaysAgo = time() - 604800; //Seconds in 7 days 60*60*24*7 = 604800;
+                $query = new Query;
 
-            $activity['Tickets'] = $query
-                ->from(Ticket::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
-            $activity['Task'] = $query
-                ->from(Task::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
-            $activity['Resolution'] = $query
-                ->from(Resolution::tableName())
-                ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+                $activity['Tickets'] = $query
+                    ->from(Ticket::tableName())
+                    ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+                $activity['Task'] = $query
+                    ->from(Task::tableName())
+                    ->where(['>', 'updated_at', $sevenDaysAgo])->count();
+                $activity['Resolution'] = $query
+                    ->from(Resolution::tableName())
+                    ->where(['>', 'updated_at', $sevenDaysAgo])->count();
 
-            $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
+                $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
 
-            return $this->render('index', ['activity' => $activity, 'news' => $news]);
+                return $this->render('index', ['activity' => $activity, 'news' => $news, 'guest' => false]);
+            }
         }
     }
 
@@ -136,10 +141,8 @@ class SiteController extends Controller {
         return $this->goHome();
     }
 
-    public function actionInitialize() {
-
-        //return $this->render('initialize');
-
+    public function actionInitialize()
+    {
         //Created new Demo User
         $user = new User();
         $user->createDemoUser();
@@ -173,8 +176,8 @@ class SiteController extends Controller {
      *
      * @return \yii\web\Response
      */
-    public function actionCreate() {
-
+    public function actionCreate()
+    {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {

@@ -60,7 +60,7 @@ return [
     'Event' => 'Ereignis',
     'Frequency' => 'Häufugkeit',
     'From Date' => 'Datum von',
-    'Here you can edit all DB Tables used in the Front End' => 'Hier kannst du all DB Tabellen vom Frontend editieren',
+    'Here you can edit all DB Tables used in the Front End' => 'Hier kannst du alle DB Tabellen vom Frontend editieren',
     'Hide Search Options' => 'Suchoptionen verstecken',
     'ID' => 'ID',
     'If you forgot your password you can' => 'Beim vergessenen Passwort kannst du',
