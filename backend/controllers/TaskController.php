@@ -12,21 +12,21 @@ use yii\filters\VerbFilter;
 /**
  * TaskController implements the CRUD actions for Task model.
  */
-class TaskController extends Controller
+class TaskController extends PreventguestController
 {
     /**
      * @inheritdoc
      */
     public function behaviors()
     {
-        return [
+        return array_merge([
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
-        ];
+        ], parent::behaviors());
     }
 
     /**

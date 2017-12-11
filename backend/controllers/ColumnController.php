@@ -13,18 +13,18 @@ use yii\filters\VerbFilter;
 /**
  * BoardColumnController implements the CRUD actions for BoardColumn model.
  */
-class ColumnController extends Controller
+class ColumnController extends PreventguestController
 {
     public function behaviors()
     {
-        return [
+        return array_merge([
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
             ],
-        ];
+        ], parent::behaviors());
     }
 
     /**

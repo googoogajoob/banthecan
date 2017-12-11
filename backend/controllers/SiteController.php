@@ -43,7 +43,6 @@ class SiteController extends Controller {
                         'allow' => true,
                         'roles' => ['?'],
                         'matchCallback' => function ($rule, $action) {
-
                             return \Yii::$app->user->isGuest && User::count() > 0;
                         }
                     ],
@@ -52,7 +51,6 @@ class SiteController extends Controller {
                         'allow' => true,
                         'roles' => ['?'],
                         'matchCallback' => function ($rule, $action) {
-
                             return \Yii::$app->user->isGuest && User::count() == 0;
                         }
                     ],
