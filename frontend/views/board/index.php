@@ -6,7 +6,6 @@ use common\models\Board;
 
 /* @var $this yii\web\View */
 /* @var $columnHtml string */
-/* @var $showAvatar boolean */
 
 // $this->params['breadcrumbs'][] = 'KanBanBoard';
 
