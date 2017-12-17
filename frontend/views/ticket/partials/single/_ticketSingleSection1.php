@@ -6,14 +6,14 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
 /* @var $showVote boolean */
-/* @var $showAvatar boolean */
+/* @var $showKanBanAvatar boolean */
 
-    $showAvatar = isset($showAvatar) ? $showAvatar : true;
+    $showKanBanAvatar = isset($showKanBanAvatar) ? $showKanBanAvatar : true;
 
 ?>
 
 <?php
-    if ($showAvatar) {
+    if ($showKanBanAvatar) {
         echo $this->render('@frontend/views/user/partials/_blame', [
                 'model' => $model,
                 'useUpdated' => true,
@@ -29,7 +29,7 @@ use yii\helpers\Html;
 <?php $showAvatarImage = ($model->created_by !== $model->updated_by); ?>
 
 <?php
-    if ($showAvatar) {
+    if ($showKanBanAvatar) {
         echo $this->render('@frontend/views/user/partials/_blame', [
                 'model' => $model,
                 'textBelow' => true,

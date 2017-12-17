@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'showAvatar' => false,
+    'showKanBanAvatar' => false,
 ];
