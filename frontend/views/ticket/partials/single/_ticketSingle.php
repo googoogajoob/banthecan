@@ -6,6 +6,7 @@ use frontend\controllers\TicketController;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
+/* @var $showAvatar boolean */
 
 $dependency = [
     'class' => 'yii\caching\DbDependency',
@@ -34,6 +35,7 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
         echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection1', [
             'model' => $model,
             'showVote' => $isKanBan,
+            'showAvatar' => isset($showAvatar) ? $showAvatar : true,
             ]
         );
     ?>

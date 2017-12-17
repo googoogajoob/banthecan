@@ -6,31 +6,39 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
 /* @var $showVote boolean */
+/* @var $showAvatar boolean */
+
+    $showAvatar = isset($showAvatar) ? $showAvatar : true;
+
 ?>
 
 <?php
-    echo $this->render('@frontend/views/user/partials/_blame', [
-        'model' => $model,
-        'useUpdated' => true,
-        'alignRight' => true,
-        'textBelow' => true,
-        'showName' => false,
-        'dateFormat' => 'php:d.m'
-        ]
-    );
+    if ($showAvatar) {
+        echo $this->render('@frontend/views/user/partials/_blame', [
+                'model' => $model,
+                'useUpdated' => true,
+                'alignRight' => true,
+                'textBelow' => true,
+                'showName' => false,
+                'dateFormat' => 'php:d.m'
+            ]
+        );
+    }
 ?>
 
-<?php $showAvatar = ($model->created_by !== $model->updated_by); ?>
+<?php $showAvatarImage = ($model->created_by !== $model->updated_by); ?>
 
 <?php
-    echo $this->render('@frontend/views/user/partials/_blame', [
-        'model' => $model,
-        'textBelow' => true,
-        'showName' => false,
-        'showAvatar' => $showAvatar,
-        'dateFormat' => 'php:d.m'
-        ]
-    );
+    if ($showAvatar) {
+        echo $this->render('@frontend/views/user/partials/_blame', [
+                'model' => $model,
+                'textBelow' => true,
+                'showName' => false,
+                'showAvatar' => $showAvatarImage,
+                'dateFormat' => 'php:d.m'
+            ]
+        );
+    }
 ?>
 
 <?php

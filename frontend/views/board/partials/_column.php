@@ -7,6 +7,7 @@ use frontend\controllers\TicketController;
 /* @var $column common\models\Column */
 /* @var $columnHtmlId string */
 /* @var $expanded boolean */
+/* @var $showAvatar boolean */
 
 /**
  * Erkenntnisblitz: I was having difficulty using the Bootstrap grid features to arrange the columns
@@ -41,6 +42,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
             $moveParameter = '/ticket/view/' . $ticket->id;
             $content = $this->render('@frontend/views/ticket/partials/single/_ticketSingle',[
                         'model' => $ticket,
+                        'showAvatar' => $showAvatar,
             ]);
             $options = [
                         'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,
