@@ -6,11 +6,25 @@ use frontend\controllers\TicketController;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
+/* @var $showKanBanAvatar boolean */
+/* @var $fixedHeightTicketView boolean */
 
 $dependency = [
     'class' => 'yii\caching\DbDependency',
     'sql' => 'SELECT MAX(updated_at) FROM ticket',
 ];
+
+$fixedHeightTicketView = isset($fixedHeightTicketView) ? $fixedHeightTicketView : true;
+
+if ($fixedHeightTicketView) {
+    $sectionOneClass = "ticket-widget-section-one-float clearfix";
+    $sectionTwoClass = "ticket-widget-section-two-float clearfix";
+    $sectionThreeClass = "ticket-widget-section-three-float clearfix";
+} else {
+    $sectionOneClass = "ticket-widget-section-one clearfix";
+    $sectionTwoClass = "ticket-widget-section-two clearfix";
+    $sectionThreeClass = "ticket-widget-section-three clearfix";
+}
 
 if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of Cache If-Block
 
@@ -29,17 +43,19 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
     }
 ?>
 
-<div class="ticket-widget-section-one">
+<div class="<?php echo $sectionOneClass; ?>">
     <?php
         echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection1', [
             'model' => $model,
             'showVote' => $isKanBan,
+            'showKanBanAvatar' => isset($showKanBanAvatar) ? $showKanBanAvatar : true,
             ]
         );
     ?>
 </div>
 
-<div class="ticket-widget-section-two">
+<?php if ($fixedHeightTicketView) : ?>
+<div class="<?php echo $sectionTwoClass; ?>">
     <?php
         echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection2', [
             'model' => $model,
@@ -48,11 +64,13 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
         );
     ?>
 </div>
+<?php endif; ?>
 
-<div class="ticket-widget-section-three">
+<div class="<?php echo $sectionThreeClass; ?>">
     <?php
         echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection3', [
             'model' => $model,
+            'fixedHeightTicketView' => $fixedHeightTicketView,
             ]
         );
     ?>

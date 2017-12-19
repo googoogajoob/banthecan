@@ -113,6 +113,7 @@ class BoardController extends \yii\web\Controller {
                     'column' => $column,
                     'columnHtmlId' => $columnHtmlId,
                     'expanded' => isset($cookies[$columnHtmlId]) ? intval($cookies[$columnHtmlId]) > 0 : true,
+                    'showKanBanAvatar' => isset(Yii::$app->params['showKanBanAvatar']) ? Yii::$app->params['showKanBanAvatar'] : true,
                 ]
             );
         }
