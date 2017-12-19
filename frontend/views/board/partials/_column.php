@@ -7,7 +7,7 @@ use frontend\controllers\TicketController;
 /* @var $column common\models\Column */
 /* @var $columnHtmlId string */
 /* @var $expanded boolean */
-/* @var $showAvatar boolean */
+/* @var $showKanBanAvatar boolean */
 
 /**
  * Erkenntnisblitz: I was having difficulty using the Bootstrap grid features to arrange the columns
