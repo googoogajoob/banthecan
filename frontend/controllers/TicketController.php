@@ -63,7 +63,12 @@ class TicketController extends Controller {
             if ($changedColumnTicketId > 0) {
                 $ticket = Ticket::findOne($changedColumnTicketId);
                 $ticketHtmlId = '#' . static::TICKET_HTML_PREFIX . $changedColumnTicketId;
-                $ticketHtml = $this->renderFile('@frontend/views/ticket/partials/single/_ticketSingle.php', ['model' => $ticket]);
+                $ticketHtml = $this->renderFile('@frontend/views/ticket/partials/single/_ticketSingle.php',
+                    [
+                        'model' => $ticket,
+                        'showKanBanAvatar' => isset(Yii::$app->params['showKanBanAvatar']) ? Yii::$app->params['showKanBanAvatar'] : true,
+                        'fixedHeightTicketView' => false,
+                    ]);
             } else {
                 $ticketHtmlId = 0; //indicates no column change to the client
                 $ticketHtml = '';
