@@ -43,6 +43,7 @@ defined('COLUMN_ID_PREFIX') or define('COLUMN_ID_PREFIX', 'boardColumn_');
             $content = $this->render('@frontend/views/ticket/partials/single/_ticketSingle',[
                         'model' => $ticket,
                         'showKanBanAvatar' => $showKanBanAvatar,
+                        'fixedHeightTicketView' => false,
             ]);
             $options = [
                         'id' => TicketController::TICKET_HTML_PREFIX . $ticket->id,

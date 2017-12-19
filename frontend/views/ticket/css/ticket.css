@@ -1,12 +1,18 @@
 .ticket-widget,.ticket-widget-float {
 	background-color: #9ec4f2;
-	height: 150px;
 	width: 100%;
 	padding: 2px 3px;
-	/*margin: 4px 0 4px 0;*/
     margin-bottom: 4px;
 	position: relative;
     border-radius: 4px;
+}
+
+.ticket-widget {
+	max-height: 120px;
+}
+
+.ticket-widget-float {
+	height: 120px;
 }
 
 .ticket-detail-selected {
@@ -17,9 +23,8 @@
 	float: left;
 }
 
-.ticket-widget-section-one {
-	height: 60px;
-	/*background-color: #eeeeee;*/
+.ticket-widget-section-one, .ticket-widget-section-one-float {
+	max-height: 60px;
     overflow: hidden;
     font-weight: bold;
 	-ms-hyphens: auto;
@@ -28,20 +33,40 @@
 	hyphens: auto;
 }
 
-.ticket-widget-section-two {
-	height: 50px;
-    /*background-color: #cccccc;*/
+.ticket-widget-section-one-float {
+	height: 60px;
+}
+
+.ticket-widget-section-two, .ticket-widget-section-two-float {
+	max-height: 25px;
+}
+
+.ticket-widget-section-two-float {
+	height: 25px;
 }
 
 .ticket-widget-section-three {
-	height: 40px;
-	/*background-color: #eeeeee;*/
+	max-height: 35px;
+}
+
+.ticket-widget-section-three-float {
+	height: 35px;
+	position: absolute;
+	bottom: 0;
 }
 
 .ticket-avatar {
-	/*text-align: right;*/
 	float: right;
 	margin: 0 0 0 4px;
+}
+
+.ticket-single-decorations {
+}
+
+.ticket-single-decorations-float {
+    position: absolute;
+    bottom: 0;
+    width: max-content;
 }
 
 .ticket-single-decorations-glyph {
@@ -50,7 +75,7 @@
 }
 
 .ticket-single-decorations-glyph span {
-	color: #202020;
+	color: #777777;
 }
 
 .ticket-single-decorations-glyph span:hover {
@@ -61,7 +86,6 @@
     bottom: 35px;
 }
 
-/* Need to convert this to Bootstrap CSS ans SASS */
 .ticket-tag {
 	border-radius: 6px;
 	background-color: #f0ad4e;
@@ -112,7 +136,7 @@ ul.ticket-view-ajax {
 	padding-bottom: 10px;
 }
 
-.carousel-caption { /*padding-bottom: 0;*/
+.carousel-caption {
 	color: #000;
 	text-shadow: none;
 	position: static;
@@ -159,20 +183,15 @@ ul.ticket-view-ajax {
     font-weight: bold;
     padding-right: 4px;
     line-height: 95%;
-    /*border-radius: 50%;*/
-    /*height: 28px;*/
-    /*width: 28px;*/
     text-align: center;
 }
 
 .ticket-vote-plus {
     color: #a32d00;
-    /*background-color: #e78f08;*/
 }
 
 .ticket-vote-minus {
     color: dimgrey;
-    /*background-color: #72e77a;*/
 }
 
 #hide-search-option-button {

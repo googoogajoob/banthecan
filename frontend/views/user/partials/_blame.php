@@ -92,10 +92,6 @@ use common\models\Task;
             echo Html::endTag('div');
         }
 
-        if ($textBelow) {
-            echo Html::tag('div', '', ['class' => 'clearfix']);
-        }
-
         if ($showName || $showDate) {
             echo Html::beginTag('ul', ['class' => 'list-unstyled']);
         }
