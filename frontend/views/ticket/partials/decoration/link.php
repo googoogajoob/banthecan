@@ -11,5 +11,6 @@ echo Html::a(
         'data-placement' => 'bottom',
         'title' => \Yii::t('app', $decoration->title),
         'onclick' => 'preventBubbling(event);',
+        'class' => 'text-muted',
     ]
 );

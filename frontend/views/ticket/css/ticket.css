@@ -74,12 +74,12 @@
 	float: left;
 }
 
-.ticket-single-decorations-glyph span {
+/*.ticket-single-decorations-glyph span {
 	color: #777777;
-}
+}*/
 
 .ticket-single-decorations-glyph span:hover {
-	color: #f0ad4e;
+	color: #f07511;
 }
 
 .board-column .ticket-single-tags {
