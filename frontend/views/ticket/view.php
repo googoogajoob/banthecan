@@ -33,9 +33,15 @@ $deleteButton = Html::a(\Yii::t('app', 'Delete'),
 <?php if ($modalFlag) : ?>
 
     <?php
-        echo Html::a(\Yii::t('app', '+'),
-            ['/ticket/update', 'id' => $model->id],
-            ['class' => 'btn btn-primary pull-left' . $modalClassAddition]);
+        echo Html::a(
+            '<span class="glyphicon glyphicon-text-size"></span>',
+            '#',
+            [
+                'class' => 'btn pull-left' . $modalClassAddition,
+                'title' => \Yii::t('app', 'Textsize larger/smaller'),
+                'onclick' => "toggleModalFontsize();",
+            ]
+        );
     ?>
 
     <?php echo $deleteButton . $editButton; ?>
@@ -94,7 +100,7 @@ $deleteButton = Html::a(\Yii::t('app', 'Delete'),
         ],
     ]);
 
-    echo Html::tag('em', 'id: ' . $model->id, ['class' => 'pull-right text-muted small']);
+    echo Html::tag('em', $model->id, ['class' => 'pull-right text-muted small']);
 ?>
 
 <?php if (!$modalFlag) : ?>

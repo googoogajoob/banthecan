@@ -19,3 +19,13 @@ function preventBubbling(e) {
         e.cancelBubble = true;
     }
 }
+
+function toggleModalFontsize() {
+    element = $('#w0');
+    if (element.hasClass('ticketLargeModalText')) {
+        element.removeClass('ticketLargeModalText');
+    } else {
+        element.addClass('ticketLargeModalText');
+    }
+
+}

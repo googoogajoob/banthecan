@@ -197,3 +197,7 @@ ul.ticket-view-ajax {
 #hide-search-option-button {
 	margin-bottom: 15px;
 }
+
+.ticketLargeModalText {
+	font-size: xx-large;
+}

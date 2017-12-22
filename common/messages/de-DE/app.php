@@ -107,6 +107,7 @@ return [
     'Tag Search' => 'Stichwortsuche',
     'Tasks' => 'Aufgaben',
     'Text Search' => 'Textsuche',
+    'Textsize larger/smaller' => 'Schriftart vergrößern/verkleinern',
     'The above error occurred while the Web server was processing your request.' => 'Während der Verarbeitung beim Server ist dieser Fehler aufgetreten.',
     'Ticket Activity' => 'Ticket Änderungen',
     'Ticket Backlog Configuration' => 'Ticket Backlog Konfiguration',
