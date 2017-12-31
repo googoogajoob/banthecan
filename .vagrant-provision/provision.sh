@@ -23,6 +23,7 @@ echo "Configure Apache"
 sudo a2enmod rewrite
 sudo a2enmod reqtimeout
 sudo a2enmod php7.0
+sudo cp /vagrant/.vagrant-provision/20-xdebug.ini /etc/php/7.0/apache2/conf.d/20-xdebug.ini
 sudo service apache2 restart
 
 echo "Install MariaDB"
