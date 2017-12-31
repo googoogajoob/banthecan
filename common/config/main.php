@@ -46,7 +46,7 @@ return [
  * The details of the decoration class configurations are specified here
  *
  * In short:
- *  1) here the decorations show up is configured in the Back End
+ *  1) where the decorations show up is configured in the Back End
  *  2) what the decorations do is configured here
  */
         'ticketDecorationManager' => [
