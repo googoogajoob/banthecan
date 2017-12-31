@@ -18,6 +18,7 @@ echo "Install PHP"
 sudo apt-get -y install php7.0
 sudo apt-get -y install php-xdebug
 sudo apt-get install libapache2-mod-php7.0
+sudo apt-get install php7.0-mysql
 
 echo "Configure Apache"
 sudo a2enmod rewrite
