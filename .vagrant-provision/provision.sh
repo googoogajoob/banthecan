@@ -12,7 +12,9 @@ sudo apt-get upgrade
 echo "Install Apache2"
 sudo apt-get -y install apache2
 sudo cp /vagrant/.vagrant-provision/banthecan.conf /etc/apache2/sites-available
+sudo cp /vagrant/.vagrant-provision/banthecan-admin.conf /etc/apache2/sites-available
 sudo a2ensite banthecan.conf
+sudo a2ensite banthecan-admin.conf
 
 echo "Install PHP"
 sudo apt-get -y install php7.0
