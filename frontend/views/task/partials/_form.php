@@ -15,7 +15,7 @@ use common\models\Ticket;
     <?php
         $form = ActiveForm::begin();
 
-        $allTickets = Ticket::find()->orderBy('title')->all();
+        $allTickets = Ticket::findTicketsInTaskColumns();
         $allTicketTitles = ArrayHelper::map($allTickets, 'id', 'title');
         echo $form->field($model, 'ticket_id')->dropDownList($allTicketTitles);
 
