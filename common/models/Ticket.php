@@ -23,7 +23,6 @@ use common\models\ticketDecoration\TicketDecorationLink;
  * @property integer $column_id
  * @property integer $board_id
  * @property integer $ticket_order
- * @property BoardColumn $column
  * @property string  $tagNames
  * @property string  $protocol
  * @property integer $vote_priority
