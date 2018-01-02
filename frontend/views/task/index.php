@@ -52,21 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'ntext',
                     'label' => \Yii::t('app', 'Ticket'),
                 ],
-                [
-                    'format' => 'raw',
-                    'label' => \Yii::t('app', 'Created By') . ' / ' . \Yii::t('app', 'Updated By'),
-                    'content' => function ($model, $key, $index, $column) {
-                        return
-                            $this->render('@frontend/views/user/partials/_blame', [
-                                'model' => $model,
-                            ]
-                        ) . $this->render('@frontend/views/user/partials/_blame', [
-                                'model' => $model,
-                                'useUpdated' => true
-                            ]
-                        );
-                    },
-                ],
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]);

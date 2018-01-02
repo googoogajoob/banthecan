@@ -54,17 +54,16 @@ if ($this->beginCache($model->id, ['dependency' => $dependency])) : //Begin of C
     ?>
 </div>
 
-<?php if ($fixedHeightTicketView) : ?>
 <div class="<?php echo $sectionTwoClass; ?>">
     <?php
         echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleSection2', [
             'model' => $model,
             'isKanBan' => $isKanBan,
+            'fixedHeightTicketView' => $fixedHeightTicketView,
             ]
         );
     ?>
 </div>
-<?php endif; ?>
 
 <div class="<?php echo $sectionThreeClass; ?>">
     <?php

@@ -7,11 +7,13 @@ use yii\helpers\Html;
 /* @var $model common\models\Ticket */
 /* @var $fixedHeightTicketView boolean */
 
+$section = 3;
 
 if ($model->hasDecorations()) {
     echo $this->render('@frontend/views/ticket/partials/single/_ticketSingleDecorations', [
             'model' => $model,
             'fixedHeightTicketView' => $fixedHeightTicketView,
+            'section' => $section,
         ]
     );
 }
