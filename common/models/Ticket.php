@@ -23,7 +23,6 @@ use common\models\ticketDecoration\TicketDecorationLink;
  * @property integer $column_id
  * @property integer $board_id
  * @property integer $ticket_order
- * @property BoardColumn $column
  * @property string  $tagNames
  * @property string  $protocol
  * @property integer $vote_priority
@@ -307,7 +306,17 @@ class Ticket extends FindFromBoard
         return (bool)$count;
 	}
 
-	public function afterFind()
+    /**
+     * Query to find all Ticets which are in a Kanban Column, that has the Task Decoration active
+     *
+     * @return yii\db\QueryInterface
+     */
+    public static function findTicketsInTaskColumns()
+    {
+        return self::find()->where(['>', 'column_id', 0])->orderBy('title')->all();
+    }
+
+    public function afterFind()
     {
 		parent::afterFind();
 		// Force attribute to be an integer
