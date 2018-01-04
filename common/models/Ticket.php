@@ -313,7 +313,7 @@ class Ticket extends FindFromBoard
      */
     public static function findTicketsInTaskColumns()
     {
-        return self::find()->orderBy('title')->all();
+        return self::find()->where(['>', 'column_id', 0])->orderBy('title')->all();
     }
 
     public function afterFind()

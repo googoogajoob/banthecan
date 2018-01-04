@@ -65,8 +65,8 @@ return [
                     'linkIcon' => '<span class="glyphicon glyphicon-wrench"></span>',
                     'displaySection' => 3,
                     'sortOrder' => 15,
-                    'showUrl' => '/task/create/',
-                    'title' => 'Create Task',
+                    'showUrl' => '/task/',
+                    'title' => 'Tasks',
                 ],
                 'CopyTicket' => [
                     'class' => 'common\models\ticketDecoration\Link',
