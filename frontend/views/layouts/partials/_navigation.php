@@ -133,7 +133,7 @@ if (Yii::$app->user->isGuest) {
     $menuItems[] = Html::a(
         Board::getBoardSectionName('kanban'),
         '/board', [
-        'class' => 'btn btn-primary apc-header-button',
+        'class' => 'btn btn-info apc-header-button',
         'id' => 'header-kanban-button',
     ]);
 
