@@ -18,7 +18,7 @@ class TaskSearch extends Task
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id'], 'integer'],
+            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed'], 'integer'],
             [['title', 'description'], 'safe'],
         ];
     }
@@ -26,11 +26,11 @@ class TaskSearch extends Task
     /**
      * @inheritdoc
      */
-    /*public function scenarios()
+    public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
-    }*/
+    }
 
     /**
      * Creates data provider instance with search query applied
@@ -67,6 +67,12 @@ class TaskSearch extends Task
             'ticket_id' => $this->ticket_id,
             'user_id' => $this->user_id,
         ]);
+
+        if ($this->completed === '0' || $this->completed === '1') {
+            $query->andFilterWhere([
+                'completed' => $this->completed,
+            ]);
+        }
 
         $query->andFilterWhere(['like', 'title', $this->title])
               ->andFilterWhere(['like', 'description', $this->description]);
