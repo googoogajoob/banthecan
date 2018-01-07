@@ -307,13 +307,16 @@ class Ticket extends FindFromBoard
 	}
 
     /**
-     * Query to find all Ticets which are in a Kanban Column, that has the Task Decoration active
+     * Query to find all Tickets which are in a Kanban Column, that has the Task Decoration active
      *
      * @return yii\db\QueryInterface
      */
     public static function findTicketsInTaskColumns()
     {
-        return self::find()->where(['>', 'column_id', 0])->orderBy('title')->all();
+        return self::find()
+            ->where(['>', 'column_id', 0])
+            ->andWhere(['board_id' => Board::getCurrentActiveBoard()->id])
+            ->orderBy('title')->all();
     }
 
     public function afterFind()

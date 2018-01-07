@@ -69,20 +69,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'ntext',
                 'label' => \Yii::t('app', 'Ticket'),
                 'content' => function ($model, $key, $index, $column) {
-                    $ticket = $model->getTicket()->one();
-                    return Html::a(
-                            $ticket->title,
-                            '/ticket/view/' . $ticket->id,
-                            [
-                                'data-toggle' => 'modal',
-                                'data-target' => '#global-modal-container',
-                            ]
-                    );
+                    if ($ticket = $model->getTicket()->one()) {
+                        return Html::a(
+                                $ticket->title,
+                                '/ticket/view/' . $ticket->id,
+                                [
+                                    'data-toggle' => 'modal',
+                                    'data-target' => '#global-modal-container',
+                                ]
+                        );
+                    } else {
+                        return '';
+                    }
                 },
                 'filter' => $allTaskTicketTitles,
                 'attribute' => 'ticket_id',
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => '\frontend\rewrites\ActionColumn',
+            ],
         ],
     ]);
     ?>
