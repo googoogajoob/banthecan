@@ -65,7 +65,7 @@ return [
                     'linkIcon' => '<span class="glyphicon glyphicon-wrench"></span>',
                     'displaySection' => 3,
                     'sortOrder' => 15,
-                    'showUrl' => '/task/',
+                    'showUrl' => '/task?TaskSearch[ticket_id]=',
                     'title' => 'Tasks',
                 ],
                 'CopyTicket' => [

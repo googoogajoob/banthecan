@@ -33,6 +33,7 @@ return [
     'Board Details' => 'Board Übersicht',
     'Boards' => 'Boards',
     'Choose File' => 'Datei Auswählen',
+    'Clear Filters' => 'Filter löschen',
     'Columns' => 'Spalten',
     'Column ID' => 'Spalte ID',
     'Completed' => 'Erledigt',
