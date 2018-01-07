@@ -9,3 +9,15 @@
 	margin-right: 20px;
 	height: 40px;
 }
+
+.task-gylphicon-clear-div {
+	margin: inherit;
+}
+
+.task-gylphicon-clear-icon {
+	font-size: xx-large;
+}
+
+.task-gylphicon-clear-icon:hover {
+    color: #d9534f;
+}

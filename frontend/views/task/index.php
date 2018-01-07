@@ -6,6 +6,8 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\User;
 use common\models\Ticket;
+use frontend\assets\TaskAsset;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TaskSearch */
@@ -13,6 +15,7 @@ use common\models\Ticket;
 
 $this->title = Yii::t('app', 'Tasks');
 $this->params['breadcrumbs'][] = $this->title;
+TaskAsset::register($this);
 ?>
 <div class="task-index">
 

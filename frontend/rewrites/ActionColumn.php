@@ -12,12 +12,11 @@ class ActionColumn extends \yii\grid\ActionColumn
 {
     protected function renderFilterCellContent()
     {
-        return '<div style="margin: 2px 0 0 15px; ">
-                    <span 
-                        style="font-size:200%" 
-                        class="glyphicon glyphicon-remove-circle" 
-                        title="Clear Search Filters" 
-                        onclick="$(\'.form-control\').val(\'\');"
+        return '<div class="task-gylphicon-clear-div">
+                    <span                         
+                        class="task-gylphicon-clear-icon glyphicon glyphicon-remove-circle" 
+                        title="' . \Yii::t('app', 'Clear Filters') .'" 
+                        onclick="cleartasksearchfields();"
                     >
                     </span>
                 </div>';
