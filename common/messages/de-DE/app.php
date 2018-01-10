@@ -96,7 +96,7 @@ return [
     'Resolutions' => 'Beschlüsse',
     'Responsible' => 'Verantwortlich',
     'Search' => 'Suchen',
-    'Select Board' => 'Tafel selektieren',
+    'Select Board' => 'Board selektieren',
     'Search Filter Active' => 'Suchfilter Aktiv',
     'Section' => 'Bereich',
     'Show Search Options' => 'Suchoptionen zeigen',

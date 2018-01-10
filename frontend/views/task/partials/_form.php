@@ -27,6 +27,8 @@ use common\models\Ticket;
                 '0' => Yii::t('app', 'No'),
                 '1' => Yii::t('app', 'Yes'),
             ]);
+        } else {
+            echo Html::activeHiddenInput($model, 'completed', ['value' => 0]);
         }
 
         echo $this->render('@frontend/views/user/partials/_selectUser', [
