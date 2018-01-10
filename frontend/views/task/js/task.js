@@ -23,7 +23,3 @@ function taskUser(id) {
         }
     });
 }
-
-function cleartasksearchfields() {
-    $('.form-control').val('').submit();
-}
