@@ -36,6 +36,13 @@ TaskAsset::register($this);
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $key, $index, $column) {
+            if ($model->completed) {
+                return ['class' => 'success'];
+            } else {
+                return [];
+            }
+        },
         'columns' => [
             [
                 'format' => 'raw',
