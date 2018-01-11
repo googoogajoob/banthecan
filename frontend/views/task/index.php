@@ -57,6 +57,12 @@ TaskAsset::register($this);
                 'attribute' => 'user_id',
             ],
             [
+                'attribute' => 'created_at',
+                //'format' => 'date',
+                'format' => ['date', 'php:d.m.Y'],
+                'label' => \Yii::t('app', 'Created'),
+            ],
+            [
                 'attribute' => 'completed',
                 'format' => 'boolean',
                 'label' => \Yii::t('app', 'Completed'),

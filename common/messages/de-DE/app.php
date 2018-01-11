@@ -50,7 +50,7 @@ return [
     'Create Ticket' => 'Neues Ticket',
     'Create User' => 'Neuer Benutzer',
     'Create a fresh demo database including a demo user' => 'Erzeuge eine frische Demo-Datenbank und neuen demo-Benutzer',
-    'Created' => 'Eingetragen',
+    'Created' => 'Erstellungsdatum',
     'Created At' => 'Eingetragen am',
     'Created By' => 'Eingetragen von',
     'Date' => 'Datum',
