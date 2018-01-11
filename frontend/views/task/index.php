@@ -8,7 +8,6 @@ use common\models\User;
 use common\models\Ticket;
 use frontend\assets\TaskAsset;
 
-
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TaskSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -58,9 +57,9 @@ TaskAsset::register($this);
             ],
             [
                 'attribute' => 'created_at',
-                //'format' => 'date',
                 'format' => ['date', 'php:d.m.Y'],
                 'label' => \Yii::t('app', 'Created'),
+                'filter' => false,
             ],
             [
                 'attribute' => 'completed',
