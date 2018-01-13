@@ -59,6 +59,16 @@ TaskAsset::register($this);
                 'attribute' => 'user_id',
             ],
             [
+                'attribute' => 'completed',
+                'format' => 'boolean',
+                'label' => \Yii::t('app', 'Completed'),
+                'filter' => [
+                    Yii::$app->getFormatter()->asBoolean(0),
+                    Yii::$app->getFormatter()->asBoolean(1),
+                ],
+                'filterInputOptions' => ['class' => 'form-control form-control-task-completed'],
+            ],
+            [
                 'attribute' => 'created_at',
                 'format' => ['date', 'php:d.m.Y'],
                 'label' => \Yii::t('app', 'Created'),
@@ -69,16 +79,6 @@ TaskAsset::register($this);
                 'format' => ['date', 'php:d.m.Y'],
                 'label' => \Yii::t('app', 'Due Date'),
                 'filter' => false,
-            ],
-            [
-                'attribute' => 'completed',
-                'format' => 'boolean',
-                'label' => \Yii::t('app', 'Completed'),
-                'filter' => [
-                        Yii::$app->getFormatter()->asBoolean(0),
-                        Yii::$app->getFormatter()->asBoolean(1),
-                    ],
-                'filterInputOptions' => ['class' => 'form-control form-control-task-completed'],
             ],
             [
                 'attribute' => 'title',
