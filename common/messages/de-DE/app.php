@@ -56,6 +56,7 @@ return [
     'Date' => 'Datum',
     'Delete' => 'Löschen',
     'Description' => 'Beschreibung',
+    'Due Date' => 'Fälligkeitsdatum',
     'Edit' => 'Editieren',
     'End' => 'Ende',
     'Event' => 'Ereignis',

@@ -21,6 +21,7 @@ use frontend\models\BlameTrait;
  * @property integer $ticket_id
  * @property integer $user_id User Responsible for seeing the task is completed
  * @property integer $completed
+ * @property integer $due_date
  */
 
 class Task extends FindFromBoard
@@ -42,7 +43,7 @@ class Task extends FindFromBoard
     {
         return [
             [['title', 'board_id'], 'required'],
-            [['board_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed'], 'integer'],
+            [['board_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed', 'due_date'], 'integer'],
             [['title', 'description'], 'string'],
         ];
     }
@@ -74,6 +75,7 @@ class Task extends FindFromBoard
             'ticket_id' => Yii::t('app', 'Ticket'),
             'user_id' => Yii::t('app', 'Responsible'),
             'completed' => Yii::t('app', 'Completed'),
+            'due_date' => Yii::t('app', 'Due Date'),
         ];
     }
 
