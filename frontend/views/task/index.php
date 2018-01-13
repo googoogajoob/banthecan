@@ -55,6 +55,7 @@ TaskAsset::register($this);
                     );
                 },
                 'filter' => $allBoardUsernames,
+                'filterInputOptions' => ['class' => 'form-control form-control-task-completed'],
                 'attribute' => 'user_id',
             ],
             [
@@ -77,6 +78,7 @@ TaskAsset::register($this);
                         Yii::$app->getFormatter()->asBoolean(0),
                         Yii::$app->getFormatter()->asBoolean(1),
                     ],
+                'filterInputOptions' => ['class' => 'form-control form-control-task-completed'],
             ],
             [
                 'attribute' => 'title',
@@ -106,6 +108,7 @@ TaskAsset::register($this);
                     }
                 },
                 'filter' => $allTaskTicketTitles,
+                'filterInputOptions' => ['class' => 'form-control form-control-task-completed'],
                 'attribute' => 'ticket_id',
             ],
             [

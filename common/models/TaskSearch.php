@@ -45,6 +45,10 @@ class TaskSearch extends Task
             'query' => $query,
         ]);
 
+        if (!isset($params['TaskSearch']['completed'])) {
+            $params['TaskSearch']['completed'] = "0";
+        }
+
         $this->load($params);
 
         if (!$this->validate()) {
