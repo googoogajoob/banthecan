@@ -38,6 +38,8 @@ TaskAsset::register($this);
         'rowOptions' => function ($model, $key, $index, $column) {
             if ($model->completed) {
                 return ['class' => 'success'];
+            } elseif ($model->due_date == 0 || $model->due_date < time()) {
+                return ['class' => 'danger'];
             } else {
                 return [];
             }
@@ -59,6 +61,12 @@ TaskAsset::register($this);
                 'attribute' => 'created_at',
                 'format' => ['date', 'php:d.m.Y'],
                 'label' => \Yii::t('app', 'Created'),
+                'filter' => false,
+            ],
+            [
+                'attribute' => 'due_date',
+                'format' => ['date', 'php:d.m.Y'],
+                'label' => \Yii::t('app', 'Due Date'),
                 'filter' => false,
             ],
             [

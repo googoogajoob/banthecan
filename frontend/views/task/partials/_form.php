@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use common\models\Ticket;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Task */
@@ -36,6 +37,10 @@ use common\models\Ticket;
                 'form' => $form,
             ]
         );
+
+        echo $form->field($model, 'due_date')->widget(DatePicker::classname(), [
+            'options' => ['class' => 'form-control'],
+        ]);
     ?>
 
     <div class="form-group">

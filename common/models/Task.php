@@ -43,8 +43,11 @@ class Task extends FindFromBoard
     {
         return [
             [['title', 'board_id'], 'required'],
-            [['board_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed', 'due_date'], 'integer'],
+            [['board_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed'], 'integer'],
             [['title', 'description'], 'string'],
+            [['due_date'], 'default', 'value' => function($model, $attribute) {return time();}],
+            [['due_date'], 'date', 'timestampAttribute' => 'due_date'],
+
         ];
     }
 

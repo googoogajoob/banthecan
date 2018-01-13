@@ -29,11 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             [
-                'attribute' => 'completed',
-                'format' => 'boolean',
-                'label' => \Yii::t('app', 'Completed'),
-            ],
-            [
                 'attribute' => 'title',
                 'format' => 'ntext',
                 'label' => \Yii::t('app', 'Title'),
@@ -44,12 +39,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => \Yii::t('app', 'Description'),
             ],
             [
+                'attribute' => 'completed',
+                'format' => 'boolean',
+                'label' => \Yii::t('app', 'Completed'),
+            ],
+            [
                 'format' => 'raw',
                 'label' => \Yii::t('app', 'Responsible'),
                 'value' => $this->render('@frontend/views/user/partials/_blame', [
                         'model' => $model,
                     ]
                 )
+            ],
+            [
+                'attribute' => 'due_date',
+                'format' => ['date', 'd.m.Y'],
+                'label' => \Yii::t('app', 'Due Date'),
             ],
             [
                 'attribute' => 'ticket.title',
