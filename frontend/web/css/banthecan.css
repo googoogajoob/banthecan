@@ -127,3 +127,6 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 .apc-modal-move-btn-decoration {
 	margin-right: 9px;
 }
+
+.ui-datepicker-today { background: red; }
+.ui-datepicker-current-day { background: lawngreen; }
