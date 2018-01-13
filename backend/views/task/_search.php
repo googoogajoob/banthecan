@@ -10,20 +10,22 @@ use yii\widgets\ActiveForm;
 
 <div class="task-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+    <?php
+        $form = ActiveForm::begin([
+            'action' => ['index'],
+            'method' => 'get',
+        ]);
+    ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?php echo $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'created_at') ?>
+    <?php echo $form->field($model, 'created_at') ?>
 
-    <?= $form->field($model, 'updated_at') ?>
+    <?php echo $form->field($model, 'updated_at') ?>
 
-    <?= $form->field($model, 'created_by') ?>
+    <?php echo $form->field($model, 'created_by') ?>
 
-    <?= $form->field($model, 'updated_by') ?>
+    <?php echo $form->field($model, 'updated_by') ?>
 
     <?php echo $form->field($model, 'title') ?>
 
@@ -35,9 +37,11 @@ use yii\widgets\ActiveForm;
 
     <?php echo $form->field($model, 'completed') ?>
 
+    <?php echo $form->field($model, 'due_date') ?>
+
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?php echo Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?php echo Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

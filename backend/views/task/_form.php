@@ -28,6 +28,7 @@ use yii\helpers\ArrayHelper;
         echo $form->field($model, 'ticket_id')->textInput();
         echo $form->field($model, 'user_id')->textInput();
         echo $form->field($model, 'completed')->textInput();
+        echo $form->field($model, 'due_date')->textInput();
     ?>
 
     <div class="form-group">

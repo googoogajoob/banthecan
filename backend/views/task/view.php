@@ -10,6 +10,7 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tasks'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="task-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -39,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'ticket_id',
             'user_id',
             'completed',
+            'due_date',
         ],
     ]) ?>
 
