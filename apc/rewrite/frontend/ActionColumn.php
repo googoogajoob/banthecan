@@ -6,7 +6,7 @@
  * Time: 21:38
  */
 
-namespace frontend\rewrites;
+namespace apc\rewrite\frontend;
 
 class ActionColumn extends \yii\grid\ActionColumn
 {

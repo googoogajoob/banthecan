@@ -112,7 +112,7 @@ TaskAsset::register($this);
                 'attribute' => 'ticket_id',
             ],
             [
-                'class' => '\frontend\rewrites\ActionColumn',
+                'class' => '\apc\rewrite\frontend\ActionColumn',
             ],
         ],
     ]);
