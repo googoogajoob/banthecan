@@ -2,34 +2,25 @@
 
 namespace apc\ticketDecoration;
 
-use yii;
-
-/**
- * Created by PhpStorm.
- * User: and
- * Date: 8/29/15
- * Time: 12:33 AM
- */
+use yii\helpers\Html;
 
 class Link extends AbstractDecoration {
 
 	public $linkIcon = 'L';
 
-	/*##################*/
-	/*### VIEW STUFF ###*/
-	/*##################*/
-
-	/**
-	 * Render the Link Ticket Decoration
-	 *
-	 * @return string html for showing the ticketDecoration
-	 */
 	public function render()
 	{
-		return Yii::$app->getView()->render($this->renderView, [
-                'decoration' => $this,
+        return Html::a(
+            $this->linkIcon,
+            $this->getLinkUrl(), [
+                'data-toggle' => 'tooltip',
+                'data-placement' => 'bottom',
+                'title' => \Yii::t('app', $this->title),
+                'onclick' => 'preventBubbling(event);',
+                'class' => 'text-muted',
             ]
         );
+
     }
 
 	public function getLinkUrl()
