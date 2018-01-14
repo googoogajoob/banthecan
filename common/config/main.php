@@ -1,4 +1,5 @@
 <?php
+
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
@@ -37,23 +38,23 @@ return [
             },
         ],
 
-/* The TicketDecoration Manager Contains a list of all
- * available Ticket Decorations as well as their configurations.
- * Configurations for Board and Columns are persistent but they contain
- * only the names of the decorationClasses and the array-keys listed here
- * The relation to columns and boards are configured in the Back-End.
- *
- * The details of the decoration class configurations are specified here
- *
- * In short:
- *  1) where the decorations show up is configured in the Back End
- *  2) what the decorations do is configured here
- */
+        /* The TicketDecoration Manager Contains a list of all
+         * available Ticket Decorations as well as their configurations.
+         * Configurations for Board and Columns are persistent but they contain
+         * only the names of the decorationClasses and the array-keys listed here
+         * The relation to columns and boards are configured in the Back-End.
+         *
+         * The details of the decoration class configurations are specified here
+         *
+         * In short:
+         *  1) where the decorations show up is configured in the Back End
+         *  2) what the decorations do is configured here
+         */
         'ticketDecorationManager' => [
-            'class' => 'common\models\ticketDecoration\TicketDecorationManager',
+            'class' => 'apc\ticketDecoration\TicketDecorationManager',
             'availableTicketDecorations' => [
                 'CreateResolution' => [
-                    'class' => 'common\models\ticketDecoration\Link',
+                    'class' => 'apc\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-list-alt"></span>',
                     'displaySection' => 2,
                     'sortOrder' => 18,
@@ -61,7 +62,7 @@ return [
                     'title' => 'Create Resolution',
                 ],
                 'CreateTask' => [
-                    'class' => 'common\models\ticketDecoration\Link',
+                    'class' => 'apc\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-wrench"></span>',
                     'displaySection' => 3,
                     'sortOrder' => 15,
@@ -69,7 +70,7 @@ return [
                     'title' => 'Tasks',
                 ],
                 'CopyTicket' => [
-                    'class' => 'common\models\ticketDecoration\Link',
+                    'class' => 'apc\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-duplicate"></span>',
                     'showUrl' => '/ticket/copy/',
                     'displaySection' => 3,
@@ -77,7 +78,7 @@ return [
                     'title' => 'Copy Ticket',
                 ],
                 'MoveToBacklog' => [
-                    'class' => 'common\models\ticketDecoration\Link',
+                    'class' => 'apc\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-th"></span>',
                     'movement' => true,
                     'displaySection' => 3,
@@ -86,7 +87,7 @@ return [
                     'title' => 'Move to Backlog',
                 ],
                 'MoveToCompleted' => [
-                    'class' => 'common\models\ticketDecoration\Link',
+                    'class' => 'apc\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-check"></span>',
                     'movement' => true,
                     'displaySection' => 3,
@@ -95,7 +96,7 @@ return [
                     'title' => 'Move to Completed',
                 ],
                 'MoveToKanban' => [
-                    'class' => 'common\models\ticketDecoration\Link',
+                    'class' => 'apc\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-object-align-top"></span>',
                     'movement' => true,
                     'displaySection' => 3,
@@ -104,7 +105,7 @@ return [
                     'title' => 'Move to Kanban',
                 ],
                 'ProtocolStatus' => [
-                    'class' => 'common\models\ticketDecoration\Link',
+                    'class' => 'apc\ticketDecoration\Link',
                     'linkIcon' => '<span class="glyphicon glyphicon-pencil"></span>',
                     'displaySection' => 1,
                     'sortOrder' => 17,
@@ -112,7 +113,7 @@ return [
                     'title' => 'Protocol Status',
                 ],
                 'Vote' => [
-                    'class' => 'common\models\ticketDecoration\Vote',
+                    'class' => 'apc\ticketDecoration\Vote',
                     'plusLinkIcon' => '<span class="glyphicon glyphicon-plus"></span>',
                     'minusLinkIcon' => '<span class="glyphicon glyphicon-minus"></span>',
                     'displaySection' => 3,

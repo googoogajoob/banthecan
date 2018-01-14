@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\ticketDecoration;
+namespace apc\ticketDecoration;
 
 use yii\base\Behavior;
 

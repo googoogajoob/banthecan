@@ -1,6 +1,5 @@
 <?php
 
-use common\models\ticketDecoration\TicketDecorationLink;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */

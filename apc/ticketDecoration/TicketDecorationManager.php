@@ -6,7 +6,7 @@
  * Time: 8:22 PM
  */
 
-namespace common\models\ticketDecoration;
+namespace apc\ticketDecoration;
 
 use common\models\Ticket;
 use common\models\Board;

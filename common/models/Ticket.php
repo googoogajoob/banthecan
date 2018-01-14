@@ -8,7 +8,7 @@ use yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\BlameTrait;
-use common\models\ticketDecoration\TicketDecorationLink;
+use apc\ticketDecoration\TicketDecorationLink;
 
 /**
  * This is the model class for table "ticket".

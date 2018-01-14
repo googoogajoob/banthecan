@@ -1,7 +1,5 @@
 <?php
 
-use common\models\ticketDecoration\TicketDecorationLink;
-
 //Ticket Decoration Bar displays the Ticket decorations
 /* @var $this yii\web\View */
 /* @var $model common\models\Ticket */
