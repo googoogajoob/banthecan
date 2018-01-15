@@ -23,3 +23,9 @@ function taskUser(id) {
         }
     });
 }
+
+function getTargetTicket(pthis) {
+    junk = $('#tasksearch-ticket_id').val();
+    j3=pthis;
+    alert('Mr. Dude' + j3.href);
+}

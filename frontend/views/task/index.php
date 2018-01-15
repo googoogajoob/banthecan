@@ -20,7 +20,17 @@ TaskAsset::register($this);
 
     <h1><?php echo Html::encode($this->title) ?></h1>
 
-    <p><?php echo Html::a(\Yii::t('app', 'Create Task'), ['task/create/0'], ['class' => 'btn btn-success']) ?></p>
+    <p>
+        <?php
+            echo Html::a(\Yii::t('app', 'Create Task'),
+                ['task/create/0'],
+                [
+                    'class' => 'btn btn-success',
+                    'onclick' => 'getTargetTicket(this);',
+                ]
+            );
+        ?>
+    </p>
 
     <?php Pjax::begin(); ?>
 
