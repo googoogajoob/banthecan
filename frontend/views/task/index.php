@@ -26,7 +26,7 @@ TaskAsset::register($this);
                 ['task/create/0'],
                 [
                     'class' => 'btn btn-success',
-                    'onclick' => 'getTargetTicket(this);',
+                    'onclick' => 'return setTargetTicket(this);',
                 ]
             );
         ?>
