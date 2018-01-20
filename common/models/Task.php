@@ -133,4 +133,9 @@ class Task extends FindFromBoard
         return $board->title;
     }
 
+    public static function getOpenTaskCount()
+    {
+        return count(self::findAll(['completed' => 0]));
+    }
+
 }

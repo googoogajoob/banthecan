@@ -10,6 +10,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\Dropdown;
 use apc\rewrite\bootstrap\NavBar;
 use yii\helpers\Html;
+use common\models\Task;
 use common\models\Board;
 
 // Determine $brandLabel and $boardSelector for the options left in the main nav header
@@ -133,7 +134,7 @@ if (Yii::$app->user->isGuest) {
     $menuItems[] = Html::a(
         Board::getBoardSectionName('kanban'),
         '/board', [
-        'class' => 'btn btn-info apc-header-button',
+        'class' => 'btn btn-primary apc-header-button',
         'id' => 'header-kanban-button',
     ]);
 
@@ -144,14 +145,17 @@ if (Yii::$app->user->isGuest) {
         'id' => 'header-completed-button',
     ]);
 
+    $openTaskCount = Task::getOpenTaskCount();
+    $openTaskCountDisplay = $openTaskCount ? '<strong class="text-danger">&nbsp;(' . $openTaskCount . ')</strong>' : '';
+
     $menuItems[] = Html::a(
-        \Yii::t('app', 'Tasks'),
-        '/task', [
-        'class' => 'btn btn-success apc-header-button',
-        'id' => 'header-create-button',
-        //'data-toggle' => 'modal',
-        //'data-target' => '#global-modal-container'
-    ]);
+        \Yii::t('app', 'Tasks') . $openTaskCountDisplay,
+        '/task',
+        [
+            'class' => 'btn btn-success apc-header-button',
+            'id' => 'header-create-button',
+        ]
+    );
 
     $dropDownMenuItemsOptions = ['class' => 'hidden-sm hidden-md hidden-lg'];
     $dropDownMenuItemsXs = [];

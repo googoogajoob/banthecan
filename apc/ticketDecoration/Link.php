@@ -16,7 +16,7 @@ class Link extends AbstractDecoration {
                 'data-toggle' => 'tooltip',
                 'data-placement' => 'bottom',
                 'title' => \Yii::t('app', $this->title),
-                'onclick' => 'preventBubbling(event);',
+                'onclick' => 'return preventBubbling(event);',
                 'class' => 'text-muted',
             ]
         );
