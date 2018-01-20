@@ -105,7 +105,13 @@ TaskAsset::register($this);
                 'label' => \Yii::t('app', 'Ticket'),
                 'content' => function ($model, $key, $index, $column) {
                     if ($ticket = $model->getTicket()->one()) {
-                        return Html::a(
+
+                        $oneClickFilterLink = Html::a(
+                            '<span class="glyphicon glyphicon-filter"></span>',
+                            '/task?TaskSearch[ticket_id]=' . $ticket->id
+                        );
+
+                        $ticketLink = Html::a(
                                 $ticket->title,
                                 '/ticket/view/' . $ticket->id,
                                 [
@@ -113,6 +119,8 @@ TaskAsset::register($this);
                                     'data-target' => '#global-modal-container',
                                 ]
                         );
+
+                        return $oneClickFilterLink . '&nbsp;' . $ticketLink;
                     } else {
                         return '';
                     }
