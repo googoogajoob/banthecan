@@ -62,7 +62,7 @@ return [
                     'title' => 'Create Resolution',
                 ],
                 'CreateTask' => [
-                    'class' => 'apc\ticketDecoration\Link',
+                    'class' => 'apc\ticketDecoration\TaskLink',
                     'linkIcon' => '<span class="glyphicon glyphicon-wrench"></span>',
                     'displaySection' => 3,
                     'sortOrder' => 15,

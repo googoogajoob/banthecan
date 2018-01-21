@@ -171,13 +171,20 @@ class Ticket extends FindFromBoard
 		return (bool)($this->getColumnId() <= self::DEFAULT_COMPLETED_STATUS);
 	}
 
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
 	public function getTags()
 	{
 		return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable(self::TICKET_TAG_MM_TABLE, ['ticket_id' => 'id']);
 	}
+
+    public function getOpenTasks()
+    {
+        return $this->hasMany(Task::className(), ['ticket_id' => 'id'])->where(['completed' => 0]);
+    }
+
+    public function getOpenTaskCount()
+    {
+        return count($this->getOpenTasks()->all());
+    }
 
 	/**
 	 * Increment the vote_priority
