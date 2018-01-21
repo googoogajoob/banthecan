@@ -97,6 +97,26 @@ class TaskController extends Controller
         }
     }
 
+    public function actionComplete()
+    {
+        if ($selection = Yii::$app->request->post('selection')) {
+            $id = array_pop($selection);
+            if ($id > 0) {
+                $newCompletedStatus = 1;
+            } else {
+                $newCompletedStatus = 0;
+                $id = $id * -1;
+            }
+            $model = $this->findModel($id);
+            if ($model) {
+                $model->completed = $newCompletedStatus;
+                $model->save();
+            }
+        }
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Deletes an existing Task model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

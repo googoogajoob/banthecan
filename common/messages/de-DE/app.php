@@ -32,6 +32,7 @@ return [
     'Board Columns' => 'Board Spalten',
     'Board Details' => 'Board Übersicht',
     'Boards' => 'Boards',
+    'Change Status' => 'Status ändern',
     'Choose File' => 'Datei Auswählen',
     'Clear Filters' => 'Filter löschen',
     'Columns' => 'Spalten',

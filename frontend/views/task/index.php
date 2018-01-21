@@ -36,6 +36,8 @@ TaskAsset::register($this);
 
     <?php
 
+    echo Html::beginForm('/task/complete');
+
     $allBoardUsers = User::getBoardUsers();
     $allBoardUsernames = ArrayHelper::map($allBoardUsers, 'id', 'username');
 
@@ -79,16 +81,20 @@ TaskAsset::register($this);
                 'filterInputOptions' => ['class' => 'form-control form-control-task-completed'],
             ],
             [
-                'attribute' => 'created_at',
-                'format' => ['date', 'php:d.m.Y'],
-                'label' => \Yii::t('app', 'Created'),
-                'filter' => false,
-            ],
-            [
-                'attribute' => 'due_date',
-                'format' => ['date', 'php:d.m.Y'],
-                'label' => \Yii::t('app', 'Due Date'),
-                'filter' => false,
+                'class' => 'yii\grid\CheckboxColumn',
+                'header' => \Yii::t('app', 'Change Status'),
+                'headerOptions' => [
+                    'class' => 'text-info'
+                ],
+                'contentOptions' => [
+                    'class' => 'text-center'
+                ],
+                'checkboxOptions' => function ($model, $key, $index, $column) {
+                    return [
+                        'value' => $model->completed ? '-' . $key : $key,
+                        'onclick' => 'jQuery(this).closest("form").submit();',
+                    ];
+                },
             ],
             [
                 'attribute' => 'title',
@@ -130,10 +136,25 @@ TaskAsset::register($this);
                 'attribute' => 'ticket_id',
             ],
             [
+                'attribute' => 'created_at',
+                'format' => ['date', 'php:d.m.Y'],
+                'label' => \Yii::t('app', 'Created'),
+                'filter' => false,
+            ],
+            [
+                'attribute' => 'due_date',
+                'format' => ['date', 'php:d.m.Y'],
+                'label' => \Yii::t('app', 'Due Date'),
+                'filter' => false,
+            ],
+            [
                 'class' => '\apc\rewrite\frontend\ActionColumn',
             ],
         ],
     ]);
+
+    echo Html::endForm();
+
     ?>
 
     <?php Pjax::end(); ?>
