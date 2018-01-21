@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use frontend\models\User;
+use frontend\models\User as FeUser;
 use frontend\models\BlameTrait;
 
 /**
@@ -87,7 +87,7 @@ class Task extends FindFromBoard
      */
     public function getResponsible()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(FeUser::className(), ['id' => 'user_id']);
     }
 
     /**
