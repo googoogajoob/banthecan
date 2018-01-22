@@ -69,7 +69,7 @@ class TaskController extends Controller
         $model->board_id = Board::getCurrentActiveBoard()->id; //A new ticket belongs to the current active board
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['index', 'TaskSearch[ticket_id]' => $id]);
         } else {
             $model->ticket_id = $id;
             return $this->render('create', [
@@ -89,7 +89,7 @@ class TaskController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['index', 'TaskSearch[ticket_id]' => $model->ticket_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -114,7 +114,7 @@ class TaskController extends Controller
             }
         }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'TaskSearch[ticket_id]' => $model->ticket_id]);
     }
 
     /**
