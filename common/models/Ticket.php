@@ -186,6 +186,16 @@ class Ticket extends FindFromBoard
         return count($this->getOpenTasks()->all());
     }
 
+    public function getClosedTasks()
+    {
+        return $this->hasMany(Task::className(), ['ticket_id' => 'id'])->where(['completed' => 1]);
+    }
+
+    public function getClosedTaskCount()
+    {
+        return count($this->getClosedTasks()->all());
+    }
+
 	/**
 	 * Increment the vote_priority
 	 *
