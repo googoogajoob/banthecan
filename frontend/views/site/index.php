@@ -7,6 +7,7 @@ use common\models\Board;
 /* @var $boardActivity array */
 /* @var $newTickets array */
 /* @var $news array */
+/* @var $tasks array */
 /* @var $board ActiveRecord */
 ?>
 <div class="site-index">
@@ -24,12 +25,10 @@ use common\models\Board;
 
         <div class="body-content">
 
-            <h1 class="text-center bg-info"><?php echo \Yii::t('app', 'Recent Activity'); ?></h1>
-
             <div class="row">
 
                 <?php if (count($newTickets)) : ?>
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <h2><?php echo \Yii::t('app', 'Tickets'); ?></h2>
                         <table class="table table-condensed table-striped">
                             <thead>
@@ -86,6 +85,31 @@ use common\models\Board;
                                         . Html::tag('td', $updatedBy)
                                         . Html::endTag('tr');
                                 }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (count($tasks)) : ?>
+                    <div class="col-lg-6">
+                        <h2><?php echo \Yii::t('app', 'Tasks'); ?></h2>
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                            <tr>
+                                <th><?php echo \Yii::t('app', 'Due Date'); ?></th>
+                                <th><?php echo \Yii::t('app', 'Title'); ?></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($tasks as $k => $v) {
+                                echo '<tr><td>'
+                                    . Yii::$app->formatter->asDate($v->due_date, 'long')
+                                    . '</td><td>'
+                                    . $v->title
+                                    . '</td></tr>';
+                            }
                             ?>
                             </tbody>
                         </table>
