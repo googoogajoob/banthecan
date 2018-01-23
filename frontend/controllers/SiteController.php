@@ -162,8 +162,8 @@ class SiteController extends Controller {
 
                 $tasks = Task::find()
                     ->where(['completed' => 0])
-                    //->orderBy(['due_date' => SORT_DESC])
-                    ->limit(10)
+                    ->orderBy(['due_date' => SORT_ASC])
+                    ->limit(5)
                     ->all();
             }
 
