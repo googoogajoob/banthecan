@@ -87,6 +87,7 @@ class SiteController extends Controller {
             $boardActivity = [];
             $newTickets = [];
             $news = [];
+            $tasks = [];
 
             if ($activeBoard) {
                 $frontPageTimespan = time();
@@ -158,6 +159,12 @@ class SiteController extends Controller {
                     ->limit($newTicketCount)->all();
 
                 $news = SiteNews::find()->orderBy(['updated_at' => SORT_DESC])->limit(10)->all();
+
+                $tasks = Task::find()
+                    ->where(['completed' => 0])
+                    //->orderBy(['due_date' => SORT_DESC])
+                    ->limit(10)
+                    ->all();
             }
 
             return $this->render('index', [
@@ -165,6 +172,7 @@ class SiteController extends Controller {
                 'newTickets' => $newTickets,
                 'news' => $news,
                 'board' => $activeBoard,
+                'tasks' => $tasks,
             ]);
         }
     }

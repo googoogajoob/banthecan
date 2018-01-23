@@ -91,7 +91,6 @@ return [
     'Priority' => 'Priorität',
     'Protocol' => 'Protokoll',
     'Protocol Status' => 'Protokoll Status',
-    'Recent Activity' => 'Kürzlich geändert',
     'Reset' => 'Zur&uuml;cksetzen',
     'reset it' => 'es zur&uuml;cksetzen',
     'Resolution' => 'Beschluss',
