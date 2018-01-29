@@ -105,7 +105,7 @@ use common\models\Board;
                             <?php
                             foreach ($tasks as $k => $v) {
                                 echo '<tr><td>'
-                                    . Yii::$app->formatter->asDate($v->due_date, 'long')
+                                    . Yii::$app->formatter->asDate($v->due_date)
                                     . '</td><td>'
                                     . $v->title
                                     . '</td></tr>';
@@ -157,7 +157,7 @@ use common\models\Board;
                             <?php
                             foreach ($news as $k => $v) {
                                 echo '<tr><td>'
-                                    . Yii::$app->formatter->asDate($v->updated_at, 'long')
+                                    . Yii::$app->formatter->asDate($v->updated_at)
                                     . '</td><td><div title="' . $v->description . '">'
                                     . $v->title
                                     . '</div></td></tr>';
