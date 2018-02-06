@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             'columns' => [
                 ['class' => 'yii\grid\ActionColumn'],
-                'created_at:datetime',
-                'updated_at:datetime',
+                'created_at:date',
+                'updated_at:date',
                 [
                     'format' => 'ntext',
                     'label' => 'Board',
