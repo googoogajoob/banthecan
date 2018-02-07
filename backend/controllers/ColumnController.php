@@ -41,8 +41,6 @@ class ColumnController extends PreventguestController
             foreach ($displayOrder as $displayOrderKey => $columnId) {
                 $column = Column::findOne($columnId);
                 $column->display_order = $newColumnOrder;
-                //$junk = $column->name;
-                //$column->name = $junk;
                 if ($column->update() === false) {
                     yii::error("Ticket Reordering Error: Column:$columnId, Ticket:$ticketId, Order:$ticketOrderKey");
                 }
