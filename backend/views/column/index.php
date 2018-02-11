@@ -22,7 +22,15 @@ $this->params['breadcrumbs'][] = $this->title;
     </h1>
 
     <p>
-        <?php echo Html::a(\Yii::t('app', 'Create Board Column'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+        echo Html::a(\Yii::t('app', 'Create Board Column'),
+            ['column/create/0'],
+            [
+                'class' => 'btn btn-success',
+                'onclick' => 'return setTargetBoard(this);',
+            ]
+        );
+        ?>
     </p>
 
     <?php

@@ -81,15 +81,18 @@ class ColumnController extends PreventguestController
     /**
      * Creates a new Column model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param intege $id Board for this column
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $model->display_order = $model->getHighestDisplayOrder($id) +1;
+            $model->board_id = $id;
             return $this->render('create', [
                 'model' => $model,
             ]);

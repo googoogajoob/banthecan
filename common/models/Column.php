@@ -166,6 +166,27 @@ class Column extends ActiveRecord
         }
     }
 
+
+    public function  getHighestDisplayOrder($boardId)
+    {
+        if ($boardId) {
+            $model = Column::find()
+                ->where(['board_id' => $boardId])
+                ->orderBy(['display_order' => SORT_DESC])
+                ->one();
+            if ($model) {
+                echo "found it: " . $model->id;
+                $returnValue = $model->display_order;
+            } else {
+                $returnValue = 0;
+            }
+        } else {
+            $returnValue = 0;
+        }
+
+        return $returnValue;
+    }
+
     /**
      * Creates a set of Demo Columns
      *

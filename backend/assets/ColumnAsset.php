@@ -20,6 +20,7 @@ class ColumnAsset extends AssetBundle
 	];
 	public $js = [
         'columnReorder.js',
+        'column.js',
 	];
 	public $depends = [
         'yii\jui\JuiAsset',
