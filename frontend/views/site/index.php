@@ -9,10 +9,26 @@ use common\models\Board;
 /* @var $news array */
 /* @var $tasks array */
 /* @var $board ActiveRecord */
+/* @var $kanBanOverview array */
 ?>
 <div class="site-index">
 
     <?php if ($board) : ?>
+
+        <div class="kanban-overview">
+            <?php foreach ($kanBanOverview as $boardName => $kanBanTickets) : ?>
+                <div class="kanban-overview-board">
+                    <div class="kanban-overview-board-title">
+                        <?php echo $boardName;?>
+                    </div>
+                    <?php foreach ($kanBanTickets as $ticketTitle) : ?>
+                        <div class="kanban-overview-ticket-title">
+                            <?php echo $ticketTitle;?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
 
         <div class="jumbotron">
             <h1>

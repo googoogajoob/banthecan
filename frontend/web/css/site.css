@@ -27,6 +27,7 @@ html,body {
 .jumbotron {
 	text-align: center;
 	background-color: transparent;
+	clear: both;
 }
 
 .jumbotron .btn {
@@ -138,4 +139,24 @@ a.desc:after {
 
 .btn {
 	margin-right: 5px;
+}
+
+.kanban-overview {
+}
+
+.kanban-overview-board {
+	float: left;
+	padding: 1em;
+}
+
+.kanban-overview-board-title {
+	padding: 0.3em 0.2em 0 0.3em;
+	margin-bottom: 0.2em;
+	font-weight: bold;
+	background-color: #6692c4;
+	color: #fff;
+}
+
+.kanban-overview-ticket-title {
+	padding: 0 0.2em 0 0.2em;
 }

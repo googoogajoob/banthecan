@@ -88,6 +88,20 @@ class SiteController extends Controller {
             $newTickets = [];
             $news = [];
             $tasks = [];
+            $kanBanOverview = [
+                'Board One' => [
+                    'B1 Super Ticket',
+                    'YAB1 Ticket',
+                    'SAB1 Ticket'
+                ],
+                'Board Two' => [
+                    'Oh Darling',
+                    'Please bleieve me',
+                    "I'll never let you go",
+                    'Credited to Lennen/McCartney',
+                    'Octopuses Garden',
+                ],
+            ];
 
             if ($activeBoard) {
                 $frontPageTimespan = time();
@@ -173,6 +187,7 @@ class SiteController extends Controller {
                 'news' => $news,
                 'board' => $activeBoard,
                 'tasks' => $tasks,
+                'kanBanOverview' => $kanBanOverview,
             ]);
         }
     }
