@@ -146,11 +146,13 @@ a.desc:after {
 
 .kanban-overview-board {
 	float: left;
-	padding: 1em;
+	padding: 0.5em;
+	background-color: #eeeeee;
+	margin: 0 1em 1em 0;
 }
 
 .kanban-overview-board-title {
-	padding: 0.3em 0.2em 0 0.3em;
+	padding: 0.3em 0.3em 0 0.3em;
 	margin-bottom: 0.2em;
 	font-weight: bold;
 	background-color: #6692c4;

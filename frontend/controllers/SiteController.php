@@ -88,21 +88,7 @@ class SiteController extends Controller {
             $newTickets = [];
             $news = [];
             $tasks = [];
-            $kanBanOverview = [
-                'Board One' => [
-                    'B1 Super Ticket',
-                    'YAB1 Ticket',
-                    'SAB1 Ticket'
-                ],
-                'Board Two' => [
-                    'Oh Darling',
-                    'Please bleieve me',
-                    "I'll never let you go",
-                    'Credited to Lennen/McCartney',
-                    'Octopuses Garden',
-                ],
-            ];
-
+            $kanBanOverview = $this->getUserOverview();
             if ($activeBoard) {
                 $frontPageTimespan = time();
                 $frontPageTimespan -= isset(Yii::$app->params['frontPageTimespan']) ? Yii::$app->params['frontPageTimespan'] : 604800; //Default Seconds in 7 days 60*60*24*7 = 604800;
@@ -190,6 +176,32 @@ class SiteController extends Controller {
                 'kanBanOverview' => $kanBanOverview,
             ]);
         }
+    }
+
+    /**
+     * Retrieves all Boards and KanBanTickets for the current user
+     */
+    protected function getUserOverview()
+    {
+        $returnValue = [];
+        $userBoardIds = Yii::$app->user->getIdentity()->board_id;
+        $userBoards = Board::find()
+            ->where(['id' => explode(',', $userBoardIds)])
+            ->orderBy(['title' => SORT_ASC])
+            ->all();
+
+        foreach ($userBoards as $userBoard) {
+            $boardKanBanTickets = Ticket::find()
+                ->where(['=', 'board_id', $userBoard->id])
+                ->andWhere(['>', 'column_id', 0])
+                ->orderBy(['title' => SORT_ASC])
+                ->all();
+            foreach ($boardKanBanTickets as $boardTicket) {
+                $returnValue[$userBoard->title][] = $boardTicket->title;
+            }
+        }
+
+        return $returnValue;
     }
 
     public function actionLogin() {
