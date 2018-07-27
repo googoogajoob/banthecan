@@ -15,20 +15,22 @@ use common\models\Board;
 
     <?php if ($board) : ?>
 
-        <div class="kanban-overview">
-            <?php foreach ($kanBanOverview as $boardId => $boardData) : ?>
-                <div class="kanban-overview-board">
-                    <div class="kanban-overview-board-title">
-                        <?php echo Html::a($boardData['boardname'], '/board/activatetokanban/' . $boardId); ?>
-                    </div>
-                    <?php foreach ($boardData['tickets'] as $ticketId => $ticketTitle) : ?>
-                        <div class="kanban-overview-ticket-title">
-                            <?php echo Html::a($ticketTitle, '/board/activateandview/' . $boardId . '?ticketid=' . $ticketId); ?>
+        <?php if (count($kanBanOverview) > 1) : ?>
+            <div class="kanban-overview">
+                <?php foreach ($kanBanOverview as $boardId => $boardData) : ?>
+                    <div class="kanban-overview-board">
+                        <div class="kanban-overview-board-title">
+                            <?php echo Html::a($boardData['boardname'], '/board/activatetokanban/' . $boardId); ?>
                         </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
+                        <?php foreach ($boardData['tickets'] as $ticketId => $ticketTitle) : ?>
+                            <div class="kanban-overview-ticket-title">
+                                <?php echo Html::a($ticketTitle, '/board/activateandview/' . $boardId . '?ticketid=' . $ticketId); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
 
         <div class="jumbotron">
             <h1>

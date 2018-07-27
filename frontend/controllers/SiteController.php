@@ -184,21 +184,23 @@ class SiteController extends Controller {
     protected function getUserOverview()
     {
         $returnValue = [];
-        $userBoardIds = Yii::$app->user->getIdentity()->board_id;
-        $userBoards = Board::find()
-            ->where(['id' => explode(',', $userBoardIds)])
-            ->orderBy(['title' => SORT_ASC])
-            ->all();
-
-        foreach ($userBoards as $userBoard) {
-            $boardKanBanTickets = Ticket::find()
-                ->where(['=', 'board_id', $userBoard->id])
-                ->andWhere(['>', 'column_id', 0])
+        if (!Yii::$app->user->isGuest) {
+            $userBoardIds = Yii::$app->user->getIdentity()->board_id;
+            $userBoards = Board::find()
+                ->where(['id' => explode(',', $userBoardIds)])
                 ->orderBy(['title' => SORT_ASC])
                 ->all();
-            foreach ($boardKanBanTickets as $boardTicket) {
-                $returnValue[$userBoard->id]['boardname'] = $userBoard->title;
-                $returnValue[$userBoard->id]['tickets'][$boardTicket->id] = $boardTicket->title;
+
+            foreach ($userBoards as $userBoard) {
+                $boardKanBanTickets = Ticket::find()
+                    ->where(['=', 'board_id', $userBoard->id])
+                    ->andWhere(['>', 'column_id', 0])
+                    ->orderBy(['title' => SORT_ASC])
+                    ->all();
+                foreach ($boardKanBanTickets as $boardTicket) {
+                    $returnValue[$userBoard->id]['boardname'] = $userBoard->title;
+                    $returnValue[$userBoard->id]['tickets'][$boardTicket->id] = $boardTicket->title;
+                }
             }
         }
 
