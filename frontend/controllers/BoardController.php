@@ -224,6 +224,19 @@ class BoardController extends \yii\web\Controller {
         $this->goHome();
     }
 
+    public function actionActivatetokanban($id)
+    {
+        Yii::$app->user->getIdentity()->activateBoard($id);
+        $this->redirect('/board');
+    }
+
+    public function actionActivateandview($id)
+    {
+        Yii::$app->user->getIdentity()->activateBoard($id);
+        $ticketId = Yii::$app->request->get('ticketid');
+        $this->redirect('/ticket/view/' . $ticketId);
+    }
+
     public function actionPolling()
     {
         Yii::$app->session->close();

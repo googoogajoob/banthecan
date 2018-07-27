@@ -19,11 +19,11 @@ use common\models\Board;
             <?php foreach ($kanBanOverview as $boardId => $boardData) : ?>
                 <div class="kanban-overview-board">
                     <div class="kanban-overview-board-title">
-                        <?php echo Html::a($boardData['boardname'], '/board/activate/' . $boardId); ?>
+                        <?php echo Html::a($boardData['boardname'], '/board/activatetokanban/' . $boardId); ?>
                     </div>
                     <?php foreach ($boardData['tickets'] as $ticketId => $ticketTitle) : ?>
                         <div class="kanban-overview-ticket-title">
-                            <?php echo Html::a($ticketTitle, '/ticket/view/' . $ticketId); ?>
+                            <?php echo Html::a($ticketTitle, '/board/activateandview/' . $boardId . '?ticketid=' . $ticketId); ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
