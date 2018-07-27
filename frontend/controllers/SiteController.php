@@ -197,7 +197,8 @@ class SiteController extends Controller {
                 ->orderBy(['title' => SORT_ASC])
                 ->all();
             foreach ($boardKanBanTickets as $boardTicket) {
-                $returnValue[$userBoard->title][] = $boardTicket->title;
+                $returnValue[$userBoard->id]['boardname'] = $userBoard->title;
+                $returnValue[$userBoard->id]['tickets'][$boardTicket->id] = $boardTicket->title;
             }
         }
 

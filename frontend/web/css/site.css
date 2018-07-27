@@ -144,6 +144,10 @@ a.desc:after {
 .kanban-overview {
 }
 
+.kanban-overview a {
+	color: #000;
+}
+
 .kanban-overview-board {
 	float: left;
 	padding: 0.5em;

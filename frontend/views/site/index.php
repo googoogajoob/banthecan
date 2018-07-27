@@ -16,14 +16,14 @@ use common\models\Board;
     <?php if ($board) : ?>
 
         <div class="kanban-overview">
-            <?php foreach ($kanBanOverview as $boardName => $kanBanTickets) : ?>
+            <?php foreach ($kanBanOverview as $boardId => $boardData) : ?>
                 <div class="kanban-overview-board">
                     <div class="kanban-overview-board-title">
-                        <?php echo $boardName;?>
+                        <?php echo Html::a($boardData['boardname'], '/board/activate/' . $boardId); ?>
                     </div>
-                    <?php foreach ($kanBanTickets as $ticketTitle) : ?>
+                    <?php foreach ($boardData['tickets'] as $ticketId => $ticketTitle) : ?>
                         <div class="kanban-overview-ticket-title">
-                            <?php echo $ticketTitle;?>
+                            <?php echo Html::a($ticketTitle, '/ticket/view/' . $ticketId); ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
