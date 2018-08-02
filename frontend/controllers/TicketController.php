@@ -310,4 +310,14 @@ class TicketController extends Controller {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionMergeselect()
+    {
+        return $this->render('mergeselect');
+    }
+
+    public function actionMergedialog()
+    {
+        return $this->render('mergedialog');
+    }
 }
