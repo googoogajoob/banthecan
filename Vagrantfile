@@ -72,8 +72,8 @@ Vagrant.configure("2") do |config|
   # SHELL
   # 
 
-  config.vm.synced_folder ".", "/vagrant", owner: "vagrant",
-         group: "www-data", mount_options: ["dmode=777", "fmode=666"]
+  config.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "www-data"
+#     , mount_options: ["dmode=777", "fmode=666"]
   config.vm.network "private_network", ip: "192.168.50.4"  
   config.vm.hostname = "ban-the-can.vagrant"
   config.hostsupdater.aliases = ["local.ban-the-can.vagrant", "local.admin.ban-the-can.vagrant"]
