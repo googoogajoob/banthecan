@@ -4,7 +4,12 @@ function addTitleToList(ticketTitle) {
 
 function addHiddenIdField(ticketId) {
     mergeCandidateCount = $('#merge-form input:hidden').length - 1; //ignore csrf input
-    $('#merge-form').append('<input type="hidden" name="mergeTicketId[' + mergeCandidateCount + ']" value="' + ticketId + '"></input>');
+    $('#merge-form').append('<input type="hidden" name="mergeCandidateId[' + mergeCandidateCount + ']" value="' + ticketId + '"></input>');
+    if (mergeCandidateCount > 0) {
+        $("#merge-submit-button").show();
+    } else {
+        $("#merge-submit-button").hide();
+    }
 }
 
 function addTicketToMerge(ticketId, ticketTitle) {
