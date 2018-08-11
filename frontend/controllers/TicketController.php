@@ -313,6 +313,34 @@ class TicketController extends Controller {
 
     public function actionMerge()
     {
-        return $this->render('merge');
+        $mergeCandidateId  = Yii::$app->request->post('mergeCandidateId');
+        $mergeCandidates = Ticket::findAll(['id' => $mergeCandidateId]);
+
+        $model = new Ticket();
+        $model->board_id = Board::getCurrentActiveBoard()->id; //A new ticket belongs to the current active board
+        $model->moveToBacklog(); //A new ticket always starts in the backlog
+
+        $firstLoop = true;
+        $newTitle = '';
+        $newDescription = '';
+        $newTagNames = '';
+        foreach ($mergeCandidates as $mergeCandidate) {
+            $newTitle .= ($firstLoop ? '' : ' ') . $mergeCandidate->title;
+            $newDescription .= ($firstLoop ? '' : ' ') . $mergeCandidate->description;
+            $newTagNames .= ($firstLoop ? '' : ', ') . $mergeCandidate->tagNames;
+            $firstLoop = false;
+        }
+
+        $model->title = $newTitle;
+        $model->description = $newDescription;
+        $model->tagNames = $newTagNames;
+
+        if ($model->save()) {
+            foreach ($mergeCandidates as $mergeCandidate) {
+                $mergeCandidate->delete();
+            }
+        }
+
+        return $this->redirect(['board/backlog']);
     }
 }

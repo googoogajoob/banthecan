@@ -17,7 +17,10 @@
                 [
                     'class' => 'btn btn-success pull-right',
                     'id' => 'merge-submit-button',
-                    'style' => 'display: none'
+                    'style' => 'display: none',
+                    'onclick' => 'return confirm("'
+                        . \Yii::t('app', 'Merged Tickets will be deleted')
+                    . '");'
                 ]
         );
         echo Html::endForm();
