@@ -29,6 +29,7 @@ ul.ticket-sorter {
 	padding-left: 15px;
 	margin-top: 1px;
 	margin-bottom: 0;
+	clear: both;
 }
 
 .ticket-sorter li {
@@ -134,8 +135,7 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 .form-control-task-completed { padding: 0; }
 
 .merge-block {
-	background-color: #ccc;
-	padding: 5px 5px 1px 5px;
-	margin-bottom: -6px;
+	background-color: #eee;
+	padding: 0 5px 10px 5px;
 	display: none;
 }

@@ -17,7 +17,11 @@ class Merge extends AbstractDecoration {
                 'data-toggle' => 'tooltip',
                 'data-placement' => 'bottom',
                 'title' => \Yii::t('app', $this->title),
-                'onclick' => 'addTicketToMerge(' . $this->owner->id .'); preventBubbling(event); return false;',
+                'onclick' => 'addTicketToMerge('
+                    . $this->owner->id
+                    . ', '
+                    . '"' . $this->owner->title . '"'
+                    . '); preventBubbling(event); return false;',
                 'class' => 'text-muted',
             ]
         );

@@ -115,13 +115,13 @@ a.desc:after {
 
 .apc-summary {
 	padding-left: 15px;
-	clear: both;
+	clear: left;
 	display: block;
 }
 
 /* Fix the Yii Pagination */
 .apc-pagination {
-	clear: both;
+	clear: left;
 	display: block;
 	padding-top: 4px;
 	padding-left: 15px;

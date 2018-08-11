@@ -10,11 +10,12 @@ use common\models\Board;
 /* @var $currentPageSize integer */
 ?>
 
+<?php echo $this->render('@frontend/views/board/partials/_mergeBlock'); ?>
+
+
 <?php echo $this->render('@frontend/views/board/partials/_showSearchButton'); ?>
 
 <h1 class="text-capitalize"><?php echo Board::getBoardSectionName('backlog'); ?></h1>
-
-<?php echo $this->render('@frontend/views/board/partials/_mergeBlock'); ?>
 
 <span class="pull-left"><?php echo \Yii::t('app', 'Page Size:'); ?>&nbsp;</span>
 
@@ -33,7 +34,8 @@ echo Html::dropDownList(
         '192' => '192',
     ],
     [
-        'id' => 'backlog-per-page'
+        'id' => 'backlog-per-page',
+        'class' => 'pull-left'
     ]
 );
 
