@@ -4,6 +4,6 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 
-$this->title = \Yii::t('app', 'Merge Select');
+$this->title = \Yii::t('app', 'Merge')
 ?>
-Merge Dialog View
+Here I am

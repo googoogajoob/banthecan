@@ -311,13 +311,8 @@ class TicketController extends Controller {
         }
     }
 
-    public function actionMergeselect()
+    public function actionMerge()
     {
-        return $this->render('mergeselect');
-    }
-
-    public function actionMergedialog()
-    {
-        return $this->render('mergedialog');
+        return $this->render('merge');
     }
 }

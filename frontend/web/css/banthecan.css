@@ -132,3 +132,10 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 .ui-datepicker-current-day { background: lawngreen; }
 
 .form-control-task-completed { padding: 0; }
+
+.merge-block {
+	background-color: #ccc;
+	padding: 5px 5px 1px 5px;
+	margin-bottom: -6px;
+	display: none;
+}
