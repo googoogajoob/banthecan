@@ -204,7 +204,24 @@ class SiteController extends Controller {
             }
         }
 
+        uasort($returnValue, array($this, 'userOverviewSort'));
+
         return $returnValue;
+    }
+
+    private function userOverviewSort($a, $b)
+    {
+        $aCount = count($a['tickets']);
+        $bCount = count($b['tickets']);
+        if ($aCount == $bCount) {
+            if ($a['boardname'] == $b['boardname']) {
+                return 0;
+            }
+
+            return ($a['boardname'] < $b['boardname']) ? -1 : 1;
+        }
+
+        return ($aCount > $bCount) ? -1 : 1;
     }
 
     public function actionLogin() {
