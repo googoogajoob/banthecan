@@ -4,8 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Ticket;
-use yii\data\ActiveDataProvider;
-use yii\web\Controller;
+use backend\models\TicketSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -32,11 +31,11 @@ class TicketController extends PreventguestController
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Ticket::find(),
-        ]);
+        $searchModel = new TicketSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
