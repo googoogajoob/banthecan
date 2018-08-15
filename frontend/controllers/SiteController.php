@@ -201,7 +201,7 @@ class SiteController extends Controller {
                 foreach ($boardKanBanTickets as $boardTicket) {
                     $ticketColumnOrder = $boardTicket->getColumn()->display_order;
                     $ticketsOrderedByBoard[$userBoard->id]['boardname'] = $userBoard->title;
-                    $ticketsOrderedByBoard[$userBoard->id]['tickets'][$ticketColumnOrder][] = $boardTicket->title;
+                    $ticketsOrderedByBoard[$userBoard->id]['tickets'][$ticketColumnOrder][$boardTicket->id] = $boardTicket->title;
                 }
             }
         }
@@ -211,8 +211,8 @@ class SiteController extends Controller {
             $boardTicketsBycolumn = $boardTickets['tickets'];
             krsort($boardTicketsBycolumn);
             foreach ($boardTicketsBycolumn as $ticketTitlesInColumn ) {
-                foreach ($ticketTitlesInColumn as $ticketTitle)
-                $returnValue[$boardId]['tickets'][] = $ticketTitle;
+                foreach ($ticketTitlesInColumn as $ticketId => $ticketTitle)
+                $returnValue[$boardId]['tickets'][$ticketId] = $ticketTitle;
             }
         }
 
