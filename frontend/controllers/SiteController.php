@@ -195,12 +195,24 @@ class SiteController extends Controller {
                 $boardKanBanTickets = Ticket::find()
                     ->where(['=', 'board_id', $userBoard->id])
                     ->andWhere(['>', 'column_id', 0])
-                    ->orderBy(['title' => SORT_ASC])
+                    ->orderBy(['ticket_order' => SORT_ASC])
                     ->all();
+
                 foreach ($boardKanBanTickets as $boardTicket) {
-                    $returnValue[$userBoard->id]['boardname'] = $userBoard->title;
-                    $returnValue[$userBoard->id]['tickets'][$boardTicket->id] = $boardTicket->title;
+                    $ticketColumnOrder = $boardTicket->getColumn()->display_order;
+                    $ticketsOrderedByBoard[$userBoard->id]['boardname'] = $userBoard->title;
+                    $ticketsOrderedByBoard[$userBoard->id]['tickets'][$ticketColumnOrder][] = $boardTicket->title;
                 }
+            }
+        }
+
+        foreach ($ticketsOrderedByBoard as $boardId => $boardTickets) {
+            $returnValue[$boardId]['boardname'] = $boardTickets['boardname'];
+            $boardTicketsBycolumn = $boardTickets['tickets'];
+            krsort($boardTicketsBycolumn);
+            foreach ($boardTicketsBycolumn as $ticketTitlesInColumn ) {
+                foreach ($ticketTitlesInColumn as $ticketTitle)
+                $returnValue[$boardId]['tickets'][] = $ticketTitle;
             }
         }
 
