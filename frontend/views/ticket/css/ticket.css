@@ -187,11 +187,11 @@ ul.ticket-view-ajax {
 }
 
 .ticket-vote-plus {
-    color: #a32d00;
+    color: green;
 }
 
 .ticket-vote-minus {
-    color: dimgrey;
+    color: #A32D00;
 }
 
 #hide-search-option-button {

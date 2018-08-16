@@ -20,6 +20,7 @@ class Vote extends AbstractDecoration
 	public $plusLinkIcon = '+';
     public $minusLinkIcon = '-';
     public $voteAttribute = 'vote_priority';
+    public $allowMultipleVotes = false;
 
     public function getLinkUrl()
     {
@@ -38,15 +39,12 @@ class Vote extends AbstractDecoration
         $decorationData = $this->getDecorationData();
 
         if (isset($decorationData[$currentUserId])) {
-
-
             $lastVoteChange = $decorationData[$currentUserId];
         } else {
-
             $lastVoteChange = 0;
         }
 
-        if ($lastVoteChange == 0) {
+        if ($lastVoteChange == 0 || $this->allowMultipleVotes) {
 
             return $this->linkHtml(1)
                  . $this->linkHtml(-1);
@@ -69,7 +67,7 @@ class Vote extends AbstractDecoration
         $icon = $plusMinus > 0 ? $this->plusLinkIcon: $this->minusLinkIcon;
         $action = $plusMinus > 0 ? '/ticket/plus/' : '/ticket/minus/';
 
-        return '<a data-toggle="tooltip" data-placement="bottom" title="' . \Yii::t('app', $title) . '"'
+        return '<a data-toggle="tooltip" data-placement="bottom" onclick="return preventBubbling(event);" title="' . \Yii::t('app', $title) . '"'
                     . ' href="' . $action . $this->owner->id . '">' . $icon
               .'</a>';
 
@@ -91,7 +89,9 @@ class Vote extends AbstractDecoration
      */
     public function validateVote($event)
     {
-        return true; // Vote validation temporarily deactivated
+        if ($this->allowMultipleVotes) {
+            return true;
+        }
         
         $currentUserId = \Yii::$app->user->identity->id;
         $decorationData = $this->getDecorationData();
@@ -113,9 +113,9 @@ class Vote extends AbstractDecoration
             $currentUserId = \Yii::$app->user->identity->id;
             $decorationData = $this->getDecorationData();
 
-            // because of the validatio there are only two possibilities
+            // because of the validation there are only two possibilities
             // the user is reversing the previous vote or
-            // they are starting from an unvoted status
+            // they are starting from an non voted status
             if (isset($decorationData[$currentUserId])) {
 
                 // previous vote is being reversed, allow both votes
