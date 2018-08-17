@@ -331,7 +331,7 @@ class TicketController extends Controller {
             $firstLoop = false;
         }
 
-        $model->title = $newTitle;
+        $model->title = 'Merge: ' . $newTitle;
         $model->description = $newDescription;
         $model->tagNames = $newTagNames;
 
