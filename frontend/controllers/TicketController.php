@@ -107,6 +107,7 @@ class TicketController extends Controller {
      */
     public function actionView($id)
     {
+        Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getReferrer());
         $request = Yii::$app->request;
         if ($request->isAjax) {
             return $this->renderAjax('view', ['model' => $this->findModel($id),'modalFlag' => true]);
@@ -140,21 +141,21 @@ class TicketController extends Controller {
      */
     public function actionCopy($id)
     {
+        Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getReferrer());
         $originalModel = $this->findModel($id);
         if ($originalModel) {
             $originalModel->setIsNewRecord(true);
-            $originalModel->title = 'Copy - ' . $originalModel->title;
+            $originalModel->title = 'Copy: ' . $originalModel->title;
             $originalModel->id = 0;
             $originalModel->moveToBacklog();
             if ($originalModel->save(false)) {
-                Yii::$app->getSession()->setFlash('success', 'A copy of the ticket is in the backlog');
-                return $this->redirect(['view', 'id' => $originalModel->id]);
+                Yii::$app->getSession()->setFlash('success', 'A copy of the ticket has been created in the backlog: <em>' . $originalModel->title . '</em>');
             } else {
                 Yii::$app->getSession()->setFlash('error', 'A problem occurred when copying the ticket.');
             }
         }
 
-        return $this->redirect(['index']);
+        return $this->goBack();
     }
 
     /**
@@ -171,12 +172,9 @@ class TicketController extends Controller {
         $request = Yii::$app->request;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if ($request->getBodyParam('modalFlag')) {
-                return $this->redirect(Url::previous());
-            } else {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            return $this->goBack();
         } else {
+            Yii::$app->getUser()->setReturnUrl($request->getReferrer());
             if ($request->isAjax) {
                 Url::remember($request->getReferrer());
                 return $this->renderAjax('create', ['model' => $model, 'modalFlag' => true]);
@@ -192,13 +190,14 @@ class TicketController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id) {
-
+    public function actionUpdate($id)
+    {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->goBack();
         } else {
+            Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getReferrer());
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -249,11 +248,12 @@ class TicketController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id) {
-
+    public function actionDelete($id)
+    {
+        Yii::$app->getUser()->setReturnUrl(Yii::$app->request->getReferrer());
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->goBack();
     }
 
     /**
