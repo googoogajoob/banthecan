@@ -225,15 +225,31 @@ class SiteController extends Controller {
     {
         $aCount = count($a['tickets']);
         $bCount = count($b['tickets']);
+        $aLongestTicketTitleLength = $this->getLongestTicketTitle($a['tickets']);
+        $bLongestTicketTitleLength = $this->getLongestTicketTitle($b['tickets']);
+
         if ($aCount == $bCount) {
-            if ($a['boardname'] == $b['boardname']) {
+            if ($aLongestTicketTitleLength == $bLongestTicketTitleLength) {
                 return 0;
             }
 
-            return ($a['boardname'] < $b['boardname']) ? -1 : 1;
+            return ($aLongestTicketTitleLength > $bLongestTicketTitleLength) ? -1 : 1;
         }
 
         return ($aCount > $bCount) ? -1 : 1;
+    }
+
+    private function getLongestTicketTitle($ticketList)
+    {
+        $longestTitleLength = 0;
+        foreach ($ticketList as $ticketTitle) {
+            $titleLength = strlen($ticketTitle);
+            if ($titleLength > $longestTitleLength) {
+                $longestTitleLength = $titleLength;
+            }
+        }
+
+        return $longestTitleLength;
     }
 
     public function actionLogin() {
