@@ -204,19 +204,19 @@ class SiteController extends Controller {
                     $ticketsOrderedByBoard[$userBoard->id]['tickets'][$ticketColumnOrder][$boardTicket->id] = $boardTicket->title;
                 }
             }
-        }
 
-        foreach ($ticketsOrderedByBoard as $boardId => $boardTickets) {
-            $returnValue[$boardId]['boardname'] = $boardTickets['boardname'];
-            $boardTicketsBycolumn = $boardTickets['tickets'];
-            krsort($boardTicketsBycolumn);
-            foreach ($boardTicketsBycolumn as $ticketTitlesInColumn ) {
-                foreach ($ticketTitlesInColumn as $ticketId => $ticketTitle)
-                $returnValue[$boardId]['tickets'][$ticketId] = $ticketTitle;
+            foreach ($ticketsOrderedByBoard as $boardId => $boardTickets) {
+                $returnValue[$boardId]['boardname'] = $boardTickets['boardname'];
+                $boardTicketsBycolumn = $boardTickets['tickets'];
+                krsort($boardTicketsBycolumn);
+                foreach ($boardTicketsBycolumn as $ticketTitlesInColumn ) {
+                    foreach ($ticketTitlesInColumn as $ticketId => $ticketTitle)
+                    $returnValue[$boardId]['tickets'][$ticketId] = $ticketTitle;
+                }
             }
-        }
 
-        uasort($returnValue, array($this, 'userOverviewSort'));
+            uasort($returnValue, array($this, 'userOverviewSort'));
+        }
 
         return $returnValue;
     }
