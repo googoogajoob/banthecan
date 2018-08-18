@@ -66,7 +66,7 @@ class TaskController extends Controller
     public function actionCreate($id)
     {
         $model = new Task();
-        $model->board_id = Board::getCurrentActiveBoard()->id; //A new ticket belongs to the current active board
+        $model->board_id = Board::getCurrentActiveBoard()->id; //A new task belongs to the current active board
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'TaskSearch[ticket_id]' => $id]);
