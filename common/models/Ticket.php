@@ -61,7 +61,12 @@ class Ticket extends FindFromBoard
 	 */
 	const ACTIVE_BOARD_NOT_FOUND = 'Current Active Board Not Found';
 
+	const TASK_MARKER_BEGIN = '<task>';
+	const TASK_MARKER_END   = '</task>';
+
     private $_decorationCount = 0;
+
+    protected $newTasks = [];
 
 	/**
 	 * @inheritdoc
@@ -358,6 +363,7 @@ class Ticket extends FindFromBoard
      */
     public function beforeSave($insert) {
 
+        $this->checkForNewTasks();
         if (parent::beforeSave($insert)) {
             $this->decoration_data = serialize($this->decoration_data);
 
@@ -365,6 +371,45 @@ class Ticket extends FindFromBoard
         }
 
         return false;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->createNewTasks();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    protected function checkForNewTasks()
+    {
+        $taskSegmentBeginPosition = stripos($this->description, self::TASK_MARKER_BEGIN);
+        $taskSegmentEndPosition   = stripos($this->description, self::TASK_MARKER_END);
+        $taskSegmentExists = $taskSegmentBeginPosition !== false
+                             && $taskSegmentEndPosition !== false
+                             && $taskSegmentBeginPosition < $taskSegmentEndPosition;
+        if ($taskSegmentExists) {
+            $taskSegmentLength = $taskSegmentEndPosition - $taskSegmentBeginPosition + strlen(self::TASK_MARKER_END);
+            $taskSegment = substr($this->description, $taskSegmentBeginPosition, $taskSegmentLength);
+            $this->description = substr_replace($this->description, '', $taskSegmentBeginPosition, $taskSegmentLength);
+            $taskSegment = substr($taskSegment, strlen(self::TASK_MARKER_BEGIN));
+            $taskSegment = substr($taskSegment, 0, -strlen(self::TASK_MARKER_END));
+            $this->newTasks = explode("\r\n", $taskSegment);
+        }
+    }
+
+    protected function createNewTasks()
+    {
+       foreach ($this->newTasks as $taskTitle) {
+           $newTaskTitle = trim($taskTitle);
+           if ($newTaskTitle) {
+               $taskModel = new Task();
+               $taskModel->board_id = Board::getCurrentActiveBoard()->id;
+               $taskModel->title = $newTaskTitle;
+               $taskModel->ticket_id = $this->id;
+               $taskModel->completed = 0;
+               $taskModel->save();
+           }
+       }
+
     }
 
     public function hasDecorations()
