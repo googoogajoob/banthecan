@@ -41,7 +41,7 @@ TaskAsset::register($this);
     $allBoardUsers = User::getBoardUsers();
     $allBoardUsernames = ArrayHelper::map($allBoardUsers, 'id', 'username');
 
-    $allTaskTickets = Ticket::findTicketsInTaskColumns();
+    $allTaskTickets = Ticket::findTicketsInKanBan();
     $allTaskTicketTitles = ArrayHelper::map($allTaskTickets, 'id', 'title');
 
     echo GridView::widget([

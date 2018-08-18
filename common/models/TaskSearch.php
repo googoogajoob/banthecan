@@ -67,6 +67,19 @@ class TaskSearch extends Task
         $query->andFilterWhere(['like', 'title', $this->title])
               ->andFilterWhere(['like', 'description', $this->description]);
 
+        $kanBanFilterActive = false;
+        if ($kanBanFilterActive) {
+            $ticketsInKanBan = Ticket::findTicketsInKanBan();
+            $ticketsInKanBanIdArray = [];
+            foreach ($ticketsInKanBan as $kanBanTicket) {
+                $ticketsKanBanIdArray[] = $kanBanTicket->id;
+            }
+
+            if (count($ticketsKanBanIdArray)) {
+                $query->andFilterWhere(['ticket_id' => $ticketsKanBanIdArray]);
+            }
+        }
+
         return $dataProvider;
     }
 }

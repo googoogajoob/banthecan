@@ -16,7 +16,7 @@ use yii\jui\DatePicker;
     <?php
         $form = ActiveForm::begin();
 
-        $allTickets = Ticket::findTicketsInTaskColumns();
+        $allTickets = Ticket::findTicketsInKanBan();
         $allTicketTitles = ArrayHelper::map($allTickets, 'id', 'title');
         echo $form->field($model, 'ticket_id')->dropDownList($allTicketTitles);
 

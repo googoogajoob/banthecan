@@ -333,7 +333,7 @@ class Ticket extends FindFromBoard
      *
      * @return yii\db\QueryInterface
      */
-    public static function findTicketsInTaskColumns()
+    public static function findTicketsInKanBan()
     {
         return self::find()
             ->where(['>', 'column_id', 0])
@@ -409,7 +409,6 @@ class Ticket extends FindFromBoard
                $taskModel->save();
            }
        }
-
     }
 
     public function hasDecorations()
