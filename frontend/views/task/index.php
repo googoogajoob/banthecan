@@ -6,6 +6,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\User;
 use common\models\Ticket;
+use common\models\Board;
 use frontend\assets\TaskAsset;
 
 /* @var $this yii\web\View */
@@ -16,7 +17,7 @@ $this->title = Yii::t('app', 'Tasks');
 $this->params['breadcrumbs'][] = $this->title;
 TaskAsset::register($this);
 ?>
-<div class="task-index">
+<p class="task-index">
 
     <h1><?php echo Html::encode($this->title) ?></h1>
 
@@ -26,7 +27,6 @@ TaskAsset::register($this);
                 ['task/create/0'],
                 [
                     'class' => 'btn btn-success',
-                    'onclick' => 'return setTargetTicket(this);',
                 ]
             );
         ?>
@@ -34,9 +34,24 @@ TaskAsset::register($this);
 
     <?php Pjax::begin(); ?>
 
-    <?php
+    <?php echo Html::beginForm('/task/complete');?>
 
-    echo Html::beginForm('/task/complete');
+    <div id="board-filter" class="pull-right">
+        <label class="checkbox-inline">
+            <input type="checkbox" name="boardFilter[show_backlog]"   value="1">
+            <?php echo Board::getBoardSectionName('backlog'); ?>
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" name="boardFilter[show_kanban]"    value="1" checked>
+            <?php echo Board::getBoardSectionName('kanban'); ?>
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" name="boardFilter[show_completed]" value="1">
+            <?php echo Board::getBoardSectionName('completed'); ?>
+        </label>
+    </div>
+
+    <?php
 
     $allBoardUsers = User::getBoardUsers();
     $allBoardUsernames = ArrayHelper::map($allBoardUsers, 'id', 'username');
@@ -47,6 +62,7 @@ TaskAsset::register($this);
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'filterSelector' => '#board-filter input',
         'rowOptions' => function ($model, $key, $index, $column) {
             if ($model->completed) {
                 return ['class' => 'success'];

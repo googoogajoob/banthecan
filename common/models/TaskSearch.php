@@ -10,6 +10,11 @@ use yii\data\ActiveDataProvider;
  */
 class TaskSearch extends Task
 {
+
+    public $show_backlog = 0;
+    public $show_kanban = 1;
+    public $show_completed = 0;
+
     /**
      * @inheritdoc
      */
@@ -17,7 +22,7 @@ class TaskSearch extends Task
     {
         return [
             [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed', 'due_date'], 'integer'],
-            [['title', 'description'], 'safe'],
+            [['title', 'description', 'show_backlog', 'show_kanban', 'show_completed'], 'safe'],
         ];
     }
 

@@ -23,13 +23,3 @@ function taskUser(id) {
         }
     });
 }
-
-function setTargetTicket(thisButton) {
-    ticketFilterId = $('#tasksearch-ticket_id').val();
-    if (ticketFilterId > 0) {
-        originalUrl = $(thisButton).attr('href');
-        newUrl = originalUrl.replace(/[0-9]*$/, ticketFilterId);
-        window.location.href = newUrl;
-        return false;
-    }
-}
