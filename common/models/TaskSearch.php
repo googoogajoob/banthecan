@@ -11,9 +11,11 @@ use yii\data\ActiveDataProvider;
 class TaskSearch extends Task
 {
 
-    public $show_backlog = 0;
-    public $show_kanban = 1;
-    public $show_completed = 0;
+    public $boardFilter = [
+        'show_backlog' => 0,
+        'show_kanban' => 0,
+        'show_completed' => 0
+    ];
 
     /**
      * @inheritdoc
@@ -22,7 +24,7 @@ class TaskSearch extends Task
     {
         return [
             [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'ticket_id', 'user_id', 'completed', 'due_date'], 'integer'],
-            [['title', 'description', 'show_backlog', 'show_kanban', 'show_completed'], 'safe'],
+            [['title', 'description'], 'safe'],
         ];
     }
 
@@ -33,6 +35,18 @@ class TaskSearch extends Task
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+    }
+
+
+    protected function setBoardFilterValue($params)
+    {
+        foreach ($this->boardFilter as $boardSectionName => $value) {
+            if (isset($params['boardFilter'][$boardSectionName]) && (int)$params['boardFilter'][$boardSectionName] > 0) {
+                $this->boardFilter[$boardSectionName] = 1;
+            } else {
+                $this->boardFilter[$boardSectionName] = 0;
+            }
+        }
     }
 
     /**
@@ -54,6 +68,8 @@ class TaskSearch extends Task
             $params['TaskSearch']['completed'] = "0";
         }
 
+        $this->setBoardFilterValue($params);
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -72,19 +88,46 @@ class TaskSearch extends Task
         $query->andFilterWhere(['like', 'title', $this->title])
               ->andFilterWhere(['like', 'description', $this->description]);
 
-        $kanBanFilterActive = false;
-        if ($kanBanFilterActive) {
-            $ticketsInKanBan = Ticket::findTicketsInKanBan();
-            $ticketsInKanBanIdArray = [];
-            foreach ($ticketsInKanBan as $kanBanTicket) {
-                $ticketsKanBanIdArray[] = $kanBanTicket->id;
-            }
-
-            if (count($ticketsKanBanIdArray)) {
-                $query->andFilterWhere(['ticket_id' => $ticketsKanBanIdArray]);
-            }
+        $allTicketIds = $this->getAllBoardSectionTicketIds();
+        if (count($allTicketIds)) {
+            $query->andfilterWhere(['ticket_id' => $allTicketIds]);
         }
 
         return $dataProvider;
+    }
+
+    protected function getAllBoardSectionTicketIds()
+    {
+        $ticketsIdArray = [];
+        foreach ($this->boardFilter as $boardSectionName => $value) {
+            if ($value) {
+                $ticketsInSection = $this->getBoardSectionTicketIds($boardSectionName);
+                if ($ticketsInSection) {
+                    foreach ($ticketsInSection as $sectionTicket) {
+                        $ticketsIdArray[] = $sectionTicket->id;
+                    }
+                }
+            }
+        }
+
+        return $ticketsIdArray;
+    }
+
+    protected function getBoardSectionTicketIds($boardSection)
+    {
+        $returnValue = null;
+        switch ($boardSection) {
+            case 'show_backlog':
+                $returnValue = Ticket::findTicketsInBacklog()->all();
+                break;
+            case 'show_kanban':
+                $returnValue = Ticket::findTicketsInKanBan()->all();
+                break;
+            case 'show_completed':
+                $returnValue = Ticket::findTicketsInCompleted()->all();
+                break;
+        }
+
+        return $returnValue;
     }
 }

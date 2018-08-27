@@ -23,3 +23,12 @@ function taskUser(id) {
         }
     });
 }
+
+function toggleCheckboxValue(checkBoxElement)
+{
+    currentValue = checkBoxElement.value;
+    newValue = currentValue != '0' ? '0' : '1';
+    checkBoxElement.value = newValue;
+    targetSelector = checkBoxElement.getAttribute('data-target');
+    $('#' + targetSelector).val(newValue).trigger('change');
+}
