@@ -10,6 +10,13 @@ use yii\data\ActiveDataProvider;
  */
 class TaskSearch extends Task
 {
+
+    public $boardFilter = [
+        'show_backlog' => 0,
+        'show_kanban' => 0,
+        'show_completed' => 0
+    ];
+
     /**
      * @inheritdoc
      */
@@ -28,6 +35,18 @@ class TaskSearch extends Task
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+    }
+
+
+    protected function setBoardFilterValue($params)
+    {
+        foreach ($this->boardFilter as $boardSectionName => $value) {
+            if (isset($params['boardFilter'][$boardSectionName]) && (int)$params['boardFilter'][$boardSectionName] > 0) {
+                $this->boardFilter[$boardSectionName] = 1;
+            } else {
+                $this->boardFilter[$boardSectionName] = 0;
+            }
+        }
     }
 
     /**
@@ -49,6 +68,8 @@ class TaskSearch extends Task
             $params['TaskSearch']['completed'] = "0";
         }
 
+        $this->setBoardFilterValue($params);
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -67,6 +88,46 @@ class TaskSearch extends Task
         $query->andFilterWhere(['like', 'title', $this->title])
               ->andFilterWhere(['like', 'description', $this->description]);
 
+        $allTicketIds = $this->getAllBoardSectionTicketIds();
+        if (count($allTicketIds)) {
+            $query->andfilterWhere(['ticket_id' => $allTicketIds]);
+        }
+
         return $dataProvider;
+    }
+
+    protected function getAllBoardSectionTicketIds()
+    {
+        $ticketsIdArray = [];
+        foreach ($this->boardFilter as $boardSectionName => $value) {
+            if ($value) {
+                $ticketsInSection = $this->getBoardSectionTicketIds($boardSectionName);
+                if ($ticketsInSection) {
+                    foreach ($ticketsInSection as $sectionTicket) {
+                        $ticketsIdArray[] = $sectionTicket->id;
+                    }
+                }
+            }
+        }
+
+        return $ticketsIdArray;
+    }
+
+    protected function getBoardSectionTicketIds($boardSection)
+    {
+        $returnValue = null;
+        switch ($boardSection) {
+            case 'show_backlog':
+                $returnValue = Ticket::findTicketsInBacklog()->all();
+                break;
+            case 'show_kanban':
+                $returnValue = Ticket::findTicketsInKanBan()->all();
+                break;
+            case 'show_completed':
+                $returnValue = Ticket::findTicketsInCompleted()->all();
+                break;
+        }
+
+        return $returnValue;
     }
 }

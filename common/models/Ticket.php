@@ -292,22 +292,35 @@ class Ticket extends FindFromBoard
 	/**
 	 * Query to find all Backlog Tickets
 	 *
-
-	 * @return yii\db\QueryInterface
+     * @return \yii\db\ActiveQuery
 	 */
-	public static function findBacklog()
+	public static function findTicketsInBacklog()
     {
-		return Ticket::find(self::find()->where(['column_id' => 0])->orWhere(['column_id' => null]));
+		return self::find()
+            ->where(['column_id' => 0])
+            ->orWhere(['column_id' => null]);
 	}
 
-	/**
+    /**
+     * Query to find all Tickets which are in a Kanban Column, that has the Task Decoration active
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public static function findTicketsInKanBan()
+    {
+        return self::find()
+            ->where(['>', 'column_id', 0]);
+    }
+
+    /**
 	 * Query to find all Completed Tickets
 	 *
-	 * @return yii\db\QueryInterface
+     * @return \yii\db\ActiveQuery
 	 */
-	public static function findCompleted()
+	public static function findTicketsInCompleted()
     {
-		return Ticket::find(self::find()->where(['<', 'column_id', 0]));
+        return self::find()
+            ->where(['<', 'column_id', 0]);
 	}
 
 	/**
@@ -327,19 +340,6 @@ class Ticket extends FindFromBoard
 
         return (bool)$count;
 	}
-
-    /**
-     * Query to find all Tickets which are in a Kanban Column, that has the Task Decoration active
-     *
-     * @return yii\db\QueryInterface
-     */
-    public static function findTicketsInTaskColumns()
-    {
-        return self::find()
-            ->where(['>', 'column_id', 0])
-            ->andWhere(['board_id' => Board::getCurrentActiveBoard()->id])
-            ->orderBy('title')->all();
-    }
 
     public function afterFind()
     {
@@ -409,7 +409,6 @@ class Ticket extends FindFromBoard
                $taskModel->save();
            }
        }
-
     }
 
     public function hasDecorations()

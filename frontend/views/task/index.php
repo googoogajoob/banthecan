@@ -6,6 +6,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\User;
 use common\models\Ticket;
+use common\models\Board;
 use frontend\assets\TaskAsset;
 
 /* @var $this yii\web\View */
@@ -16,7 +17,7 @@ $this->title = Yii::t('app', 'Tasks');
 $this->params['breadcrumbs'][] = $this->title;
 TaskAsset::register($this);
 ?>
-<div class="task-index">
+<p class="task-index">
 
     <h1><?php echo Html::encode($this->title) ?></h1>
 
@@ -26,27 +27,64 @@ TaskAsset::register($this);
                 ['task/create/0'],
                 [
                     'class' => 'btn btn-success',
-                    'onclick' => 'return setTargetTicket(this);',
                 ]
             );
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
 
-    <?php
+<?php Pjax::begin(); ?>
 
-    echo Html::beginForm('/task/complete');
+<?php //echo Html::beginForm('/task/complete');?>
+
+    <div id="board-filter" class="pull-right">
+        <label class="checkbox-inline">
+            <input id="show_backlog" type="hidden" name="boardFilter[show_backlog]"
+                <?php echo $searchModel->boardFilter['show_backlog'] ? 'value="1"' : 'value="0"'; ?>
+            />
+            <input type="checkbox" data-target="show_backlog" onclick="toggleCheckboxValue(this)"
+                <?php echo $searchModel->boardFilter['show_backlog'] ? 'checked value="1"' : 'value="0"'; ?>
+            />
+            <?php echo Board::getBoardSectionName('backlog'); ?>
+        </label>
+
+        <label class="checkbox-inline">
+            <input id="show_kanban" type="hidden" name="boardFilter[show_kanban]"
+                <?php echo $searchModel->boardFilter['show_kanban'] ? 'value="1"' : 'value="0"'; ?>
+            />
+
+            <input type="checkbox" data-target="show_kanban" onclick="toggleCheckboxValue(this);"
+                <?php echo $searchModel->boardFilter['show_kanban'] ? 'checked value="1"' : 'value="0"'; ?>
+            />
+
+            <?php echo Board::getBoardSectionName('kanban'); ?>
+        </label>
+
+        <label class="checkbox-inline">
+            <input id="show_completed" type="hidden" name="boardFilter[show_completed]"
+                <?php echo $searchModel->boardFilter['show_completed'] ? 'value="1"' : 'value="0"'; ?>
+            />
+
+            <input type="checkbox" data-target="show_completed" onclick="toggleCheckboxValue(this)"
+                <?php echo $searchModel->boardFilter['show_completed'] ? 'checked value="1"' : 'value="0"'; ?>
+            />
+
+            <?php echo Board::getBoardSectionName('completed'); ?>
+        </label>
+    </div>
+
+<?php
 
     $allBoardUsers = User::getBoardUsers();
     $allBoardUsernames = ArrayHelper::map($allBoardUsers, 'id', 'username');
 
-    $allTaskTickets = Ticket::findTicketsInTaskColumns();
+    $allTaskTickets = Ticket::findTicketsInKanBan()->all();
     $allTaskTicketTitles = ArrayHelper::map($allTaskTickets, 'id', 'title');
 
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'filterSelector' => "#board-filter input[type='hidden']",
         'rowOptions' => function ($model, $key, $index, $column) {
             if ($model->completed) {
                 return ['class' => 'success'];
@@ -80,7 +118,7 @@ TaskAsset::register($this);
                 ],
                 'filterInputOptions' => ['class' => 'form-control form-control-task-completed'],
             ],
-            [
+            /*[
                 'class' => 'yii\grid\CheckboxColumn',
                 'header' => \Yii::t('app', 'Change Status'),
                 'headerOptions' => [
@@ -95,7 +133,7 @@ TaskAsset::register($this);
                         'onclick' => 'jQuery(this).closest("form").submit();',
                     ];
                 },
-            ],
+            ],*/
             [
                 'attribute' => 'title',
                 'format' => 'ntext',
@@ -117,8 +155,18 @@ TaskAsset::register($this);
                             '/task?TaskSearch[ticket_id]=' . $ticket->id
                         );
 
+                        if ($ticket->column_id > 0) {
+                            $ticketSectionName = Board::getBoardSectionName('kanban');;
+                        } elseif ($ticket->column_id == 0) {
+                            $ticketSectionName = Board::getBoardSectionName('backlog');;
+                        } elseif ($ticket->column_id < 0) {
+                            $ticketSectionName = Board::getBoardSectionName('completed');;
+                        } else {
+                            $ticketSectionName = 'Board Section Unknown';
+                        }
+
                         $ticketLink = Html::a(
-                                $ticket->title,
+                                $ticket->title . ' <small>(' . $ticketSectionName . ')</small>',
                                 '/ticket/view/' . $ticket->id,
                                 [
                                     'data-toggle' => 'modal',
@@ -153,7 +201,7 @@ TaskAsset::register($this);
         ],
     ]);
 
-    echo Html::endForm();
+    //echo Html::endForm();
 
     ?>
 

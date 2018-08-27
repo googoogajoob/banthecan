@@ -55,9 +55,9 @@ class TicketSearch extends Ticket {
     public function search($params, $searchPool = null) {
 
         if ($searchPool === -1) {
-            $query = Ticket::findCompleted();
+            $query = Ticket::findTicketsInCompleted();
         } elseif ($searchPool === 0)
-            $query = Ticket::findBacklog();
+            $query = Ticket::findTicketsInBacklog();
         else {
             $query = Ticket::find();
         }
