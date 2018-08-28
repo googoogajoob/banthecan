@@ -162,6 +162,7 @@ class SiteController extends Controller {
 
                 $tasks = Task::find()
                     ->where(['completed' => 0])
+                    ->andWhere(['=', 'board_id', $activeBoard->id])
                     ->orderBy(['due_date' => SORT_ASC])
                     ->limit(5)
                     ->all();
