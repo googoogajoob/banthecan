@@ -201,16 +201,20 @@ class SiteController extends Controller {
 
                 foreach ($boardKanBanTickets as $boardTicket) {
                     $ticketColumnOrder = $boardTicket->getColumn()->display_order;
+                    $ticketColumnTitle = $boardTicket->getColumn()->title;
                     $ticketsOrderedByBoard[$userBoard->id]['boardname'] = $userBoard->title;
-                    $ticketsOrderedByBoard[$userBoard->id]['tickets'][$ticketColumnOrder][$boardTicket->id] = $boardTicket->title;
+                    $ticketsOrderedByBoard[$userBoard->id]['tickets'][$ticketColumnOrder][$boardTicket->id] = [
+                            'ticketTitle' => $boardTicket->title,
+                            'columnTitle' => $ticketColumnTitle,
+                        ];
                 }
             }
 
             foreach ($ticketsOrderedByBoard as $boardId => $boardTickets) {
                 $returnValue[$boardId]['boardname'] = $boardTickets['boardname'];
-                $boardTicketsBycolumn = $boardTickets['tickets'];
-                krsort($boardTicketsBycolumn);
-                foreach ($boardTicketsBycolumn as $ticketTitlesInColumn ) {
+                $boardTicketsByColumn = $boardTickets['tickets'];
+                krsort($boardTicketsByColumn);
+                foreach ($boardTicketsByColumn as $ticketTitlesInColumn ) {
                     foreach ($ticketTitlesInColumn as $ticketId => $ticketTitle)
                     $returnValue[$boardId]['tickets'][$ticketId] = $ticketTitle;
                 }

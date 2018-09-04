@@ -24,7 +24,10 @@ use common\models\Board;
                         </div>
                         <?php foreach ($boardData['tickets'] as $ticketId => $ticketTitle) : ?>
                             <div class="kanban-overview-ticket-title">
-                                <?php echo Html::a($ticketTitle, '/board/activateandview/' . $boardId . '?ticketid=' . $ticketId); ?>
+                                <?php
+                                    $linkTitle = $ticketTitle['ticketTitle'] . ' <small><em>(' . $ticketTitle['columnTitle'] . ')</em></small>';
+                                    echo Html::a($linkTitle, '/board/activateandview/' . $boardId . '?ticketid=' . $ticketId);
+                                ?>
                             </div>
                         <?php endforeach; ?>
                     </div>
