@@ -7,6 +7,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\User as FeUser;
 use frontend\models\BlameTrait;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "task".
@@ -24,7 +25,7 @@ use frontend\models\BlameTrait;
  * @property integer $due_date
  */
 
-class Task extends FindFromBoard
+class Task extends ActiveRecord
 {
     use BlameTrait;
 
@@ -119,7 +120,7 @@ class Task extends FindFromBoard
     }
 
     /**
-     * @return \yii\db\ActiveRecord
+     * @return \yii\db\ActiveQueryInterface
      */
     public function getBoard()
     {
@@ -135,7 +136,8 @@ class Task extends FindFromBoard
 
     public static function getOpenTaskCount()
     {
-        return count(self::findAll(['completed' => 0]));
+        $currentActiveBoard = Board::getCurrentActiveBoard();
+        return count(self::findAll(['completed' => 0, 'board_id' => $currentActiveBoard->id]));
     }
 
 }

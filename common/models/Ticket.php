@@ -9,6 +9,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use frontend\models\BlameTrait;
 use apc\ticketDecoration\TicketDecorationLink;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "ticket".
@@ -30,7 +31,7 @@ use apc\ticketDecoration\TicketDecorationLink;
  *
  */
 
-class Ticket extends FindFromBoard
+class Ticket extends ActiveRecord
 {
 	use BlameTrait;
 
@@ -125,7 +126,7 @@ class Ticket extends FindFromBoard
 	}
 
 	/**
-	 * @return \yii\db\ActiveQuery
+	 * @return \yii\db\ActiveQueryInterface|array|null
 	 */
 	public function getColumn() {
 		return $this->hasOne(Column::className(), ['id' => 'column_id'])->one();
@@ -151,8 +152,8 @@ class Ticket extends FindFromBoard
 	 * @return Boolean true = backlog, false = not backlog
 	 */
 	public function isBacklog() {
-		return (bool)($this->getColumnId() == self::DEFAULT_BACKLOG_STATUS or
-		$this->getColumnId() == self::ALTERNATE_BACKLOG_STATUS);
+		return (bool)($this->column_id == self::DEFAULT_BACKLOG_STATUS or
+		$this->column_id == self::ALTERNATE_BACKLOG_STATUS);
 	}
 
 	/**
@@ -162,8 +163,8 @@ class Ticket extends FindFromBoard
 	 */
 	public function isKanBanBoard() {
 		// If the ticket is not in the Backlog or Completed Log, then it must be in the board
-		return (bool)(      $this->getColumnId() != self::DEFAULT_BACKLOG_STATUS
-		and   $this->getColumnId() != self::DEFAULT_COMPLETED_STATUS);
+		return (bool)($this->column_id != self::DEFAULT_BACKLOG_STATUS
+		and   $this->column_id != self::DEFAULT_COMPLETED_STATUS);
 	}
 
 	/**
@@ -173,7 +174,7 @@ class Ticket extends FindFromBoard
 	 */
 	public function isCompleted()
     {
-		return (bool)($this->getColumnId() <= self::DEFAULT_COMPLETED_STATUS);
+		return (bool)($this->column_id <= self::DEFAULT_COMPLETED_STATUS);
 	}
 
 	public function getTags()
@@ -296,9 +297,10 @@ class Ticket extends FindFromBoard
 	 */
 	public static function findTicketsInBacklog()
     {
+        $currentActiveBoard = Board::getCurrentActiveBoard();
 		return self::find()
-            ->where(['column_id' => 0])
-            ->orWhere(['column_id' => null]);
+            ->where(['board_id' => $currentActiveBoard->id])
+            ->andWhere(['or', ['column_id' => 0], ['column_id' => null]]);
 	}
 
     /**
@@ -308,8 +310,10 @@ class Ticket extends FindFromBoard
      */
     public static function findTicketsInKanBan()
     {
+        $currentActiveBoard = Board::getCurrentActiveBoard();
         return self::find()
-            ->where(['>', 'column_id', 0]);
+            ->where(['board_id' => $currentActiveBoard->id])
+            ->andWhere(['>', 'column_id', 0]);
     }
 
     /**
@@ -319,8 +323,10 @@ class Ticket extends FindFromBoard
 	 */
 	public static function findTicketsInCompleted()
     {
+        $currentActiveBoard = Board::getCurrentActiveBoard();
         return self::find()
-            ->where(['<', 'column_id', 0]);
+            ->where(['board_id' => $currentActiveBoard->id])
+            ->andWhere(['<', 'column_id', 0]);
 	}
 
 	/**
@@ -330,11 +336,12 @@ class Ticket extends FindFromBoard
      */
 	public static function hasNewTicket($timestamp)
 	{
-		$query = Ticket::find(parent::find()
+        $currentActiveBoard = Board::getCurrentActiveBoard();
+		$query = Ticket::find()
 			->where(['>', 'column_id', 0])
 			->andWhere(['>', 'updated_at', $timestamp])
-            ->limit(1)
-		);
+            ->andWhere(['board_id' => $currentActiveBoard->id])
+            ->limit(1);
 
         $count = $query->count();
 
@@ -559,13 +566,16 @@ class Ticket extends FindFromBoard
 	}
 
     /**
-     * @return \yii\db\ActiveRecord
+     * @return \yii\db\ActiveQueryInterface
      */
     public function getBoard()
     {
         return $this->hasOne(Board::className(), ['id' => 'board_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveRecord|array|null
+     */
     public function getBoardTitle()
     {
         $board = $this->getBoard()->one();
