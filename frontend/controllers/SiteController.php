@@ -247,8 +247,8 @@ class SiteController extends Controller {
     private function getLongestTicketTitle($ticketList)
     {
         $longestTitleLength = 0;
-        foreach ($ticketList as $ticketTitle) {
-            $titleLength = strlen($ticketTitle);
+        foreach ($ticketList as $ticketData) {
+            $titleLength = strlen($ticketData['ticketTitle']);
             if ($titleLength > $longestTitleLength) {
                 $longestTitleLength = $titleLength;
             }
