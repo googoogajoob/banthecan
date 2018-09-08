@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property integer $ticket_id
  * @property integer $user_id User Responsible for seeing the task is completed
  * @property integer $completed
+ * @property integer $board_id
  * @property integer $due_date
  */
 

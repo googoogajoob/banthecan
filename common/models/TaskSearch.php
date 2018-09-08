@@ -91,6 +91,9 @@ class TaskSearch extends Task
         $allTicketIds = $this->getAllBoardSectionTicketIds();
         if (count($allTicketIds)) {
             $query->andfilterWhere(['ticket_id' => $allTicketIds]);
+        } else {
+            $currentActiveBoard = Board::getCurrentActiveBoard();
+            $query->andFilterWhere(['board_id' => $currentActiveBoard->id]);
         }
 
         return $dataProvider;

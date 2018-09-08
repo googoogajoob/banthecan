@@ -34,7 +34,7 @@ class Board extends \yii\db\ActiveRecord {
 	const DEMO_MAX_LANES = 1;
 	protected static $currentActiveBoard = null;
 
-	/**
+    /**
 	 * @inheritdoc
 	 */
 	public static function tableName()
