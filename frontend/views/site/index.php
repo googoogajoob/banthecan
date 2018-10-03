@@ -23,8 +23,11 @@ use common\models\Board;
                             <?php echo Html::a($boardData['boardname'], '/board/activatetokanban/' . $boardId); ?>
                         </div>
                         <?php foreach ($boardData['tickets'] as $ticketId => $ticketTitle) : ?>
-                        <?php if (isset($ticketTitle['mostRecentUpdate'])) {
+                        <?php
+                            if (isset($ticketTitle['mostRecentUpdate'])) {
                                 $backgroundColorClass = 'bg-success';
+                            } elseif (isset($ticketTitle['leastRecentUpdate'])) {
+                                $backgroundColorClass = 'bg-danger';
                             } else {
                                 $backgroundColorClass = '';
                             }

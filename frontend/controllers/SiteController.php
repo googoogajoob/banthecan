@@ -192,6 +192,8 @@ class SiteController extends Controller {
                 ->orderBy(['title' => SORT_ASC])
                 ->all();
 
+            $leastRecentlyUpdatedTicketDate = 0;
+            $leastRecentlyUpdatedTicketId = 0;
             $mostRecentlyUpdatedTicketDate = 0;
             $mostRecentlyUpdatedTicketId = 0;
             $currentUserId = Yii::$app->user->getIdentity()->getId();
@@ -216,6 +218,10 @@ class SiteController extends Controller {
                             $mostRecentlyUpdatedTicketDate = $boardTicket->updated_at;
                             $mostRecentlyUpdatedTicketId = $boardTicket->id;
                         }
+                        if ($leastRecentlyUpdatedTicketDate == 0 || $boardTicket->updated_at < $leastRecentlyUpdatedTicketDate) {
+                            $leastRecentlyUpdatedTicketDate = $boardTicket->updated_at;
+                            $leastRecentlyUpdatedTicketId = $boardTicket->id;
+                        }
                     }
                 }
             }
@@ -229,6 +235,9 @@ class SiteController extends Controller {
                         $returnValue[$boardId]['tickets'][$ticketId] = $ticketTitle;
                         if ($mostRecentlyUpdatedTicketId && $mostRecentlyUpdatedTicketId == $ticketId) {
                             $returnValue[$boardId]['tickets'][$ticketId]['mostRecentUpdate'] = true;
+                        }
+                        if ($leastRecentlyUpdatedTicketId && $leastRecentlyUpdatedTicketId == $ticketId) {
+                            $returnValue[$boardId]['tickets'][$ticketId]['leastRecentUpdate'] = true;
                         }
                     }
                 }
