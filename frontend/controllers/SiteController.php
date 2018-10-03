@@ -192,6 +192,10 @@ class SiteController extends Controller {
                 ->orderBy(['title' => SORT_ASC])
                 ->all();
 
+            $mostRecentlyUpdatedTicketDate = 0;
+            $mostRecentlyUpdatedTicketId = 0;
+            $currentUserId = Yii::$app->user->getIdentity()->getId();
+
             foreach ($userBoards as $userBoard) {
                 $boardKanBanTickets = Ticket::find()
                     ->where(['=', 'board_id', $userBoard->id])
@@ -207,6 +211,12 @@ class SiteController extends Controller {
                             'ticketTitle' => $boardTicket->title,
                             'columnTitle' => $ticketColumnTitle,
                         ];
+                    if ($boardTicket->updated_by == $currentUserId) {
+                        if ($boardTicket->updated_at > $mostRecentlyUpdatedTicketDate) {
+                            $mostRecentlyUpdatedTicketDate = $boardTicket->updated_at;
+                            $mostRecentlyUpdatedTicketId = $boardTicket->id;
+                        }
+                    }
                 }
             }
 
@@ -215,8 +225,12 @@ class SiteController extends Controller {
                 $boardTicketsByColumn = $boardTickets['tickets'];
                 krsort($boardTicketsByColumn);
                 foreach ($boardTicketsByColumn as $ticketTitlesInColumn ) {
-                    foreach ($ticketTitlesInColumn as $ticketId => $ticketTitle)
-                    $returnValue[$boardId]['tickets'][$ticketId] = $ticketTitle;
+                    foreach ($ticketTitlesInColumn as $ticketId => $ticketTitle) {
+                        $returnValue[$boardId]['tickets'][$ticketId] = $ticketTitle;
+                        if ($mostRecentlyUpdatedTicketId && $mostRecentlyUpdatedTicketId == $ticketId) {
+                            $returnValue[$boardId]['tickets'][$ticketId]['mostRecentUpdate'] = true;
+                        }
+                    }
                 }
             }
 

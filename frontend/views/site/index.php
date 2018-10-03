@@ -23,7 +23,13 @@ use common\models\Board;
                             <?php echo Html::a($boardData['boardname'], '/board/activatetokanban/' . $boardId); ?>
                         </div>
                         <?php foreach ($boardData['tickets'] as $ticketId => $ticketTitle) : ?>
-                            <div class="kanban-overview-ticket-title">
+                        <?php if (isset($ticketTitle['mostRecentUpdate'])) {
+                                $backgroundColorClass = 'bg-success';
+                            } else {
+                                $backgroundColorClass = '';
+                            }
+                        ?>
+                            <div class="kanban-overview-ticket-title <?php echo $backgroundColorClass; ?>">
                                 <?php
                                     $linkTitle = $ticketTitle['ticketTitle'] . ' <small><em>(' . $ticketTitle['columnTitle'] . ')</em></small>';
                                     echo Html::a($linkTitle, '/board/activateandview/' . $boardId . '?ticketid=' . $ticketId);
