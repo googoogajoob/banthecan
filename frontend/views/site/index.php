@@ -26,15 +26,18 @@ use common\models\Board;
                         <?php
                             if (isset($ticketTitle['mostRecentUpdate'])) {
                                 $backgroundColorClass = 'bg-success';
+                                $iconHtml = '<span class="glyphicon glyphicon-hand-right">&nbsp;</span>';
                             } elseif (isset($ticketTitle['leastRecentUpdate'])) {
                                 $backgroundColorClass = 'bg-danger';
+                                $iconHtml = '<span class="glyphicon glyphicon-flag">&nbsp;</span>';
                             } else {
                                 $backgroundColorClass = '';
+                                $iconHtml = '';
                             }
                         ?>
                             <div class="kanban-overview-ticket-title <?php echo $backgroundColorClass; ?>">
                                 <?php
-                                    $linkTitle = $ticketTitle['ticketTitle'] . ' <small><em>(' . $ticketTitle['columnTitle'] . ')</em></small>';
+                                    $linkTitle = $iconHtml . $ticketTitle['ticketTitle'] . ' <small><em>(' . $ticketTitle['columnTitle'] . ')</em></small>';
                                     echo Html::a($linkTitle, '/board/activateandview/' . $boardId . '?ticketid=' . $ticketId);
                                 ?>
                             </div>
