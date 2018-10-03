@@ -583,4 +583,9 @@ class Ticket extends ActiveRecord
         return $board->title;
     }
 
+    public function refreshUpdateTime()
+    {
+        $this->touch('updated_at');
+    }
+
 }

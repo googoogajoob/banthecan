@@ -141,4 +141,10 @@ class Task extends ActiveRecord
         return count(self::findAll(['completed' => 0, 'board_id' => $currentActiveBoard->id]));
     }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->getTicket()->one()->refreshUpdateTime();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
 }
