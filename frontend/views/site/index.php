@@ -26,10 +26,10 @@ use common\models\Board;
                         <?php
                             if (isset($ticketTitle['mostRecentUpdate'])) {
                                 $backgroundColorClass = 'bg-success';
-                                $iconHtml = '<span class="glyphicon glyphicon-hand-right">&nbsp;</span>';
+                                $iconHtml = '<span class="glyphicon glyphicon-plus-sign">&nbsp;</span>';
                             } elseif (isset($ticketTitle['leastRecentUpdate'])) {
                                 $backgroundColorClass = 'bg-danger';
-                                $iconHtml = '<span class="glyphicon glyphicon-flag">&nbsp;</span>';
+                                $iconHtml = '<span class="glyphicon glyphicon-minus-sign">&nbsp;</span>';
                             } else {
                                 $backgroundColorClass = '';
                                 $iconHtml = '';
