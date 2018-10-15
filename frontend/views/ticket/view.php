@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Markdown;
+use apc\markdown\Markdown;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
