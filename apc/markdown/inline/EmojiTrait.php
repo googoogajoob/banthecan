@@ -45,7 +45,7 @@ trait EmojiTrait
 
             if ($size || $color) {
                 $size .= '%';
-                $emojiHtmlPrefix = '<span style="font-size: ' . $size . '; color: ' . $color . '">';
+                $emojiHtmlPrefix = '<span style="font-size: ' . $size . '; color: ' . $color . ';">';
                 $emojiHtmlPostfix = '</span>';
             } else {
                 $emojiHtmlPrefix = '';
