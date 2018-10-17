@@ -11,6 +11,7 @@ trait EmojiTrait
 
     /** @var array */
     protected $emojiMap = null;
+    protected $apcEmojiMap = null;
 
     /**
      * @marker :
@@ -36,6 +37,7 @@ trait EmojiTrait
         }
 
         $name = $this->renderAbsy($block[1]);
+        $name = $this->parseApcEmoji($name);
 
         list($size, $emoji, $color) = $this->parseEmojiComponents($name);
 
@@ -74,5 +76,24 @@ trait EmojiTrait
         $components = explode($this->colorMarker, $apcEmojiString);
 
         return $components;
+    }
+
+    protected function parseApcEmoji($name)
+    {
+        if ($this->apcEmojiMap === null) {
+            $this->apcEmojiMap = require __DIR__ . '/apc-emoji-map.php';
+        }
+
+        if (isset($this->apcEmojiMap[$name])  && count($this->apcEmojiMap[$name]) == 3) {
+            $returnEmoji  = $this->apcEmojiMap[$name][0];
+            $returnEmoji .= $this->sizeMarker;
+            $returnEmoji .= $this->apcEmojiMap[$name][1];
+            $returnEmoji .= $this->colorMarker;
+            $returnEmoji .= $this->apcEmojiMap[$name][2];
+
+            return $returnEmoji;
+        } else {
+            return $name;
+        }
     }
 }
