@@ -7,9 +7,9 @@
 
 namespace apc\markdown;
 
-use cebe\markdown\Markdown;
+use cebe\markdown\Markdown as CebeMarkdown;
 
-class ApcMarkdown extends Markdown
+class ApcMarkdown extends CebeMarkdown
 {
 	use inline\EmojiTrait;
 }
