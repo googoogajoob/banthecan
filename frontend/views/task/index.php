@@ -8,6 +8,7 @@ use common\models\User;
 use common\models\Ticket;
 use common\models\Board;
 use frontend\assets\TaskAsset;
+use apc\markdown\Markdown;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TaskSearch */
@@ -141,7 +142,9 @@ TaskAsset::register($this);
             ],
             [
                 'attribute' => 'description',
-                'format' => 'ntext',
+                'content' => function ($model, $key, $index, $column) {
+                    return Markdown::process($model->description);
+                },                'format' => 'raw',
                 'label' => \Yii::t('app', 'Description'),
             ],
             [
