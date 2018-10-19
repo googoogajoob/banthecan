@@ -34,7 +34,10 @@ use yii\jui\DatePicker;
 
         echo $form->field($model, 'title')->textarea(['rows' => 1]);
 
-        echo $this->render('@frontend/views/site/partials/_markdownWysiwig');
+        echo $this->render('@frontend/views/site/partials/_markdownWysiwig', [
+                'inputId' => 'task-description',
+            ]
+        );
         echo $form->field($model, 'description')->textarea(['rows' => 6]);
 
         if (!$model->isNewRecord) {
