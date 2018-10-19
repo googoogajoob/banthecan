@@ -53,13 +53,12 @@ trait EmojiTrait
             }
 
             $emojiCharacter = '&#x' . strtolower($this->emojiMap[$emoji]) . ';';
-
             $emojiHtml = $emojiHtmlPrefix . $emojiCharacter . $emojiHtmlPostfix;
 
             return $emojiHtml;
 
         } else {
-            return ':' . $name . ':';
+            return '<span style="text-decoration: line-through">:' . $name . ':</span>';
         }
     }
 
