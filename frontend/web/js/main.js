@@ -1,4 +1,5 @@
-function getGlobalModalHtml(url, event) {
+function getGlobalModalHtml(url, event)
+{
     clearModalContents();
     $('#modal-ajax-loader').show();
     $.ajax({
@@ -29,7 +30,8 @@ function clearModalContents()
     $('#modal-header-row .apc-modal-header').remove();
 }
 
-function turnOnModalEvents() {
+function turnOnModalEvents()
+{
     $('#global-modal-container').on('show.bs.modal', function (event) {
         clearModalContents();
         sourceUrl = $(event.relatedTarget).attr('href');
@@ -38,11 +40,13 @@ function turnOnModalEvents() {
     });
 }
 
-function turnOffModalEvents() {
+function turnOffModalEvents()
+{
     $('#global-modal-container').off('show.bs.modal');
 }
 
-function getBootstrapEnvironment() {
+function getBootstrapEnvironment()
+{
     var envs = ['xs', 'sm', 'md', 'lg'];
 
     var $el = $('<div>');
@@ -59,7 +63,8 @@ function getBootstrapEnvironment() {
     }
 }
 
-function initializeTooltip() {
+function initializeTooltip()
+{
     environment = getBootstrapEnvironment();
 
     if (environment == 'lg') {
@@ -68,14 +73,16 @@ function initializeTooltip() {
 
 }
 
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname, cvalue, exdays)
+{
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function getCookie(cname) {
+function getCookie(cname)
+{
     var name = cname + "=";
     var ca = document.cookie.split(';');
     for(var i = 0; i < ca.length; i++) {
@@ -91,8 +98,13 @@ function getCookie(cname) {
     return false;
 }
 
-$(document).ready(function() {
+function wysiwigEdit()
+{
+    alert("Here's Johnny");
+}
 
+$(document).ready(function()
+{
     turnOnModalEvents();
 
     buttonHtml = $('#modal-close-button')[0].outerHTML;
