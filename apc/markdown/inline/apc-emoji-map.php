@@ -1,6 +1,6 @@
 <?php
 return [
-    'apc-check-mark' => ['200', 'heavy-check-mark', 'green'],
+    'apc-checkmark' => ['200', 'heavy-check-mark', 'green'],
     'apc-x' => ['175', 'x', 'red'],
     'apc-smiley' => ['150', 'smiley', 'gold'],
     'apc-worried' => ['150', 'worried', 'gold'],

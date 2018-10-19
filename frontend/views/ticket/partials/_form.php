@@ -48,9 +48,12 @@ $buttonLabel = $model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', '
     <?php
     echo $form->field($model, 'title')->textarea(['rows' => 1]);
 
+    echo $this->render('@frontend/views/site/partials/_markdownWysiwig');
+
     echo $form->field($model, 'description')->textarea(['rows' => 5]);
 
     if ($showAllFields) {
+        echo $this->render('@frontend/views/site/partials/_markdownWysiwig');
         echo $form->field($model, 'protocol')->textarea(['rows' => 5]);
     }
 

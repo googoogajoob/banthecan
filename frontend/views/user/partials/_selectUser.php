@@ -4,7 +4,7 @@
  * Creates an active Form Field for selecting one user and delivers the user->id
  */
 
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use frontend\models\User;
 use frontend\assets\TaskAsset;
 
@@ -41,7 +41,7 @@ TaskAsset::register($this);
             ]);
     }
 
-    echo $form->field($model, 'user_id', ['options' => ['class' => 'clearfix']])
+    echo $form->field($model, 'user_id', ['options' => ['class' => 'form-group']])
         ->radioList($radioSetup, [
                 'item' =>
                     function ($index, $label, $name, $checked, $value) {
