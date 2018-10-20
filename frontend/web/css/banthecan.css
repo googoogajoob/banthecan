@@ -147,3 +147,8 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 	padding: 2px 5px;
 	margin-bottom: 2px;
 }
+
+#markdown-wysiwig-help-icon {
+	font-size: 200%;
+	margin-top: 6px;
+}
