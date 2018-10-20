@@ -139,3 +139,11 @@ see: http://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under
 	padding: 0 5px 10px 5px;
 	display: none;
 }
+.markdown-wysiwig-container {
+	padding: 0 20px 0 10px;
+}
+
+.markdown-wysiwig {
+	padding: 2px 5px;
+	margin-bottom: 2px;
+}

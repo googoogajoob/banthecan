@@ -21,3 +21,12 @@
 .task-gylphicon-clear-icon:hover {
     color: #d9534f;
 }
+
+.field-task-completed {
+	margin-bottom: 0 !important;
+    margin-top: -10px;
+}
+
+.field-task-user_id {
+	margin-bottom: 30px !important;
+}
