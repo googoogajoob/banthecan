@@ -166,3 +166,15 @@ a.desc:after {
 .kanban-overview-ticket-title {
 	padding: 0 0.2em 0 0.2em;
 }
+
+.site-markdown-help table td {
+	padding: 5px;
+	vertical-align: center;
+}
+
+.site-markdown-help table th {
+	font-size: 150%;
+	font-weight: bold;
+	padding: 5px;
+	background-color: #a0a0a0;
+}

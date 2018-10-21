@@ -26,7 +26,9 @@ use apc\markdown\Markdown;
             }
             echo implode('', $outputList);
         ?>
-        <span id="markdown-wysiwig-help-icon" class="glyphicon glyphicon-question-sign pull-right text-primary"></span>
+        <a href="/site/markdownhelp" target="_blank">
+            <span id="markdown-wysiwig-help-icon" class="glyphicon glyphicon-question-sign pull-right text-primary"></span>
+        </a>
     </div>
 </div>
 
