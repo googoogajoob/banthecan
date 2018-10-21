@@ -3,7 +3,7 @@ use apc\markdown\Markdown;
 use yii\bootstrap\Html;
 
 /* @var $this yii\web\View */
-$this->title = 'APC Markdown Helps';
+$this->title = 'APC Markdown Help';
 ?>
 <div class="site-markdown-help">
     <h1><?= Html::encode($this->title) ?></h1>
