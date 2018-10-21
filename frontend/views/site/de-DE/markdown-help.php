@@ -13,7 +13,7 @@ $this->title = 'APC Markdown Hilfe';
 
     <strong>APC Markdown</strong> stammt aus dem Standard bei Yiim, was <a target="_blank" href="https://github.com/cebe/markdown">Cebe Markdown</a> verwendet.
     Das "default flavor" ist <a target = "_blank" href="https://daringfireball.net/projects/markdown/syntax">Daring Fireball</a>.<br>
-    <h3>Der Standard wird duch zwei Möglichkeiten ergänzt:</h3>
+    <h3>Der Standard wird durch zwei Möglichkeiten ergänzt:</h3>
     <ul>
         <li>Die Verwendung von Emojis</li>
         <li>Die zusätzliche Möglichkeit <strong>APC-Emojis</strong> zu verwenden. Weil so was in Ban-The-Can oft verwendet wird, dient dies
