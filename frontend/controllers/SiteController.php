@@ -381,5 +381,10 @@ class SiteController extends Controller {
             'model' => $model,
         ]);
     }
+
+    public function actionMarkdownhelp()
+    {
+        return $this->render('markdown-help');
+    }
 }
 
