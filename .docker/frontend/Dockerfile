@@ -1,7 +1,7 @@
 FROM phpstorm/php-73-apache-xdebug-27
 WORKDIR /var/www
 RUN apt-get update; apt-get -y install apt-utils; \
-    apt-get -y install vim less iputils-ping zip unzip; \
+    apt-get -y install vim less iputils-ping zip unzip git; \
     apt-get -y -f install mysql-client
 RUN cd; \
     curl -sS https://getcomposer.org/installer -o composer-setup.php; \
