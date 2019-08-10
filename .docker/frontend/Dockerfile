@@ -1,5 +1,6 @@
-FROM phpstorm/php-73-apache-xdebug-27
+FROM phpstorm/php-72-apache-xdebug-27
 WORKDIR /var/www
+RUN docker-php-ext-install pdo pdo_mysql
 RUN apt-get update; apt-get -y install apt-utils; \
     apt-get -y install vim less iputils-ping zip unzip git; \
     apt-get -y -f install mysql-client
