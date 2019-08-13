@@ -46,3 +46,5 @@ error_log
 .vagrant
 
 phpinfo.php
+
+.docker/mysql
