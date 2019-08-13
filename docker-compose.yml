@@ -1,0 +1,62 @@
+version: '3.2'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: btc-nginx
+    depends_on:
+      - btc-frontend
+      - btc-backend
+    security_opt:
+      - apparmor:unconfined
+      - seccomp:unconfined
+    volumes:
+      - .docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - .docker/nginx/error.log:/etc/nginx/error_log.log
+    ports:
+      - 80:80
+      - 443:443
+  btc-frontend:
+    build: .docker/frontend
+    container_name: btc-frontend
+    depends_on:
+      - btc-sqldb
+    security_opt:
+      - apparmor:unconfined
+      - seccomp:unconfined
+    environment:
+      - TZ=Europe/Berlin
+    expose:
+      - "80"
+    volumes:
+      - .:/var/www
+  btc-backend:
+    build: .docker/backend
+    container_name: btc-backend
+    depends_on:
+      - btc-sqldb
+    security_opt:
+      - apparmor:unconfined
+      - seccomp:unconfined
+    environment:
+      - TZ=Europe/Berlin
+    expose:
+      - "80"
+    volumes:
+      - .:/var/www
+  btc-sqldb:
+    image: mysql:5.7
+    container_name: btc-sqldb
+    command: --default-authentication-plugin=mysql_native_password
+    security_opt:
+      - apparmor:unconfined
+      - seccomp:unconfined
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Europe/Berlin
+    ports:
+      - 3306:3306
+    volumes:
+      - btc-sqldata:/var/lib/mysql
+volumes:
+  btc-sqldata:
+    driver: local
