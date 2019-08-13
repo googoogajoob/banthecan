@@ -48,3 +48,4 @@ error_log
 phpinfo.php
 
 .docker/mysql
+.docker/nginx/error.log
