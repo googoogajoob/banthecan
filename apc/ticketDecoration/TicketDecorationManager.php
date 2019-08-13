@@ -11,11 +11,10 @@ namespace apc\ticketDecoration;
 use common\models\Ticket;
 use common\models\Board;
 use common\models\Column;
-use yii;
-use yii\base\Object;
+use yii\base\BaseObject;
 
 
-class TicketDecorationManager extends Object {
+class TicketDecorationManager extends BaseObject {
 
 	private $_activeTicketDecorations = [];
 	private $_availableTicketDecorations = [];
