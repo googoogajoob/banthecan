@@ -29,6 +29,7 @@ return [
                 '<controller:\w+>/<id:\d+>' => '<controller>',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                'site/request-password-reset' => 'site/request-password-reset',
             ],
         ],
         'user' => [
