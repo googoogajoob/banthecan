@@ -60,8 +60,9 @@ services:
   btc-mailhog:
     image: mailhog/mailhog
     container_name: btc-mailhog
+    environment:
+        - TZ=Europe/Berlin
     ports:
-      - 1025:1025
       - 8025:8025
 volumes:
   btc-sqldata:
