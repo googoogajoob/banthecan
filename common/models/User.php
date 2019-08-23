@@ -182,7 +182,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            ['not', ['status' => self::STATUS_INACTIVE]]
+            'status' => [User::STATUS_ACTIVE, User::STATUS_PROTOCOL, User::STATUS_ADMIN, User::STATUS_ADMIN_ONLY],
         ]);
     }
 
