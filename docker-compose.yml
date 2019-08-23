@@ -57,6 +57,13 @@ services:
       - 3306:3306
     volumes:
       - btc-sqldata:/var/lib/mysql
+  btc-mailhog:
+    image: mailhog/mailhog
+    container_name: btc-mailhog
+    environment:
+        - TZ=Europe/Berlin
+    ports:
+      - 8025:8025
 volumes:
   btc-sqldata:
     driver: local
